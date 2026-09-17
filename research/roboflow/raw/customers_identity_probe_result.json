@@ -1,0 +1,57 @@
+{
+  "scope": "Controlled synthetic-image/prediction scenario; upstream crop, CSV scaffold and GBIF export functions called unchanged; only logging stubbed. Separate output directories emulate regenerated outputs. No model inference or production records involved.",
+  "before_id_to_physical_specimen": {
+    "drawer_tray_01_spec_001": "B"
+  },
+  "after_id_to_physical_specimen": {
+    "drawer_tray_01_spec_001": "A",
+    "drawer_tray_01_spec_002": "B"
+  },
+  "new_row_ids": [
+    "drawer_tray_01_spec_002"
+  ],
+  "orphan_ids": [],
+  "old_approved_row_is_retained": true,
+  "exported_rows": [
+    {
+      "occurrenceID": "SYNTHETIC-B",
+      "catalogNumber": "SYNTHETIC-B",
+      "basisOfRecord": "PreservedSpecimen",
+      "institutionCode": "FMNH",
+      "collectionCode": "Insects",
+      "scientificName": "Synthetic specimen",
+      "scientificNameAuthorship": "",
+      "kingdom": "Animalia",
+      "phylum": "Arthropoda",
+      "class": "Insecta",
+      "country": "Canada",
+      "countryCode": "",
+      "stateProvince": "",
+      "county": "",
+      "municipality": "",
+      "verbatimLocality": "",
+      "locality": "",
+      "waterBody": "",
+      "islandGroup": "",
+      "island": "",
+      "verbatimElevation": "",
+      "habitat": "",
+      "samplingProtocol": "",
+      "recordedBy": "",
+      "verbatimEventDate": "",
+      "eventDate": "",
+      "identifiedBy": "",
+      "verbatimCoordinates": "",
+      "associatedMedia": "local-fixture/drawer_tray_01_spec_001.png"
+    }
+  ],
+  "pending_rows": [
+    {
+      "full_id": "drawer_tray_01_spec_002",
+      "catalogNumber": "",
+      "tray_id": "drawer_tray_01",
+      "exclusion_reasons": "no catalogNumber, no locality entry"
+    }
+  ],
+  "conclusion": "For these fabricated inputs, actual crop numbering reassigns spec_001 from B to A; unchanged ID suppresses re-curation; no orphan is reported; GBIF export joins retained B metadata to current A crop path. Supported --rerun clears crop outputs without clearing top-level curation. This establishes a controlled mechanism, not its prevalence or any real incident."
+}

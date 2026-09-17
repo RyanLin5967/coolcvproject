@@ -1,0 +1,428 @@
+[
+  {
+    "file": "company_seed.json",
+    "query": "Roboflow company 2026 enterprise computer vision frontier data inference platform strategy",
+    "retrieved_utc": "2026-09-17T17:06:29.176334+00:00",
+    "results": 6
+  },
+  {
+    "file": "company_frontier.json",
+    "query": "site.roboflow.com careers Frontier Data Roboflow data engineering company",
+    "retrieved_utc": "2026-09-17T17:06:46.781917+00:00",
+    "results": 6
+  },
+  {
+    "file": "inference_edge_02.json",
+    "query": "site:github.com/roboflow/inference/issues stream reconnect memory latency GPU",
+    "retrieved_utc": "2026-09-17T17:07:00.208816+00:00",
+    "results": 7
+  },
+  {
+    "file": "inference_edge_01.json",
+    "query": "Roboflow Inference edge deployment video streaming monitoring TensorRT docs 2026",
+    "retrieved_utc": "2026-09-17T17:07:00.292148+00:00",
+    "results": 7
+  },
+  {
+    "file": "inference_edge_03.json",
+    "query": "Roboflow edge device manager model deployment monitoring offline inference benchmark",
+    "retrieved_utc": "2026-09-17T17:07:00.439796+00:00",
+    "results": 7
+  },
+  {
+    "file": "company_strategy.json",
+    "query": "site:blog.roboflow.com 2025 2026 series B physical AI million developers company",
+    "retrieved_utc": "2026-09-17T17:07:01.211076+00:00",
+    "results": 6
+  },
+  {
+    "file": "company_business.json",
+    "query": "site:roboflow.com pricing enterprise deployment data 2026",
+    "retrieved_utc": "2026-09-17T17:07:01.214326+00:00",
+    "results": 6
+  },
+  {
+    "file": "company_careers.json",
+    "query": "site:roboflow.com careers values engineer build project hiring open source",
+    "retrieved_utc": "2026-09-17T17:07:01.238018+00:00",
+    "results": 6
+  },
+  {
+    "file": "cv_models_rfdetr.json",
+    "query": "site:github.com/roboflow/rf-detr issues tracking temporal consistency small objects RF-DETR",
+    "retrieved_utc": "2026-09-17T17:07:09.554878+00:00",
+    "results": 6
+  },
+  {
+    "file": "data_platform.json",
+    "query": "site:docs.roboflow.com dataset health versions annotation active learning data lineage",
+    "retrieved_utc": "2026-09-17T17:07:11.376628+00:00",
+    "results": 8
+  },
+  {
+    "file": "data_issues.json",
+    "query": "site:github.com/roboflow dataset issue duplicate split leakage annotation version",
+    "retrieved_utc": "2026-09-17T17:07:11.473777+00:00",
+    "results": 8
+  },
+  {
+    "file": "data_competition.json",
+    "query": "computer vision dataset quality leakage near duplicates FiftyOne cleanlab Encord data curation lineage",
+    "retrieved_utc": "2026-09-17T17:07:11.577403+00:00",
+    "results": 8
+  },
+  {
+    "file": "workflows_devex_testing.json",
+    "query": "site.docs.roboflow.com workflows profiling testing debugging execution errors",
+    "retrieved_utc": "2026-09-17T17:07:19.011941+00:00",
+    "results": 6
+  },
+  {
+    "file": "cv_models_competitors.json",
+    "query": "adaptive sliced object detection video budget inference small objects SAHI REPP temporal consistency conformal detection",
+    "retrieved_utc": "2026-09-17T17:07:22.103736+00:00",
+    "results": 7
+  },
+  {
+    "file": "cv_models_supervision.json",
+    "query": "site:supervision.roboflow.com tracker evaluation ByteTrack BoT-SORT detection smoothing inference slicer",
+    "retrieved_utc": "2026-09-17T17:07:22.179080+00:00",
+    "results": 7
+  },
+  {
+    "file": "cv_models_product.json",
+    "query": "site:roboflow.com RF-DETR model evaluation deployment video temporal segmentation benchmark 2026",
+    "retrieved_utc": "2026-09-17T17:07:22.185905+00:00",
+    "results": 7
+  },
+  {
+    "file": "workflows_devex_sdk.json",
+    "query": "Roboflow workflows workflow unit testing profiler GitHub integration SDK errors",
+    "retrieved_utc": "2026-09-17T17:07:22.360360+00:00",
+    "results": 6
+  },
+  {
+    "file": "customers_manufacturing.json",
+    "query": "site:roboflow.com customers case study manufacturing quality control logistics",
+    "retrieved_utc": "2026-09-17T17:07:25.043470+00:00",
+    "results": 7
+  },
+  {
+    "file": "customers_fde.json",
+    "query": "Roboflow forward deployed engineer customer production deployment edge monitoring challenges",
+    "retrieved_utc": "2026-09-17T17:07:25.783054+00:00",
+    "results": 7
+  },
+  {
+    "file": "workflows_devex_github.json",
+    "query": "site:github.com/roboflow/inference workflows issue testing cache schema blocks",
+    "retrieved_utc": "2026-09-17T17:07:26.105664+00:00",
+    "results": 6
+  },
+  {
+    "file": "customers_retail_sports.json",
+    "query": "site:roboflow.com customers case study retail sports computer vision deployment",
+    "retrieved_utc": "2026-09-17T17:07:27.574833+00:00",
+    "results": 7
+  },
+  {
+    "file": "data_universe.json",
+    "query": "site:docs.roboflow.com Universe similar images duplicates image search license dataset source",
+    "retrieved_utc": "2026-09-17T17:07:29.637955+00:00",
+    "results": 8
+  },
+  {
+    "file": "data_annotation.json",
+    "query": "site:docs.roboflow.com annotation quality review label assist auto label workflows active learning similarity",
+    "retrieved_utc": "2026-09-17T17:07:30.027040+00:00",
+    "results": 8
+  },
+  {
+    "file": "data_specialized_competition.json",
+    "query": "FiftyOne Encord annotation consensus dataset diff version semantic label ontology consistency active learning video frames",
+    "retrieved_utc": "2026-09-17T17:07:30.956360+00:00",
+    "results": 8
+  },
+  {
+    "file": "root_frontier_data.json",
+    "query": "vision dataset acquisition video deduplication coverage frontier data Roboflow 2026",
+    "retrieved_utc": "2026-09-17T17:07:34.412760+00:00",
+    "results": 6
+  },
+  {
+    "file": "root_competition_testing.json",
+    "query": "computer vision workflow testing replay regression Roboflow FiftyOne Aquarium Voxel51 Encord 2026",
+    "retrieved_utc": "2026-09-17T17:07:34.650151+00:00",
+    "results": 8
+  },
+  {
+    "file": "infra_deploy.json",
+    "query": "Roboflow inference deployment docker version reproducibility hardware benchmark profiler performance official",
+    "retrieved_utc": "2026-09-17T17:07:34.896440+00:00",
+    "results": 6
+  },
+  {
+    "file": "infra_security.json",
+    "query": "Roboflow inference enterprise security air gap secrets network egress self hosted support troubleshooting",
+    "retrieved_utc": "2026-09-17T17:07:35.026207+00:00",
+    "results": 6
+  },
+  {
+    "file": "root_product_overlap.json",
+    "query": "site.roboflow.com OR site.blog.roboflow.com workflow debugging profiling model monitoring edge deployment 2026",
+    "retrieved_utc": "2026-09-17T17:07:35.211089+00:00",
+    "results": 8
+  },
+  {
+    "file": "infra_company.json",
+    "query": "Roboflow careers infrastructure cloud engineer reliability security cost inference enterprise self hosted",
+    "retrieved_utc": "2026-09-17T17:07:35.218534+00:00",
+    "results": 6
+  },
+  {
+    "file": "inference_edge_06.json",
+    "query": "site:github.com/roboflow/inference \"2737\" OR \"preload\" OR \"shadow\" OR \"warmup\"",
+    "retrieved_utc": "2026-09-17T17:07:39.974810+00:00",
+    "results": 7
+  },
+  {
+    "file": "inference_edge_05.json",
+    "query": "Roboflow RTSP simulator chaos testing reconnect stale frame frame age pipeline",
+    "retrieved_utc": "2026-09-17T17:07:40.147065+00:00",
+    "results": 6
+  },
+  {
+    "file": "inference_edge_04.json",
+    "query": "Roboflow inference benchmark profiling OpenTelemetry tracing model analyzer optimizer TensorRT autotune",
+    "retrieved_utc": "2026-09-17T17:07:40.477940+00:00",
+    "results": 7
+  },
+  {
+    "file": "workflows_devex_overlap.json",
+    "query": "Roboflow Workflows version control diff regression tests replay debugging lineage dimensionality",
+    "retrieved_utc": "2026-09-17T17:07:56.103360+00:00",
+    "results": 8
+  },
+  {
+    "file": "workflows_devex_eval.json",
+    "query": "Roboflow workflow evaluation compare versions model benchmark block Evaluate Predictions",
+    "retrieved_utc": "2026-09-17T17:07:56.786089+00:00",
+    "results": 6
+  },
+  {
+    "file": "company_frontier_overlap.json",
+    "query": "Roboflow Frontier Data RL environments evaluation graders datasets",
+    "retrieved_utc": "2026-09-17T17:08:04.448852+00:00",
+    "results": 6
+  },
+  {
+    "file": "company_field_overlap.json",
+    "query": "Roboflow field engineer camera setup inspection diagnostic deployment troubleshooting workflow reproducible",
+    "retrieved_utc": "2026-09-17T17:08:04.507735+00:00",
+    "results": 6
+  },
+  {
+    "file": "infra_issues.json",
+    "query": "site:github.com/roboflow/inference/issues memory leak crash reconnect version workflow video high CPU latency",
+    "retrieved_utc": "2026-09-17T17:08:21.353652+00:00",
+    "results": 8
+  },
+  {
+    "file": "customers_calibration.json",
+    "query": "Roboflow camera calibration commissioning perspective transform measurement uncertainty ArUco Workflows",
+    "retrieved_utc": "2026-09-17T17:08:21.490358+00:00",
+    "results": 7
+  },
+  {
+    "file": "infra_competitors.json",
+    "query": "NVIDIA Triton model analyzer perf analyzer concurrency latency throughput reports BentoML adaptive batching workflow profiling",
+    "retrieved_utc": "2026-09-17T17:08:21.490567+00:00",
+    "results": 6
+  },
+  {
+    "file": "customers_plc.json",
+    "query": "Roboflow industrial PLC MQTT conveyor reject actuator latency simulator testing",
+    "retrieved_utc": "2026-09-17T17:08:21.504524+00:00",
+    "results": 7
+  },
+  {
+    "file": "customers_museum.json",
+    "query": "Roboflow Field Museum case study OCR specimens uncertainty labels digitization",
+    "retrieved_utc": "2026-09-17T17:08:21.512857+00:00",
+    "results": 5
+  },
+  {
+    "file": "infra_existing.json",
+    "query": "Roboflow workflow production testing fault injection reproducible bug report diagnostics upgrade regression benchmark capacity cost model analyzer",
+    "retrieved_utc": "2026-09-17T17:08:22.046390+00:00",
+    "results": 8
+  },
+  {
+    "file": "root_event_testing.json",
+    "query": "computer vision workflow event regression testing counting tracking replay causal debugging tool",
+    "retrieved_utc": "2026-09-17T17:08:31.591291+00:00",
+    "results": 8
+  },
+  {
+    "file": "cv_models_camera.json",
+    "query": "computer vision camera exposure optimization object detection motion blur shutter speed task aware camera control research",
+    "retrieved_utc": "2026-09-17T17:08:34.850357+00:00",
+    "results": 6
+  },
+  {
+    "file": "root_grader_competitors.json",
+    "query": "vision benchmark evaluation grader reward hacking mutation testing environment Harbor Inspect AI",
+    "retrieved_utc": "2026-09-17T17:08:34.875890+00:00",
+    "results": 7
+  },
+  {
+    "file": "cv_models_calibration.json",
+    "query": "Roboflow confidence calibration selective prediction cascade model evaluation workflows confidence threshold",
+    "retrieved_utc": "2026-09-17T17:08:35.115629+00:00",
+    "results": 6
+  },
+  {
+    "file": "workflows_devex_differential.json",
+    "query": "Roboflow workflows property based testing differential testing record replay debugger lineage",
+    "retrieved_utc": "2026-09-17T17:09:09.435875+00:00",
+    "results": 6
+  },
+  {
+    "file": "data_partial_labels.json",
+    "query": "Roboflow merge datasets missing annotations different classes partial labels federated loss",
+    "retrieved_utc": "2026-09-17T17:09:13.632041+00:00",
+    "results": 8
+  },
+  {
+    "file": "infra_workflow_tests.json",
+    "query": "site:docs.roboflow.com Workflows testing test suite regression baseline deployment compare versions privacy",
+    "retrieved_utc": "2026-09-17T17:10:22.680961+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_release_competition.json",
+    "query": "model deployment numerical validation ONNX TensorRT Polygraphy accuracy correctness regression test differential debugger",
+    "retrieved_utc": "2026-09-17T17:12:11.110890+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_partial_labels.json",
+    "query": "partial annotation object detection dataset merging federated loss verified negative classes LVIS",
+    "retrieved_utc": "2026-09-17T17:12:11.150363+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_debugger_competition.json",
+    "query": "Roboflow workflow debugger lineage crop coordinate execution graph replay debugger minimize",
+    "retrieved_utc": "2026-09-17T17:12:11.186003+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_event_competition.json",
+    "query": "computer vision pipeline video stream fault injection event correctness timestamp replay test framework NVIDIA DeepStream",
+    "retrieved_utc": "2026-09-17T17:12:11.569064+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_capacity_competition.json",
+    "query": "video analytics accuracy latency cost optimization multi camera scheduling Chameleon VideoStorm Reducto",
+    "retrieved_utc": "2026-09-17T17:12:25.989918+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_reward_competition.json",
+    "query": "visual reward hacking verifier benchmark adversarial evaluation multimodal reward model object counting spatial reasoning",
+    "retrieved_utc": "2026-09-17T17:12:26.551623+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_camera_competition.json",
+    "query": "camera commissioning computer vision operational design domain camera blur exposure scene acceptance test edge AI",
+    "retrieved_utc": "2026-09-17T17:12:26.707529+00:00",
+    "results": 6
+  },
+  {
+    "file": "attack_technical_parity.json",
+    "query": "vision object detection cross platform model export numerical parity TensorRT ONNX NMS polygraphy accuracy validation",
+    "retrieved_utc": "2026-09-17T17:12:43.727497+00:00",
+    "results": 6
+  },
+  {
+    "file": "attack_technical_partial.json",
+    "query": "partially annotated object detection unified label space loss dataset class annotation missing negatives Detic UniDet federated loss",
+    "retrieved_utc": "2026-09-17T17:12:57.762895+00:00",
+    "results": 6
+  },
+  {
+    "file": "attack_technical_rewards.json",
+    "query": "visual reward models reward hacking benchmark video manipulated task success robotics VLM",
+    "retrieved_utc": "2026-09-17T17:12:58.322223+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_capacity_tools.json",
+    "query": "TensorRT Model Analyzer throughput latency constraints Triton Perf Analyzer optimization configuration",
+    "retrieved_utc": "2026-09-17T17:13:27.264999+00:00",
+    "results": 4
+  },
+  {
+    "file": "novelty_rollout_overlap.json",
+    "query": "Mender release artifact rollback health checks edge device computer vision Deployment Manager Roboflow",
+    "retrieved_utc": "2026-09-17T17:13:27.265020+00:00",
+    "results": 5
+  },
+  {
+    "file": "novelty_event_formal.json",
+    "query": "video temporal logic falsification Scenic VerifAI perception monitor real time testing stream events",
+    "retrieved_utc": "2026-09-17T17:13:27.295542+00:00",
+    "results": 5
+  },
+  {
+    "file": "attack_technical_capacity.json",
+    "query": "NVIDIA Triton Model Analyzer quality accuracy latency throughput goodput video analytics adaptive frame sampling event accuracy",
+    "retrieved_utc": "2026-09-17T17:13:52.476636+00:00",
+    "results": 5
+  },
+  {
+    "file": "novelty_inspect_hacking.json",
+    "query": "site.inspect.aisi.org.uk reward hacking scanner",
+    "retrieved_utc": "2026-09-17T17:13:59.423679+00:00",
+    "results": 3
+  },
+  {
+    "file": "novelty_grader_mutation.json",
+    "query": "evalmut grader mutation testing incorrect outputs equivalent outputs github",
+    "retrieved_utc": "2026-09-17T17:13:59.441543+00:00",
+    "results": 4
+  },
+  {
+    "file": "novelty_runtime_deepstream.json",
+    "query": "DeepStream nvstreammux adaptive batching max same source frames overall max fps scheduling priority round robin",
+    "retrieved_utc": "2026-09-17T17:16:57.402834+00:00",
+    "results": 4
+  },
+  {
+    "file": "novelty_runtime_systems.json",
+    "query": "Clockwork InferLine Clipper Nexus inference serving predictable latency pipeline bursty deadline scheduling",
+    "retrieved_utc": "2026-09-17T17:16:57.403000+00:00",
+    "results": 6
+  },
+  {
+    "file": "novelty_runtime_fanout.json",
+    "query": "inference pipeline dynamic fan out deadline backpressure memory admission control model serving InferLine",
+    "retrieved_utc": "2026-09-17T17:16:57.403280+00:00",
+    "results": 5
+  },
+  {
+    "file": "novelty_identity_merge.json",
+    "query": "FiftyOne merge samples labels label id preserve annotations model predictions rerun merge",
+    "retrieved_utc": "2026-09-17T17:17:24.113500+00:00",
+    "results": 4
+  },
+  {
+    "file": "novelty_identity_datumaro.json",
+    "query": "Datumaro merge datasets annotations conflicts overlapping bounding boxes voting",
+    "retrieved_utc": "2026-09-17T17:17:24.172075+00:00",
+    "results": 3
+  }
+]

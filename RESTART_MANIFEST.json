@@ -1,0 +1,873 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-17T20:33:07.047792+00:00",
+  "purpose": "Verify project research and handoff after restart",
+  "hash_algorithm": "sha256",
+  "excluded": [
+    "RESTART_MANIFEST.json (self)",
+    "Git metadata",
+    "ignored credentials and generated files"
+  ],
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 351,
+      "sha256": "bf7a23bbb3e126110489cd7840c6fff254635631ea20d5761c19f4ef9ed3c086"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 235,
+      "sha256": "674d6ce83a68ef681ad766e28b1d61095fdc6273ccd3d92430f973f92e390e7d"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 1797,
+      "sha256": "f185f3c7a4b6ce1ef2c1d65be3f80eff5a5982851eac0d2a4389e2495a9170bf"
+    },
+    {
+      "path": "HANDOFF.md",
+      "bytes": 13356,
+      "sha256": "483f19e25a8e85d8d72d1ace4d7ec573387eccbaf64a954ec5b75f369b7350de"
+    },
+    {
+      "path": "research/roboflow/AUDIT.md",
+      "bytes": 13207,
+      "sha256": "9613f0fdf902ee5ad588fb1d659a3107192da91eb4cc230f6b58f7d08caae56e"
+    },
+    {
+      "path": "research/roboflow/PARTIAL_LABEL_FOLLOWUP.md",
+      "bytes": 5165,
+      "sha256": "92408f9f3944754565a3f31c57715e04ddba228c9c410270a21895abd72d7f8d"
+    },
+    {
+      "path": "research/roboflow/README.md",
+      "bytes": 2065,
+      "sha256": "d295523ceecbfbd5dfbb1bab07bbdd5c2a6295cc6c1b99e1a45ebbd69d32cae1"
+    },
+    {
+      "path": "research/roboflow/REPORT.md",
+      "bytes": 55849,
+      "sha256": "55ba0d799e3388477abd04432bf09158cb15e080dc25e9f84cb029a7749ab89d"
+    },
+    {
+      "path": "research/roboflow/RESEARCH_PROTOCOL.md",
+      "bytes": 2902,
+      "sha256": "b075b0fbc3bfff7f26e9a2d2e79cd03109e04848b2d2c30e116b50616a898c4c"
+    },
+    {
+      "path": "research/roboflow/build_plan/ADVERSARIAL_REVIEW.md",
+      "bytes": 24124,
+      "sha256": "e20b58b1609bb3240531251a9c29f0b8570b76bcaf325aadaad8ce7796c99659"
+    },
+    {
+      "path": "research/roboflow/build_plan/ARCHITECTURE.md",
+      "bytes": 24347,
+      "sha256": "09eeb13fb4cc9f81d15d1d6ecd196d5302e2f411a5f1191aa988e2358b71dd0b"
+    },
+    {
+      "path": "research/roboflow/build_plan/DATA_PROTOCOL.md",
+      "bytes": 28202,
+      "sha256": "d4458da208a7076d677142fb5b70ba3b0991a199c5ce7946360642d6fd8be7f6"
+    },
+    {
+      "path": "research/roboflow/build_plan/IMPLEMENTATION_PLAN.md",
+      "bytes": 15080,
+      "sha256": "4bcacb0e8697f1069c4615097e8382dad3bb194dc2f588320b16ef3fb806d978"
+    },
+    {
+      "path": "research/roboflow/build_plan/README.md",
+      "bytes": 5259,
+      "sha256": "e6486f7a6e29f1ab4d7156cc344f020294e0d871d2eb823ffe1f14d28bdce0eb"
+    },
+    {
+      "path": "research/roboflow/build_plan/REUSE_MAP.md",
+      "bytes": 7763,
+      "sha256": "29b59e7edce795047d134e6252b33625e2c86a9d7667da29f53da592032e5b5b"
+    },
+    {
+      "path": "research/roboflow/build_plan/ROBOFLOW_INTEGRATION.md",
+      "bytes": 12838,
+      "sha256": "ad100f60c3dae80b0447a709aaff2175bc9b4a0fc300d95d56239157f8d4fc3e"
+    },
+    {
+      "path": "research/roboflow/build_plan/SETUP.md",
+      "bytes": 13335,
+      "sha256": "16b50cc3eb33741d287b702eda4ddb4b53ed28ff25aa0d25b3d6e0f914407231"
+    },
+    {
+      "path": "research/roboflow/build_plan/TRAINER_DESIGN.md",
+      "bytes": 14631,
+      "sha256": "e9e306ef293b1e495fc1557d1af667d283268315b3c9f4058eefd4f1b4dca08a"
+    },
+    {
+      "path": "research/roboflow/critiques/novelty.md",
+      "bytes": 30001,
+      "sha256": "afca6f03ebcf628f20b255faaa419f14dc53af3b105ca38c50beb301839c477f"
+    },
+    {
+      "path": "research/roboflow/critiques/technical.md",
+      "bytes": 48665,
+      "sha256": "c121d5d25885e8fd179b546b6d2ff798ae590ce5066fa8eb9727ba6542a3fcd3"
+    },
+    {
+      "path": "research/roboflow/ideas.html",
+      "bytes": 45487,
+      "sha256": "753807230fdc8633fc801e305e552080daebf64d41fce608503401c2857ab9d3"
+    },
+    {
+      "path": "research/roboflow/ideas.json",
+      "bytes": 36199,
+      "sha256": "cdc978e7c3451a3555dd25500034ecf503f4a1f4b74ae996eb93019a06f42325"
+    },
+    {
+      "path": "research/roboflow/lanes/company.md",
+      "bytes": 30326,
+      "sha256": "6b040572138617df602b5e9471f4a6c91c9547b2250c4d40fa9a657b7d1c1077"
+    },
+    {
+      "path": "research/roboflow/lanes/customers.md",
+      "bytes": 26145,
+      "sha256": "c19e9db1c94ea0199311a3d9040b31cc635cc7414b2fcc67906d3313df83b2d9"
+    },
+    {
+      "path": "research/roboflow/lanes/cv_models.md",
+      "bytes": 31949,
+      "sha256": "3035732252aeee8ba996764c3aa345538c0c167781acc75dc20a42170bc7d9ee"
+    },
+    {
+      "path": "research/roboflow/lanes/data.md",
+      "bytes": 28961,
+      "sha256": "abe6c404564424db1ebb1d0f330743cb2ee6ad14619e42ef2651f1670d55bf4a"
+    },
+    {
+      "path": "research/roboflow/lanes/inference_edge.md",
+      "bytes": 36592,
+      "sha256": "9458ebfbe49e3b9c818e7eb9a0a9f9fedce1a2ec8b2037f26ac92525482dbd85"
+    },
+    {
+      "path": "research/roboflow/lanes/infra_security.md",
+      "bytes": 30766,
+      "sha256": "f53692caac031e2262e66820032ef60ac46456feef87de9b12d28792dc7fedf3"
+    },
+    {
+      "path": "research/roboflow/lanes/workflows_devex.md",
+      "bytes": 25898,
+      "sha256": "7dfe7038f05a4b80573fbde37ceedc894773d018da7b35fbe11cf1f00a5f80d3"
+    },
+    {
+      "path": "research/roboflow/raw/attack_technical_capacity.json",
+      "bytes": 24786,
+      "sha256": "97cec77499821ec6731c74c252877d11563bab8913d250f2643f907e19d83682"
+    },
+    {
+      "path": "research/roboflow/raw/attack_technical_parity.json",
+      "bytes": 33561,
+      "sha256": "f6668ce53380cad963691a792c4bd5f341f6db61df00b9aede959cde90c4b71e"
+    },
+    {
+      "path": "research/roboflow/raw/attack_technical_partial.json",
+      "bytes": 36920,
+      "sha256": "7172a19f2287d1d5e3928aea53e6f0576fb787341cbfc4292e205fcd98f83d5d"
+    },
+    {
+      "path": "research/roboflow/raw/attack_technical_rewards.json",
+      "bytes": 27262,
+      "sha256": "6ac48667e9a4ba7de488539f02f38b593e3f0078c2ddf1b041c32e62ad6e8f0a"
+    },
+    {
+      "path": "research/roboflow/raw/build_architecture_priorart.json",
+      "bytes": 46456,
+      "sha256": "7678f0ba603e16f72d72d5f343ef574284a430eab978a973161b2c02bff42f8e"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/LICENSE",
+      "bytes": 11345,
+      "sha256": "8cabf52c61130fc97a7e5da5e3685ccf44841c0c53d6f881189369b136603cca"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/README.md",
+      "bytes": 26220,
+      "sha256": "497b555afad4c6b1c18d0d29b8220225034281975e71e80ae4666451a2747123"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/pyproject.toml",
+      "bytes": 20316,
+      "sha256": "f7087141895528916f026cd9b9bebe4302f5c691c24037ff7b2b77d80a49c1f1"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/sources.json",
+      "bytes": 4839,
+      "sha256": "563e1bfe39d1287fdc406ae17ee41e3f508ebec80a46776b4e15e6efe47d0933"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/config.py",
+      "bytes": 78618,
+      "sha256": "84db8858c44810d77ea6eea983aa7fd006430d08af8d3cc5835a8c7f5ae8de51"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/datasets/_torchvision.py",
+      "bytes": 25499,
+      "sha256": "6b7bb1e597e86077a5535ad1695253689fecd2a79d95c82f8cf95b41df8252bf"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/datasets/coco.py",
+      "bytes": 74319,
+      "sha256": "9a167366347384cfc5dc44e653447b785d202171860ca0517671c80d06ceffcf"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/datasets/transforms.py",
+      "bytes": 49425,
+      "sha256": "15e64d95936f2dc1ceab0bc7252c689b6853f862cc83ed663d592ed739df7926"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/models/criterion.py",
+      "bytes": 49870,
+      "sha256": "dd718b89f8166b39cb94ee76a9e5d983248d6333d8cc10bf8e2eef6984e3e272"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/models/lwdetr.py",
+      "bytes": 47215,
+      "sha256": "b8685a02b4cb1a8c5a31c1d527951257e7893d8e441908f68ac8c56d5f307880"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/models/matcher.py",
+      "bytes": 49478,
+      "sha256": "8c66d361d65f4a484a38b58c12d4f01bd3689534072aadbc4005722e2b8c44f9"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/models/transformer.py",
+      "bytes": 56213,
+      "sha256": "8193223f529f376b756f801a57289b405a087db719a54c68794ac8f60dfed9f2"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/models/weights.py",
+      "bytes": 35574,
+      "sha256": "0123a578169cfdf52bf5220d49d4f09c04c4c40eb8c609e88f6a940545f1170a"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/training/__init__.py",
+      "bytes": 1647,
+      "sha256": "b1d002e06508bfbe7f39836ac07ca439a174f8e0de9adf090d6ff17b3247fb98"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/training/module_data.py",
+      "bytes": 40250,
+      "sha256": "8706ab8bf98a876dc7e3fb618b2aec476bf619c2f34d9ca48e38ef6c68b418f3"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/training/module_model.py",
+      "bytes": 75954,
+      "sha256": "a9424c929baaf047b800f1cdbc63fdeb3b1c4748ccbf77570cfbf03b9ab21822"
+    },
+    {
+      "path": "research/roboflow/raw/build_rfdetr_1_10_1/src/rfdetr/utilities/tensors.py",
+      "bytes": 32941,
+      "sha256": "071fc78119cdcccdd18148aae13db7960fe966d098a680122366cfc4ffd8efe1"
+    },
+    {
+      "path": "research/roboflow/raw/build_roboflow_custom_training.json",
+      "bytes": 45257,
+      "sha256": "43d26ab9907db17fc4e101bec51905493b5112b538e5ac6ce3af5ba906cfadd8"
+    },
+    {
+      "path": "research/roboflow/raw/build_roboflow_hybrid_training.json",
+      "bytes": 46829,
+      "sha256": "ed6cde9c58ef89be7bf4732cb17fd418c46776e1d47b5b3f326f352b64c1fc5a"
+    },
+    {
+      "path": "research/roboflow/raw/build_roboflow_sdk_version.py",
+      "bytes": 37635,
+      "sha256": "0540723c53b87fcde78004a1d851aafbdc558c9b5c01cc3e8e734bfb5ce2130a"
+    },
+    {
+      "path": "research/roboflow/raw/company_business.json",
+      "bytes": 36437,
+      "sha256": "c54738260399967b30047a3fbcbeb24279581b5d2cc9ae26709f7defbe3517ee"
+    },
+    {
+      "path": "research/roboflow/raw/company_careers.json",
+      "bytes": 35733,
+      "sha256": "23d5d4e8094b7d6d417c38c35d74907fbac206861550893ca2680a4dc325980c"
+    },
+    {
+      "path": "research/roboflow/raw/company_field_overlap.json",
+      "bytes": 44483,
+      "sha256": "433eaeddb58ef134136ddb7755f6c8e11347101c882cfced0ec2d8fb70e99041"
+    },
+    {
+      "path": "research/roboflow/raw/company_frontier.json",
+      "bytes": 40419,
+      "sha256": "ebfcd8ea8c9e2c84804eb16e86cd1790581912bd31808bb05b97a2592fb2dec1"
+    },
+    {
+      "path": "research/roboflow/raw/company_frontier_overlap.json",
+      "bytes": 31389,
+      "sha256": "c148bf14711b95d0f178e692751e909e57e9545661008030246c49819b4f3ba0"
+    },
+    {
+      "path": "research/roboflow/raw/company_jobs_official.json",
+      "bytes": 592293,
+      "sha256": "5ab58500f7dffc7cba64d0bf10d4ab432c892e6e39ffc63a8a559182caaa0888"
+    },
+    {
+      "path": "research/roboflow/raw/company_seed.json",
+      "bytes": 43015,
+      "sha256": "663bc7924932ba9df8974cb19a5a9027099251c80db98519612a9bd4c8e96fc9"
+    },
+    {
+      "path": "research/roboflow/raw/company_strategy.json",
+      "bytes": 37201,
+      "sha256": "01a3ab7509ac8b50e9552f082cbdd5197f0e2e770f52cc0642a77bfd8064943a"
+    },
+    {
+      "path": "research/roboflow/raw/compute_setup_roboflow_index.txt",
+      "bytes": 140520,
+      "sha256": "b920684354f0cd9eabe32b84a2af91a8404a04cae755e790dfeff519c5e07b12"
+    },
+    {
+      "path": "research/roboflow/raw/customers_calibration.json",
+      "bytes": 49182,
+      "sha256": "0b77d6c94a9ce68c953ff8bb55e9f268f2dab8d193d9d54a769ee9fbf75d261a"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_advanced_readme.md",
+      "bytes": 30892,
+      "sha256": "db9314e298e10ce5273b2c27bdfaa30006a00b125b3fcc0518edafeb0ffddcb3"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_barcodes.py",
+      "bytes": 7008,
+      "sha256": "3cf1d96af8664111e095e3a59fda97f2ecd3818428f3297a222bd54801ccbedd"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_crop_specimens.py",
+      "bytes": 9474,
+      "sha256": "0b5c943c266a632da1fa6cf7fc238667b8403ee53ab19975dd0631b0a3c1d3b9"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_emu.py",
+      "bytes": 23843,
+      "sha256": "136a90ca9b382de31dd45ac0e0d63af2d223c3557ab007f064df8fe30b00b529"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_gbif.py",
+      "bytes": 14966,
+      "sha256": "8b9b15477a73a83caf18c20d443b10ffec4bfcfaefdb657d6a932259e76b9007"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_locations.py",
+      "bytes": 10147,
+      "sha256": "4e7dc323a14d6cc850c7f8e78dbf50114c9942f5ab3db1501c3cc798b04c0b24"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_merge.py",
+      "bytes": 24033,
+      "sha256": "e25244b144febe45d656c2987da0683531a73860de5ecaf362013a23e807a37d"
+    },
+    {
+      "path": "research/roboflow/raw/customers_drawerdissect_process.py",
+      "bytes": 26438,
+      "sha256": "2b376d61115c6face4a3840f1a89efcaf4e7660434f3aaabe9feafa3cfa13113"
+    },
+    {
+      "path": "research/roboflow/raw/customers_fde.json",
+      "bytes": 50701,
+      "sha256": "734dd9b201702307508a730a7299180875a57dfd7acafce3daa4327d05152fb9"
+    },
+    {
+      "path": "research/roboflow/raw/customers_identity_probe.py",
+      "bytes": 5622,
+      "sha256": "0b521516b2d916843a102c7adb40091e87b805147217dfe4a176659afe5ec08f"
+    },
+    {
+      "path": "research/roboflow/raw/customers_identity_probe_result.json",
+      "bytes": 2088,
+      "sha256": "90069b65071c9e47f3fa98431a7f8a741ec7e348eefa50bd028a7d7f975fd18e"
+    },
+    {
+      "path": "research/roboflow/raw/customers_manufacturing.json",
+      "bytes": 39722,
+      "sha256": "3ca5212d093234e8c390ffa34f5437b3facc3e51a46fa9006bcbe34b8b34ef61"
+    },
+    {
+      "path": "research/roboflow/raw/customers_museum.json",
+      "bytes": 40518,
+      "sha256": "48ee87547825f009ded72f42e983cd8357598aaa834e10e6b04b24a88246a2a2"
+    },
+    {
+      "path": "research/roboflow/raw/customers_plc.json",
+      "bytes": 49553,
+      "sha256": "298861973b661b0b6830a764469ef68cace34e296036ef17a6aa6077e968713b"
+    },
+    {
+      "path": "research/roboflow/raw/customers_retail_sports.json",
+      "bytes": 48867,
+      "sha256": "c5087ee2808b95856b9ff0240d9b6dd8622f564dde114f14464d28d103cf6f2d"
+    },
+    {
+      "path": "research/roboflow/raw/cv_models_calibration.json",
+      "bytes": 39023,
+      "sha256": "36b575bdac543d88878e10057bdf78086ea17c033728f28e2adbd14eeae29f0c"
+    },
+    {
+      "path": "research/roboflow/raw/cv_models_camera.json",
+      "bytes": 45458,
+      "sha256": "07090821a6dc2133083271de8d585379b8e8a41390235d3074771150f6ae43fe"
+    },
+    {
+      "path": "research/roboflow/raw/cv_models_competitors.json",
+      "bytes": 42075,
+      "sha256": "c4ceb16ec15317627a8c99ae4d7ae9f6b4749c6b6ec08ca45716cb353ac89bb8"
+    },
+    {
+      "path": "research/roboflow/raw/cv_models_product.json",
+      "bytes": 51026,
+      "sha256": "962dac372f21f67e47ccd35e2cc194488dfe1bf161db8550615a40eeafe9d713"
+    },
+    {
+      "path": "research/roboflow/raw/cv_models_rfdetr.json",
+      "bytes": 34531,
+      "sha256": "92442a101af4f6d4030037a3b46cd510f9472a4bcf543c0db54c2e96cf9874a2"
+    },
+    {
+      "path": "research/roboflow/raw/cv_models_supervision.json",
+      "bytes": 54542,
+      "sha256": "991aad8fbf100cadd73d5ce70f8708d652db6c49b502cb51ffaf4da309a9a902"
+    },
+    {
+      "path": "research/roboflow/raw/data_annotation.json",
+      "bytes": 33585,
+      "sha256": "e53bbb4a805eb0f994a140ba9b94a0161b7dc7cd2bf020030a6a8cd6d99ca52b"
+    },
+    {
+      "path": "research/roboflow/raw/data_competition.json",
+      "bytes": 52741,
+      "sha256": "89f1e6d59dacd1f232280ccd8e05bb94d0bfb7a947289526937931c69aae9be7"
+    },
+    {
+      "path": "research/roboflow/raw/data_issues.json",
+      "bytes": 33544,
+      "sha256": "7fa1f38c8ec5f4ab513a06e84f2ca7b46613fcc9040f9d28f8b56353a8d6716c"
+    },
+    {
+      "path": "research/roboflow/raw/data_partial_labels.json",
+      "bytes": 40366,
+      "sha256": "3f11221e508d79ba0941bc3cf4d1cafcd953c28c6ba8837e2d7bcb67c732a961"
+    },
+    {
+      "path": "research/roboflow/raw/data_platform.json",
+      "bytes": 36957,
+      "sha256": "e6277b225a8d0d3f899bdd0b21f0005602ae9d3b85654a115f1d1797e1dd84c5"
+    },
+    {
+      "path": "research/roboflow/raw/data_rfdetr_criterion.py",
+      "bytes": 54568,
+      "sha256": "acbab4fdf5bb5c444085fea11b9e6cc1015080f762d1503441ddc9830c307c33"
+    },
+    {
+      "path": "research/roboflow/raw/data_specialized_competition.json",
+      "bytes": 51719,
+      "sha256": "8996b1af3b872e8deba2ca4425f7142c38c05a51aea8646c8f9f7172e2ab0e5c"
+    },
+    {
+      "path": "research/roboflow/raw/data_universe.json",
+      "bytes": 26600,
+      "sha256": "86b8cdb3b591c46fb595f6a443ff19732e2831f96f0e4a5f937e3d413422bd73"
+    },
+    {
+      "path": "research/roboflow/raw/followup_current_criterion.py",
+      "bytes": 54568,
+      "sha256": "acbab4fdf5bb5c444085fea11b9e6cc1015080f762d1503441ddc9830c307c33"
+    },
+    {
+      "path": "research/roboflow/raw/followup_hosted_partial_annotations.json",
+      "bytes": 31885,
+      "sha256": "532e8d476ecaeeca77c950a7dfd9a57b94716d9d4f3c2b8ca319c7cc020ec032"
+    },
+    {
+      "path": "research/roboflow/raw/followup_partial_label_current.json",
+      "bytes": 51092,
+      "sha256": "1b43aff5f739ada026d77404e5de84d7edf91448991071fe2e9181caa5cdccfc"
+    },
+    {
+      "path": "research/roboflow/raw/followup_product_feature_status.json",
+      "bytes": 44630,
+      "sha256": "dc24781bd111928e6f90487ceda59e52977615d4d03cfb252a5407260059949b"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_01.json",
+      "bytes": 45882,
+      "sha256": "3a547fa2111ba444c7285854c94eea26b14264288b92ee47a884584c0d7111d5"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_02.json",
+      "bytes": 34304,
+      "sha256": "b0b58acbd4ef85b62cc5daef4a74dcb18d1345d347e04ee89f154fbebd9cad33"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_03.json",
+      "bytes": 39177,
+      "sha256": "c574488bcdbefb62f75dc9bbf0a45a125da8323a33ff916d2fdee933ed610552"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_04.json",
+      "bytes": 30237,
+      "sha256": "fab515e60145230a6fbc2ee40c56337692aca4f1199b03a55c53489e12cd61ae"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_05.json",
+      "bytes": 46066,
+      "sha256": "f8785d58bb7e900ca5a53354aa94ff562d218c6656c9264752921f9b573b5520"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_06.json",
+      "bytes": 41088,
+      "sha256": "0c13e36c2b2e9880f600150d5f00105617bdc69b635127fc400743662ec16f74"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_collection_policy.txt",
+      "bytes": 16139,
+      "sha256": "f8586c3d42fda35b0323016a92a0bf95d4b7b32b9be883776805046ba1e62f6b"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_executor.txt",
+      "bytes": 23984,
+      "sha256": "209421d2dfebfdea1895d27d6d5513bd8fb4e80f2e6657553c67bfd8ac440d97"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_issue2448_comments.json",
+      "bytes": 14364,
+      "sha256": "1861c3c55e0aaf23ab5533b6869c14f7d3a9b6afc350b782397527aac449ba84"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_issue685.json",
+      "bytes": 4161,
+      "sha256": "b166e4f5c91c406c7d8a7cf67948eb4afb7009b57c206d584c4157370835584e"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_jetson_ci.txt",
+      "bytes": 3924,
+      "sha256": "2a829c4ffa38d4d614ba4cc929ed17e4963761da56b86506029329dcbbbf2f1e"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_latest_release.json",
+      "bytes": 37673,
+      "sha256": "396dd889ea422770516219aa50aaed8f4ed15fa1f868c3de6e7090f857782210"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_model_benchmark.txt",
+      "bytes": 3373,
+      "sha256": "8d1b6301ff09fc493fba82b647c147351a68b0da4f979629b0dfedad0e0e114e"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_pipeline.txt",
+      "bytes": 82806,
+      "sha256": "bacb059da0afec8745a2539ae74329c16a0f11ddf7f5b21a12a311032f443149"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_pr2737.json",
+      "bytes": 25379,
+      "sha256": "57d39126d2abce7cf458bb036d486869b94179a32c5fdade377ca2be2d934e01"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_profiling_readme.txt",
+      "bytes": 6689,
+      "sha256": "f749880ef8a12f034c5281e1c9b2abd8630bfbadadc4585df0f537b1e4a5bcf4"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_sdk_ci.txt",
+      "bytes": 3938,
+      "sha256": "c1e0cfc53790077f58a9f53d6e09462146549e531c48c1024bbd0127f4440dd2"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_semantic_parity.txt",
+      "bytes": 9109,
+      "sha256": "aedbf94c2c90e678cd36b77c9d3c3441cc05d59220bd39b9a6e011efaea9b30e"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_single_artifact_readme.json",
+      "bytes": 4503,
+      "sha256": "d19620ba8c052ca69551f4fcc4521d5682d976034aafb59ecf686127c405c196"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_stream_benchmark.txt",
+      "bytes": 11149,
+      "sha256": "d140e117dd98faa6eda941c164e31e6c60d1e71e0a85b6b77894ba24678d1aa2"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_tree.json",
+      "bytes": 1333809,
+      "sha256": "d82312ff5c1d2318f2dce5e7386a290590ffaf40da21300073f8d917ae50a45d"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_video_source.txt",
+      "bytes": 61923,
+      "sha256": "ddbd5b97d737bee171d7684151ca30e0296eae61eb479688256feab88192934c"
+    },
+    {
+      "path": "research/roboflow/raw/inference_edge_video_source_tests.txt",
+      "bytes": 63369,
+      "sha256": "766804cfedb6c318c893a20dc1c0b9bda1870dac011bccd91455c8a6378af125"
+    },
+    {
+      "path": "research/roboflow/raw/infra_company.json",
+      "bytes": 46603,
+      "sha256": "975b2623e79719fe55a853782308460d83e00f060daff0a2828b724e9e5559da"
+    },
+    {
+      "path": "research/roboflow/raw/infra_competitors.json",
+      "bytes": 43485,
+      "sha256": "29493a22a4f4cff41086bf853e90d9fa3123a7bf5a757a329826402ed0a055f5"
+    },
+    {
+      "path": "research/roboflow/raw/infra_contributing.md",
+      "bytes": 9941,
+      "sha256": "5c1e4501713764b463173db85f8095d9ccefb10de1b71a2cfbc2774a7fd4c66d"
+    },
+    {
+      "path": "research/roboflow/raw/infra_deploy.json",
+      "bytes": 36396,
+      "sha256": "75b77404146e30d87f418d4381f5646865a2b25a6c49e28447f30767310c5a0e"
+    },
+    {
+      "path": "research/roboflow/raw/infra_existing.json",
+      "bytes": 55863,
+      "sha256": "2f12a9731e17b7a527fd3715dbe407aefb9e42c08f6ed0eb12522ced297b5e00"
+    },
+    {
+      "path": "research/roboflow/raw/infra_fixed_size_cache.py",
+      "bytes": 13920,
+      "sha256": "73c82af8dd62fac508b32544f97aff3223f7a1bd260ed893753ff1ff716c5f34"
+    },
+    {
+      "path": "research/roboflow/raw/infra_http_api.py",
+      "bytes": 232262,
+      "sha256": "5b5e6d03b7941b69333c3e5592e08fe046cc03fc12ef8497ecbb31c2fbd9f923"
+    },
+    {
+      "path": "research/roboflow/raw/infra_integration_conftest.py",
+      "bytes": 3025,
+      "sha256": "08e7defd112cba04a0c5bdba07039b73a94505ab9f8f018680ee8a430768eef7"
+    },
+    {
+      "path": "research/roboflow/raw/infra_issues.json",
+      "bytes": 42315,
+      "sha256": "de2175a8694af63d106122b55d1a971079a30749a1dda0a77b84ac735e53d854"
+    },
+    {
+      "path": "research/roboflow/raw/infra_security.json",
+      "bytes": 34530,
+      "sha256": "ec5a5beec6f3a250c648ae41c5f10bf1f3a6b7b3616ad8513de59aba92eb1f90"
+    },
+    {
+      "path": "research/roboflow/raw/infra_security_migration.md",
+      "bytes": 8438,
+      "sha256": "8d3650a86b45c3509ef2a146ab0fa90d8d4737aeb578707248fb376057b01e11"
+    },
+    {
+      "path": "research/roboflow/raw/infra_workflow_conftest.py",
+      "bytes": 6857,
+      "sha256": "b3b1fd01f8df36d627552308c4364ce28dff897065aa9715323790b8023b1cd8"
+    },
+    {
+      "path": "research/roboflow/raw/infra_workflow_tests.json",
+      "bytes": 27985,
+      "sha256": "18b1cdb63c3e0140dfea00509e7bfece331a4d55db09571192e2079d3e81cf8a"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_camera_competition.json",
+      "bytes": 31222,
+      "sha256": "e6329dbfe4d3dec573051e2d5282bc80037b4f6e6ca93a0cdfe19f7318d62623"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_capacity_competition.json",
+      "bytes": 25457,
+      "sha256": "16c5820104b4e06037ab6ea8c31cdc74ddca2ff3191c747cb60ba7538d99316a"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_capacity_tools.json",
+      "bytes": 19057,
+      "sha256": "8ceee2e722a4f782b2b9dc385ba3584acd0cf5d723fea285f9fbade4d2b1e885"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_debugger_competition.json",
+      "bytes": 29022,
+      "sha256": "e740640aad305de65abdfe0ba4d0ec64c3f1895c5ee80ceb9c257d1a8421d7c0"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_event_competition.json",
+      "bytes": 29097,
+      "sha256": "db5801daa3378b6ba8692f74cbec44a7991e2f9138c46bae3d3713680a03f654"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_event_formal.json",
+      "bytes": 25069,
+      "sha256": "498bea562ae85c29f98484e5a04b2d5cf0938616da0a392121b3b9ee3326045c"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_grader_mutation.json",
+      "bytes": 19781,
+      "sha256": "7a464f40ca1a3627ed0ace7d4af1de2930ce3deffbf408c80e09104849adc1b9"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_identity_datumaro.json",
+      "bytes": 12272,
+      "sha256": "54a6386c18e19a50f42a84b0d8e653a7483833b2d93f4ef1cf45a7c380f23943"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_identity_merge.json",
+      "bytes": 17174,
+      "sha256": "99ae2884bd6c95ad23e2623c431e0f28a604f06ae55bf1f666e66fa5f99b09dc"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_inspect_hacking.json",
+      "bytes": 11956,
+      "sha256": "73dd89af50b1bcf365c6d129d6e47b3b8e4dbed41bf293d6ede0822fe41b6f7d"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_partial_labels.json",
+      "bytes": 31384,
+      "sha256": "c2dc25ea1c03b772630b0b7f7774b7025e804d14ac87028c43238893867d0725"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_release_competition.json",
+      "bytes": 21888,
+      "sha256": "1a49f5397d45c06ce2702d0b5f7f54feaaa75c2072403806addf0d99580d584e"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_reward_competition.json",
+      "bytes": 26731,
+      "sha256": "22b95b53fc5fed59a29c04d79a5d79045c77f417bc27ebc8681d46f5aba47136"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_rollout_overlap.json",
+      "bytes": 20055,
+      "sha256": "cc61a62d51db19b86585a45d45e36aae56168ab71472a15f8bd42ff6aebe700b"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_runtime_deepstream.json",
+      "bytes": 15094,
+      "sha256": "f734063637655c992f951945e0547985ad8290019d01dc5187077cb4ab76983a"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_runtime_fanout.json",
+      "bytes": 26451,
+      "sha256": "caf13bcb8022ace6cdb2a7442efc32334afb125e69b52784aa3eee33004bc53d"
+    },
+    {
+      "path": "research/roboflow/raw/novelty_runtime_systems.json",
+      "bytes": 31333,
+      "sha256": "4100102cff7245d688c04737322354a7ed92b2528cebbac8446a7d4c7cd1ea30"
+    },
+    {
+      "path": "research/roboflow/raw/root_competition_testing.json",
+      "bytes": 45555,
+      "sha256": "77761d075596bf51bdffb9b1c43a84b9545a4bfd409c79ff6a4386665a21f2fe"
+    },
+    {
+      "path": "research/roboflow/raw/root_event_testing.json",
+      "bytes": 58374,
+      "sha256": "a41ae1af0800b683fe30d9fe4c7d67618c9dfc87308f1b469c897ac6599d58e7"
+    },
+    {
+      "path": "research/roboflow/raw/root_frontier_data.json",
+      "bytes": 43227,
+      "sha256": "bdd63d32aca332b438a2c0c74fa1a781e4cb6af35bd9d67109970011b6ff1ead"
+    },
+    {
+      "path": "research/roboflow/raw/root_grader_competitors.json",
+      "bytes": 39037,
+      "sha256": "807313be62be2ffe091ff9ec52a157e13115940ff371ba3a16bd55c87bd763ef"
+    },
+    {
+      "path": "research/roboflow/raw/root_product_overlap.json",
+      "bytes": 50744,
+      "sha256": "5ad0cf3a619477d993ff1c05fe572d7b4d893e4eae56aab7fe5251822943297e"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_core.py",
+      "bytes": 6035,
+      "sha256": "2b699cd0a53957909189a0df2088355d7fc7209ba9dce53a18e52658edc23b15"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_debugger.py",
+      "bytes": 1319,
+      "sha256": "8a4972746e0afec8bc84f3eb28eda6a136c6c8770737aefb2fa7db2b4e965059"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_differential.json",
+      "bytes": 38987,
+      "sha256": "77fe4f61654d57690a413ac5b9f1be3e36e56d0656d4b6748781c000448f776f"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_dynamic_debug.py",
+      "bytes": 7346,
+      "sha256": "126a87d7b14a48e581d991ba5e6c8ceb3c309ffbbc3187bc16a8b3fd1a4a86a8"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_eval.json",
+      "bytes": 37777,
+      "sha256": "6c9b657b89866f6325b8256510118218ed7bc1c08fdeba7380b55f3e781ba0eb"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_github.json",
+      "bytes": 39826,
+      "sha256": "e0fe7089eb59267a92ff6d67c35c21b9133d20eef270a9f5e33b290854834552"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_observer.py",
+      "bytes": 4890,
+      "sha256": "d3aaaffe78e7bf686cda9d5985b2471282651cb2247f6f557e1ca78eb9e6d79e"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_overlap.json",
+      "bytes": 51981,
+      "sha256": "a51665d3a4193acee06959a0c2c1f1f85e6c793c4e1b34f92af7aef0d476de7e"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_sdk.json",
+      "bytes": 24063,
+      "sha256": "e876854832b05f7701572ac0bdf6c0ba6744db504fab85062218a52486fabb63"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_testing.json",
+      "bytes": 27500,
+      "sha256": "89c731f38ad22792687194a0b72be8f7e838005febafb062673cb632fe680669"
+    },
+    {
+      "path": "research/roboflow/raw/workflows_devex_v1_core.py",
+      "bytes": 30701,
+      "sha256": "4e7b4121aff1d5b31370fda905d5c004ebdb975307933a788a89fb3634e14a61"
+    },
+    {
+      "path": "research/roboflow/research_stats.json",
+      "bytes": 381,
+      "sha256": "e51c85295e9661eef900818a25cf6a2880db3dd9e6c67a31e243459a0de8df0f"
+    },
+    {
+      "path": "research/roboflow/search_log.json",
+      "bytes": 16837,
+      "sha256": "4086fe29618538a40696fff2651179fd331e20520e76230514befdc8d1117b86"
+    },
+    {
+      "path": "research/roboflow/tools/build_deliverables.py",
+      "bytes": 13217,
+      "sha256": "197e923ab0f5c35d1d8650986e163f3657cddc693c317200f099d20814064ae0"
+    },
+    {
+      "path": "research/roboflow/tools/exa_research.py",
+      "bytes": 1898,
+      "sha256": "5e1b84af9b5ed138d0598204c3a1502dea952613c91dbb4d41a50609dd79dab9"
+    },
+    {
+      "path": "research/roboflow/tools/report_preamble.md",
+      "bytes": 10743,
+      "sha256": "aca2ce564f969978edb93702a11360efe8684a1f89b60c9d691db0bdccc12367"
+    },
+    {
+      "path": "research/roboflow/tools/report_recommendation.md",
+      "bytes": 6295,
+      "sha256": "b94cbf8bc07908601e18d04fca446f751c4d11c5aa05e9e4ce8a61c93a65a20b"
+    }
+  ]
+}

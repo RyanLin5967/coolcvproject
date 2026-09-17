@@ -1,0 +1,222 @@
+import os
+import os.path
+import socket
+import tempfile
+from typing import Generator
+
+import cv2
+import numpy as np
+import pytest
+
+ASSETS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "assets"))
+ROCK_PAPER_SCISSORS_ASSETS = os.path.join(ASSETS_DIR, "rock_paper_scissors")
+
+DUMMY_SECRET_ENV_VARIABLE = "DUMMY_SECRET"
+os.environ[DUMMY_SECRET_ENV_VARIABLE] = "this-is-not-a-real-secret"
+
+
+@pytest.fixture(scope="function")
+def crowd_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "crowd.jpg"))
+
+
+@pytest.fixture(scope="function")
+def license_plate_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "license_plate.jpg"))
+
+
+@pytest.fixture(scope="function")
+def dogs_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "dogs.jpg"))
+
+
+@pytest.fixture(scope="function")
+def car_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "car.jpg"))
+
+
+@pytest.fixture(scope="function")
+def red_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "red_image.png"))
+
+
+@pytest.fixture(scope="function")
+def fruit_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "multi-fruit.jpg"))
+
+
+@pytest.fixture(scope="function")
+def multi_line_text_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "multi_line_text.jpg"))
+
+
+@pytest.fixture(scope="function")
+def stitch_left_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "stitch", "v_left.jpeg"))
+
+
+@pytest.fixture(scope="function")
+def stitch_right_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "stitch", "v_right.jpeg"))
+
+
+@pytest.fixture(scope="function")
+def left_scissors_right_paper() -> np.ndarray:
+    return cv2.imread(
+        os.path.join(ROCK_PAPER_SCISSORS_ASSETS, "left_scissors_right_paper.jpg")
+    )
+
+
+@pytest.fixture(scope="function")
+def left_rock_right_paper() -> np.ndarray:
+    return cv2.imread(
+        os.path.join(ROCK_PAPER_SCISSORS_ASSETS, "left_rock_right_paper.jpg")
+    )
+
+
+@pytest.fixture(scope="function")
+def left_rock_right_rock() -> np.ndarray:
+    return cv2.imread(
+        os.path.join(ROCK_PAPER_SCISSORS_ASSETS, "left_rock_right_rock.jpg")
+    )
+
+
+@pytest.fixture(scope="function")
+def left_scissors_right_scissors() -> np.ndarray:
+    return cv2.imread(
+        os.path.join(ROCK_PAPER_SCISSORS_ASSETS, "left_scissors_right_scissors.jpg")
+    )
+
+
+@pytest.fixture(scope="function")
+def empty_directory() -> Generator[str, None, None]:
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        yield tmp_dir
+
+
+def _numpy_image_as_tensor_input(image: np.ndarray):
+    """Convert a BGR HWC numpy test image into the tensor-input form producers
+    submit: CHW RGB uint8 torch.Tensor on WORKFLOWS_IMAGE_TENSOR_DEVICE.
+    Delegates to the established `tensor_input_utils.numpy_image_as_tensor`
+    helper (same conversion + correct device placement); grayscale handled
+    here since the helper only covers 3-channel fixtures."""
+    import torch
+
+    if image.ndim == 2:
+        from inference.core.env import WORKFLOWS_IMAGE_TENSOR_DEVICE
+
+        return (
+            torch.from_numpy(np.ascontiguousarray(image).copy())
+            .unsqueeze(0)
+            .to(WORKFLOWS_IMAGE_TENSOR_DEVICE)
+        )
+    from tests.workflows.integration_tests.execution.tensor_input_utils import (
+        numpy_image_as_tensor,
+    )
+
+    return numpy_image_as_tensor(image)
+
+
+@pytest.fixture(
+    scope="function",
+    params=["numpy-input", "tensor-input"],
+    ids=["numpy-input", "tensor-input"],
+)
+def image_as_workflow_input(request):
+    """_TENSOR_ONLY input hardening: every image runtime parameter must work
+    submitted BOTH as np.ndarray (the historical test path, lazy numpy->tensor
+    materialisation) AND as torch.Tensor (the producer path, exercising the
+    deserializer's tensor arm and tensor-origin lazy numpy materialisation).
+
+    Usage in a tensor-only test: add this fixture and wrap each image input:
+    ``runtime_parameters={"image": [image_as_workflow_input(crowd_image)]}``.
+    """
+    if request.param == "numpy-input":
+        return lambda image: image
+    return _numpy_image_as_tensor_input
+
+
+def bool_env(val):
+    if isinstance(val, bool):
+        return val
+    return val.lower() in ["true", "1", "t", "y", "yes"]
+
+
+@pytest.fixture(scope="function")
+def face_image() -> np.ndarray:
+    return cv2.imread(os.path.join(ASSETS_DIR, "face.jpeg"))
+
+
+# Below taken from https://github.com/eclipse-paho/paho.mqtt.python/blob/d45de3737879cfe7a6acc361631fa5cb1ef584bb/tests/testsupport/broker.py
+class FakeMQTTBroker:
+    def __init__(self, connack_reason_code: int = 0, listening: bool = True):
+        # Bind to "localhost" for maximum performance, as described in:
+        # http://docs.python.org/howto/sockets.html#ipc
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.host = "localhost"
+        sock.bind((self.host, 0))
+        self.port = sock.getsockname()[1]
+        self.messages = []
+        self.messages_count_to_wait_for = 2
+        self.connack_reason_code = connack_reason_code
+
+        sock.settimeout(5)
+
+        self._sock = sock
+        self._conn = None
+        # bound but not listening: connection attempts are refused until listen()
+        if listening:
+            self.listen()
+
+    def listen(self):
+        self._sock.listen(1)
+
+    def start(self):
+        if self._sock is None:
+            raise ValueError("Socket is not open")
+        if self._conn is not None:
+            raise ValueError("Connection is already open")
+
+        conn, address = self._sock.accept()
+        conn.settimeout(1)
+        self._conn = conn
+        connack_sent = False
+        while len(self.messages) < self.messages_count_to_wait_for or not connack_sent:
+            packet = self.receive_packet(1000)
+            print(f"Received {packet}")
+            if not packet:
+                break
+            if packet.startswith(b"\x10"):
+                print("sending CONNACK")
+                self._conn.send(b"\x20\x02\x00" + bytes([self.connack_reason_code]))
+                connack_sent = True
+                continue
+            self.messages.append(packet)
+
+    def finish(self):
+        if self._conn is not None:
+            self._conn.close()
+            self._conn = None
+
+        if self._sock is not None:
+            self._sock.close()
+            self._sock = None
+
+    def receive_packet(self, num_bytes):
+        if self._conn is None:
+            raise ValueError("Connection is not open")
+
+        packet_in = self._conn.recv(num_bytes)
+        return packet_in
+
+
+@pytest.fixture(scope="function")
+def fake_mqtt_broker():
+    print("Setup broker")
+    broker = FakeMQTTBroker()
+
+    yield broker
+
+    print("Teardown broker")
+    broker.finish()

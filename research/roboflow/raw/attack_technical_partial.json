@@ -1,0 +1,195 @@
+{
+  "requestId": "58f823d9f8d9b67899484072b86f55b3",
+  "resolvedSearchType": "",
+  "results": [
+    {
+      "id": "https://exa.ai/library/publication/bvt1lj7yqbq",
+      "title": "Object Detection with a Unified Label Space from Multiple Datasets",
+      "url": "https://doi.org/10.48550/arxiv.2008.06614",
+      "publishedDate": "2020-08-15T00:00:00.000Z",
+      "author": "Xiangyun Zhao, Samuel Schulter, Gaurav Sharma, Yi\u2013Hsuan Tsai, Manmohan Chandraker, Ying Wu",
+      "text": "# Object Detection with a Unified Label Space from Multiple Datasets\n\nArXiv.org. Published: 2020-08-15. Preprint. 3 citations.\n\n## Authors\n\n- Xiangyun Zhao (Northwestern University): h-index 10; 1,023 citations\n- Samuel Schulter (NEC Laboratories America, Princeton, USA): h-index 22; 1,983 citations\n- Gaurav Sharma (NEC Laboratories America, Princeton, USA): h-index 53; 17,473 citations\n- Yi\u2013Hsuan Tsai (NEC Laboratories America, Princeton, USA): h-index 24; 3,833 citations\n- Manmohan Chandraker (NEC Laboratories America, Princeton, USA): h-index 49; 10,075 citations\n- Ying Wu (Northwestern University): h-index 69; 20,332 citations\n\n## Topics\n\n- Advanced Neural Network Applications\n- Advanced Image and Video Retrieval Techniques\n- Domain Adaptation and Few-Shot Learning\n\n---\n\n# Object Detection with a Unified Label Space from Multiple Datasets\n\nXiangyun Zhao 1, Samuel Schulter 2, Gaurav Sharma 2, Yi-Hsuan Tsai 2, Manmohan Chandraker 2,3, Ying Wu 1 1Northwestern University 2NEC Labs America 3UC San Diego\n\nAbstract. Given multiple datasets with different label spaces, the goal of this work is to train a single object detector predicting over the union of all the label spaces. The practical benefits of such an object detector are obvious and significant\u2014application-relevant categories can be picked and merged form arbitrary existing datasets. However, na\u00efve merging of datasets is not possible in this case, due to inconsistent object annotations. Consider an object category like faces that is annotated in one dataset, but is not annotated in another dataset, although the object itself appears in the latter\u2019s images. Some categories, like face here, would thus be considered foreground in one dataset, but background in another. To address this challenge, we design a framework which works with such partial annotations, and we exploit a pseudo labeling approach that we adapt for our specific case. We propose loss functions that carefully integrate partial but correct annotations with complementary but noisy pseudo labels. Evaluation in the proposed novel setting requires full annotation on the test set. We collect the required annotations 1 and define a new challenging experimental setup for this task based on existing public datasets. We show improved performances compared to competitive baselines and appropriate adaptations of existing work.\n\n## 1. Introduction\n\nObject detection has made tremendous progress in recent years to become a powerful computer vision tool [10,23,25,36]. This is driven by the availability of large-scale datasets with bounding box annotations. However, obtaining such data is costly and time-consuming. While multiple publicly available datasets with annotations for various categories already exist, their label spaces are mostly different, which makes a na\u00efve combination of the data impossible [9,15,18]. But such a unification could be crucial for applications that require categories not labeled in some of the datasets, to avoid a costly annotation process. We address this problem and propose to unify heterogeneous label spaces across multiple datasets. We show how to train a single object detector capable of detecting over the union of all training label spaces on a given test image (see Fig. 1a).\n\n1 Project page: http://www.nec-labs.com/~mas/UniDet This work was part of XZ\u2019s internship at NEC Labs America.\n\n2 X. Zhao, S. Schulter, G. Sharma, Y.-H. Tsai, M. Chandraker, Y. Wu\n\n(a) (b) Fig. 1: (a) We train a single object detector from multiple datasets with hetero geneous label spaces. In contrast to prior work [31], our model unifies the label spaces of all datasets. (b) Illustration of the ambiguity of background in object detection when training from multiple datasets with different label spaces. Here, only \u201cperson\u201d is consistent wrt. both datasets but \u201ccar\u201d and \u201cface\u201d are missing in the other one, respectively. Na\u00efve combination of the datasets leads to wrong training signals\n\nUnifying different label spaces is not straightforward for object detection. A key challenge is the ambiguity in the definition of the \u201cbackground\u201d category. Recall that image regions in object detection datasets may contain objects without annotation because the object\u2019s category is not part of the label space. These image regions are then considered part of the background. However, their object category may be annotated in a different dataset. For instance, the label space of the COCO dataset [18] has 80 categories but it d",
+      "entities": [
+        {
+          "id": "https://exa.ai/library/publication/bvt1lj7yqbq",
+          "type": "publication",
+          "version": 1,
+          "properties": {
+            "title": "Object Detection with a Unified Label Space from Multiple Datasets",
+            "year": 2020,
+            "date": "2020-08-15",
+            "type": "preprint",
+            "language": "en",
+            "citationCount": 3,
+            "authors": [
+              {
+                "name": "Xiangyun Zhao",
+                "id": null
+              },
+              {
+                "name": "Samuel Schulter",
+                "id": null
+              },
+              {
+                "name": "Gaurav Sharma",
+                "id": null
+              },
+              {
+                "name": "Yi\u2013Hsuan Tsai",
+                "id": null
+              },
+              {
+                "name": "Manmohan Chandraker",
+                "id": null
+              },
+              {
+                "name": "Ying Wu",
+                "id": null
+              }
+            ],
+            "referenceCount": 36,
+            "abstract": "Given multiple datasets with different label spaces, the goal of this work is to train a single object detector predicting over the union of all the label spaces. The practical benefits of such an object detector are obvious and significant application-relevant categories can be picked and merged form arbitrary existing datasets. However, naive merging of datasets is not possible in this case, due to inconsistent object annotations. Consider an object category like faces that is annotated in one dataset, but is not annotated in another dataset, although the object itself appears in the latter images. Some categories, like face here, would thus be considered foreground in one dataset, but background in another. To address this challenge, we design a framework which works with such partial annotations, and we exploit a pseudo labeling approach that we adapt for our specific case. We propose loss functions that carefully integrate partial but correct annotations with complementary but noisy pseudo labels. Evaluation in the proposed novel setting requires full annotation on the test set. We collect the required annotations and define a new challenging experimental setup for this task based one existing public datasets. We show improved performances compared to competitive baselines and appropriate adaptations of existing work.",
+            "doi": "10.48550/arxiv.2008.06614"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://github.com/xingyizhou/unidet/",
+      "title": "xingyizhou/UniDet",
+      "url": "https://github.com/xingyizhou/unidet/",
+      "text": "# xingyizhou/UniDet\n\nObject detection on multiple datasets with an automatically learned unified label space.\n\n- Stars: 517\n- Forks: 56\n- Watchers: 517\n- Open issues: 24\n- Default branch: master\n- Created: 2021-02-25T18:11:13Z\n\n## Languages\n\n- Jupyter Notebook\n- Python\n- Shell\n\n## Topics\n\n- coco\n- object-detection\n- objects365\n- openimages\n- robust\n\n## Top Contributors\n\n- ppwwyyxx (503 contributions)\n- vkhalidov (102 contributions)\n- MarcSzafraniec (65 contributions)\n- wat3rBro (21 contributions)\n- patricklabatut (13 contributions)\n- chenbohua3 (13 contributions)\n- xingyizhou (11 contributions)\n- SuperIRabbit (8 contributions)\n- sampepose (7 contributions)\n- MrParosk (7 contributions)\n\n---\n\n## README\n\n# Simple multi-dataset detection\nAn object detector trained on multiple large-scale datasets with a unified label space; Winning solution of ECCV 2020 Robust Vision Challenges.\n\n \n\n> **Simple multi-dataset detection**, \n> Xingyi Zhou, Vladlen Koltun, Philipp Kr\u00e4henb\u00fchl, \n> *CVPR 2022 (arXiv 2102.13086)* \n\nContact: zhouxy@cs.utexas.edu. Any questions or discussions are welcomed! \n\n## Features at a glance\n\n- We trained a unified object detector on 4 large-scale detection datasets: COCO, Objects365, OpenImages, and Mapillary, with state-of-the-art performance on all of them.\n\n- The model predicts class labels in a **learned** unified label space.\n\n- The model can be directly used to test on novel datasets outside the training datasets.\n\n- In this repo, we also provide state-of-the-art baselines for Objects365 and OpenImages.\n\n## Main results\n\n- RVC challenge\n\n| COCO test-challenge | OpenImages public test | Mapillary test | Objects365 val |\n|---------------------|------------------------|----------------|----------------|\n| 52.9 | 60.6 | 25.3 | 33.7 |\n\nResults are obtained using a Cascade-RCNN with ResNeSt200 trained in an 8x schedule.\n\n- Unified model vs. ensemble of dataset-specific models with known test domains.\n\n| | COCO | Objects365 | OpenImages | mean. |\n|-----------------------|-----------|--------------|--------------|--------|\n|Unified | 45.4 | 24.4 | 66.0 | 45.3 |\n|Dataset-specific models| 42.5 | 24.9 | 65.7 | 44.4 |\n\nResults are obtained using a Cascade-RCNN with Res50 trained in an 8x schedule.\n\n- Zero-shot cross dataset evaluation\n\n| | VOC | VIPER | CityScapes | ScanNet | WildDash | CrowdHuman | KITTI | mean |\n|----------------|-------|-------|--------------|---------|----------|------------|-------|------|\n|Unified | 82.9 | 21.3 | 52.6 | 29.8 | 34.7 | 70.7 | 39.9 | 47.3 |\n|Oracle models | 80.3 | 31.8 | 54.6 | 44.7 | - | 80.0 | - | - |\n\nResults are obtained using a Cascade-RCNN with Res50 trained in an 8x schedule.\n\nMore models can be found in our MODEL ZOO.\n\n## Installation\n\nOur project is developed on detectron2. Please follow the official detectron2 installation.\n\n## Demo\n\nWe use the same inference API as detectorn2. To run inference on an image folder using our pretrained model, run\n\n~~~\npython demo.py --config-file configs/Unified_learned_OCIM_R50_6x+2x.yaml --input images/*.jpg --opts MODEL.WEIGHTS models/Unified_learned_OCIM_R50_6x+2x.pth\n~~~\n\nIf setup correctly, the output should look like:\n \n\n*The sample image is from WildDash dataset.\n\nNote that the model predicts all labels in its label hierarchy tree (for example, both `vehicle` and `car` for a car), following the protocol in OpenImages.\n\n## Benchmark evaluation and training\n\nAfter installation, follow the instructions in DATASETS.md to setup the (many) datasets. Then check REPRODUCE.md to reproduce the results in the paper.\n\n## License\n\nOur code is under Apache 2.0 license.\n\n## Citation\n\nIf you find this project useful for your research, please use the following BibTeX entry.\n\n @inproceedings{zhou2021simple,\n title={Simple multi-dataset detection},\n author={Zhou, Xingyi and Koltun, Vladlen and Kr{\\\"a}henb{\\\"u}hl, Philipp},\n booktitle={CVPR},\n year={2022}\n }"
+    },
+    {
+      "id": "https://exa.ai/library/publication/g1xkpzmy70b",
+      "title": "Anno-incomplete Multi-dataset Detection",
+      "url": "https://doi.org/10.48550/arxiv.2408.16247",
+      "publishedDate": "2024-08-29T00:00:00.000Z",
+      "author": "Y. Xu, Haoxiang Zhong, Kai Wu, Jialin Li, Yong Liu, Chengjie Wang, et al.",
+      "text": "# Anno-incomplete Multi-dataset Detection\n\narXiv (Cornell University). Published: 2024-08-29. Preprint. 0 citations.\n\n## Authors\n\n- Y. Xu: h-index 3; 61 citations\n- Haoxiang Zhong: h-index 0; 0 citations\n- Kai Wu: h-index 8; 170 citations\n- Jialin Li: h-index 0; 0 citations\n- Yong Liu: h-index 0; 0 citations\n- Chengjie Wang: h-index 0; 0 citations\n- Shu-Tao Xia: h-index 0; 0 citations\n- H.\u2013W. Liao: h-index 4; 2,774 citations\n\n## Topics\n\n- Anomaly Detection Techniques and Applications\n- Machine Learning and Data Classification\n\n---\n\n# Anno-incomplete Multi-dataset Detection\n\n## Abstract\n\nObject detectors have shown outstanding performance on various public datasets. However, annotating a new dataset for a new task is usually unavoidable in real, since 1) a single existing dataset usually does not contain all object categories needed; 2) using multiple datasets usually suffers from annotation incompletion and heterogeneous features. Based on the above considerations, we propose a novel problem as \"Anno-incomplete Multi-dataset Detection\", and develop an endto-end multi-task learning architecture which can accurately detect all the object categories with multiple partially annotated datasets. Specifically, to organically integrate these datasets with incomplete annotations, we propose an attention feature interactor which helps to mine the relations among different datasets. Besides, a knowledge amalgamation training strategy is incorporated to accommodate heterogeneous features from different sources. Extensive experiments on different object detection datasets demonstrate the effectiveness of our methods and an improvement of 2.17%, 2.10% in mAP can be achieved on COCO and VOC respectively.\n\n## INTRODUCTION\n\nO BJECT detection has attracted a lot of attention with the fast development of deep neural networks in recent years [1] . Thanks to the availability of large scale public datasets [2] , [3] , object detectors such as FCOS [4] and Faster-RCNN [5] have achieved remarkable results and are being widely applied in real world scenarios such as Face Detection [6] , Pedestrian Detection [7] and Vehicle Detection [8] etc.\n\nHowever, despite that more and more datasets have been compiled, the scopes of these public or private datasets are usually predefined and limited in the sense of object categories. When it comes to a new scenario, the scope of which differs from those of existing datasets, a new dataset may become in need. For example, for autonomous driving, a dataset is usually not annotated for both traffic lights and road surface markings. Even if a new dataset is tailored for the new scenario, again, the scope of the new dataset is still predefined and limited, which unfortunately falls into and contributes to this costly circle.\n\nAlternatively, one could work on utilizing existing datasets without manually annotating extra labels. Most of current object detectors are designed for a single dataset, and learning a model on multiple datasets of varying scopes differs from them significantly. First of all, data from different sources contains heterogeneous features, discouraging naive direct application of those detectors on the problem. Moreover, for each dataset, annotations are provided only on objects within its specific scope, but images are highly likely to contain objects outside its category coverage. It means that a dataset may contain unlabeled objects, the categories of which are not concerned in this dataset, but are in the scope of the entire problem (Fig. 1 gives an example). Whether making use of these unlabeled objects would help and how to effectively make use of them are also of great interest in this paper. We formulate this problem as \"Anno-incomplete Multi-dataset Detection\". To the best of our knowledge, we are the first to target on this problem. This differs from multi-dataset detection, as we will outline in Sec.II-B1.\n\nTo this end, different datasets (sources) are handled in different tasks in separate branches in an integrated architecture. Recent works of multi-task learning [9] - [13] usually train multiple tasks on the same set of images with full annotations, e.g. segmentation and depth estimation on the same image. In contrast, tasks are trained on different sets of images with incomplete annotations in our problem. Moreover, categories from different datasets could be related but with heterogeneous features. These relationships may help the detection of objects from each side. We are ",
+      "entities": [
+        {
+          "id": "https://exa.ai/library/publication/g1xkpzmy70b",
+          "type": "publication",
+          "version": 1,
+          "properties": {
+            "title": "Anno-incomplete Multi-dataset Detection",
+            "year": 2024,
+            "date": "2024-08-29",
+            "type": "preprint",
+            "language": "en",
+            "citationCount": 0,
+            "authors": [
+              {
+                "name": "Y. Xu",
+                "id": null
+              },
+              {
+                "name": "Haoxiang Zhong",
+                "id": null
+              },
+              {
+                "name": "Kai Wu",
+                "id": null
+              },
+              {
+                "name": "Jialin Li",
+                "id": null
+              },
+              {
+                "name": "Yong Liu",
+                "id": null
+              },
+              {
+                "name": "Chengjie Wang",
+                "id": null
+              },
+              {
+                "name": "Shu-Tao Xia",
+                "id": null
+              },
+              {
+                "name": "H.\u2013W. Liao",
+                "id": null
+              }
+            ],
+            "referenceCount": null,
+            "abstract": "Object detectors have shown outstanding performance on various public datasets. However, annotating a new dataset for a new task is usually unavoidable in real, since 1) a single existing dataset usually does not contain all object categories needed; 2) using multiple datasets usually suffers from annotation incompletion and heterogeneous features. We propose a novel problem as \"Annotation-incomplete Multi-dataset Detection\", and develop an end-to-end multi-task learning architecture which can accurately detect all the object categories with multiple partially annotated datasets. Specifically, we propose an attention feature extractor which helps to mine the relations among different datasets. Besides, a knowledge amalgamation training strategy is incorporated to accommodate heterogeneous features from different sources. Extensive experiments on different object detection datasets demonstrate the effectiveness of our methods and an improvement of 2.17%, 2.10% in mAP can be achieved on COCO and VOC respectively.",
+            "doi": "10.48550/arxiv.2408.16247"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://cseweb.ucsd.edu/~mkchandraker/pdf/eccv20_unifiedobjectdetection.pdf",
+      "title": "Object Detection with a Unified Label Space from Multiple Datasets",
+      "url": "https://cseweb.ucsd.edu/~mkchandraker/pdf/eccv20_unifiedobjectdetection.pdf",
+      "text": "## Object Detection with a Unified Label Space from Multiple Datasets\n\nXiangyun Zhao 1, Samuel Schulter 2, Gaurav Sharma 2, Yi-Hsuan Tsai 2, Manmohan Chandraker 2,3, Ying Wu 1\n\n1Northwestern University 2NEC Labs America 3UC San Diego\n\nAbstract. Given multiple datasets with different label spaces, the goal of this work is to train a single object detector predicting over the union of all the label spaces. The practical benefits of such an object detector are obvious and significant\u2014application-relevant categories can be picked and merged form arbitrary existing datasets. However, na\u00efve merging of datasets is not possible in this case, due to inconsistent object annotations. Consider an object category like faces that is annotated in one dataset, but is not annotated in another dataset, although the object itself appears in the latter\u2019s images. Some categories, like face here, would thus be considered foreground in one dataset, but background in another. To address this challenge, we design a framework which works with such partial annotations, and we exploit a pseudo labeling approach that we adapt for our specific case. We propose loss functions that carefully integrate partial but correct annotations with complementary but noisy pseudo labels. Evaluation in the proposed novel setting requires full annotation on the test set. We collect the required annotations 1 and define a new challenging experimental setup for this task based on existing public datasets. We show improved performances compared to competitive baselines and appropriate adaptations of existing work.\n\n1 Introduction\n\nObject detection has made tremendous progress in recent years to become a powerful computer vision tool [10,23,25]. This is driven by the availability of large-scale datasets with bounding box annotations. However, obtaining such data is costly and time-consuming. While multiple publicly available datasets with annotations for various categories already exist, their label spaces are mostly different, which makes a na\u00efve combination of the data impossible [9,15,18]. But such a unification could be crucial for applications that require categories not labeled in some of the datasets, to avoid a costly annotation process. We address this problem and propose to unify heterogeneous label spaces across multiple datasets. We show how to train a single object detector capable of detecting over the union of all training label spaces on a given test image (see Fig. 1a).\n\n1 Project page: http://www.nec-labs.com/~mas/UniDet This work was part of Xiangyun Zhao\u2019s internship at NEC Labs America.\n\n2 X. Zhao, S. Schulter, G. Sharma, Y.-H. Tsai, M. Chandraker, Y. Wu\n\n(a) (b) Fig. 1: (a) We train a single object detector from multiple datasets with hetero geneous label spaces. In contrast to prior work [31], our model unifies the label spaces of all datasets. (b) Illustration of the ambiguity of background in object detection when training from multiple datasets with different label spaces. Here, only \u201cperson\u201d is consistent wrt. both datasets but \u201ccar\u201d and \u201cface\u201d are missing in the other one, respectively. Na\u00efve combination of the datasets leads to wrong training signals\n\nUnifying different label spaces is not straightforward for object detection. A key challenge is the ambiguity in the definition of the \u201cbackground\u201d category. Recall that image regions in object detection datasets may contain objects without annotation because the object\u2019s category is not part of the label space. These image regions are then considered part of the background. However, their object category may be annotated in a different dataset. For instance, the label space of the COCO dataset [18] has 80 categories but it does not contain \u201chuman faces\u201d, which is present in many of the COCO images, and also annotated in other datasets like [34]. A pair of images illustrate the point in Fig. 1b. Hence, images and annotations of different datasets can not be trivially combined while preserving the annotation consistency wrt. the union of all their label spaces. A straightforward attempt to handle the ambiguity of the label space is exhaustive manual annotation, which is very costly in terms of both time and money. Recent works have tried to address a similar problem of expanding the label space of object detectors [22,26,31], which we discuss in Sec. 2. However, none of them can truly unify multiple label spaces and are, thus, not applicable in our setting. In contrast, we propose to handle "
+    },
+    {
+      "id": "https://www.nec-labs.com/wp-content/uploads/2023/03/Object_Detection_with_a_Unified_Label_Space_from_Multiple_Datasets.pdf",
+      "title": "Object Detection with a Unified Label Space from Multiple Datasets",
+      "url": "https://www.nec-labs.com/wp-content/uploads/2023/03/Object_Detection_with_a_Unified_Label_Space_from_Multiple_Datasets.pdf",
+      "text": "## Object Detection with a Unified Label Space from Multiple Datasets\n\nXiangyun Zhao 1, Samuel Schulter 2, Gaurav Sharma 2, Yi-Hsuan Tsai 2, Manmohan Chandraker 2,3, Ying Wu 1\n\n1Northwestern University 2NEC Labs America 3UC San Diego\n\nAbstract. Given multiple datasets with different label spaces, the goal of this work is to train a single object detector predicting over the union of all the label spaces. The practical benefits of such an object detector are obvious and significant\u2014application-relevant categories can be picked and merged form arbitrary existing datasets. However, na\u00efve merging of datasets is not possible in this case, due to inconsistent object annotations. Consider an object category like faces that is annotated in one dataset, but is not annotated in another dataset, although the object itself appears in the latter\u2019s images. Some categories, like face here, would thus be considered foreground in one dataset, but background in another. To address this challenge, we design a framework which works with such partial annotations, and we exploit a pseudo labeling approach that we adapt for our specific case. We propose loss functions that carefully integrate partial but correct annotations with complementary but noisy pseudo labels. Evaluation in the proposed novel setting requires full annotation on the test set. We collect the required annotations 1 and define a new challenging experimental setup for this task based on existing public datasets. We show improved performances compared to competitive baselines and appropriate adaptations of existing work.\n\n1 Introduction\n\nObject detection has made tremendous progress in recent years to become a powerful computer vision tool [10,23,25]. This is driven by the availability of large-scale datasets with bounding box annotations. However, obtaining such data is costly and time-consuming. While multiple publicly available datasets with annotations for various categories already exist, their label spaces are mostly different, which makes a na\u00efve combination of the data impossible [9,15,18]. But such a unification could be crucial for applications that require categories not labeled in some of the datasets, to avoid a costly annotation process. We address this problem and propose to unify heterogeneous label spaces across multiple datasets. We show how to train a single object detector capable of detecting over the union of all training label spaces on a given test image (see Fig. 1a).\n\n1 Project page: http://www.nec-labs.com/~mas/UniDet This work was part of Xiangyun Zhao\u2019s internship at NEC Labs America.\n\n2 X. Zhao, S. Schulter, G. Sharma, Y.-H. Tsai, M. Chandraker, Y. Wu\n\n(a) (b) Fig. 1: (a) We train a single object detector from multiple datasets with hetero geneous label spaces. In contrast to prior work [31], our model unifies the label spaces of all datasets. (b) Illustration of the ambiguity of background in object detection when training from multiple datasets with different label spaces. Here, only \u201cperson\u201d is consistent wrt. both datasets but \u201ccar\u201d and \u201cface\u201d are missing in the other one, respectively. Na\u00efve combination of the datasets leads to wrong training signals\n\nUnifying different label spaces is not straightforward for object detection. A key challenge is the ambiguity in the definition of the \u201cbackground\u201d category. Recall that image regions in object detection datasets may contain objects without annotation because the object\u2019s category is not part of the label space. These image regions are then considered part of the background. However, their object category may be annotated in a different dataset. For instance, the label space of the COCO dataset [18] has 80 categories but it does not contain \u201chuman faces\u201d, which is present in many of the COCO images, and also annotated in other datasets like [34]. A pair of images illustrate the point in Fig. 1b. Hence, images and annotations of different datasets can not be trivially combined while preserving the annotation consistency wrt. the union of all their label spaces. A straightforward attempt to handle the ambiguity of the label space is exhaustive manual annotation, which is very costly in terms of both time and money. Recent works have tried to address a similar problem of expanding the label space of object detectors [22,26,31], which we discuss in Sec. 2. However, none of them can truly unify multiple label spaces and are, thus, not applicable in our setting. In contrast, we propose to handle "
+    },
+    {
+      "id": "https://exa.ai/library/publication/xm09g27fsd3",
+      "title": "Detecting Twenty-thousand Classes using Image-level Supervision",
+      "url": "https://doi.org/10.48550/arxiv.2201.02605",
+      "publishedDate": "2022-01-07T00:00:00.000Z",
+      "author": "Xingyi Zhou, Rohit Girdhar, Armand Joulin, Kr\u00e4henb\u00fchl, Philipp, Ishan Misra",
+      "text": "# Detecting Twenty-thousand Classes using Image-level Supervision\n\narXiv (Cornell University). Published: 2022-01-07. Preprint. 15 citations.\n\n## Authors\n\n- Xingyi Zhou: h-index 27; 8,230 citations\n- Rohit Girdhar: h-index 26; 4,835 citations\n- Armand Joulin: h-index 61; 39,200 citations\n- Kr\u00e4henb\u00fchl, Philipp\n- Ishan Misra: h-index 39; 16,004 citations\n\n## Topics\n\n- Advanced Image and Video Retrieval Techniques\n- Domain Adaptation and Few-Shot Learning\n- COVID-19 diagnosis using AI\n\n---\n\n# Detecting Twenty-thousand Classes using Image-level Supervision\n\nXingyi Zhou 1,2 ? Rohit Girdhar 1 Armand Joulin 1 Philipp Kr\u00a8ahenb\u00a8uhl 2 Ishan Misra 1 1\n\nMeta AI\n\n2\n\nThe University of Texas at Austin\n\nAbstract. Current object detectors are limited in vocabulary size due to the small scale of detection datasets. Image classifiers, on the other hand, reason about much larger vocabularies, as their datasets are larger and easier to collect. We propose Detic, which simply trains the classifiers of a detector on image classification data and thus expands the vocabulary of detectors to tens of thousands of concepts. Unlike prior work, Detic does not need complex assignment schemes to assign image labels to boxes based on model predictions, making it much easier to implement and compatible with a range of detection architectures and backbones. Our results show that Detic yields excellent detectors even for classes without box annotations. It outperforms prior work on both open-vocabulary and long-tail detection benchmarks. Detic provides a gain of 2.4 mAP for all classes and 8.3 mAP for novel classes on the open-vocabulary LVIS benchmark. On the standard LVIS benchmark, Detic obtains 41.7 mAP when evaluated on all classes, or only rare classes, hence closing the gap in performance for object categories with few samples. For the first time, we train a detector with all the twenty-one-thousand classes of the ImageNet dataset and show that it generalizes to new datasets without finetuning. Code is available at https://github.com/facebookresearch/Detic.\n\n## 1. Introduction\n\nObject detection consists of two sub-problems - finding the object (localization) and naming it (classification). Traditional methods tightly couple these two sub problems and thus rely on box labels for all classes. Despite many data collection efforts, detection datasets [18, 28, 34, 49] are much smaller in overall size and vocabularies than classification datasets [10]. For example, the recent LVIS detection dataset [18] has 1000+ classes with 120K images; OpenImages [28] has 500 classes in 1.8M images. Moreover, not all classes contain sufficient annotations to train a robust detector (see Figure 1 Top). In classification, even the ten-year old ImageNet [10] has 21K classes and 14M images (Figure 1 Bottom). In this paper, we propose Detector with image classes (Detic) that uses image-level supervision in addition to detection supervision. We observe that the localization and classification sub-problems can be decoupled. Modern region\n\n?\n\nWork done during an internship at Meta.\n\ncar car bear otter, brown bear\n\n500\n\n1000\n\n1500\n\n2000\n\n2500\n\nCar Unicycle Otter Fox Co XboX ff ee cup\n\nOnly image-level labels\n\nLVIS ImageNet Conceptual Captions\n\n0\n\nStamper\n\nLion Pig\n\nPaper clip Viola car car bear otter, brown bear\n\n500\n\n1000\n\n1500\n\n2000\n\n2500\n\nCar Unicycle Otter Fox Co XboX ff ee cup\n\nOnly image-level labels\n\nLVIS ImageNet Conceptual Captions\n\n0\n\nStamper\n\nLion Pig\n\nPaper clip Viola\n\nFig. 1: Top: Typical detection results from a strong open-vocabulary LVIS detector. The detector misses objects of \u201ccommon\u201d classes. Bottom: Number of images in LVIS, ImageNet, and Conceptual Captions per class (smoothed by averaging 100 neighboring classes). Classification datasets have a much larger vocabulary than detection datasets.\n\nproposal networks already localize many \u2018new\u2019 objects using existing detection supervision. Thus, we focus on the classification sub-problem and use image-level labels to train the classifier and broaden the vocabulary of the detector. We propose a simple classification loss that applies the image-level supervision to the proposal with the largest size, and do not supervise other outputs for image labeled data. This is easy to implement and massively expands the vocabulary. Most existing weakly-supervised detection techniques [13, 22, 36, 59, 67] use the weakly labeled data to supervise both the localization and classification sub-problems of detection. Since imag",
+      "entities": [
+        {
+          "id": "https://exa.ai/library/publication/xm09g27fsd3",
+          "type": "publication",
+          "version": 1,
+          "properties": {
+            "title": "Detecting Twenty-thousand Classes using Image-level Supervision",
+            "year": 2022,
+            "date": "2022-01-07",
+            "type": "preprint",
+            "language": "en",
+            "citationCount": 15,
+            "authors": [
+              {
+                "name": "Xingyi Zhou",
+                "id": null
+              },
+              {
+                "name": "Rohit Girdhar",
+                "id": null
+              },
+              {
+                "name": "Armand Joulin",
+                "id": null
+              },
+              {
+                "name": "Kr\u00e4henb\u00fchl, Philipp",
+                "id": null
+              },
+              {
+                "name": "Ishan Misra",
+                "id": null
+              }
+            ],
+            "referenceCount": null,
+            "abstract": "Current object detectors are limited in vocabulary size due to the small scale of detection datasets. Image classifiers, on the other hand, reason about much larger vocabularies, as their datasets are larger and easier to collect. We propose Detic, which simply trains the classifiers of a detector on image classification data and thus expands the vocabulary of detectors to tens of thousands of concepts. Unlike prior work, Detic does not need complex assignment schemes to assign image labels to boxes based on model predictions, making it much easier to implement and compatible with a range of detection architectures and backbones. Our results show that Detic yields excellent detectors even for classes without box annotations. It outperforms prior work on both open-vocabulary and long-tail detection benchmarks. Detic provides a gain of 2.4 mAP for all classes and 8.3 mAP for novel classes on the open-vocabulary LVIS benchmark. On the standard LVIS benchmark, Detic obtains 41.7 mAP when evaluated on all classes, or only rare classes, hence closing the gap in performance for object categories with few samples. For the first time, we train a detector with all the twenty-one-thousand classes of the ImageNet dataset and show that it generalizes to new datasets without finetuning. Code is available at \\url{https://github.com/facebookresearch/Detic}.",
+            "doi": "10.48550/arxiv.2201.02605"
+          }
+        }
+      ]
+    }
+  ],
+  "searchTime": 1094.5,
+  "costDollars": {
+    "total": 0.007,
+    "search": {
+      "neural": 0.007
+    }
+  },
+  "_research": {
+    "query": "partially annotated object detection unified label space loss dataset class annotation missing negatives Detic UniDet federated loss",
+    "retrieved_utc": "2026-09-17T17:12:57.762895+00:00"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "revision": "e3fc28795f2a4303069c6b72e80431e5ed716030",
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/pyproject.toml",
+      "sha256": "f7087141895528916f026cd9b9bebe4302f5c691c24037ff7b2b77d80a49c1f1",
+      "bytes": 20316
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/LICENSE",
+      "sha256": "8cabf52c61130fc97a7e5da5e3685ccf44841c0c53d6f881189369b136603cca",
+      "bytes": 11345
+    },
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/README.md",
+      "sha256": "497b555afad4c6b1c18d0d29b8220225034281975e71e80ae4666451a2747123",
+      "bytes": 26220
+    },
+    {
+      "path": "src/rfdetr/models/criterion.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/models/criterion.py",
+      "sha256": "dd718b89f8166b39cb94ee76a9e5d983248d6333d8cc10bf8e2eef6984e3e272",
+      "bytes": 49870
+    },
+    {
+      "path": "src/rfdetr/models/matcher.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/models/matcher.py",
+      "sha256": "8c66d361d65f4a484a38b58c12d4f01bd3689534072aadbc4005722e2b8c44f9",
+      "bytes": 49478
+    },
+    {
+      "path": "src/rfdetr/models/lwdetr.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/models/lwdetr.py",
+      "sha256": "b8685a02b4cb1a8c5a31c1d527951257e7893d8e441908f68ac8c56d5f307880",
+      "bytes": 47215
+    },
+    {
+      "path": "src/rfdetr/models/weights.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/models/weights.py",
+      "sha256": "0123a578169cfdf52bf5220d49d4f09c04c4c40eb8c609e88f6a940545f1170a",
+      "bytes": 35574
+    },
+    {
+      "path": "src/rfdetr/models/transformer.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/models/transformer.py",
+      "sha256": "8193223f529f376b756f801a57289b405a087db719a54c68794ac8f60dfed9f2",
+      "bytes": 56213
+    },
+    {
+      "path": "src/rfdetr/config.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/config.py",
+      "sha256": "84db8858c44810d77ea6eea983aa7fd006430d08af8d3cc5835a8c7f5ae8de51",
+      "bytes": 78618
+    },
+    {
+      "path": "src/rfdetr/training/module_model.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/training/module_model.py",
+      "sha256": "a9424c929baaf047b800f1cdbc63fdeb3b1c4748ccbf77570cfbf03b9ab21822",
+      "bytes": 75954
+    },
+    {
+      "path": "src/rfdetr/training/module_data.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/training/module_data.py",
+      "sha256": "8706ab8bf98a876dc7e3fb618b2aec476bf619c2f34d9ca48e38ef6c68b418f3",
+      "bytes": 40250
+    },
+    {
+      "path": "src/rfdetr/training/__init__.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/training/__init__.py",
+      "sha256": "b1d002e06508bfbe7f39836ac07ca439a174f8e0de9adf090d6ff17b3247fb98",
+      "bytes": 1647
+    },
+    {
+      "path": "src/rfdetr/datasets/coco.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/datasets/coco.py",
+      "sha256": "9a167366347384cfc5dc44e653447b785d202171860ca0517671c80d06ceffcf",
+      "bytes": 74319
+    },
+    {
+      "path": "src/rfdetr/datasets/_torchvision.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/datasets/_torchvision.py",
+      "sha256": "6b7bb1e597e86077a5535ad1695253689fecd2a79d95c82f8cf95b41df8252bf",
+      "bytes": 25499
+    },
+    {
+      "path": "src/rfdetr/datasets/transforms.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/datasets/transforms.py",
+      "sha256": "15e64d95936f2dc1ceab0bc7252c689b6853f862cc83ed663d592ed739df7926",
+      "bytes": 49425
+    },
+    {
+      "path": "src/rfdetr/utilities/tensors.py",
+      "url": "https://raw.githubusercontent.com/roboflow/rf-detr/e3fc28795f2a4303069c6b72e80431e5ed716030/src/rfdetr/utilities/tensors.py",
+      "sha256": "071fc78119cdcccdd18148aae13db7960fe966d098a680122366cfc4ffd8efe1",
+      "bytes": 32941
+    }
+  ]
+}

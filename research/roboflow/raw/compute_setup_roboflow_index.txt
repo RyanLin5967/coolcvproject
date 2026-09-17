@@ -1,0 +1,806 @@
+# Roboflow Docs
+
+## Get Started
+
+- [Roboflow Documentation](https://docs.roboflow.com/readme.md): Find the resources you need to build and deploy your computer vision application.
+- [Model Training](https://docs.roboflow.com/guides/model-training.md): Turn a short video into a custom-trained object detection model you can call from an API.
+- [Run a Model Locally](https://docs.roboflow.com/guides/run-a-model-locally.md): Run Roboflow models on your own hardware with a Docker inference server, in five minutes.
+- [Run a Model on a Video](https://docs.roboflow.com/guides/run-a-model-on-a-video.md): Build a Workflow that detects, tracks, and counts objects, then run it on a video in your browser.
+- [Use a Model API Endpoint](https://docs.roboflow.com/guides/run-model-serverless-api.md): Run a model on Roboflow's cloud GPUs in five minutes, with no hardware to set up.
+- [Agents](https://docs.roboflow.com/agents/agents.md): Overview of Roboflow's AI agent options: the MCP Server, Agent Skills, and the in-app Roboflow Agent.
+- [MCP Server](https://docs.roboflow.com/agents/mcp-server.md): Connect Claude, Cursor, Codex, or any MCP client to the Roboflow MCP server, and the tools it exposes.
+- [Roboflow Agent](https://docs.roboflow.com/agents/roboflow-agent.md): The in-app Roboflow Agent that builds, runs, and debugs Workflows and Rapid models, plus its HTTP chat API.
+- [Roboflow Agent Setup](https://docs.roboflow.com/agents/setup.md): Setup instructions a coding agent follows to connect Roboflow to itself.
+- [Workspaces](https://docs.roboflow.com/platform/workspaces.md): Create and manage Roboflow Workspaces, control who has access, and restore deleted work.
+- [Asset Library](https://docs.roboflow.com/platform/workspaces/asset-library.md): Find, filter, and manage images and videos across an entire workspace, and run Workflows on them as batch jobs.
+- [Delete a Workspace](https://docs.roboflow.com/platform/workspaces/delete-a-workspace.md): How to delete a non-default Roboflow workspace from Settings.
+- [Workspaces, Projects, and Models](https://docs.roboflow.com/platform/workspaces/key-concepts.md): Learn how Workspaces, Projects, Versions, and Models structure your computer vision work in Roboflow
+- [List Workspaces and Projects](https://docs.roboflow.com/platform/workspaces/list-workspaces-and-projects.md): List workspaces, projects, versions, and trained models using the REST API, Python SDK, and CLI.
+- [Rename a Workspace](https://docs.roboflow.com/platform/workspaces/rename-a-workspace.md): How to rename a workspace from Settings, and why renaming changes the workspace URL used in your scripts.
+- [Create a Workspace](https://docs.roboflow.com/platform/workspaces/roboflow-workspaces.md): Create a workspace to organize your projects and collaborate with your team.
+- [Trash](https://docs.roboflow.com/platform/workspaces/trash.md): Restore a deleted project, dataset version, training, or workflow within 30 days of deletion.
+- [Team Members](https://docs.roboflow.com/platform/workspaces/team-members.md): Understand how team members interact in a workspace.
+- [Change a Team Member Role](https://docs.roboflow.com/platform/workspaces/team-members/change-a-team-member-role.md): Learn how to change a team member's roles.
+- [Invite a Team Member](https://docs.roboflow.com/platform/workspaces/team-members/invite-a-team-member.md): Learn how to invite new team members to your workspace.
+- [Remove a Team Member](https://docs.roboflow.com/platform/workspaces/team-members/remove-a-team-member.md): Learn how to remove team members from your workspace.
+- [Enterprise Features](https://docs.roboflow.com/platform/enterprise-features.md): Security and governance features on Roboflow Enterprise plans, including single sign on, role based access control, and audit logs.
+- [Audit Logs and SIEM Export](https://docs.roboflow.com/platform/enterprise-features/audit-logs-and-siem-export.md): View a tamper-resistant workspace audit log of significant actions and stream events to your SIEM over OpenTelemetry.
+- [Roboflow Enterprise](https://docs.roboflow.com/platform/enterprise-features/roboflow-enterprise.md): Roboflow Enterprise offers enhanced capabilities for our hosted and open source solutions.
+- [Role-Based Access Control (RBAC)](https://docs.roboflow.com/platform/enterprise-features/role-based-access-control.md): Keep your workspace secure and compliant with restrictive roles based on use.
+- [Single Sign On (SSO)](https://docs.roboflow.com/platform/enterprise-features/single-sign-on-sso.md): SSO is available for Roboflow Enterprise customers.
+- [Billing & Plans](https://docs.roboflow.com/platform/billing-and-plans.md): Manage your Roboflow plan and payment details, and track how your workspace spends credits.
+- [Billing Folders](https://docs.roboflow.com/platform/billing-and-plans/billing-folders.md): Billing Folders lets workspace administrators track and manage billable usage at the folder level.
+- [Premium Trial](https://docs.roboflow.com/platform/billing-and-plans/premium-trial.md): Discover how Roboflow's premium trial works.
+- [Credits](https://docs.roboflow.com/platform/billing-and-plans/credits.md): How Roboflow credits work across Data, Training, and Deployment, and the included, prepaid, and flex billing forms.
+- [Manage Flex Billing](https://docs.roboflow.com/platform/billing-and-plans/credits/enable-or-disable-flex-billing.md): Enable or disable Flex Billing, set a monthly spending cap, and understand Flex Usage alerts.
+- [Purchase Prepaid Credits](https://docs.roboflow.com/platform/billing-and-plans/credits/purchase-prepaid-credits.md): How to buy prepaid credit packs at volume discounts and verify them on your Plan & Billing page.
+- [Usage Projection](https://docs.roboflow.com/platform/billing-and-plans/credits/usage-projection.md): Estimate a workspace's future credit usage by building, viewing, and saving projection scenarios.
+- [View Your Credit Usage](https://docs.roboflow.com/platform/billing-and-plans/credits/view-credit-usage.md): Explore workspace credit usage with the usage chart, projections, cycle breakdown, and consumption audit log.
+- [Plans](https://docs.roboflow.com/platform/billing-and-plans/plans.md): Understand the plans that Roboflow has available.
+- [Cancel a Plan](https://docs.roboflow.com/platform/billing-and-plans/plans/cancel-a-plan.md): How to cancel a paid plan and keep access until the end of the current billing cycle.
+- [Purchase a Plan](https://docs.roboflow.com/platform/billing-and-plans/plans/purchase-a-plan.md): How to purchase a new paid plan.
+- [Update Billing Details](https://docs.roboflow.com/platform/billing-and-plans/plans/update-billing-details.md): Update your billing email, address, and tax ID information.
+- [Update Payment Method](https://docs.roboflow.com/platform/billing-and-plans/plans/update-payment-method.md): Add or change the payment method on file for your workspace through the billing portal.
+- [View Invoices](https://docs.roboflow.com/platform/billing-and-plans/plans/view-invoices.md): View, download, and inspect past invoices and receipts from the workspace billing portal.
+- [Support](https://docs.roboflow.com/platform/support.md): Get help with Roboflow, check platform status, and manage your account.
+- [Delete Your Roboflow Account](https://docs.roboflow.com/platform/support/account-deletion.md): If you need to delete your account for any reason, you can do so within the app.
+- [Apply for Research Credits](https://docs.roboflow.com/platform/support/apply-for-research-credits.md): How students and researchers can apply for a free Roboflow research plan with extra monthly credits.
+- [What to Include in a Support Request](https://docs.roboflow.com/platform/support/getting-help-faster-what-to-include-in-a-support-request.md): The faster we can reproduce your problem, the faster we can fix it. Each category below lists the specific information that accelerates investigation and avoids back-and-forth.
+- [Roboflow Status and Uptime](https://docs.roboflow.com/platform/support/roboflow-status-and-uptime.md): Check whether Roboflow is down or having issues. Live status, uptime, and what to do if the app or API isn't working.
+- [Share a Workspace with Support](https://docs.roboflow.com/platform/support/sharing-a-workspace-with-roboflow-support.md): How to authorize the Roboflow Support team to access your workspace for debugging, via chat, email, or a ticket.
+
+## Deployment
+
+- [Deploy a Model or Workflow](https://docs.roboflow.com/deployment/readme.md): Learn how to deploy workflows and models trained on or uploaded to Roboflow.
+- [Choosing a Deployment Option](https://docs.roboflow.com/deployment/choosing-a-deployment.md): Compare Roboflow's deployment options - Serverless Cloud API, Dedicated Deployments, Batch Processing, Self-Hosted Inference, and edge devices - and pick the right one for your use case.
+- [Project Deployment API](https://docs.roboflow.com/deployment/project-deploy-api.md): Find the API operations that manage a Project's base Workflow.
+- [Production Readiness Checklist](https://docs.roboflow.com/deployment/production-checklist.md): Production readiness for Roboflow deployments - HTTP error handling and retries, timeouts and cold starts, rate limits, and Dedicated Deployment replica sizing.
+- [Serverless Cloud API](https://docs.roboflow.com/deployment/roboflow-cloud/serverless-api.md): Run Workflows and Model Inference on GPU-accelerated auto-scaling infrastructure in the Roboflow cloud.
+- [Pricing](https://docs.roboflow.com/deployment/roboflow-cloud/serverless-api/pricing.md): How Serverless Cloud API inference is priced in credits, using the credits-per-inference-second formula.
+- [Serverless Video Streaming](https://docs.roboflow.com/deployment/roboflow-cloud/serverless-api/serverless-video-streaming-api.md): Stream webcams, RTSP cameras, and video files through models or Workflows on Roboflow Cloud with WebRTC.
+- [Use in a Workflow](https://docs.roboflow.com/deployment/roboflow-cloud/serverless-api/use-in-a-workflow.md): You can use Serverless Cloud API with Roboflow Workflows.
+- [Batch Processing](https://docs.roboflow.com/deployment/roboflow-cloud/batch-processing.md): Run Workflows on large batches of images and stored videos with cloud infrastructure provisioned for you.
+- [Troubleshooting](https://docs.roboflow.com/deployment/roboflow-cloud/batch-processing/troubleshooting.md): Troubleshoot common Batch Processing issues including timeouts, SAHI performance, and OOM errors.
+- [Dedicated Deployments](https://docs.roboflow.com/deployment/roboflow-cloud/dedicated-deployments.md): Run Your Vision Models on Dedicated Servers with Roboflow
+- [Create a Dedicated Deployment](https://docs.roboflow.com/deployment/roboflow-cloud/dedicated-deployments/create-a-dedicated-deployment.md): You can create a Dedicated Deployment in the Roboflow web interface, or in the CLI.
+- [Delete a Dedicated Deployment](https://docs.roboflow.com/deployment/roboflow-cloud/dedicated-deployments/delete-a-dedicated-deployment.md): Delete a Dedicated Deployment from the Deployments page or the Workflows editor.
+- [Make Requests to a Dedicated Deployment](https://docs.roboflow.com/deployment/roboflow-cloud/dedicated-deployments/make-requests-to-a-dedicated-deployment.md): You can make requests to a Dedicated Deployment directly with the Python SDK, using a HTTP API, or using the Workflows web interface.
+- [Pause and Resume a Dedicated Deployment](https://docs.roboflow.com/deployment/roboflow-cloud/dedicated-deployments/pause-and-resume-a-dedicated-deployment.md): Pause a Dedicated Deployment to stop billing when idle, then resume it when you need it again.
+- [Self-Hosted Deployment](https://docs.roboflow.com/deployment/self-hosted/self-hosted.md): Run Roboflow models and Workflows on your own hardware with Inference, the open source computer vision deployment framework.
+- [Inference Server](https://docs.roboflow.com/deployment/self-hosted/inference-server.md): What the Inference Server is, how to start it with Docker and the Inference CLI, and how to open its built-in JupyterLab notebook.
+- [Install Inference Server](https://docs.roboflow.com/deployment/self-hosted/inference-server/install.md): Install the Roboflow Inference Server with Docker or a native desktop app on Linux, Windows, macOS, NVIDIA Jetson, Raspberry Pi, or your own cloud.
+- [Minimum Requirements](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/minimum-requirements.md): Minimum hardware and OS requirements for running Roboflow Inference, plus the devices it is tested and supported on.
+- [Install on Linux](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/linux.md): Install and run the Roboflow Inference Server on Linux with the Inference CLI, Docker, or Docker Compose, on CPU, GPU, or TensorRT.
+- [Install on Windows](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/windows.md): Install the Roboflow Inference Server on Windows with the native installer or with Docker Desktop, on CPU, GPU, or TensorRT.
+- [Install on Mac](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/mac.md): Install the Roboflow Inference Server on macOS with the native Apple Silicon app, with Docker, or outside Docker with MPS acceleration.
+- [Install on NVIDIA Jetson](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/jetson.md): Install the Roboflow Inference Server on an NVIDIA Jetson device with JetPack-specific containers, TensorRT acceleration, and Docker Compose.
+- [Install on Raspberry Pi](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/raspberry-pi.md): Install the Roboflow Inference Server on a 64-bit Raspberry Pi 4 or 5 with Docker, and what performance to expect.
+- [Deploy in Your Own Cloud](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/cloud.md): Run Roboflow Inference on your own AWS, Azure, or GCP infrastructure using the SkyPilot integration in the Inference CLI.
+- [Deploy on AWS](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/cloud/aws.md): Deploy a Roboflow Inference server on an AWS EC2 instance with the Inference CLI and SkyPilot.
+- [Deploy on Azure](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/cloud/azure.md): Deploy a Roboflow Inference server on an Azure virtual machine with the Inference CLI and SkyPilot.
+- [Deploy on Google Cloud Platform](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/cloud/gcp.md): Deploy a Roboflow Inference server on a Google Cloud Platform compute VM with the Inference CLI and SkyPilot.
+- [Using Other Devices](https://docs.roboflow.com/deployment/self-hosted/inference-server/install/other.md): Run Roboflow Inference on unsupported hardware, including non-NVIDIA GPUs through alternative ONNX Runtime execution providers, and other edge SDKs.
+- [Configuration](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration.md): Configure, secure, and monitor a self-hosted Roboflow Inference server - container options, environment variables, HTTPS, input formats, and metrics.
+- [Securing a Self-Hosted Server](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/security.md): Keep self-hosted Inference local by default, choose who can run Workflows, and configure model, media, and transport controls.
+- [Security Configuration Migration](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/security-migration.md): Check release scope and update self-hosted Inference settings for localhost binding, model authorization, video limits, and runtime hardening.
+- [Docker Configuration Options](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/docker-configuration.md): Configure a self-hosted Roboflow Inference container - networking, CORS, NMS defaults, model cache, workers, HTTPS, and the Secure Gateway.
+- [Inference Server Environment Variables](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/environment-variables.md): Environment variables that control a self-hosted Roboflow Inference server - execution providers, caching, Workflows, Roboflow API retries, telemetry, HTTPS, and security.
+- [Model Package Security](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/model-security.md): Configure per-model authorization and local or untrusted model package loading without confusing them with server authentication.
+- [Video Configuration](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/video-configuration.md): Set limits for managed video workers and configure server-side video sources in self-hosted Inference.
+- [Serving Inference over HTTPS](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/https.md): Serve a self-hosted Roboflow Inference server over HTTPS with your own TLS certificate, custom cert paths, encrypted keys, and mutual TLS.
+- [Accepted Input Formats](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/input-formats.md): Input formats accepted by a self-hosted Roboflow Inference server, and how to disable the less secure ones such as pickled numpy payloads and URL image fetching.
+- [Inference Server Telemetry](https://docs.roboflow.com/deployment/self-hosted/inference-server/configuration/telemetry.md): Monitor a self-hosted Roboflow Inference server with Prometheus metrics and Docker container statistics.
+- [Inference Architecture](https://docs.roboflow.com/deployment/self-hosted/inference-server/architecture.md): How Roboflow Inference is architected - request routing, parallelization, microservice and appliance patterns, capabilities, and why Docker is recommended.
+- [Inference Library](https://docs.roboflow.com/deployment/self-hosted/inference-library.md): Run models directly in your own Python process with the inference package, with no server and no HTTP hop.
+- [Install Bare Metal Inference GPU on Windows](https://docs.roboflow.com/deployment/self-hosted/inference-library/bare-metal-gpu-windows.md): Install the inference-gpu Python package with NVIDIA CUDA and cuDNN on Windows, without Docker.
+- [Other SDKs](https://docs.roboflow.com/deployment/self-hosted/sdks.md): Roboflow SDKs for deploying models to web browsers, mobile, Lens Studio, Luxonis OAK, and OpenMV.
+- [iOS SDK](https://docs.roboflow.com/deployment/self-hosted/sdks/ios-sdk.md): Deploy your trained Roboflow model in your iOS app
+- [Luxonis OAK](https://docs.roboflow.com/deployment/self-hosted/sdks/luxonis-oak.md): Deploy your Roboflow Train model to your OpenCV AI Kit with Myriad X VPU  acceleration.
+- [OpenMV](https://docs.roboflow.com/deployment/self-hosted/sdks/openmv.md): Deploy computer vision models to extremely low power edge cameras.
+- [Lens Studio](https://docs.roboflow.com/deployment/self-hosted/sdks/lens-studio.md): Deploy a model to Lens Studio for use in building a Snap Lens.
+- [Changelog - Lens Studio](https://docs.roboflow.com/deployment/self-hosted/sdks/lens-studio/changelog-lens-studio.md): A list of public facing changes for the Lens Studio integration
+- [Web Browser](https://docs.roboflow.com/deployment/self-hosted/sdks/web-browser.md): Compare the inference-sdk and inferencejs JavaScript packages for running models in web browsers.
+- [inferencejs Reference](https://docs.roboflow.com/deployment/self-hosted/sdks/web-browser/inferencejs-reference.md): Reference for \`inferencejs\`, an edge library for deploying computer vision applications built with Roboflow to web/JavaScript environments
+- [inferencejs Requirements](https://docs.roboflow.com/deployment/self-hosted/sdks/web-browser/inferencejs-requirements.md): Requirements for running \`inferencejs\`
+- [Web inference.js](https://docs.roboflow.com/deployment/self-hosted/sdks/web-browser/inferencejs.md): Run realtime predictions at the edge, on the browser, with inference.js
+- [Web inference-sdk](https://docs.roboflow.com/deployment/self-hosted/sdks/web-browser/web-inference-sdk.md): Run realtime video inference from your browser, running on the Roboflow cloud, with inference-sdk
+- [Enterprise Deployment](https://docs.roboflow.com/deployment/self-hosted/enterprise.md): Advanced Roboflow Enterprise deployment features like Secure Gateway, offline mode, and Kubernetes.
+- [Docker Compose](https://docs.roboflow.com/deployment/self-hosted/enterprise/docker-compose.md): Run the Roboflow inference server alongside other docker containers to build your multi-container application via Docker Compose.
+- [Kubernetes](https://docs.roboflow.com/deployment/self-hosted/enterprise/kubernetes.md): Getting started with Roboflow Inference on Kubernetes
+- [License Server](https://docs.roboflow.com/deployment/self-hosted/enterprise/license-server.md): You can use the Roboflow License server to proxy the necessary routes for Roboflow Deployment servers into your company's DMZ
+- [Offline Mode](https://docs.roboflow.com/deployment/self-hosted/enterprise/offline-mode.md): Roboflow Enterprise customers can deploy models offline.
+- [Parallel HTTP API](https://docs.roboflow.com/deployment/self-hosted/enterprise/parallel-http-api.md): Run the Roboflow Inference parallel HTTP server to process inference requests asynchronously for higher throughput and lower latency.
+- [Secure Gateway on MicroShift](https://docs.roboflow.com/deployment/self-hosted/enterprise/secure-gateway-microshift.md): Deploy Secure Gateway on Red Hat Device Edge, with the gateway and its encrypted cache running as MicroShift workloads managed by Roboflow Deployment Manager.
+- [Secure Gateway on RHEL with Podman](https://docs.roboflow.com/deployment/self-hosted/enterprise/secure-gateway-podman.md): Deploy Secure Gateway on Red Hat Enterprise Linux hosts without Kubernetes, with the gateway and its encrypted cache running as Podman containers managed by Roboflow Deployment Manager.
+- [Secure Gateway](https://docs.roboflow.com/deployment/self-hosted/enterprise/secure-gateway.md): Secure Gateway proxies the routes Roboflow Deployment servers need into your company's DMZ, and caches model weights and container images locally.
+- [Stream Management API](https://docs.roboflow.com/deployment/self-hosted/enterprise/stream-management-api.md): Remotely manage Roboflow Inference video pipelines with the Stream Management API - run it in Docker, integrate over HTTP, and use the Stream Manager protocol.
+- [Deployment Manager](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager.md): Manage and monitor computer vision models deployed on edge hardware.
+- [Setting Up](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/setting-up.md): Step-by-step sequence for setting up a device, adding a stream, and configuring alerts in Deployment Manager.
+- [Add a Device](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/setting-up/add-a-device.md): Set up a device with everything you need to deploy a Workflow using Deployment Manager.
+- [Add a Stream](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/setting-up/add-a-stream.md): Learn how to configure a stream that you can use to run a Workflow.
+- [Hardware Requirements](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/setting-up/hardware-requirements.md): Supported hardware, cameras, network, and outbound traffic requirements for Deployment Manager.
+- [Set up Device Alerts](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/setting-up/set-up-device-alerts.md): Configure email alerts for device connectivity, disk usage, camera FPS, and inference FPS issues.
+- [Setup Maintenance Windows](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/setting-up/setup-maintenance-windows.md): Schedule maintenance windows so deploy-affecting configuration changes apply only at agreed-upon times.
+- [Making Changes](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes.md): Tasks for updating devices and streams already running under Deployment Manager.
+- [API Keys for Deployment Manager](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/api-keys-for-device-manager.md): How device API keys are generated, scoped, viewed, and revoked when you add or remove a device.
+- [Configure AI1 Camera Settings](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/configure-ai1-camera-settings.md): Adjust exposure, gain, focus, white balance, and other camera settings on an AI1 device in real time.
+- [Configure Device Network](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/configure-device-network.md): Set device IP addressing, gateway, DNS, and hostname from the cloud in the Configuration tab.
+- [Delete a Device](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/delete-a-device.md): Permanently remove a device you no longer use from Deployment Manager.
+- [Terminate a Stream](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/delete-a-stream.md): Permanently terminate a stream and remove its configuration from the Deployment Manager dashboard.
+- [Redeploy Deployment Manager](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/redeploy-deployment-manager.md): Redeploy Deployment Manager onto an existing device to recover its Roboflow configuration after a failure.
+- [Set a Static IP for a Camera](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/set-camera-static-ip.md): Assign, edit, or remove a static IP for a GigE Basler or Lucid camera from Deployment Manager.
+- [Soft Reset a PoE Port](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/soft-reset-poe-port.md): Power-cycle a PoE port from the dashboard to recover stuck camera links on supported edge devices.
+- [Pause and Resume a Stream](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/stop-a-stream.md): Pause a running Workflow on a video stream and resume it later from the Deployment Manager dashboard.
+- [Trigger a Stream](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/trigger-a-stream.md): Run a Workflow on demand against the latest frame from a Triggered stream.
+- [Update Device Configuration](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/making-changes/update-device-configuration.md): Manage device settings, service versions, inference engine, CA certificates, and additional services.
+- [Monitoring](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/monitoring.md): Ways to observe device health, logs, streams, and Event Store status in Deployment Manager.
+- [View a Stream](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/monitoring/view-a-stream.md): Learn how to view a Stream configured with Deployment Manager.
+- [View Device Logs](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/monitoring/view-device-logs.md): View, search, filter, and download logs from Roboflow services running on your edge device.
+- [View Event Store Status](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/monitoring/view-event-store-status.md): Monitor Event Store status, storage usage, backup progress, and usage history for a device.
+- [View the Resource Monitor](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/monitoring/view-the-resource-monitor.md): Monitor disk, memory, CPU, and GPU usage, stream FPS, service containers, and network interfaces for a device.
+- [Services](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/services.md): Optional edge container services a Deployment Manager device can run alongside the inference server.
+- [Event Store](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/services/event-store.md): Store inference events on the edge device with automatic retention, storage limits, and optional cloud backup.
+- [Event Store REST API](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/services/event-store/rest-api.md): Endpoint reference for the on-device Event Store v2 API, including event schemas and administration routes.
+- [PLC Relay](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/services/plc-relay.md): Configure PLC Relay to read and write PLC tags over Allen-Bradley, Modbus TCP, or Siemens S7.
+- [OPC UA Server](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/services/opc-ua-server.md): Expose device data as OPC UA tags that PLCs, SCADA systems, and other industrial clients can read and write.
+- [RTSP Simulator](https://docs.roboflow.com/deployment/self-hosted/enterprise/deployment-manager/services/rtsp-simulator.md): Stream an uploaded video file as a looping RTSP source for testing inference pipelines without a camera.
+- [Model Monitoring](https://docs.roboflow.com/deployment/monitoring-and-analytics/model-monitoring.md): A guide to Model Monitoring with Roboflow.
+- [Alerting](https://docs.roboflow.com/deployment/monitoring-and-analytics/model-monitoring/alerting.md): Set up Model Monitoring alerts to get notified when inference metrics cross a threshold you define.
+- [Vision Events](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events.md): Record, search, and analyze what your deployed computer vision models see in production.
+- [Add Images for Training](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/add-images-for-training.md): Send images from Vision Events into a Roboflow project for training.
+- [Batch Create Vision Events](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/batch-create-vision-events.md): Record up to 100 Vision Events in a single request to ingest many observations at once.
+- [Create a Vision Event](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/create-a-vision-event.md): Record a single Vision Event via the HTTP API to log an observation from your deployed model.
+- [Delete Events](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/delete-events.md): Remove Vision Events from a Use Case through the dashboard or the API.
+- [Get Custom Metadata Schema](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/get-custom-metadata-schema.md): Retrieve the custom metadata fields and types used across Vision Events in a Use Case.
+- [Get Image Metadata Schema](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/get-image-metadata-schema.md): Retrieve the per-image metadata keys used across Vision Events in a Use Case.
+- [Operator Feedback](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/operator-feedback.md): Let operators review Vision Events and mark them as correct, incorrect, or inconclusive.
+- [Query Events](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/query-events.md): Search, filter, and browse Vision Events in the dashboard, ask the Agent in natural language, or query via the API
+- [Send Events](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/send-events.md): Three ways to send Vision Events from your deployed models.
+- [Summary Reports](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/summary-reports.md): Get a recurring email summary of what a Vision Events Use Case recorded.
+- [Upload a Vision Event Bundle](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/upload-a-vision-event-bundle.md): Ingest a tarball bundle written by an air-gapped deployment to create a Vision Event.
+- [Upload a Vision Event Image](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/upload-a-vision-event-image.md): Upload a workspace-level image and reference its sourceId when creating a Vision Event.
+- [Use Cases](https://docs.roboflow.com/deployment/monitoring-and-analytics/vision-events/use-cases.md): Group Vision Events by purpose using Use Cases.
+- [Active Learning](https://docs.roboflow.com/deployment/monitoring-and-analytics/active-learning.md): Collect production inference data to continuously improve your model through review and retraining.
+
+## Workflows
+
+- [Workflows](https://docs.roboflow.com/workflows/readme.md): Build, test, and deploy multi-step computer vision applications in your browser.
+- [Tutorials](https://docs.roboflow.com/workflows/tutorials.md)
+- [Test](https://docs.roboflow.com/workflows/tutorials/test.md)
+- [Create a Workflow](https://docs.roboflow.com/workflows/build/create-a-workflow.md): Create a new Workflow from your workspace dashboard to start building a computer vision pipeline.
+- [Build a Workflow](https://docs.roboflow.com/workflows/build/build-a-workflow.md): Add and connect blocks to build a Workflow, using Builder Assist modes and auto layout in the editor.
+- [Test a Workflow](https://docs.roboflow.com/workflows/build/test-a-workflow.md): You can test your Workflow in the browser.
+- [Workflows AI Assistant](https://docs.roboflow.com/workflows/build/workflows-ai-assistant.md): Use the Workflows AI Assistant to help build and debug Workflows.
+- [Hello World](https://docs.roboflow.com/workflows/tutorials-1/hello-world.md): Build and run your first Workflow in five minutes: add a model, test it, and visualize the predictions in the Workflow Builder.
+- [Compare Two Models](https://docs.roboflow.com/workflows/tutorials-1/compare-models.md): Run two instance segmentation models on the same image in a single Workflow and visualize the difference between their predictions.
+- [Detect Small Objects](https://docs.roboflow.com/workflows/tutorials-1/detect-small-objects.md): Use SAHI (slicing aided hyper inference) in a Workflow to detect small objects by slicing images, running the model per tile, and stitching detections.
+- [Video Tutorials](https://docs.roboflow.com/workflows/tutorials-1/video-tutorials.md): End-to-end video walkthroughs of computer vision projects built with Workflows.
+- [Manage Workflow Versions](https://docs.roboflow.com/workflows/manage/manage-workflow-versions.md): View your Workflow version history, name saved versions, and roll back to a previous version.
+- [Share a Workflow](https://docs.roboflow.com/workflows/manage/share-a-workflow.md): Share a Workflow with a link so others can view, run, and fork it, and control run access to your API key.
+- [Delete a Workflow](https://docs.roboflow.com/workflows/manage/delete-a-workflow.md): Move a workflow to Trash, where it is kept for 30 days before being permanently removed.
+- [Manage Workflows](https://docs.roboflow.com/workflows/manage/manage-workflows.md): List, retrieve, create, and update the Workflows in a workspace through the REST API and Python SDK.
+- [Deploy a Workflow](https://docs.roboflow.com/workflows/deploy/deploy-a-workflow.md): The four ways to deploy a Workflow: the Roboflow API, a dedicated deployment, self-hosted Inference, or batch processing.
+- [Workflow Environment](https://docs.roboflow.com/workflows/deploy/workflow-environment.md): How the Workflow editor connects to an Inference Server to fetch blocks and run Workflows, with troubleshooting.
+- [Video processing with Workflows](https://docs.roboflow.com/workflows/deploy/video-processing.md): Stream webcams, camera feeds, and video files through a Workflow with the Inference SDK WebRTC client.
+- [Enterprise Integrations](https://docs.roboflow.com/workflows/deploy/enterprise-integrations.md): Explore Workflows integrations available to enterprise customers.
+- [Workflow Blocks](https://docs.roboflow.com/workflows/blocks/blocks.md): Explore the ecosystem of Blocks you can use in a Workflow.
+- [Custom Blocks](https://docs.roboflow.com/workflows/blocks/blocks/custom-blocks.md): Write and run your own logic in a Workflow with custom Python blocks.
+- [Enterprise](https://docs.roboflow.com/workflows/blocks/blocks/enterprise.md): Connect Roboflow to enterprise systems and protocols.
+- [Advanced Blocks](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks.md): Advanced blocks for specific use cases: expressions, caching, embeddings similarity, image slicing, and prediction post-processing.
+- [Cache Get](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/cache-get.md): Fetches a previously stored value from a cache entry.
+- [Cache Set](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/cache-set.md): Stores a value in a cache entry for later retrieval.
+- [Cosine Similarity](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/cosine-similarity.md): Calculate the cosine similarity between two embeddings.
+- [Current Time](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/current-time.md): Output the current date and time for a given timezone.
+- [Detection Event Log](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/detection-event-log.md): Tracks detection events over time, logging when objects first appear and persist.
+- [Detections Classes Replacement](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/detections-classes-replacement.md): Replace classes of detections with classes predicted by a chained classification model.
+- [Detections Difference](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/detections-difference.md): Match detections across before/after images and report removed, persisted and new objects.
+- [Detections List Roll-Up](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/detections-list-roll-up.md): Roll up multiple levels of dimensionality back to a single dimension.
+- [Detections Stitch](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/detections-stitch.md): Merges detections made against multiple pieces of input image into single detection.
+- [Dimension Collapse](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/dimension-collapse.md): Collapse dimensionality by aggregating nested data into a single list.
+- [Dynamic Zone](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/dynamic-zone.md): Simplify polygons so they are geometrically convex and contain only the requested amount of vertices.
+- [Environment Secrets Store](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/environment-secrets-store.md): Fetch secrets from environmental variables.
+- [Expression](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/expression.md): Create a specific output based on defined input variables and configured rules.
+- [First Non Empty Or Default](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/first-non-empty-or-default.md): Take the first non-empty data element or the configured default value.
+- [Image Slicer](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/image-slicer.md): Tile the input image into a list of smaller images to perform small object detection.
+- [JSON Parser](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/json-parser.md): Parse raw string into JSON.
+- [Model Monitoring Inference Aggregator](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/model-monitoring-inference-aggregator.md): Periodically report an aggregated sample of inference results to Roboflow Model Monitoring.
+- [Overlap Analysis](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/overlap-analysis.md): Compute pairwise overlap between two sets of detections.
+- [Perspective Correction](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/perspective-correction.md): Adjust detection coordinates from a polygon-defined plane to a straight rectangular plane with specified width and height.
+- [Property Definition](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/property-definition.md): Define a variable from model predictions, such as the class names, confidences, or number of detections.
+- [Roboflow Custom Metadata](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/roboflow-custom-metadata.md): Add custom metadata to the Roboflow Model Monitoring dashboard.
+- [Roboflow Visual Search](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/roboflow-visual-search.md): Find visually similar image candidates in a Roboflow project.
+- [Stitch OCR Detections](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/stitch-ocr-detections.md): Combines OCR detection results into a coherent text string by organizing detections spatially.
+- [VLM As Classifier](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/vlm-as-classifier.md): Parse a raw string into a classification prediction.
+- [VLM As Detector](https://docs.roboflow.com/workflows/blocks/blocks/advanced-blocks/vlm-as-detector.md): Parses raw string into object-detection prediction.
+- [Classical Computer Vision](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision.md): Run classical computer vision operations such as blurring, thresholding, contour detection, template matching, and size measurement.
+- [Auto Rotate on Edges](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/auto-rotateon-edges.md): Automatically rotate an image so its dominant straight edges become vertical and/or horizontal.
+- [Camera Focus](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/camera-focus.md): Calculate a score to indicate how well-focused a camera is.
+- [Contrast Enhancement](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/contrast-enhancement.md): Enhance image contrast by normalizing the histogram to use the full dynamic range.
+- [Contrast Equalization](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/contrast-equalization.md): Apply contrast equalization to an image.
+- [Distance Measurement](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/distance-measurement.md): Calculate the distance between two bounding boxes on a 2D plane.
+- [Dominant Color](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/dominant-color.md): Get the dominant color of an image in RGB format.
+- [Image Blur](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/image-blur.md): Apply a blur to an image.
+- [Image Contours](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/image-contours.md): Find and count the contours on an image.
+- [Image Convert Grayscale](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/image-convert-grayscale.md): Convert an RGB image to grayscale.
+- [Image Preprocessing](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/image-preprocessing.md): Resize, flip, or rotate an image.
+- [Image Threshold](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/image-threshold.md): Apply a threshold to an image.
+- [Mask Area Measurement](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/mask-area-measurement.md): Measure the area of detected objects and optionally convert to real-world units.
+- [Mask Edge Snap](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/mask-edge-snap.md): Refine instance segmentation masks by snapping edges to detected boundaries.
+- [Morphological Transformation](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/morphological-transformation.md): Apply morphological transformation to color images.
+- [Nearest Neighbor Detection Match](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/nearest-neighbor-detection-match.md): Find the closest target detection for each query detection using pixel distance.
+- [Pixel Color Count](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/pixel-color-count.md): Count the number of pixels that match a specific color within a given tolerance.
+- [SIFT Comparison](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/sift-comparison.md): Compare SIFT descriptors from multiple images.
+- [SIFT](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/sift.md): Apply SIFT to an image.
+- [Size Measurement](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/size-measurement.md): Measure the dimensions of objects in relation to a reference object.
+- [Template Matching](https://docs.roboflow.com/workflows/blocks/blocks/classical-computer-vision/template-matching.md): Locate instances of a given template within a specified image.
+- [Data Storage](https://docs.roboflow.com/workflows/blocks/blocks/data-storage.md): Save images, predictions, and workflow data to Roboflow, local files, cloud buckets, or external APIs.
+- [CSV Formatter](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/csv-formatter.md): Create CSV files with specified columns.
+- [Data Aggregator](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/data-aggregator.md): Aggregate workflow data to produce time-based statistics.
+- [Local File Sink](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/local-file-sink.md): Save data to a local file.
+- [Roboflow Asset Library Attributes](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/roboflow-asset-library-attributes.md): Update attributes and tags for Asset Library images.
+- [Roboflow Dataset Upload](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/roboflow-dataset-upload.md): Save images and predictions to your Roboflow Dataset.
+- [Roboflow Vision Events](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/roboflow-vision-events.md): Send vision events to the Roboflow Vision Events API.
+- [S3 Sink](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/s3-sink.md): Upload data to an AWS S3 bucket.
+- [Write Vision Event Bundle](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/vision-event-bundle.md): Write vision events as self-contained tarball bundles to a local directory.
+- [Webhook Sink](https://docs.roboflow.com/workflows/blocks/blocks/data-storage/webhook-sink.md): Send a request to a remote API with Workflow results.
+- [Logic and Branching](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching.md): Control the flow of a Workflow: filter detections, branch on conditions, and combine model outputs.
+- [Continue If](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/continue-if.md): Conditionally stop execution of a branch.
+- [Delta Filter](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/delta-filter.md): Allow the execution of workflow to proceed if the input value has changed.
+- [Detections Consensus](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/detections-consensus.md): Combine predictions from multiple detections models to make a decision about object presence.
+- [Detections Filter](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/detections-filter.md): Conditionally filter out model predictions.
+- [Inner Workflow](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/inner-workflow.md): Run a nested workflow definition with parameters mapped from the parent workflow.
+- [Overlap Filter](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/overlap-filter.md): Filter objects overlapping some other class
+- [Per-Class Confidence Filter](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/per-class-confidence-filter.md): Filter detections by applying a per-class confidence threshold.
+- [Rate Limiter](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/rate-limiter.md): Limits the rate at which a branch of the Workflow will run.
+- [Switch Case](https://docs.roboflow.com/workflows/blocks/blocks/logic-and-branching/switch-case.md): Route execution to one of several branches based on the value of an input.
+- [Notifications](https://docs.roboflow.com/workflows/blocks/blocks/notifications.md): Send alerts from a Workflow over email, Slack, or SMS/MMS.
+- [Email Notification](https://docs.roboflow.com/workflows/blocks/blocks/notifications/email-notification.md): Send notification via e-mail.
+- [Slack Notification](https://docs.roboflow.com/workflows/blocks/blocks/notifications/slack-notification.md): Send notification via Slack.
+- [Twilio SMS Notification](https://docs.roboflow.com/workflows/blocks/blocks/notifications/twilio-sms-notification.md): Send notification via Twilio SMS service.
+- [Twilio SMS/MMS Notification](https://docs.roboflow.com/workflows/blocks/blocks/notifications/twilio-smsmms-notification.md): Send SMS/MMS notifications via Twilio.
+- [Run a Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model.md): Run fine-tuned models trained on Roboflow, foundation models, and third-party VLMs and LLMs directly in a Workflow.
+- [Anthropic Claude](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/anthropic-claude.md): You can call the Anthropic's Claude API from a Workflow.
+- [Barcode Detection](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/barcode-detection.md): Detect and read barcodes in an image.
+- [Clip Comparison](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/clip-comparison.md): Compare CLIP image and text embeddings.
+- [CLIP Embedding Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/clip-embedding-model.md): Generate an embedding of an image or string.
+- [CogVLM](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/cog-vlm.md): DEPRECATED! Run a self-hosted vision language model.
+- [Cosmos 3](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/cosmos3.md): Reason about physical scenes with NVIDIA Cosmos 3.
+- [Depth Estimation](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/depth-estimation.md): Run Depth Estimation on an image.
+- [EasyOCR](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/easy-ocr.md): Extract text from an image using EasyOCR optical character recognition.
+- [Florence-2 Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/florence2-model.md): Run Florence-2 on an image
+- [Gaze Detection](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/gaze-detection.md): Detect faces and estimate gaze direction (deprecated).
+- [GLM-OCR](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/glmocr.md): Run GLM-OCR on an image to recognize text.
+- [Google Gemini](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/google-gemini.md): Run Google's Gemini model with vision capabilities.
+- [Google Gemma API](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/google-gemma-api.md): Run Google's Gemma model with vision capabilities via OpenRouter.
+- [Google Gemma](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/google-gemma.md): Run Google's Gemma model with vision capabilities via OpenRouter.
+- [Google Vision OCR](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/google-vision-ocr.md): Detect text in images using Google Vision API
+- [Instance Segmentation Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/instance-segmentation-model.md): Predict the shape, size, and location of objects.
+- [Keypoint Detection Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/keypoint-detection-model.md): Predict skeletons on objects.
+- [Llama 3.2 Vision](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/llama3-2-vision.md): Run Llama 3.2 Vision via OpenRouter.
+- [LMM For Classification](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/lmm-for-classification.md): Run a large multimodal model such as ChatGPT-4v for classification.
+- [LMM](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/lmm.md): Run a large multimodal model such as ChatGPT-4v.
+- [Moondream2](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/moondream2.md): Run Moondream2 on an image.
+- [MoonshotAI Kimi](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/moonshot-ai-kimi.md): Run Moonshot AI Kimi vision-language models via OpenRouter.
+- [Multi-Label Classification Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/multi-label-classification-model.md): Apply multiple tags to an image.
+- [Object Detection Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/object-detection-model.md): Run an object detection model in a Workflow.
+- [OCR Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/ocr-model.md): Extract text from an image using DocTR optical character recognition.
+- [OpenAI-Compatible LLM](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/open-ai-compatible-llm.md): Send prompts to any OpenAI-compatible API endpoint.
+- [OpenAI](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/open-ai.md): Run OpenAI's GPT models with vision capabilities.
+- [OpenRouter](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/open-router.md): Run any OpenRouter model by pasting its model slug.
+- [Perception Encoder Embedding Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/perception-encoder-embedding-model.md): Generate an embedding of an image or string.
+- [PP-OCR](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/ppocr.md): Extract text from an image using PP-OCR (PaddleOCR) optical character recognition.
+- [QR Code Detection](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qr-code-detection.md): Detect and read QR codes in an image.
+- [Qwen-VL](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qwen-vl.md): Run any Qwen vision model - natively or via OpenRouter.
+- [Qwen2.5-VL](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qwen2-5-vl.md): Run Qwen2.5-VL on an image.
+- [Qwen 3.5 API](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qwen3-5-api.md): Run Qwen 3.5 vision-language models via OpenRouter.
+- [Qwen3.5-VL](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qwen3-5-vl.md): Run Qwen3.5-VL on an image.
+- [Qwen3.5](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qwen3-5.md): Run Qwen3.5 on an image.
+- [Qwen 3.6 API](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qwen3-6-api.md): Run Qwen 3.6 vision-language models via OpenRouter.
+- [Qwen3-VL](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/qwen3-vl.md): Run Qwen3-VL on an image.
+- [Roboflow Visual Search Classifier](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/roboflow-visual-search-classifier.md): Classify an image by finding the most visually similar annotated image.
+- [SAM 3 Interactive](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/sam3-interactive.md): Segment a specific object with SAM3 using point and/or bounding box prompts.
+- [SAM 3](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/sam3.md): Run SAM3 with text prompts for zero-shot segmentation.
+- [Seg Preview](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/seg-preview.md): Seg Preview
+- [Segment Anything 2 Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/segment-anything2-model.md): Convert bounding boxes to polygons, or run SAM2 on an entire image to generate a mask.
+- [Semantic Segmentation Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/semantic-segmentation-model.md): Assign a class label to every pixel in the image.
+- [Single-Label Classification Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/single-label-classification-model.md): Run a single-label classification model in a Workflow.
+- [SmolVLM2](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/smol-vlm2.md): Run SmolVLM2 on an image.
+- [SpaceXAI](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/spacexai.md): Run SpaceXAI Grok models with vision capabilities.
+- [Stability AI Image Generation](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/stability-ai-image-generation.md): generate new images from text, or create variations of existing images.
+- [Stability AI Inpainting](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/stability-ai-inpainting.md): Use segmentation masks to inpaint objects within an image.
+- [Stability AI Outpainting](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/stability-ai-outpainting.md): Use object detection bounding box to crop the image and to outpaint within given directions.
+- [YOLO-World Model](https://docs.roboflow.com/workflows/blocks/blocks/run-a-model/yolo-world-model.md): Run a zero-shot object detection model.
+- [Transformations](https://docs.roboflow.com/workflows/blocks/blocks/transformations.md): Manipulate images and prediction data: crop, merge, offset, project, and stitch detections and images.
+- [Absolute Static Crop](https://docs.roboflow.com/workflows/blocks/blocks/transformations/absolute-static-crop.md): Crop an image using fixed pixel coordinates.
+- [Bounding Rectangle](https://docs.roboflow.com/workflows/blocks/blocks/transformations/bounding-rectangle.md): Find the minimal bounding box surrounding the detected polygon.
+- [Camera Calibration](https://docs.roboflow.com/workflows/blocks/blocks/transformations/camera-calibration.md): Remove camera lens distortions from an image using a calibration table.
+- [Detection Offset](https://docs.roboflow.com/workflows/blocks/blocks/transformations/detection-offset.md): Add padding around detected regions.
+- [Detections Combine](https://docs.roboflow.com/workflows/blocks/blocks/transformations/detections-combine.md): Combines two sets of predictions into a single prediction.
+- [Detections Merge](https://docs.roboflow.com/workflows/blocks/blocks/transformations/detections-merge.md): Merge multiple detections into a single bounding box.
+- [Detections Transformation](https://docs.roboflow.com/workflows/blocks/blocks/transformations/detections-transformation.md): Apply transformations on detected bounding boxes.
+- [Dynamic Crop](https://docs.roboflow.com/workflows/blocks/blocks/transformations/dynamic-crop.md): Crop an image using bounding boxes from a detection model.
+- [GeoTag Detection](https://docs.roboflow.com/workflows/blocks/blocks/transformations/geo-tag-detection.md): Project detections from pixel coordinates to real-world GPS positions.
+- [QR Code Generator](https://docs.roboflow.com/workflows/blocks/blocks/transformations/qr-code-generator.md): Generate a QR code image from text input.
+- [Relative Static Crop](https://docs.roboflow.com/workflows/blocks/blocks/transformations/relative-static-crop.md): Crop an image proportional (%) to its dimensions.
+- [Stitch Images](https://docs.roboflow.com/workflows/blocks/blocks/transformations/stitch-images.md): Stitch two images by common parts.
+- [Video Processing](https://docs.roboflow.com/workflows/blocks/blocks/video-processing.md): Analyze video with object tracking, time-in-zone analysis, line crossing, motion detection, and velocity estimation.
+- [Background Subtraction](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/background-subtraction.md): Subtract an image from its background history.
+- [BoT-SORT Tracker](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/bo-tsort-tracker.md): ByteTrack-style association with optional camera motion compensation (BoT-SORT).
+- [Buffer](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/buffer.md): Returns an array of the last \`length\` values passed to it.
+- [ByteTrack Tracker](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/byte-track-tracker.md): Tracks objects across frames. Best for most scenes.
+- [Byte Tracker](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/byte-tracker.md): Track and update object positions across video frames using ByteTrack.
+- [Detections Stabilizer](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/detections-stabilizer.md): Apply a smoothing algorithm to reduce noise and flickering across video frames.
+- [Frame Delay](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/frame-delay.md): Reference a value from an earlier frame of the same video stream (N-k, into the past).
+- [Identify Changes](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/identify-changes.md): Identify changes compared to prior data via embeddings.
+- [Identify Outliers](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/identify-outliers.md): Identify outlier embeddings compared to prior data.
+- [Image Stack](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/image-stack.md): Accumulate compressed video frames into a fixed-size FIFO stack.
+- [Line Counter](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/line-counter.md): Count detections passing a line.
+- [Motion Detection](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/motion-detection.md): Detect motion in a video using OpenCV.
+- [OC-SORT Tracker](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/ocsort-tracker.md): Tracks objects through occlusion and unpredictable movement.
+- [Path Deviation](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/path-deviation.md): Calculate Fréchet distance of object from the reference path.
+- [PTZ Tracking (ONVIF)](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/ptz-trackingonvif.md): Control an ONVIF compatible PTZ camera to follow an object
+- [SAM2 Video Tracker](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/sam2-video-tracker.md): Segment and track objects across video frames with SAM2's streaming camera predictor.
+- [SAM3 Video Tracker](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/sam3-video-tracker.md): Segment and track objects across video frames from text prompts with SAM3's streaming concept tracker.
+- [SORT Tracker](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/sort-tracker.md): Fast, lightweight object tracking. Works best when objects are clearly visible.
+- [Time in Zone](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/timein-zone.md): Track object time in zone.
+- [Track Class Lock](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/track-class-lock.md): Lock the class of each tracked object by majority voting to eliminate class flicker.
+- [Velocity](https://docs.roboflow.com/workflows/blocks/blocks/video-processing/velocity.md): Calculate the velocity and speed of tracked objects with smoothing and unit conversion.
+- [Visualize Predictions](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions.md): Use visualization blocks to draw model predictions - boxes, masks, labels, and more - onto an image.
+- [Background Color Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/background-color-visualization.md): Draw a colour in regions not detected by a model.
+- [Blur Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/blur-visualization.md): Blur detected objects in an image.
+- [Bounding Box Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/bounding-box-visualization.md): Show bounding boxes from an object detection model on an image.
+- [Circle Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/circle-visualization.md): Draw a circle around a detected region in an image.
+- [Classification Label Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/classification-label-visualization.md): The Classification Label Visualization block adds a classification model's predicted label to an image.
+- [Color Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/color-visualization.md): Paint a solid color on detected objects in an image.
+- [Corner Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/corner-visualization.md): Draw the corners of detected objects in an image.
+- [Crop Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/crop-visualization.md): The Crop Visualization block crops detected regions from an image and enlarges them to highlight detections.
+- [Dot Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/dot-visualization.md): Draw dots on an image at specific coordinates based on provided detections.
+- [Ellipse Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/ellipse-visualization.md): Draw ellipses that highlight detected objects in an image.
+- [Grid Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/grid-visualization.md): Shows an array of images in a grid.
+- [Halo Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/halo-visualization.md): Paint a halo around detected objects in an image.
+- [Heatmap Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/heatmap-visualization.md): Draw a heatmap based on detections in an image.
+- [Icon Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/icon-visualization.md): Draw icons on an image either at specific static coordinates or dynamically based on detections.
+- [Keypoint Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/keypoint-visualization.md): Draw keypoints on detected objects in an image.
+- [Label Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/label-visualization.md): Show labels from a model on an image.
+- [Line Counter Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/line-counter-visualization.md): Apply a mask over a line zone in an image.
+- [Mask Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/mask-visualization.md): Apply a mask over detected objects in an image.
+- [Model Comparison Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/model-comparison-visualization.md): Visualize the difference between two models' detections.
+- [Pixelate Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/pixelate-visualization.md): Pixelate detected objects in an image.
+- [Polygon Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/polygon-visualization.md): Draw a polygon around detected objects in an image.
+- [Polygon Zone Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/polygon-zone-visualization.md): Apply a mask over a polygon zone in an image.
+- [Reference Path Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/reference-path-visualization.md): Draw a reference path in the image.
+- [Text Display](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/text-display.md): Display customizable text on an image with styling and positioning options.
+- [Trace Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/trace-visualization.md): Draw traces based on detections tracking results.
+- [Triangle Visualization](https://docs.roboflow.com/workflows/blocks/blocks/visualize-predictions/triangle-visualization.md): Draw triangle markers on an image at specific coordinates based on provided detections.
+- [Blocks Governance](https://docs.roboflow.com/workflows/blocks/blocks-governance.md): Fine grained control of enabled workflow blocks on a workspace
+- [Developer Guide](https://docs.roboflow.com/workflows/developer-guide/developer-guide.md): Reference for developers extending Workflows - the pillars of the ecosystem, the Definition language, the Compiler and Execution Engine, kinds, and how to write your own blocks.
+- [Workflow Definition syntax](https://docs.roboflow.com/workflows/developer-guide/developer-guide/definitions.md): The Workflow Definition JSON syntax: version marker, inputs, steps, selectors, and outputs.
+- [Workflow execution](https://docs.roboflow.com/workflows/developer-guide/developer-guide/workflow-execution.md): How a Workflow runs: compilation, batch-oriented data, dimensionality levels, conditional execution, and output construction.
+- [Kinds](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds.md): Kinds are the Workflows type system: the semantic meaning and data representation behind every connection.
+- [barcodedetection Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/bar-code-detection.md): Prediction with barcode detection.
+- [boolean Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/boolean.md): Boolean flag.
+- [bytes Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/bytes.md): This kind represent bytes.
+- [classificationprediction Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/classification-prediction.md): Predictions from classifier.
+- [contours Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/contours.md): List of numpy arrays where each array represents contour points.
+- [detection Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/detection.md): Single element of detections-based prediction (like \`object\_detection\_prediction\`).
+- [detectionsoverlaps Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/detections-overlaps.md): List of per-pair detection overlap records.
+- [dictionary Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/dictionary.md): Dictionary.
+- [embedding Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/embedding.md): A list of floating point numbers representing a vector embedding.
+- [floatzerotoone Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/float-zero-to-one.md): \`float\` value in range \`\[0.0, 1.0]\`.
+- [float Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/float.md): Float value.
+- [imagekeypoints Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/image-keypoints.md): Image keypoints detected by classical Computer Vision method.
+- [imagemetadata Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/image-metadata.md): Dictionary with image metadata required by supervision.
+- [image Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/image.md): Image in workflows.
+- [inferenceid Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/inference-id.md): Inference identifier.
+- [instancesegmentationprediction Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/instance-segmentation-prediction.md): Prediction with detected bounding boxes and segmentation masks in form of sv.Detections(...) object.
+- [integer Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/integer.md): Integer value.
+- [keypointdetectionprediction Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/keypoint-detection-prediction.md): Prediction with detected bounding boxes and detected keypoints in form of sv.Detections(...) object.
+- [labeledpoints Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/labeled-points.md): List of 2D points with positive/negative labels.
+- [languagemodeloutput Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/language-model-output.md): LLM / VLM output.
+- [listofvalues Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/list-of-values.md): List of values of any type.
+- [numpyarray Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/numpy-array.md): Numpy array.
+- [objectdetectionprediction Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/object-detection-prediction.md): Prediction with detected bounding boxes in form of sv.Detections(...) object.
+- [parentid Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/parent-id.md): Identifier of parent for step output.
+- [point Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/point.md): Single point in 2D.
+- [predictiontype Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/prediction-type.md): String value with type of prediction.
+- [qrcodedetection Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/qr-code-detection.md): Prediction with QR code detection.
+- [rgbcolor Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/rgb-color.md): RGB color.
+- [rleinstancesegmentationprediction Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/rle-instance-segmentation-prediction.md): Prediction with detected bounding boxes and RLE-encoded segmentation masks in form of sv.Detections(...) object.
+- [roboflowapikey Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/roboflow-api-key.md): Roboflow API key.
+- [ROBOFLOWMANAGEDKEY Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/roboflow-managed-key.md): Roboflow-managed key or credential.
+- [roboflowmodelid Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/roboflow-model-id.md): Roboflow model id.
+- [roboflowproject Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/roboflow-project.md): Roboflow project name.
+- [roboflowsolution Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/roboflow-solution.md): Roboflow Vision Events use case identifier.
+- [secret Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/secret.md): Secret value.
+- [semanticsegmentationprediction Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/semantic-segmentation-prediction.md): Prediction with per-pixel class label and confidence for semantic segmentation.
+- [serialisedpayloads Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/serialised-payloads.md): Serialised element that is usually accepted by sink.
+- [string Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/string.md): String value.
+- [timestamp Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/timestamp.md): Timestamp object.
+- [topclass Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/top-class.md): String value representing top class predicted by classification model.
+- [videometadata Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/video-metadata.md): Video image metadata.
+- [Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/wildcard.md): Equivalent of any element.
+- [zone Kind](https://docs.roboflow.com/workflows/developer-guide/developer-guide/kinds/zone.md): Definition of polygon zone.
+- [Data representations](https://docs.roboflow.com/workflows/developer-guide/developer-guide/data-representations.md): The Python data types blocks receive at runtime: Batch, WorkflowImageData, and VideoMetadata.
+- [Workflows Compiler](https://docs.roboflow.com/workflows/developer-guide/developer-guide/compiler.md): How the Workflows Compiler turns a Workflow Definition into an executable computation graph.
+- [Execution Engine](https://docs.roboflow.com/workflows/developer-guide/developer-guide/execution-engine.md): Inside the Workflows Execution Engine: input validation, execution order, step inputs and outputs, and flow control.
+- [Inner workflows](https://docs.roboflow.com/workflows/developer-guide/developer-guide/inner-workflows.md): Embed one Workflow definition inside another with the Inner workflow block, and how the compiler inlines it.
+- [Execution Engine changelog](https://docs.roboflow.com/workflows/developer-guide/developer-guide/execution-engine-changelog.md): Version-by-version changes to the Workflows Execution Engine.
+- [Versioning](https://docs.roboflow.com/workflows/developer-guide/developer-guide/versioning.md): How the Workflows Execution Engine, Workflow Definitions, and blocks are versioned.
+- [Create a Workflow block](https://docs.roboflow.com/workflows/developer-guide/developer-guide/create-a-block.md): Full developer guide to writing a Workflow block: manifests, inputs, outputs, batch processing, flow control, and dimensionality.
+- [Bundling blocks into a plugin](https://docs.roboflow.com/workflows/developer-guide/developer-guide/block-bundling.md): Package Workflow blocks into a plugin: required interface, kinds, initializers, serializers, and loading.
+- [Dynamic Python blocks](https://docs.roboflow.com/workflows/developer-guide/developer-guide/dynamic-python-blocks.md): Define blocks in place in a Workflow Definition with Python code that the Execution Engine interprets at runtime.
+- [Testing blocks](https://docs.roboflow.com/workflows/developer-guide/developer-guide/testing.md): Recommended unit and integration testing approach for Workflow blocks you build.
+- [Community plugins](https://docs.roboflow.com/workflows/developer-guide/developer-guide/community-plugins.md): Community-built Workflow plugins that add blocks, models, and integrations to the ecosystem.
+- [Workflows Schema API](https://docs.roboflow.com/workflows/developer-guide/developer-guide/schema-api.md): Programmatically describe a Workflow's inputs, outputs, typing hints, and kind schemas.
+- [Workflow profiling](https://docs.roboflow.com/workflows/developer-guide/developer-guide/profiling.md): Measure Workflow execution timing and find bottlenecks with Chrome-compatible profiling traces.
+- [Workflows benchmarks](https://docs.roboflow.com/workflows/developer-guide/developer-guide/benchmarks.md): Latency of direct model inference compared with the same model wrapped in a Workflow.
+
+## Models
+
+- [Models](https://docs.roboflow.com/models/readme.md): Train, evaluate, and choose computer vision models on Roboflow.
+- [Model IDs](https://docs.roboflow.com/models/model-ids.md): How model IDs are structured and how legacy project/version IDs resolve to models.
+- [Versions, Trainings, and Models](https://docs.roboflow.com/models/versions-trainings-and-models.md): How dataset versions, trainings, and models relate in Roboflow, and how each model is identified and deployed.
+- [Pretrained Model Aliases](https://docs.roboflow.com/models/pretrained-aliases.md): Built-in COCO-pretrained model aliases you can run with Roboflow Inference without training a model.
+- [Supported Models](https://docs.roboflow.com/models/supported-models.md): All models you can deploy with Roboflow.
+- [CLIP](https://docs.roboflow.com/models/supported-models/clip.md): Use OpenAI's CLIP model through our Serverless Cloud API
+- [Cosmos 3 Edge](https://docs.roboflow.com/models/supported-models/cosmos-3-edge.md): Use NVIDIA's Cosmos 3 Edge vision-language world model through our Serverless Cloud API
+- [Depth Anything V2](https://docs.roboflow.com/models/supported-models/depth-anything-v2.md): Run the Depth Anything V2 monocular depth estimation API on a Dedicated Deployment or self-hosted Inference
+- [DINOv3](https://docs.roboflow.com/models/supported-models/dino-v3.md): Run DINOv3 classification models trained on Roboflow via the Serverless Cloud API
+- [DocTR](https://docs.roboflow.com/models/supported-models/doctr.md): Use the DocTR OCR model through our Serverless Cloud API
+- [EasyOCR](https://docs.roboflow.com/models/supported-models/easyocr.md): Use the EasyOCR multilingual OCR model through our Serverless Cloud API
+- [Florence 2](https://docs.roboflow.com/models/supported-models/florence-2.md): Use Microsoft's Florence 2 multimodal model through our Serverless Cloud API
+- [GLM-OCR](https://docs.roboflow.com/models/supported-models/glm-ocr.md): Use GLM-OCR for image OCR through our Serverless Cloud API
+- [Grounding DINO](https://docs.roboflow.com/models/supported-models/grounding-dino.md): Run the Grounding DINO text-prompted object detection API on a Dedicated Deployment or self-hosted Inference
+- [L2CS-Net](https://docs.roboflow.com/models/supported-models/l2cs-net.md): Run L2CS-Net gaze detection through the Roboflow Serverless Cloud API
+- [Moondream2](https://docs.roboflow.com/models/supported-models/moondream2.md): Run the Moondream2 open-vocabulary detection API on a Dedicated Deployment or self-hosted Inference
+- [OWLv2](https://docs.roboflow.com/models/supported-models/owlv2.md): Run the OWLv2 one-shot object detection API on a Dedicated Deployment or self-hosted Inference
+- [PaliGemma 2](https://docs.roboflow.com/models/supported-models/paligemma2.md): Use Google's PaliGemma 2 vision-language model through our Serverless Cloud API
+- [Perception Encoder](https://docs.roboflow.com/models/supported-models/perception-encoder.md): Run Meta's Perception Encoder embedding API on a Dedicated Deployment or self-hosted Inference
+- [Qwen3.5](https://docs.roboflow.com/models/supported-models/qwen3-5.md): Use Alibaba's Qwen3.5-VL vision-language model through Workflows, Dedicated Deployments, or self-hosted Inference
+- [Qwen3-VL](https://docs.roboflow.com/models/supported-models/qwen3-vl.md): Use Alibaba's Qwen3-VL vision-language model through our Serverless Cloud API
+- [ResNet](https://docs.roboflow.com/models/supported-models/resnet.md): Use ResNet image classification through our Serverless Cloud API
+- [RF-DETR](https://docs.roboflow.com/models/supported-models/rf-detr.md): Use Roboflow's RF-DETR model as a self-hosted model or through our Serverless Cloud API
+- [Roboflow 2.0](https://docs.roboflow.com/models/supported-models/roboflow-2.md): Use the Roboflow 2.0 semantic segmentation model through our Serverless Hosted API
+- [Roboflow 3.0](https://docs.roboflow.com/models/supported-models/roboflow-3.md): Use the Roboflow 3.0 model family as a self-hosted model or through our Serverless Cloud API.
+- [Segment Anything (SAM)](https://docs.roboflow.com/models/supported-models/sam.md): Run Meta's original Segment Anything (SAM) API on a Dedicated Deployment or self-hosted Inference
+- [SAM2](https://docs.roboflow.com/models/supported-models/sam2.md): Use Meta's SAM2 model through our Serverless Cloud API
+- [SAM3](https://docs.roboflow.com/models/supported-models/sam3.md): Use Meta's SAM3 model through our Serverless Cloud API
+- [SmolVLM2](https://docs.roboflow.com/models/supported-models/smolvlm2.md): Run the SmolVLM2 vision-language model API on a Dedicated Deployment or self-hosted Inference
+- [TrOCR](https://docs.roboflow.com/models/supported-models/trocr.md): Run Microsoft's TrOCR text recognition API on a Dedicated Deployment or self-hosted Inference
+- [ViT](https://docs.roboflow.com/models/supported-models/vit.md): Run ViT classification models trained on Roboflow via the Serverless Cloud API
+- [YOLO-NAS](https://docs.roboflow.com/models/supported-models/yolo-nas.md): Use the YOLO-NAS object detection model through our Serverless Cloud API
+- [YOLO-World](https://docs.roboflow.com/models/supported-models/yolo-world.md): Use YOLO-World open-vocabulary object detection through our Serverless Cloud API
+- [YOLO11 Object Detection](https://docs.roboflow.com/models/supported-models/yolo11.md): Use the YOLO11 model family through our Serverless Cloud API
+- [YOLO26 Object Detection](https://docs.roboflow.com/models/supported-models/yolo26.md): Use the YOLO26 model family through our Serverless Cloud API
+- [YOLOlite](https://docs.roboflow.com/models/supported-models/yololite.md): Use the YOLOlite model family through our Serverless Cloud API
+- [YOLOv10](https://docs.roboflow.com/models/supported-models/yolov10.md): Use the YOLOv10 object detection model through our Serverless Cloud API
+- [YOLOv12](https://docs.roboflow.com/models/supported-models/yolov12.md): Use the YOLOv12 object detection model through our Serverless Cloud API
+- [YOLOv5](https://docs.roboflow.com/models/supported-models/yolov5.md): Use the YOLOv5 model family through our Serverless Cloud API
+- [YOLOv7](https://docs.roboflow.com/models/supported-models/yolov7.md): Use YOLOv7 instance segmentation through our Serverless Cloud API
+- [YOLOv8](https://docs.roboflow.com/models/supported-models/yolov8.md): Use the YOLOv8 model family through our Serverless Cloud API
+- [YOLOv9](https://docs.roboflow.com/models/supported-models/yolov9.md): Use YOLOv9 object detection through our Serverless Cloud API
+- [Train a Model](https://docs.roboflow.com/models/train/train-a-model.md): Train a model using state-of-the-art technology in the Roboflow dashboard.
+- [Roboflow Instant](https://docs.roboflow.com/models/train/roboflow-instant.md): Train a few-shot model for use in building a Proof of Concept application with computer vision.
+- [Neural Architecture Search](https://docs.roboflow.com/models/train/neural-architecture-search.md): Automatically search for the optimal model architecture and fine tune your model simultaneously.
+- [Stop or Cancel a Training Job](https://docs.roboflow.com/models/train/cancel-a-training-job.md): Stop training early and save the model, or cancel training and discard its weights.
+- [Train from a Universe Checkpoint](https://docs.roboflow.com/models/train/roboflow-universe-checkpoints.md): Start training from a checkpoint based on one of the 50,000+ trained models available on Roboflow Universe.
+- [Train from Azure Vision](https://docs.roboflow.com/models/train/pro-third-party-training-integrations.md): Train a model on Azure Vision and upload to Roboflow.
+- [Train from Google Cloud](https://docs.roboflow.com/models/train/train-from-google-cloud.md): Train a model on Google Cloud and upload to Roboflow.
+- [Evaluate Trained Models](https://docs.roboflow.com/models/evaluate/evaluate-trained-models.md): Use Model Evaluation to explore how your model performs on your test dataset.
+- [View Training Results](https://docs.roboflow.com/models/evaluate/training-results.md): Training graphs and insights are made available for all Roboflow Train jobs.
+- [View Trained Models](https://docs.roboflow.com/models/evaluate/view-trained-models.md): See all Instant and Roboflow Train models in your project.
+- [Training Resolutions by Model Type](https://docs.roboflow.com/models/evaluate/training-resolutions-by-model-type.md): Default training resolutions for each supported model architecture and size across every task type.
+- [Upload Custom Model Weights](https://docs.roboflow.com/models/model-weights/upload-custom-weights.md): Roboflow offers the ability to upload model weights for your custom-trained models to your Roboflow projects for model deployment.
+- [Download Model Weights](https://docs.roboflow.com/models/model-weights/download-roboflow-model-weights.md): To run your Roboflow models on your own hardware, you can either use Roboflow Inference (the recommended, automatic method) or manually download Model Weights (for specific edge cases).
+- [What is Roboflow Rapid?](https://docs.roboflow.com/models/rapid/rapid.md): Go from a short video or a few images to a deployable object detection API with Roboflow Rapid in minutes.
+- [Build a Rapid Model](https://docs.roboflow.com/models/rapid/rapid/build-a-rapid-model.md): Label images and video with text prompts in the Rapid builder and tune sensitivity before training.
+- [Deploy a Rapid Model](https://docs.roboflow.com/models/rapid/rapid/deploy-a-rapid-model.md): Deploy a Rapid model as a serverless Workflow API with code snippets, and customize the underlying Workflow.
+- [Review a Rapid Model](https://docs.roboflow.com/models/rapid/rapid/review-a-rapid-model.md): Review a Rapid model's predictions, adjust the confidence threshold, and edit prompts or labels before publishing.
+- [Upload Data to Rapid](https://docs.roboflow.com/models/rapid/rapid/upload-data-to-rapid.md): Upload a short video or a few images to Roboflow Rapid and set the object classes you want to detect.
+
+## Datasets
+
+- [Datasets](https://docs.roboflow.com/datasets/readme.md): Upload, annotate, manage, and version image and video datasets on Roboflow.
+- [Create a Project](https://docs.roboflow.com/datasets/create-and-upload/create-a-project.md): Create a project in your workspace.
+- [Upload Images, Videos, and Annotations](https://docs.roboflow.com/datasets/create-and-upload/adding-data.md): Upload images, videos, and annotations to Roboflow.
+- [Datasources](https://docs.roboflow.com/datasets/create-and-upload/adding-data/datasources.md): Automatically sync images and metadata from external storage into your Roboflow workspace.
+- [Datasource Credentials](https://docs.roboflow.com/datasets/create-and-upload/adding-data/datasource-credentials.md): Create and manage reusable credentials for Datasources.
+- [AWS S3 Credentials](https://docs.roboflow.com/datasets/create-and-upload/adding-data/datasource-credentials/aws-s3.md): Create AWS credentials securely for S3 Datasources.
+- [Azure Blob Storage Credentials](https://docs.roboflow.com/datasets/create-and-upload/adding-data/datasource-credentials/azure.md): Create Azure credentials securely for Azure Blob Storage Datasources.
+- [Google Cloud Storage Credentials](https://docs.roboflow.com/datasets/create-and-upload/adding-data/datasource-credentials/gcs.md): Create Google Cloud credentials securely for GCS Datasources.
+- [Datasource Policy Examples](https://docs.roboflow.com/datasets/create-and-upload/adding-data/datasource-policy-examples.md): S3 policy examples for configuring Datasources in Roboflow.
+- [Upload Data from Cloud Providers](https://docs.roboflow.com/datasets/create-and-upload/adding-data/upload-data-from-aws-gcp-and-azure.md): Upload images and annotations from AWS, Azure and GCP to Roboflow.
+- [AWS S3 Bucket](https://docs.roboflow.com/datasets/create-and-upload/adding-data/upload-data-from-aws-gcp-and-azure/aws-s3-bucket.md): Upload Images from an AWS S3 bucket to Roboflow
+- [Azure Blob Storage](https://docs.roboflow.com/datasets/create-and-upload/adding-data/upload-data-from-aws-gcp-and-azure/azure-blob-storage.md): Upload Images from Azure Blob Storage to Roboflow
+- [Google Cloud Storage](https://docs.roboflow.com/datasets/create-and-upload/adding-data/upload-data-from-aws-gcp-and-azure/google-cloud-storage.md): Upload Images from Google Cloud Storage to Roboflow
+- [Import from Roboflow Universe](https://docs.roboflow.com/datasets/create-and-upload/adding-data/roboflow-universe.md): Download or clone images from Roboflow Universe for use in your projects.
+- [Image Metadata](https://docs.roboflow.com/datasets/create-and-upload/adding-data/image-metadata.md): Attach custom key-value metadata to images so you can search, filter, and organize your dataset.
+- [Upload a Dataset](https://docs.roboflow.com/datasets/create-and-upload/upload-a-dataset.md): Upload a structured dataset of images and annotations to a Roboflow project with the Python SDK.
+- [Download a Dataset](https://docs.roboflow.com/datasets/create-and-upload/download-a-dataset.md): Export your dataset of images and annotations for training locally.
+- [Annotate](https://docs.roboflow.com/datasets/annotate/annotate.md)
+- [Annotate Keypoints](https://docs.roboflow.com/datasets/annotate/annotate/annotate-keypoints.md): Keypoint Detection projects include keypoint editing in the annotation tool.
+- [Annotate Multimodal Data](https://docs.roboflow.com/datasets/annotate/annotate/annotate-multimodal-data.md): Use prefixes to annotate multimodal data for fine-tuning VLMs like Florence-2 or prompting models like GPT-4o.
+- [Annotation Insights](https://docs.roboflow.com/datasets/annotate/annotate/annotation-insights.md): View annotation insights by date, labeler, and project.
+- [Introduction to Roboflow Annotate](https://docs.roboflow.com/datasets/annotate/annotate/annotation-tools.md): Annotate images for use in your computer vision projects.
+- [Set Keypoint Skeletons](https://docs.roboflow.com/datasets/annotate/annotate/edit-keypoint-skeletons.md): Keypoint Skeletons are the definition for an object's points, edges, and symmetries. Only relevant for Keypoint Detection project types.
+- [Manage Annotation Workflow](https://docs.roboflow.com/datasets/annotate/annotate/manage-annotation-workflow.md): Use the Python SDK to list upload batches and annotation jobs and assign images to labelers and reviewers.
+- [Roboflow Labeling Services](https://docs.roboflow.com/datasets/annotate/annotate/roboflow-labeling-services.md): Work with a team of experienced labelers to annotate your data.
+- [Collaborate on Labeling](https://docs.roboflow.com/datasets/annotate/annotate/team-collaboration.md): Have the entire team help label your datasets.
+- [AI Labeling](https://docs.roboflow.com/datasets/annotate/annotate/ai-labeling.md): Use AI tools to speed up your labeling process.
+- [Auto Label](https://docs.roboflow.com/datasets/annotate/annotate/ai-labeling/auto-label.md): Auto-label images for use in training models.
+- [Box Prompting](https://docs.roboflow.com/datasets/annotate/annotate/ai-labeling/box-prompting-ai-labeling.md): Annotate images with our AI Labeling tool that improves with each example.
+- [Label Assist](https://docs.roboflow.com/datasets/annotate/annotate/ai-labeling/model-assisted-labeling.md): Reduce annotation time and get a model into production faster by using model weights from a trained model to label your data
+- [Smart Select](https://docs.roboflow.com/datasets/annotate/annotate/ai-labeling/smart-select.md): Generate more precise polygons with SAM-powered Smart Select.
+- [Annotate an Image](https://docs.roboflow.com/datasets/annotate/annotate/use-roboflow-annotate.md): An overview of the Labeling Interface for Roboflow's Annotation Tool, including shortcut keys.
+- [Annotation History](https://docs.roboflow.com/datasets/annotate/annotate/use-roboflow-annotate/annotation-history.md): View the history of an annotation.
+- [Comment on an Image](https://docs.roboflow.com/datasets/annotate/annotate/use-roboflow-annotate/comment-on-an-image.md): Leave comments on images for review by collaborators on a project.
+- [Keyboard Shortcuts](https://docs.roboflow.com/datasets/annotate/annotate/use-roboflow-annotate/keyboard-shortcuts.md): Shortcuts for using Roboflow Annotate.
+- [Show and Hide Annotations](https://docs.roboflow.com/datasets/annotate/annotate/use-roboflow-annotate/show-and-hide-annotations.md): Show or hide annotations on an image in Roboflow Annotate using the eye icon or the H key.
+- [Similarity Search](https://docs.roboflow.com/datasets/annotate/annotate/use-roboflow-annotate/similarity-search-and-settings.md): Find similar images in your dataset from the Roboflow Annotate interface.
+- [Annotation Groups](https://docs.roboflow.com/datasets/annotate/annotation-groups.md): Learn how annotation groups let you share classes and annotations across projects.
+- [Manage Datasets](https://docs.roboflow.com/datasets/manage/manage-datasets.md): Manage datasets with batches, search, class management, image tags, and annotation attributes.
+- [Add Tags to Images](https://docs.roboflow.com/datasets/manage/manage-datasets/add-tags-to-images.md): Improve your dataset organization with image tags.
+- [Create an Annotation Attribute](https://docs.roboflow.com/datasets/manage/manage-datasets/create-an-annotation-attribute.md): You can add attributes to annotations for use in organising your dataset.
+- [Search a Dataset](https://docs.roboflow.com/datasets/manage/manage-datasets/dataset-search.md): Use text-based search queries and set filters to better understand datasets in Roboflow.
+- [Delete an Image](https://docs.roboflow.com/datasets/manage/manage-datasets/delete-an-image.md): Delete an image from a Roboflow Project.
+- [Download an Image](https://docs.roboflow.com/datasets/manage/manage-datasets/download-an-image.md): Download a single image, or a preprocessed or augmented version of it, from a dataset in Roboflow.
+- [Dataset Batches](https://docs.roboflow.com/datasets/manage/manage-datasets/manage-batches.md): Batches are groups of images and labels that you can track across your annotation dashboard.
+- [Set Dataset Classes](https://docs.roboflow.com/datasets/manage/manage-datasets/manage-classes.md): Rename, delete, or lock classes in a project
+- [Manage Images](https://docs.roboflow.com/datasets/manage/manage-images.md): Upload, annotate, inspect, tag, and delete individual images through the REST API and Python SDK.
+- [Project Folders](https://docs.roboflow.com/datasets/manage/project-folders.md): Group projects into folders to organize your workspace and optionally restrict access with SSO.
+- [Project Folder Permissions](https://docs.roboflow.com/datasets/manage/project-folders/project-folder-permissions.md): Control which workspace members can view and edit projects within a folder using folder permissions.
+- [Merge Projects](https://docs.roboflow.com/datasets/manage/merge-datasets.md): Combine projects  that exist within the same workspace.
+- [Rename a Project](https://docs.roboflow.com/datasets/manage/rename-a-project.md): Rename a project in your Roboflow workspace and understand how it changes the project URL and model API.
+- [Delete a Project](https://docs.roboflow.com/datasets/manage/delete-a-project.md): Move a project to Trash, where it is kept for 30 days before being permanently removed.
+- [Change Project Owner](https://docs.roboflow.com/datasets/manage/change-project-owner.md): Transfer ownership of a Project to another Workspace member.
+- [Make a Project Public](https://docs.roboflow.com/datasets/manage/make-a-project-public.md): Share your computer vision dataset and models with the world on Roboflow Universe
+- [Dataset Versions](https://docs.roboflow.com/datasets/versions/dataset-versions.md): Create dataset versions as point-in-time snapshots with preprocessing and augmentation before training.
+- [Create a Dataset Version](https://docs.roboflow.com/datasets/versions/dataset-versions/create-a-dataset-version.md): Create a dataset version for use in training a model.
+- [Delete a Version](https://docs.roboflow.com/datasets/versions/dataset-versions/delete-a-version.md): Move a dataset version to Trash, where it is kept for 30 days before being permanently removed.
+- [Export a Dataset Version](https://docs.roboflow.com/datasets/versions/dataset-versions/exporting-data.md): Export data from Roboflow for training.
+- [Preprocess Images](https://docs.roboflow.com/datasets/versions/dataset-versions/image-preprocessing.md): Image preprocessing steps to prepare data for models.
+- [Image Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation.md): Create augmented images to improve model performance.
+- [Add Augmentations to Images](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/add-augmentations-to-images.md): Add augmentation steps when creating a dataset version to generate additional training images.
+- [Augmentation Types](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types.md): Overview of the image augmentation types Roboflow offers and how each transforms your dataset.
+- [90º Rotate Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/90o-rotate-augmentation.md): Randomly rotate images 90 or 180 degrees so your model is insensitive to camera orientation.
+- [Blur Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/blur-augmentation.md): Add random Gaussian blur to make your model more resilient to variations in camera focus.
+- [Brightness Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/brightness-augmentation.md): Randomly brighten or darken images to make your model resilient to lighting and camera setting changes.
+- [Camera Gain Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/camera-gain-augmentation.md): Simulate camera sensor gain (ISO) noise to make your model resilient to sensor and lighting variation.
+- [Crop Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/crop-augmentation.md): Randomly crop a subset of each image to add positional and scale variability and improve model generalization.
+- [Cutout Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/cutout-augmentation.md): Randomly mask portions of an image with black boxes to make your model resilient to object occlusion.
+- [Exposure Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/exposure-augmentation.md): Adjust gamma exposure to brighten or darken images and build resilience to lighting and camera changes.
+- [Flip Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/flip-augmentation.md): Randomly flip images horizontally or vertically so your model is insensitive to subject orientation.
+- [Grayscale Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/grayscale-augmentation.md): Probabilistically convert a percentage of your dataset's images to grayscale so your model relies less on color.
+- [Hue Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/hue-augmentation.md): Randomly shift image hues around the color wheel to make your model resilient to color variation.
+- [Mosaic Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/mosaic-augmentation.md): Combine multiple images into a single tile to help your model perform better on small objects.
+- [Motion Blur Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/motion-blur-augmentation.md): Simulate camera or subject motion with directional blur to make your model resilient to movement.
+- [Noise Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/noise-augmentation.md): Inject random salt-and-pepper noise into images to make your model resilient to camera artifacts.
+- [Rotation Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/rotation-augmentation.md): Randomly rotate images clockwise or counter-clockwise up to a chosen degree to handle camera roll.
+- [Saturation Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/saturation-augmentation.md): Randomly adjust color vibrancy in images to make your model resilient to saturation differences.
+- [Shear Augmentation](https://docs.roboflow.com/datasets/versions/dataset-versions/image-augmentation/augmentation-types/shear-augmentation.md): Randomly shear images along their horizontal or vertical axis to add perspective variability.
+- [Dataset Health Check](https://docs.roboflow.com/datasets/versions/dataset-health-check.md): Assess and improve the quality of your dataset.
+- [Universe](https://docs.roboflow.com/datasets/universe/universe.md)
+- [Download a Universe Dataset](https://docs.roboflow.com/datasets/universe/universe/download-a-universe-dataset.md): You can download a Universe dataset for use in training a model in a notebook.
+- [Explore Images in a Universe Dataset](https://docs.roboflow.com/datasets/universe/universe/explore-images-in-a-universe-dataset.md): Look through the images and annotations in a Universe dataset.
+- [Find a Dataset on Universe](https://docs.roboflow.com/datasets/universe/universe/find-a-dataset-on-universe.md): Learn how to find data to use in your vision projects on Universe.
+- [Find a Model on Universe](https://docs.roboflow.com/datasets/universe/universe/find-a-model-on-universe.md): You can find pre-trained models on Universe for use in your computer vision project.
+- [Fork a Universe Dataset](https://docs.roboflow.com/datasets/universe/universe/fork-a-universe-dataset.md): You can copy data from a Universe dataset into your account using the Fork Project feature.
+- [Set a Project Description](https://docs.roboflow.com/datasets/universe/universe/set-a-project-description.md): Add a description to a public project so it appears on your Roboflow Universe page.
+- [Universe Search](https://docs.roboflow.com/datasets/universe/universe/universe-search.md): Search Roboflow Universe projects, datasets, and models programmatically with the Python SDK.
+- [View Project Analytics](https://docs.roboflow.com/datasets/universe/universe/view-project-analytics.md): View stars, views, and download analytics for a project published on Roboflow Universe.
+- [What is Roboflow Universe?](https://docs.roboflow.com/datasets/universe/universe/what-is-roboflow-universe.md): An introduction to the Roboflow Universe platform.
+
+## Reference
+
+- [Developer Reference](https://docs.roboflow.com/reference/readme.md): Interact with your Roboflow account with our API, SDK, or CLI.
+- [Environment Variables](https://docs.roboflow.com/reference/environment-variables.md): Environment variables read by the Roboflow CLI and Python SDK.
+- [Errors and Status Codes](https://docs.roboflow.com/reference/errors-and-status-codes.md): Reference for CLI exit codes, SDK exceptions, and REST API error responses.
+- [Glossary](https://docs.roboflow.com/reference/glossary.md): Glossary of Roboflow terms, including Workflows, Blocks, Kinds, and deployment options.
+- [Authentication](https://docs.roboflow.com/reference/authentication/authentication.md): How authentication works on Roboflow - API keys, publishable keys, scoped keys, and OAuth.
+- [Find Your Roboflow API Key](https://docs.roboflow.com/reference/authentication/authentication/find-your-roboflow-api-key.md): Find your API Key to authenticate with the Roboflow API and Roboflow Inference
+- [Manage API Keys](https://docs.roboflow.com/reference/authentication/authentication/manage-api-keys.md): Create, list, update, protect, and revoke workspace API keys programmatically with the Roboflow REST API, the roboflow api-key CLI, or the MCP server.
+- [OAuth 2.1 (Sign in with Roboflow)](https://docs.roboflow.com/reference/authentication/authentication/oauth.md): Sign in with Roboflow - OAuth 2.1 and PKCE (redirect).
+- [Scoped API Keys](https://docs.roboflow.com/reference/authentication/authentication/scoped-api-keys.md): Enterprise customers can define specific permissions to grant an API key.
+- [Sign In With Roboflow (Developer Reference)](https://docs.roboflow.com/reference/authentication/authentication/sign-in-with-roboflow-developer-reference.md): OAuth reference, visibility, errors, and example app for Sign in with Roboflow.
+- [Sign In With Roboflow (Getting Started)](https://docs.roboflow.com/reference/authentication/authentication/sign-in-with-roboflow-getting-started.md): Let users sign in to your application with their Roboflow account using OAuth 2.1 and PKCE.
+- [Workspace and Project IDs](https://docs.roboflow.com/reference/authentication/authentication/workspace-and-project-ids.md): Retrieve workspace and project IDs for use with the API.
+- [Choosing the Right Tool](https://docs.roboflow.com/reference/platform/choosing-the-right-tool.md): When to use the CLI, Python SDK, or REST API.
+- [CLI](https://docs.roboflow.com/reference/platform/cli.md): Reference for the Roboflow CLI commands, global flags, JSON output, resource shorthand, and convenience aliases.
+- [Install and Set Up the CLI](https://docs.roboflow.com/reference/platform/cli/install-and-set-up-the-cli.md): Install the Roboflow CLI, authenticate, set a default workspace, and enable shell completion.
+- [Python SDK](https://docs.roboflow.com/reference/platform/python-sdk.md): Install the Roboflow Python SDK and write a first script to download datasets and work with projects, versions, and models.
+- [Authenticate with the Python SDK](https://docs.roboflow.com/reference/platform/python-sdk/authenticate-with-the-python-sdk.md): The three ways to pass a Roboflow API key to the Python SDK - environment variable, explicit argument, or interactive login.
+- [Logging and Debugging](https://docs.roboflow.com/reference/platform/python-sdk/logging-and-debugging.md): Enable verbose logging, inspect HTTP requests, and diagnose common SDK errors.
+- [REST API](https://docs.roboflow.com/reference/platform/rest-api.md): Overview of the Roboflow REST API hosts, resource hierarchy, root endpoint, and authentication methods.
+- [Async Tasks](https://docs.roboflow.com/reference/platform/rest-api/async-tasks.md): How to poll long-running REST API operations that return a task ID, and read running, completed, or failed statuses.
+- [Authenticate with the REST API](https://docs.roboflow.com/reference/platform/rest-api/authenticate-with-the-rest-api.md): How to authenticate REST API requests with an API key via a bearer header, request body, or query parameter.
+- [Platform API OpenAPI](https://docs.roboflow.com/reference/platform/rest-api/platform-api-openapi.md): Browse and test the HTTP API for Roboflow Platform resources.
+- [Choosing the Right Tool](https://docs.roboflow.com/reference/inference/choosing-the-right-tool.md): When to use the Inference server, the inference package, the Inference SDK, and the Inference CLI.
+- [Inference Server OpenAPI](https://docs.roboflow.com/reference/inference/inference-server-openapi.md): Browse and test the HTTP API for a self-hosted Roboflow Inference Server.
+- [Inference Python Package](https://docs.roboflow.com/reference/inference/inference-python.md): The inference Python package: load models, run inference in your own process, execute Workflows, and stream video.
+- [Inference Benchmarks](https://docs.roboflow.com/reference/inference/inference-python/benchmarks.md): Measured throughput for RF-DETR, YOLOv8, ResNet, and ViT models on NVIDIA L4 and Jetson Orin NX, comparing ONNX and TensorRT.
+- [Inference Pipeline](https://docs.roboflow.com/reference/inference/inference-python/inference-pipeline.md): Run models on video streams with InferencePipeline: video sources, custom inference logic, Workflows, and sinks.
+- [Native Python API](https://docs.roboflow.com/reference/inference/inference-python/native-python-api.md): Load a model with get\_model, run inference on images in your own Python process, and visualize the results with supervision.
+- [Model Weights Download](https://docs.roboflow.com/reference/inference/inference-python/offline-weights.md): How the inference package downloads and caches model weights, how to configure a persistent cache directory, and how to pre-download weights.
+- [Inference SDK](https://docs.roboflow.com/reference/inference/inference-sdk.md): HTTP client for the Roboflow Inference Server, with local, hosted, async, and batch inference from Python.
+- [Configuration](https://docs.roboflow.com/reference/inference/inference-sdk/configuration.md): Configure InferenceHTTPClient defaults, per-task model parameters, and Workflows execution options with InferenceConfiguration.
+- [Core Models](https://docs.roboflow.com/reference/inference/inference-sdk/core-models.md): Call CLIP and DocTR foundation models through the inference-sdk HTTP client, with sync and async methods.
+- [Model Management](https://docs.roboflow.com/reference/inference/inference-sdk/model-management.md): Pre-load, inspect, and unload models on an Inference Server with the inference-sdk client.
+- [WebRTC Streaming](https://docs.roboflow.com/reference/inference/inference-sdk/webrtc.md): Stream video to an Inference server over WebRTC and receive live predictions, using a model ID or a Workflow, from webcams, RTSP cameras, video files, or manually sent frames.
+- [Workflows](https://docs.roboflow.com/reference/inference/inference-sdk/workflows.md): Run a Roboflow Workflow through the inference-sdk client, by workflow ID or by inline specification.
+- [Inference CLI](https://docs.roboflow.com/reference/inference/inference-cli.md): Command-line tool for running the Inference Server, processing data with Workflows, benchmarking, making predictions, and deploying to the cloud.
+- [Benchmark Inference](https://docs.roboflow.com/reference/inference/inference-cli/benchmark.md): Measure throughput and latency of the Inference Server or the inference Python package with inference benchmark.
+- [Deploy to Cloud](https://docs.roboflow.com/reference/inference/inference-cli/cloud.md): Deploy Roboflow Inference containers to CPU or GPU virtual machines on AWS and GCP with inference cloud.
+- [Make Predictions](https://docs.roboflow.com/reference/inference/inference-cli/infer.md): Run predictions on images, image URLs, directories, and video files from the command line with inference infer.
+- [Control the Inference Server](https://docs.roboflow.com/reference/inference/inference-cli/server.md): Start, configure, inspect, and stop a local Roboflow Inference Server with the inference server command.
+- [Run Workflows](https://docs.roboflow.com/reference/inference/inference-cli/workflows.md): Process single images, directories of images, and video files with a Roboflow Workflow from the command line.
+- [What's New in Roboflow](https://docs.roboflow.com/reference/changelog/changelog.md): New features, improvements, and updates to the Roboflow platform.
+- [September 2026](https://docs.roboflow.com/reference/changelog/changelog/september-2026.md)
+- [Qwen 3.8 27B in the Serverless Cloud API](https://docs.roboflow.com/reference/changelog/changelog/september-2026/qwen-3.8-27b-in-the-serverless-cloud-api.md)
+- [Inference Server binds to localhost by default](https://docs.roboflow.com/reference/changelog/changelog/september-2026/inference-server-binds-to-localhost-by-default.md)
+- [August 2026](https://docs.roboflow.com/reference/changelog/changelog/august-2026.md)
+- [Cosmos 3 Edge in Inference & Workflows](https://docs.roboflow.com/reference/changelog/changelog/august-2026/cosmos-3-edge-in-inference-and-workflows.md)
+- [Gemini in Auto Label: Describe what classes to annotate](https://docs.roboflow.com/reference/changelog/changelog/august-2026/gemini-in-auto-label-describe-what-classes-to-annotate.md)
+- [Historical FPS telemetry in Deployment Manager](https://docs.roboflow.com/reference/changelog/changelog/august-2026/historical-fps-telemetry-in-deployment-manager.md)
+- [SpaceXAI Grok Block in Workflows](https://docs.roboflow.com/reference/changelog/changelog/august-2026/spacexai-grok-block-in-workflows.md)
+- [Supervision-js: Render detections in the browser at high frame rates](https://docs.roboflow.com/reference/changelog/changelog/august-2026/supervision-js-render-detections-in-the-browser-at-high-frame-rates.md)
+- [Trackers 2.6: McByte tracker and dynamic frame rate](https://docs.roboflow.com/reference/changelog/changelog/august-2026/trackers-2.6-mcbyte-tracker-and-dynamic-frame-rate.md)
+- [Vision Events: Control who can view and manage events](https://docs.roboflow.com/reference/changelog/changelog/august-2026/vision-events-control-who-can-view-and-manage-events.md)
+- [Vision Events: Generate summary reports](https://docs.roboflow.com/reference/changelog/changelog/august-2026/vision-events-generate-summary-reports.md)
+- [July 2026](https://docs.roboflow.com/reference/changelog/changelog/july-2026.md)
+- [Activity tab in Deployment Manager](https://docs.roboflow.com/reference/changelog/changelog/july-2026/activity-tab-in-deployment-manager.md)
+- [Asset Library: Find and work with all your images](https://docs.roboflow.com/reference/changelog/changelog/july-2026/asset-library-find-and-work-with-all-your-images.md)
+- [Auto Label with Workflows: Label data with any model or custom logic](https://docs.roboflow.com/reference/changelog/changelog/july-2026/auto-label-with-workflows-label-data-with-any-model-or-custom-logic.md)
+- [MCP Server: Upload custom model weights from your AI assistant](https://docs.roboflow.com/reference/changelog/changelog/july-2026/mcp-server-upload-custom-model-weights-from-your-ai-assistant.md)
+- [Multiple Models Per Version: Train and compare models side by side](https://docs.roboflow.com/reference/changelog/changelog/july-2026/multiple-models-per-version-train-and-compare-models-side-by-side.md)
+- [Network configuration in Deployment Manager: Set edge device IPs remotely](https://docs.roboflow.com/reference/changelog/changelog/july-2026/network-configuration-in-deployment-manager-set-edge-device-ips-remotely.md)
+- [Roboflow in the Claude directory: Connect and build together more easily](https://docs.roboflow.com/reference/changelog/changelog/july-2026/roboflow-in-the-claude-directory-connect-and-build-together-more-easily.md)
+- [Run Workflows on Asset Library images: Enrich your library at scale](https://docs.roboflow.com/reference/changelog/changelog/july-2026/run-workflows-on-asset-library-images-enrich-your-library-at-scale.md)
+- [Self-serve SSO setup for Enterprise workspaces](https://docs.roboflow.com/reference/changelog/changelog/july-2026/self-serve-sso-setup-for-enterprise-workspaces.md)
+- [Visual Search Classifier block: Classify images by visual similarity](https://docs.roboflow.com/reference/changelog/changelog/july-2026/visual-search-classifier-block-classify-images-by-visual-similarity.md)
+- [June 2026](https://docs.roboflow.com/reference/changelog/changelog/june-2026.md)
+- [Active Learning: Improve your models with production data](https://docs.roboflow.com/reference/changelog/changelog/june-2026/active-learning-improve-your-models-with-production-data.md)
+- [Depth Anything on the Serverless API](https://docs.roboflow.com/reference/changelog/changelog/june-2026/depth-anything-on-the-serverless-api.md)
+- [Fast backbone in NAS: Train faster, edge-ready models](https://docs.roboflow.com/reference/changelog/changelog/june-2026/fast-backbone-in-nas-train-faster-edge-ready-models.md)
+- [RF-DETR Keypoint Preview](https://docs.roboflow.com/reference/changelog/changelog/june-2026/rf-detr-keypoint-preview.md)
+- [Roboflow MCP Server in the Cursor marketplace](https://docs.roboflow.com/reference/changelog/changelog/june-2026/roboflow-mcp-server-in-the-cursor-marketplace.md)
+- [Run Workflows on Asset Library images](https://docs.roboflow.com/reference/changelog/changelog/june-2026/run-workflows-on-asset-library-images.md)
+- [SAM 3 point prompting and video tracking in Workflows](https://docs.roboflow.com/reference/changelog/changelog/june-2026/sam-3-point-prompting-and-video-tracking-in-workflows.md)
+- [Track Class Lock block in Workflows](https://docs.roboflow.com/reference/changelog/changelog/june-2026/track-class-lock-block-in-workflows.md)
+- [Train and use YOLO26 semantic segmentation models](https://docs.roboflow.com/reference/changelog/changelog/june-2026/train-and-use-yolo26-semantic-segmentation-models.md)
+- [Vision Events: Query events with natural language via MCP Server](https://docs.roboflow.com/reference/changelog/changelog/june-2026/vision-events-query-events-with-natural-language-via-mcp-server.md)
+- [May 2026](https://docs.roboflow.com/reference/changelog/changelog/may-2026.md)
+- [Active Directory group sync for SSO](https://docs.roboflow.com/reference/changelog/changelog/may-2026/active-directory-group-sync-for-sso.md)
+- [API key metadata and creation date](https://docs.roboflow.com/reference/changelog/changelog/may-2026/api-key-metadata-and-creation-date.md)
+- [Dashboards in Vision Events](https://docs.roboflow.com/reference/changelog/changelog/may-2026/dashboards-in-vision-events.md)
+- [Detections feedback in Vision Events](https://docs.roboflow.com/reference/changelog/changelog/may-2026/detections-feedback-in-vision-events.md)
+- [Disable individual nodes in Workflows](https://docs.roboflow.com/reference/changelog/changelog/may-2026/disable-individual-nodes-in-workflows.md)
+- [Easier setup for Roboflow MCP Server](https://docs.roboflow.com/reference/changelog/changelog/may-2026/easier-setup-for-roboflow-mcp-server.md)
+- [OpenRouter block in Workflows](https://docs.roboflow.com/reference/changelog/changelog/may-2026/openrouter-block-in-workflows.md)
+- [Plus backbone and MCP tools for Neural Architecture Search](https://docs.roboflow.com/reference/changelog/changelog/may-2026/plus-backbone-and-mcp-tools-for-neural-architecture-search.md)
+- [Qwen 3.5 on the Serverless API](https://docs.roboflow.com/reference/changelog/changelog/may-2026/qwen-3.5-on-the-serverless-api.md)
+- [Soft delete for projects, versions, and Workflows](https://docs.roboflow.com/reference/changelog/changelog/may-2026/soft-delete-for-projects-versions-and-workflows.md)
+- [April 2026](https://docs.roboflow.com/reference/changelog/changelog/april-2026.md)
+- [Custom SSL Certificates in Deployment Manager](https://docs.roboflow.com/reference/changelog/changelog/april-2026/custom-ssl-certificates-in-deployment-manager.md)
+- [MCP Server](https://docs.roboflow.com/reference/changelog/changelog/april-2026/mcp-server.md)
+- [Nested Workflow Block](https://docs.roboflow.com/reference/changelog/changelog/april-2026/nested-workflow-block.md)
+- [Neural Architecture Search in Roboflow Train](https://docs.roboflow.com/reference/changelog/changelog/april-2026/neural-architecture-search-in-roboflow-train.md)
+- [Vision Events](https://docs.roboflow.com/reference/changelog/changelog/april-2026/vision-events.md)
+- [March 2026](https://docs.roboflow.com/reference/changelog/changelog/march-2026.md)
+- [Audit Logs for Workspace Activity](https://docs.roboflow.com/reference/changelog/changelog/march-2026/audit-logs-for-workspace-activity.md)
+- [AWS S3 Sink Block in Workflows](https://docs.roboflow.com/reference/changelog/changelog/march-2026/aws-s3-sink-block-in-workflows.md)
+- [Continuous Improvement in Roboflow Rapid](https://docs.roboflow.com/reference/changelog/changelog/march-2026/continuous-improvement-in-roboflow-rapid.md)
+- [Credit Usage Tracking by Folder](https://docs.roboflow.com/reference/changelog/changelog/march-2026/credit-usage-tracking-by-folder.md)
+- [Qwen3.5-VL in Workflows](https://docs.roboflow.com/reference/changelog/changelog/march-2026/qwen3.5-vl-in-workflows.md)
+- [SORT and OC SORT Trackers in Workflows](https://docs.roboflow.com/reference/changelog/changelog/march-2026/sort-and-oc-sort-trackers-in-workflows.md)
+- [Stream Sharpness Monitoring](https://docs.roboflow.com/reference/changelog/changelog/march-2026/stream-sharpness-monitoring.md)
+- [Trigger-Based Inference in Deployment Manager](https://docs.roboflow.com/reference/changelog/changelog/march-2026/trigger-based-inference-in-deployment-manager.md)
+- [Updated Workflows AI Assistant](https://docs.roboflow.com/reference/changelog/changelog/march-2026/updated-workflows-ai-assistant.md)
+- [YOLOLite Available in Train (Beta)](https://docs.roboflow.com/reference/changelog/changelog/march-2026/yololite-available-in-train-beta.md)
+- [February 2026](https://docs.roboflow.com/reference/changelog/changelog/february-2026.md)
+- [Asset Library for Bulk Image Management](https://docs.roboflow.com/reference/changelog/changelog/february-2026/asset-library-for-bulk-image-management.md)
+- [GigE Camera Discovery for Edge Deployments](https://docs.roboflow.com/reference/changelog/changelog/february-2026/gige-camera-discovery-for-edge-deployments.md)
+- [Inference 1.0: Modular Vision Execution Engine](https://docs.roboflow.com/reference/changelog/changelog/february-2026/inference-1.0-modular-vision-execution-engine.md)
+- [Mask Area Measurement Workflow Block](https://docs.roboflow.com/reference/changelog/changelog/february-2026/mask-area-measurement-workflow-block.md)
+- [January 2026](https://docs.roboflow.com/reference/changelog/changelog/january-2026.md)
+- [Claude Opus 4.5 in Workflows](https://docs.roboflow.com/reference/changelog/changelog/january-2026/claude-opus-4.5-in-workflows.md)
+- [Depth Anything 3 in Workflows](https://docs.roboflow.com/reference/changelog/changelog/january-2026/depth-anything-3-in-workflows.md)
+- [Gemini 3 Flash in Workflows](https://docs.roboflow.com/reference/changelog/changelog/january-2026/gemini-3-flash-in-workflows.md)
+- [Motion Detection in Workflows](https://docs.roboflow.com/reference/changelog/changelog/january-2026/motion-detection-in-workflows.md)
+- [Qwen3 VL in Workflows](https://docs.roboflow.com/reference/changelog/changelog/january-2026/qwen3-vl-in-workflows.md)
+- [RF-DETR - New Sizes Available](https://docs.roboflow.com/reference/changelog/changelog/january-2026/rf-detr-new-sizes-available.md)
+- [Workflow Block Governance](https://docs.roboflow.com/reference/changelog/changelog/january-2026/workflow-block-governance.md)
+- [YOLO26 Model Support](https://docs.roboflow.com/reference/changelog/changelog/january-2026/yolo26-model-support.md)
+- [December 2025](https://docs.roboflow.com/reference/changelog/changelog/december-2025.md)
+- [Advanced Permissions: Hide Projects Tab](https://docs.roboflow.com/reference/changelog/changelog/december-2025/advanced-permissions-hide-projects-tab.md)
+- [Deployment Manager Bulk Actions](https://docs.roboflow.com/reference/changelog/changelog/december-2025/deployment-manager-bulk-actions.md)
+- [Enterprise Role-Based Access Control (RBAC) & Custom Roles](https://docs.roboflow.com/reference/changelog/changelog/december-2025/enterprise-role-based-access-control-rbac-and-custom-roles.md)
+- [Faster Model Training with Upgraded GPU Infrastructure](https://docs.roboflow.com/reference/changelog/changelog/december-2025/faster-model-training-with-upgraded-gpu-infrastructure.md)
+- [JetPack 6.2 Support](https://docs.roboflow.com/reference/changelog/changelog/december-2025/jetpack-6.2-support.md)
+- [New Augmentations: Camera Gain & Motion Blur](https://docs.roboflow.com/reference/changelog/changelog/december-2025/new-augmentations-camera-gain-and-motion-blur.md)
+- [S3-Compatible Batch Processing](https://docs.roboflow.com/reference/changelog/changelog/december-2025/s3-compatible-batch-processing.md)
+- [Serverless Video Streaming API](https://docs.roboflow.com/reference/changelog/changelog/december-2025/serverless-video-streaming-api.md)
+- [Workspace Homepage with Deployment Overview](https://docs.roboflow.com/reference/changelog/changelog/december-2025/workspace-homepage-with-deployment-overview.md)
+- [November 2025](https://docs.roboflow.com/reference/changelog/changelog/november-2025.md)
+- [Annotate Segmentation Masks with a Brush](https://docs.roboflow.com/reference/changelog/changelog/november-2025/annotate-segmentation-masks-with-a-brush.md)
+- [Auto Label Data with SAM 3](https://docs.roboflow.com/reference/changelog/changelog/november-2025/auto-label-data-with-sam-3.md)
+- [Compare SAM 3 with Other Vision Models in Playground](https://docs.roboflow.com/reference/changelog/changelog/november-2025/compare-sam-3-with-other-vision-models-in-playground.md)
+- [Create a SAM 3 API with Roboflow Workflows](https://docs.roboflow.com/reference/changelog/changelog/november-2025/create-a-sam-3-api-with-roboflow-workflows.md)
+- [Filter by Tag in Model Evaluation \[Preview\]](https://docs.roboflow.com/reference/changelog/changelog/november-2025/filter-by-tag-in-model-evaluation-preview.md)
+- [Find Objects with AI Annotation Tool](https://docs.roboflow.com/reference/changelog/changelog/november-2025/find-objects-with-ai-annotation-tool.md)
+- [Fine-Tune SAM 3 on Roboflow](https://docs.roboflow.com/reference/changelog/changelog/november-2025/fine-tune-sam-3-on-roboflow.md)
+- [Multi-Label Classification Label Tooltips in Image Library](https://docs.roboflow.com/reference/changelog/changelog/november-2025/multi-label-classification-label-tooltips-in-image-library.md)
+- [Preview Workflows on a Webcam Stream from the Web Editor](https://docs.roboflow.com/reference/changelog/changelog/november-2025/preview-workflows-on-a-webcam-stream-from-the-web-editor.md)
+- [Run Workflows on Camera Streams from the Web](https://docs.roboflow.com/reference/changelog/changelog/november-2025/run-workflows-on-camera-streams-from-the-web.md)
+- [Train DINOv3 Models on Roboflow](https://docs.roboflow.com/reference/changelog/changelog/november-2025/train-dinov3-models-on-roboflow.md)
+- [Use SAM 3 in Roboflow Workflows](https://docs.roboflow.com/reference/changelog/changelog/november-2025/use-sam-3-in-roboflow-workflows.md)
+- [Use SAM 3 in Smart Select](https://docs.roboflow.com/reference/changelog/changelog/november-2025/use-sam-3-in-smart-select.md)
+- [October 2025](https://docs.roboflow.com/reference/changelog/changelog/october-2025.md)
+- [Model Evaluation for Instance Segmentation Models](https://docs.roboflow.com/reference/changelog/changelog/october-2025/model-evaluation-for-instance-segmentation-models.md)
+- [Train RF-DETR Segmentation (Preview) Models in Roboflow Train](https://docs.roboflow.com/reference/changelog/changelog/october-2025/train-rf-detr-segmentation-preview-models-in-roboflow-train.md)
+- [September 2025](https://docs.roboflow.com/reference/changelog/changelog/september-2025.md)
+- [Auto Label now supports images > 4096px](https://docs.roboflow.com/reference/changelog/changelog/september-2025/auto-label-now-supports-images-greater-than-4096px.md)
+- [Fork Large Datasets from Roboflow Universe](https://docs.roboflow.com/reference/changelog/changelog/september-2025/fork-large-datasets-from-roboflow-universe.md)
+- [Receive Alerts for Low Inference FPS and Device Status](https://docs.roboflow.com/reference/changelog/changelog/september-2025/receive-alerts-for-low-inference-fps-and-device-status.md)
+- [Roboflow Arena](https://docs.roboflow.com/reference/changelog/changelog/september-2025/roboflow-arena.md)
+- [Schedule Device Updates with Deployment Manager](https://docs.roboflow.com/reference/changelog/changelog/september-2025/schedule-device-updates-with-device-manager.md)
+- [Upgrades to the OCR Model Workflow Block](https://docs.roboflow.com/reference/changelog/changelog/september-2025/upgrades-to-the-ocr-model-workflow-block.md)
+- [Use Deployment Manager with AMD64 (x86\64) Devices](https://docs.roboflow.com/reference/changelog/changelog/september-2025/use-device-manager-with-amd64-x86_64-devices.md)
+- [Use EasyOCR in Roboflow Workflows](https://docs.roboflow.com/reference/changelog/changelog/september-2025/use-easyocr-in-roboflow-workflows.md)
+- [August 2025](https://docs.roboflow.com/reference/changelog/changelog/august-2025.md)
+- [Run Custom Python on Workflows](https://docs.roboflow.com/reference/changelog/changelog/august-2025/run-custom-python-on-workflows.md): Custom Python Blocks are now supported on the Serverless Hosted API
+- [Run Roboflow Workflows on Your Phone](https://docs.roboflow.com/reference/changelog/changelog/august-2025/run-roboflow-workflows-on-your-phone.md)
+- [Use an AI Assistant with Custom Python Blocks](https://docs.roboflow.com/reference/changelog/changelog/august-2025/use-an-ai-assistant-with-custom-python-blocks.md)
+- [Use GPT-5 in Roboflow Workflows](https://docs.roboflow.com/reference/changelog/changelog/august-2025/use-gpt-5-in-roboflow-workflows.md)
+- [July 2025](https://docs.roboflow.com/reference/changelog/changelog/july-2025.md): A summary of everything we shipped in July.
+- [Apply Tags from the Confusion Matrix](https://docs.roboflow.com/reference/changelog/changelog/july-2025/apply-tags-from-the-confusion-matrix.md)
+- [Automated Model Improvement Recommendations](https://docs.roboflow.com/reference/changelog/changelog/july-2025/automated-model-improvement-recommendations.md)
+- [Metrics Explorer in Model Evaluation](https://docs.roboflow.com/reference/changelog/changelog/july-2025/metrics-explorer-in-model-evaluation.md)
+- [More Relevant Roboflow Universe Search Results](https://docs.roboflow.com/reference/changelog/changelog/july-2025/more-relevant-roboflow-universe-search-results.md)
+- [Option to Disable Review Mode](https://docs.roboflow.com/reference/changelog/changelog/july-2025/option-to-disable-review-mode.md)
+- [Redesigned Model Evaluation Experience](https://docs.roboflow.com/reference/changelog/changelog/july-2025/redesigned-model-evaluation-experience.md)
+- [Roboflow for Startups](https://docs.roboflow.com/reference/changelog/changelog/july-2025/roboflow-for-startups.md)
+- [Set Permissions on Project Folders](https://docs.roboflow.com/reference/changelog/changelog/july-2025/set-permissions-on-project-folders.md)
+- [Train Semantic Segmentation Models from a Previous Checkpoint](https://docs.roboflow.com/reference/changelog/changelog/july-2025/train-semantic-segmentation-models-from-a-previous-checkpoint.md)
+- [Train Three New RF-DETR Model Sizes](https://docs.roboflow.com/reference/changelog/changelog/july-2025/train-three-new-rf-detr-model-sizes.md)
+- [June 2025](https://docs.roboflow.com/reference/changelog/changelog/june-2025.md): A summary of everything we shipped in June.
+- [Calculate Perception Encoder Embeddings in Workflows](https://docs.roboflow.com/reference/changelog/changelog/june-2025/calculate-perception-encoder-embeddings-in-workflows.md)
+- [Control PTZ Cameras in Workflows](https://docs.roboflow.com/reference/changelog/changelog/june-2025/control-ptz-cameras-in-workflows.md)
+- [Deploy Instance Segmentation Models with the iOS SDK](https://docs.roboflow.com/reference/changelog/changelog/june-2025/deploy-instance-segmentation-models-with-the-ios-sdk.md)
+- [Early Stopping and Cancel Training Support for Semantic Segmentation Models](https://docs.roboflow.com/reference/changelog/changelog/june-2025/early-stopping-and-cancel-training-support-for-semantic-segmentation-models.md)
+- [Model Evaluation for Roboflow Instant Models](https://docs.roboflow.com/reference/changelog/changelog/june-2025/model-evaluation-for-roboflow-instant-models.md)
+- [New Workspace Invitation Instructions](https://docs.roboflow.com/reference/changelog/changelog/june-2025/new-workspace-invitation-instructions.md)
+- [Train and Deploy SmolVLM2 and SmolVLM 256M Models](https://docs.roboflow.com/reference/changelog/changelog/june-2025/train-and-deploy-smolvlm2-and-smolvlm-256m-models.md)
+- [Training Graphs for Classification Models](https://docs.roboflow.com/reference/changelog/changelog/june-2025/training-graphs-for-classification-models.md)
+- [Use a Managed OpenAI API Key in Workflows](https://docs.roboflow.com/reference/changelog/changelog/june-2025/use-a-managed-openai-api-key-in-workflows.md)
+- [Use Instant Models in Label Assist](https://docs.roboflow.com/reference/changelog/changelog/june-2025/use-instant-models-in-label-assist.md)
+- [Version History in Workflows](https://docs.roboflow.com/reference/changelog/changelog/june-2025/version-history-in-workflows.md)
+- [May 2025](https://docs.roboflow.com/reference/changelog/changelog/may-2025.md): A summary of everything we shipped in May.
+- [Native Windows and macOS installers for Roboflow Inference](https://docs.roboflow.com/reference/changelog/changelog/may-2025/native-windows-and-macos-installers-for-roboflow-inference.md)
+- [Stop Training Jobs](https://docs.roboflow.com/reference/changelog/changelog/may-2025/stop-training-jobs.md)
+- [Train Larger Models with Roboflow Train](https://docs.roboflow.com/reference/changelog/changelog/may-2025/train-larger-models-with-roboflow-train.md)
+- [Use Label Assist with Classification Projects](https://docs.roboflow.com/reference/changelog/changelog/may-2025/use-label-assist-with-classification-projects.md)
+- [Vision AI Checkup](https://docs.roboflow.com/reference/changelog/changelog/may-2025/vision-ai-checkup.md)
+- [April 2025](https://docs.roboflow.com/reference/changelog/changelog/april-2025.md): A summary of everything we shipped in April.
+- [March 2025](https://docs.roboflow.com/reference/changelog/changelog/march-2025.md): A summary of everything we shipped in March.
+- [Batch Processing](https://docs.roboflow.com/reference/changelog/changelog/march-2025/batch-processing.md)
+- [Deprecating Python SDK Inference](https://docs.roboflow.com/reference/changelog/changelog/march-2025/deprecating-python-sdk-inference.md): Inference via Python SDK (roboflow package) – Deprecated
+- [Merge Detections block available in Workflows](https://docs.roboflow.com/reference/changelog/changelog/march-2025/merge-detections-block-available-in-workflows.md)
+- [RF-DETR](https://docs.roboflow.com/reference/changelog/changelog/march-2025/rf-detr.md)
+- [Select multiple annotations in Roboflow Annotate](https://docs.roboflow.com/reference/changelog/changelog/march-2025/select-multiple-annotations-in-roboflow-annotate.md)
+- [Use RTSP Streams in the Workflows Web Editor](https://docs.roboflow.com/reference/changelog/changelog/march-2025/use-rtsp-streams-in-the-workflows-web-editor.md)
+- [February 2025](https://docs.roboflow.com/reference/changelog/changelog/february-2025.md)
+- [Download trained model weights from Roboflow](https://docs.roboflow.com/reference/changelog/changelog/february-2025/download-trained-model-weights-from-roboflow.md)
+- [Inference v0.40.0](https://docs.roboflow.com/reference/changelog/changelog/february-2025/inference-v0.40.0.md)
+- [Roboflow Instant](https://docs.roboflow.com/reference/changelog/changelog/february-2025/roboflow-instant.md)
+- [Training and API Deployment Support for YOLOv12](https://docs.roboflow.com/reference/changelog/changelog/february-2025/training-and-api-deployment-support-for-yolov12.md)
+- [Use and Deploy Qwen2.5-VL with Roboflow Workflows](https://docs.roboflow.com/reference/changelog/changelog/february-2025/use-and-deploy-qwen2.5-vl-with-roboflow-workflows.md)
+- [Workflows AI Assistant](https://docs.roboflow.com/reference/changelog/changelog/february-2025/workflows-ai-assistant.md)
+- [January 2025](https://docs.roboflow.com/reference/changelog/changelog/january-2025.md)
+- [Documentation and Developer Experience Overhaul](https://docs.roboflow.com/reference/changelog/changelog/january-2025/documentation-and-developer-experience-overhaul.md)
+- [Draw polygon zones in Roboflow Workflows](https://docs.roboflow.com/reference/changelog/changelog/january-2025/draw-polygon-zones-in-roboflow-workflows.md)
+- [Inference v0.33.0](https://docs.roboflow.com/reference/changelog/changelog/january-2025/inference-v0.33.0.md)
+- [Llama Vision 3.2 Support in Workflows](https://docs.roboflow.com/reference/changelog/changelog/january-2025/llama-vision-3.2-support-in-workflows.md)
+- [Workflow Editor Enhancements](https://docs.roboflow.com/reference/changelog/changelog/january-2025/workflow-editor-enhancements.md)
+- [December 2024](https://docs.roboflow.com/reference/changelog/changelog/december-2024.md)
+- [Dedicated Deployments Now Live](https://docs.roboflow.com/reference/changelog/changelog/december-2024/dedicated-deployments-now-live.md)
+- [Improved Saving for Multimodal Projects](https://docs.roboflow.com/reference/changelog/changelog/december-2024/improved-saving-for-multimodal-projects.md)

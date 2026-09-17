@@ -1,0 +1,381 @@
+[
+  {
+    "id": "01",
+    "name": "Workflow Counterexample Engine",
+    "category": "Release infrastructure",
+    "tags": [
+      "Backend",
+      "Infrastructure",
+      "Developer tools"
+    ],
+    "tier": "Top recommendation",
+    "pitch": "Find when two supported ways of running the same vision workflow disagree, then reduce the failure to a tiny, executable bug report.",
+    "user": "Inference maintainers, release engineers, support engineers, and outside contributors.",
+    "need": "Roboflow's current inference-maintainer posting explicitly describes contribution volume outpacing release-quality capacity. Existing tests are extensive; the opportunity is better semantic coverage and faster reduction of real failures.",
+    "mechanism": "Generate valid graph compositions involving crops, empty detections, nested workflows, batch permutations and branches. Run them through pinned native/HTTP/stream paths. Independently specified contracts compare source identity, coordinates, kinds and event outputs. A state-aware reducer minimizes the graph, input and sequence while preserving a specific failure predicate. Export a clean-environment reproducer and an upstream-ready test.",
+    "demo": "A workflow passes ordinary model evaluation but loses one crop's parent coordinates over an API boundary. The system turns the long failing run into a three-step graph and a tiny input, highlights the first divergence, and demonstrates the fixed revision passing. This is a proposed demo, not a discovered current defect.",
+    "ambition": "A growing incident corpus and hardware-worker matrix that turn field failures into reusable release checks. Support capsules, model-integration checks and export diagnostics are modules of this project, not separate portfolio ideas.",
+    "attack": "Roboflow already has parity/integration tests; NVIDIA Polygraphy already compares runtimes and minimizes ONNX graphs. A runner, screenshot dashboard or generic AI reviewer is insufficient. The unique deliverable is the Workflow grammar, independent application-level oracles and reduction across image/state/graph boundaries.",
+    "proof": "Recover historical failures on affected revisions and pass their fixes, then evaluate held-out failure families. Measure false alarms, clean-machine reproduction, reduction quality, flaky-run rate and maintainer diagnosis effort. Use genuine inference alongside deterministic logic fixtures; never claim mocked tests validate all deployment targets.",
+    "kill": "Demote if it only rediscovers already-covered trivial cases, produces noisy numerical differences, or cannot supply a smaller useful reproducer.",
+    "constraints": "Actual accelerator hardware for accelerator claims; public/redistributable artifacts; maintainer feedback for adoption. Local CPU and HTTP proof needs no private infrastructure.",
+    "evidence": "Direct employer priority plus documented semantic boundaries and historical fixes. No current defect was reproduced by this research.",
+    "sources": [
+      "https://jobs.ashbyhq.com/roboflow/31f1e901-483c-4ee5-a427-65b849fc8b32",
+      "https://github.com/roboflow/inference/blob/main/CONTRIBUTING.md",
+      "https://docs.roboflow.com/workflows/developer-guide/developer-guide/execution-engine-changelog",
+      "https://github.com/NVIDIA/TensorRT/tree/main/tools/Polygraphy"
+    ],
+    "lanes": [
+      "workflows_devex.md",
+      "infra_security.md",
+      "inference_edge.md"
+    ]
+  },
+  {
+    "id": "02",
+    "name": "EventLab: Camera-to-Action Fault Lab",
+    "category": "Distributed systems and industrial reliability",
+    "tags": [
+      "Backend",
+      "Infrastructure",
+      "Physical demo"
+    ],
+    "tier": "Top recommendation",
+    "pitch": "Test whether a vision application acts on the correct physical item when cameras, networks, processes and output systems fail.",
+    "user": "Roboflow field engineers, implementation engineers and deployment teams commissioning inspection/counting systems.",
+    "need": "Roboflow's field role names unreliable connectivity, latency and hardware constraints. Its PLC guidance already explains timing and duplicate-action risks. The opportunity is executable evidence that an integration handles them correctly.",
+    "mechanism": "Run a seeded camera-to-sink fault schedule with independent item/event ground truth. Track capture, inference, decision expiry, delivery, acknowledgement and physical outcome separately. Test disconnects, freezes, delayed/out-of-order decisions, lost acknowledgements and restarts. Reduce failing schedules. Reuse RTSP producers and network fault tools; own the event oracle and state model. A second, fixed-observation mode diagnoses detector/tracker/event-state mistakes using recorded predictions and controlled interventions. Sparse event truth scores outcomes; dense track truth is required for oracle substitution. These are two modes of one event-replay system.",
+    "demo": "The same detector drives two simulated conveyor integrations. Introduce latency and a restart: one acts on the following item; the robust integration rejects stale decisions and marks unobservable items unresolved. A tabletop rig with an independent outcome sensor can make the result tangible.",
+    "ambition": "A unified event-correctness laboratory: real-pipeline fault experiments, fixed-observation state replay, minimized failing sequences, hardware-in-the-loop targets and operational acceptance reports. It feeds regression scenarios into idea 01 rather than duplicating the release system.",
+    "attack": "RTSP simulation, reconnect, staleness filtering, backpressure and PLC blocks already exist. Toxiproxy and industrial simulators supply much of the scaffolding. Universal exactly-once physical action is not a valid promise.",
+    "proof": "Measure correct-item outcomes, missed/duplicate/misdirected actions, unresolved rate, freshness, recovery and resource bounds. Hold the detector outputs fixed when comparing integration policies. Preserve unknown intervals when the camera did not observe an item.",
+    "kill": "Reject a version that only perturbs network latency, depends on the tracker under test for ground truth, or demonstrates only obviously broken straw-man integrations.",
+    "constraints": "Local simulation is accessible. Physical outcome claims require real hardware and independent sensing; industrial generalization needs representative installations.",
+    "evidence": "Direct role and integration guidance; concrete customer applications. An unmet internal tool need remains an inference.",
+    "sources": [
+      "https://jobs.ashbyhq.com/roboflow/444ee288-cb72-4751-b16d-67c27749e901",
+      "https://blog.roboflow.com/computer-vision-plc-integration/",
+      "https://roboflow.com/case-studies/usg",
+      "https://github.com/Shopify/toxiproxy",
+      "https://github.com/roboflow/trackers/releases",
+      "https://motchallenge.net/"
+    ],
+    "lanes": [
+      "customers.md",
+      "inference_edge.md",
+      "infra_security.md",
+      "cv_models.md"
+    ]
+  },
+  {
+    "id": "03",
+    "name": "Coverage-Aware Dataset Compiler",
+    "category": "Data systems and ML training",
+    "tags": [
+      "Backend",
+      "Data",
+      "CV/ML"
+    ],
+    "tier": "Top recommendation",
+    "pitch": "Merge visual datasets without teaching a model that an object which was never labeled is absent.",
+    "user": "Teams combining specialist datasets; RF-DETR users; data-platform engineers.",
+    "need": "A public Roboflow user describes stamps and coins datasets that contain unlabeled instances of each other's class. RF-DETR issue 135 requests partial-annotation loss support; it was closed as out of scope, not implemented by that closure.",
+    "mechanism": "Compile source manifests and ontology mappings into a dataset with explicit per-image/class coverage: exhaustive, verified absent, positive but non-exhaustive, or unknown. Preserve those semantics through transformations and export. An RF-DETR adapter consistently applies eligible supervision across relevant loss paths. Reject incompatible exports or emit a loss-of-information report instead of silently flattening unknown into background. The first supported case is declared per-image class coverage; it does not solve missing instances within an annotated class. Known positives and applicable auxiliary/encoder supervision must remain correct.",
+    "demo": "Two datasets work separately but conflict after naive merging. The coverage matrix makes the contradiction visible; controlled training compares naive merge, pseudo-label completion, an established partial-label baseline and the compiled data on a fully labeled held-out set.",
+    "ambition": "A semantic composition system for many source datasets, with immutable lineage, coverage-preserving transforms, explicit taxonomy conflicts and reusable training adapters.",
+    "attack": "Partial-label learning and federated loss are established research. A loss-mask patch alone is small; a generic data merger duplicates existing tools. Coverage cannot be reliably inferred from missing labels. Stock Roboflow hosted training is not assumed to consume the new sidecar.",
+    "proof": "Gradient-level correctness tests plus matched-budget multi-seed training. Evaluate complete-label controls, varying coverage and a genuine heterogeneous-source experiment. Track false positives as well as recall. Compare with pseudo-labeling at measured cost.",
+    "kill": "Demote if coverage cannot be represented honestly, if improvements vanish against credible baselines, or if only contrived label removal produces gains.",
+    "constraints": "GPU training and repeated experiments; independently labeled evaluation data; source coverage declarations. Maintainer's prior scope decision means upstream acceptance is uncertain.",
+    "evidence": "Concrete user report, explicit maintainer discussion and inspected criterion code. Product integration is the proposed contribution, not a claim of new learning theory.",
+    "sources": [
+      "https://discuss.roboflow.com/t/merging-two-separate-models-datasets-after-training/7951",
+      "https://github.com/roboflow/rf-detr/issues/135",
+      "https://github.com/roboflow/rf-detr/blob/develop/src/rfdetr/models/criterion.py",
+      "https://arxiv.org/abs/2008.06614"
+    ],
+    "lanes": [
+      "data.md"
+    ]
+  },
+  {
+    "id": "04",
+    "name": "Visual Data Failure Minimizer",
+    "category": "Data correctness infrastructure",
+    "tags": [
+      "Backend",
+      "Data",
+      "Developer tools"
+    ],
+    "tier": "Strong alternative",
+    "pitch": "Trace how an image and its labels became training tensors, find the first semantic corruption, and shrink the dataset to a minimal failing example.",
+    "user": "RF-DETR and supervision maintainers, exporter authors and engineers integrating accelerated data pipelines.",
+    "need": "Historical fixes include class-map inconsistencies, COCO ID collisions, colliding output paths and keypoint left/right errors. Current repositories already contain substantial format tests.",
+    "mechanism": "Use stable object identities and explicit coordinate/category contracts across decode, EXIF orientation, import, crop/resize/flip, collation and evaluator ingress. Record transform parameters and replay state. Reduce samples, objects and transform chains while retaining a verified semantic violation; export stage overlays and a clean reproduction.",
+    "demo": "A training pipeline silently flips left/right keypoint identities or assigns a validation class a different index. The tool isolates the first bad operator and reduces thousands of images to one useful fixture.",
+    "ambition": "A plugin-based contract layer spanning common dataset formats and CPU/GPU transforms, with low-overhead optional tracing and automatic version bisection.",
+    "attack": "Datumaro already validates, compares and converts datasets; Hypothesis and metamorphic testing are established. A schema validator or generic lineage database is insufficient. This shares reduction infrastructure with idea 01 but targets training-data semantics and different users.",
+    "proof": "Replay fixed historical defects, use held-out fault families, and measure false positives, failure localization, reduction, clean reproduction and trace overhead. Only assert equivalence for transformations that actually preserve representable semantics.",
+    "kill": "Reject if all detected issues are invalid JSON or existing test cases with no improvement in diagnosis or reproduction.",
+    "constraints": "Most initial proof is CPU work. Broader GPU transform coverage needs real targets; useful adoption requires practical adapters and maintainer feedback.",
+    "evidence": "Historical source-level defects and existing test suites; no new current bug claimed.",
+    "sources": [
+      "https://github.com/roboflow/rf-detr/releases",
+      "https://github.com/roboflow/supervision/issues/768",
+      "https://github.com/roboflow/supervision/commit/f173905c8bc6fab591bc3d3abdbf7ac7f5d93411",
+      "https://github.com/open-edge-platform/datumaro"
+    ],
+    "lanes": [
+      "data.md"
+    ]
+  },
+  {
+    "id": "05",
+    "name": "CuratorPatch",
+    "category": "Durable identity and human corrections",
+    "tags": [
+      "Backend",
+      "Data",
+      "Applied CV"
+    ],
+    "tier": "Strong alternative",
+    "pitch": "Keep human-approved facts attached to the right detected object when a model rerun adds, removes, splits or reorders detections.",
+    "user": "Field Museum/DrawerDissect curators and other teams turning CV outputs into durable records.",
+    "need": "DrawerDissect uses spatially ordered specimen IDs and preserves curation rows by ID. A controlled synthetic-image probe through unchanged upstream crop, scaffold and GBIF-export functions reproduced approved metadata transferring to a different positional object after an earlier detection was added. The supported rerun clearing path was inspected; the entire CLI and model inference were not executed.",
+    "mechanism": "A three-way rebase between old machine output, human edits and new output. Match entities within an immutable source image using geometry and visual evidence. Track field-level provenance; preserve edits only when justified. Route ambiguous split/merge/unmatched cases to review. Export transactionally with a reproducible manifest.",
+    "demo": "Approve a drawer, rerun detection so an overlooked specimen appears, and show approved facts staying with the right specimens while ambiguous matches require review.",
+    "ambition": "A reusable entity/edit lineage engine for OCR, inspection records and other CV-assisted data-entry pipelines. Begin with identical source-image reruns; physical rearrangement requires independent identifiers.",
+    "attack": "Generic data versioning already exists. Some operator paths may avoid this condition; the complete CLI/model run and real demand remain unvalidated. Compare against a small immutable-ID/spatial-matching fix before proposing a broad system. Maximum automatic carryover is the wrong objective if facts transfer to the wrong object.",
+    "proof": "First validate the complete supported CLI rerun with real sample predictions. The bounded synthetic crop/scaffold/export mechanism has already been reproduced and independently rerun. Then test insertion, deletion, reorder, crop change, split/merge and OCR conflicts; compare against immutable IDs plus simple spatial matching before building a broad system. Measure wrong transfers, valid edits retained, re-review, export integrity and reviewer time.",
+    "kill": "If upstream already preserves identity through the supported flow, contribute a small test/fix and drop the large platform idea. Do not inflate a synthetic source probe into a production bug report.",
+    "constraints": "Public code and sample images; proper data/model permissions; human reviewer feedback. No new model training is necessary to establish rebase correctness.",
+    "evidence": "Controlled synthetic failure mechanism in pinned open customer code, independently rerun. It does not establish a real museum incident, frequency, or adoption demand.",
+    "sources": [
+      "https://github.com/EGPostema/DrawerDissect",
+      "https://github.com/EGPostema/DrawerDissect/blob/3823276df6b5afe3184af13b9701c3d17f440c96/functions/crop_specimens.py",
+      "https://github.com/EGPostema/DrawerDissect/blob/3823276df6b5afe3184af13b9701c3d17f440c96/advanced_functions/scaffold_locations.py"
+    ],
+    "lanes": [
+      "customers.md"
+    ]
+  },
+  {
+    "id": "06",
+    "name": "Workflow Lineage Debugger",
+    "category": "Developer experience and execution semantics",
+    "tags": [
+      "Backend",
+      "Developer tools"
+    ],
+    "tier": "Strong alternative",
+    "pitch": "Click a missing or misplaced output and follow its original image, crop ancestry, coordinates and branch decisions to the point where it disappeared.",
+    "user": "Advanced Workflow builders, support engineers and field engineers.",
+    "need": "The execution documentation explicitly acknowledges confusion because the UI cannot display dimensionality levels. Independent crop paths can have equal depth but incompatible lineage.",
+    "mechanism": "Preserve compiler metadata and capture bounded live batch/branch information. Display kind, lineage family, dimensionality and item count on graph edges. Focus on one object's path. Explain compile failures with a small witness and expose when an empty branch or incompatible crop family caused a missing result.",
+    "demo": "Two detector branches each produce an item numbered 1, but they refer to different crops. The debugger makes the incompatible ancestry visible and explains the necessary connection change.",
+    "ambition": "A reusable semantic trace format and debugger for nested vision graphs, with counterexample export into idea 01. It can be a standalone developer tool or that project's visual front end.",
+    "attack": "Profiling, debug logs, browser previews and graph export already exist. A graph picture or LLM explanation adds little. Current authenticated UI must be checked before asserting the documented gap persists.",
+    "proof": "Use verified confusing examples and compare task correctness and diagnosis time against current tools. Instrumentation must expose the needed lineage honestly; observer hooks do not automatically expose every tensor or branch mask.",
+    "kill": "Demote if current UI solves the same tasks equally well or if private-API maintenance overwhelms the usability benefit.",
+    "constraints": "Access to the current editor for a fair comparison; real builders for usability evaluation; possibly an upstream instrumentation seam.",
+    "evidence": "Explicit documentation limitation plus inspected compiler/debugger/observer code. Live authenticated UI was not inspected.",
+    "sources": [
+      "https://docs.roboflow.com/workflows/developer-guide/developer-guide/workflow-execution",
+      "https://docs.roboflow.com/workflows/developer-guide/developer-guide/compiler",
+      "https://github.com/roboflow/inference/blob/main/inference/core/workflows/prototypes/observer.py"
+    ],
+    "lanes": [
+      "workflows_devex.md"
+    ]
+  },
+  {
+    "id": "07",
+    "name": "Fair Admission for Dynamic Vision Workflows",
+    "category": "Runtime scheduling and resource isolation",
+    "tags": [
+      "Backend",
+      "Infrastructure"
+    ],
+    "tier": "Ambitious experimental option",
+    "pitch": "Keep one camera's explosion of detected objects and downstream crops from consuming the memory and deadlines of every other stream.",
+    "user": "Inference runtime engineers and operators running heterogeneous camera workflows on shared devices.",
+    "need": "Public workload reports describe contention and model churn, but fixes and adjacent scheduling work already exist. The sharper systems hypothesis concerns dynamically discovered crop work, bounded in-flight memory and source-order constraints.",
+    "mechanism": "Maintain per-source reservations, estimates of remaining DAG/crop work, end-to-end deadlines and in-flight byte accounting. When fanout becomes known, update admission decisions before more work accumulates. Preserve tracker/counter order and side-effect boundaries; expose dropped, deferred and partial work instead of silently changing task semantics. Explicitly report infeasible offered load. Reserve conservatively before allocating crops; estimated counters alone cannot guarantee total accelerator-memory bounds. Cancellation occurs only at valid block/microbatch boundaries.",
+    "demo": "Three real workflows share one GPU. A dense frame spawns many crop classifications; under a baseline another camera misses short events. The controller bounds pending memory and preserves declared per-camera service, with a timeline explaining every tradeoff.",
+    "ambition": "A reusable admission/scheduling layer integrated with Inference, backed by workload traces, ablations, fairness tests and measured useful event throughput. Add cache churn only after isolating scheduling effects with warm models.",
+    "attack": "Clockwork, InferLine and DeepStream already cover SLOs, pipeline planning, priorities, fair batching and source limits. Roboflow PR2623/2940 address lookahead and asynchronous loading. The contribution must be dynamic fanout accounting plus stateful-order and byte-bound semantics, not EDF, prewarming or a second thread pool.",
+    "proof": "Compare current-main controls, fixed source quotas, weighted deficit round robin, EDF and a simple crop cap. Measure timely correct events, worst-source service, peak memory, all discarded work and prediction error on held-out bursts. Include end-to-end timing and real GPU runs.",
+    "kill": "Reject the scheduler thesis if tuned simple policies match the frontier, if it changes event semantics to look faster, or if overhead consumes the gain.",
+    "constraints": "A real GPU/edge target, diverse annotated workloads and carefully audited stateful block boundaries. Arbitrary CUDA work is not preemptible, and delivered physical actions cannot be undone.",
+    "evidence": "Concrete integration opportunity and public workload evidence; advantage over substantial prior art is unproven.",
+    "sources": [
+      "https://github.com/roboflow/inference/issues/2448",
+      "https://github.com/roboflow/inference/pull/2623",
+      "https://github.com/roboflow/inference/pull/2940",
+      "https://www.usenix.org/conference/osdi20/presentation/gujarati",
+      "https://arxiv.org/abs/1812.01776"
+    ],
+    "lanes": [
+      "inference_edge.md",
+      "infra_security.md"
+    ]
+  },
+  {
+    "id": "08",
+    "name": "CameraLab",
+    "category": "Camera systems and applied CV",
+    "tags": [
+      "CV/ML",
+      "Physical demo",
+      "Applied CV"
+    ],
+    "tier": "Strong alternative",
+    "pitch": "Measure the conditions under which a vision station actually works, recommend a physical correction, and invalidate the result when the camera moves.",
+    "user": "Field engineers commissioning moving-part inspection or dimensional measurement.",
+    "need": "Roboflow's USG case concerns dimensions and angles; its field role names lighting and calibration. RF-DETR issue 906 reports difficulty with moving metal rods. The root cause of that report is not established.",
+    "mechanism": "Control permitted exposure/gain settings, collect repeated trials across speed/light/alignment, and measure actual recall and geometric error. Build an empirical operating envelope with unknown regions. Choose informative next trials. Bind the report to camera/lens/model/settings and detect changes with reference geometry.",
+    "demo": "Increase target speed until measurements become wrong. The system finds the tested limit, evaluates shorter exposure or more light, and reruns the physical experiment. A small camera bump invalidates the earlier qualification.",
+    "ambition": "Camera adapters, active experimental design, uncertainty propagation and a registry of station qualifications. Learned exposure control is optional; reliable qualification is the core result.",
+    "attack": "Camera calibration, vendor controls, task-driven exposure research and image-quality tools already exist. Confidence and synthetic blur are not physical measurement truth.",
+    "proof": "Hold out capture sessions and condition combinations. Compare autoexposure, simple physics-based settings and expert tuning. Measure recall, dimensional error, false qualification, unknown coverage and change detection.",
+    "kill": "Reject a blur dashboard or checkerboard wrapper. Keep only if qualification/invalidation helps beyond ordinary manual settings.",
+    "constraints": "Controllable camera, light, repeatable motion, measured reference targets and physical data collection. More coding cannot replace these trials.",
+    "evidence": "Direct deployment context and primary physical-imaging guidance; no industrial safety or metrology certification implied.",
+    "sources": [
+      "https://roboflow.com/case-studies/usg",
+      "https://github.com/roboflow/rf-detr/issues/906",
+      "https://docs.baslerweb.com/optimizing-image-quality",
+      "https://arxiv.org/abs/2404.01636"
+    ],
+    "lanes": [
+      "cv_models.md",
+      "customers.md"
+    ]
+  },
+  {
+    "id": "09",
+    "name": "Event-Quality Capacity Planner",
+    "category": "Serving performance and scheduling",
+    "tags": [
+      "Backend",
+      "Infrastructure",
+      "CV/ML"
+    ],
+    "tier": "Ambitious experimental option",
+    "pitch": "Choose camera density, hardware and workflow settings from measured event quality and deadlines rather than model FPS alone.",
+    "user": "Inference operators and solutions engineers selecting hardware, camera density and workflow configuration.",
+    "need": "The infrastructure role explicitly includes inference reliability, SLOs and cost. Dynamic crop fanout and model working sets make workload capacity different from single-model FPS.",
+    "mechanism": "Measure complete workloads with independent event truth, then search a Pareto frontier under recall, false-action, freshness, memory and worst-camera progress constraints. Vary model/resolution, temporal sampling, batching, backend and existing runtime controls. Validate any simulator or learned predictor on held-out real runs; output an auditable configuration and explicit untested regimes.",
+    "demo": "A fast average-FPS configuration misses short events or starves one camera. The report exposes the loss; a measured alternative configuration preserves the declared quality bounds under bursts.",
+    "ambition": "A validated deployment-planning system that predicts workload envelopes and compares hardware/configurations, including thermal behavior, bursty crop fanout and model working sets. Idea 07 instead implements an online admission policy; these are distinct choices that can share profiles.",
+    "attack": "Triton Model Analyzer, VideoStorm/Chameleon and inference scheduling research already cover substantial territory. Roboflow already has adaptive collection, staleness limits and ongoing async-loading/lookahead work. Neither EDF alone nor basic prewarming is a new contribution.",
+    "proof": "Real hardware, full decode-to-sink cost, held-out traces, thermal/cold-load tests, and matched-quality baselines including robust fixed settings and fair scheduling. Show uncertainty and unsupported regimes; cost per detected event alone can reward dropping hard events.",
+    "kill": "Reject if gains disappear at matched quality, the result is only a better default batch size, or predicted capacity fails on held-out real workloads.",
+    "constraints": "Representative event labels and actual GPU/edge runs. Access to private Roboflow billing is unnecessary; company-wide savings cannot be claimed.",
+    "evidence": "Direct role priorities and public workload reports, with major competing work. Performance thesis is unproven.",
+    "sources": [
+      "https://jobs.ashbyhq.com/roboflow/13df0a39-1845-4634-846d-d01f2a573b54",
+      "https://github.com/roboflow/inference/issues/2448",
+      "https://github.com/roboflow/inference/pull/2623",
+      "https://github.com/roboflow/inference/pull/2940",
+      "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/model_analyzer/README.html"
+    ],
+    "lanes": [
+      "inference_edge.md",
+      "infra_security.md"
+    ]
+  },
+  {
+    "id": "10",
+    "name": "LookAgain",
+    "category": "Efficient video perception",
+    "tags": [
+      "CV/ML",
+      "Infrastructure"
+    ],
+    "tier": "Ambitious experimental option",
+    "pitch": "Spend high-resolution inference where it helps while deliberately revisiting empty regions so new small objects are not ignored.",
+    "user": "Engineers running high-resolution small-object video detection under compute or latency limits.",
+    "need": "Full-frame resizing can lose small objects; full tiling is costly. Roboflow and SAHI already provide tiling, and recent ROI-gating research shows simple gating does not reliably improve performance.",
+    "mechanism": "Schedule tiles using uncertainty, motion, tile age and explicit exploration/revisit constraints. Handle new arrivals, camera motion and dense-scene fallback. Measure all proposal/crop/transfer/merge overhead. A revisit bound is not a guarantee that an object will be detected.",
+    "demo": "A 4K scene shows a compute-allocation heatmap. A small object enters an empty corner: exploration discovers it where a naive ROI policy keeps looking elsewhere. Dense scenes trigger an honest fallback.",
+    "ambition": "Temporal tile-value learning with bounded freshness, multi-camera resource allocation and measured energy on edge hardware.",
+    "attack": "SAHI, InferenceSlicer and ROI-Gated SAHI invalidate the basic coarse-to-fine pitch. Sparse cherry-picked scenes and omitted scheduling overhead can create misleading gains.",
+    "proof": "Scene-disjoint video with new-arrival, camera-motion and density changes. Compare full-frame inference, full SAHI, equal-budget uniform tiling, motion gating and ROI gating at matched recall and hardware.",
+    "kill": "Reject if tuned uniform tiling reaches the same frontier or if gains vanish on a second scene family.",
+    "constraints": "Real GPU/edge timing and suitable high-resolution video. Domain-specific training may be needed but is not the proposed innovation.",
+    "evidence": "Credible application problem with substantial prior art; algorithmic advantage must be established experimentally.",
+    "sources": [
+      "https://supervision.roboflow.com/detection/tools/inference_slicer/",
+      "https://obss.github.io/sahi/",
+      "https://arxiv.org/abs/2608.23923",
+      "https://github.com/VisDrone/VisDrone-Dataset"
+    ],
+    "lanes": [
+      "cv_models.md"
+    ]
+  },
+  {
+    "id": "11",
+    "name": "Fleet Learning Budget Controller",
+    "category": "Distributed data acquisition",
+    "tags": [
+      "Backend",
+      "Data",
+      "CV/ML"
+    ],
+    "tier": "Ambitious experimental option",
+    "pitch": "Allocate scarce upload and human-labeling budgets across cameras, selecting independent useful events and accounting for every decision through retries and offline periods.",
+    "user": "Multi-camera deployment teams improving models from production observations.",
+    "need": "Roboflow already has active-learning conditions, quotas, event capture and edge synchronization. The proposed value is event-level acquisition quality combined with durable cross-site budget semantics.",
+    "mechanism": "Group correlated observations into episodes; combine exploration, diversity and uncertainty under estimated annotation costs. Use durable reservations and bounded offline leases. Record eligibility, policy versions and selection reasons; reconcile retries without double charging. Delayed labels are unavailable to earlier decisions.",
+    "demo": "The same camera replay exhausts a naive budget on repeated frames. The controller selects distinct events across conditions, exposes each decision, and a held-out learning curve shows whether the selections actually helped.",
+    "ambition": "A distributed acquisition service with replayable policy evaluation, delayed feedback, site constraints and transparent review queues.",
+    "attack": "Active learning is mature; uncertainty often selects noise, and diverse outliers may be useless. A complicated ledger wrapped around a weak scorer is not compelling.",
+    "proof": "At equal reviewed time and bytes, compare random frames, uniform temporal sampling, uncertainty, diversity and event-random baselines across multiple acquisition rounds and held-out cameras. Separately test reservation invariants during partitions/replays.",
+    "kill": "Do not build the fleet service unless offline experiments first show useful gains over simple per-camera reservoirs or event sampling.",
+    "constraints": "Repeated model training, hidden labels for honest simulation, real labeling-time measurements and camera-disjoint evaluation.",
+    "evidence": "Good platform fit but no verified internal unmet need or acquisition advantage yet.",
+    "sources": [
+      "https://docs.roboflow.com/deployment/monitoring-and-analytics/active-learning",
+      "https://docs.roboflow.com/deploy/vision-events",
+      "https://motchallenge.net/data/MOT17/",
+      "https://wilds.stanford.edu/datasets/"
+    ],
+    "lanes": [
+      "data.md"
+    ]
+  },
+  {
+    "id": "12",
+    "name": "Visual Reward Forensics",
+    "category": "Frontier data and evaluation research",
+    "tags": [
+      "CV/ML",
+      "Data",
+      "Research"
+    ],
+    "tier": "Ambitious experimental option",
+    "pitch": "Find visually or temporally wrong outputs that an existing reward function mistakenly accepts, using independently verifiable scene truth.",
+    "user": "Frontier Data researchers building environments, datasets and grading harnesses.",
+    "need": "Roboflow's August 2026 Frontier Data hiring explicitly includes environments, rewards and measurable quality. Public evidence does not identify its partner tasks or internal graders.",
+    "mechanism": "Build visual/temporal intervention operators over scene-grounded tasks, with known-invalid changes and equivalent-correct controls. Preserve independent truth and minimize confirmed counterexamples. Integrate into Harbor/Inspect rather than writing an eval runner. Test real existing graders, not just a deliberately naive demonstration scorer.",
+    "demo": "An existing visual grader rewards a wrong track identity or event order. A side-by-side counterexample shows why it is wrong, then tests a correction against unseen scenes and valid-equivalent controls.",
+    "ambition": "A useful corpus of visual reward failure classes and environment-release checks; downstream RL experiments only if a training benefit is part of the claim.",
+    "attack": "evalmut already mutation-tests graders; Inspect has scanners; Harbor has verifier tooling; multimodal reward hacking and hack-verifiable benchmarks are existing research. Duplicate-box toy examples may already fail standard one-to-one metrics.",
+    "proof": "Confirmed invalid acceptance and valid-equivalent rejection rates, independent human audits, held-out task families and actual existing reward schemes. Separate seeded defects from naturally discovered failures.",
+    "kill": "Reject if it finds only intentional toy bugs, lacks independent visual truth, or adds no visual failure class beyond current grader-testing tools.",
+    "constraints": "Representative open tasks/graders, human auditing and possibly training compute. Private frontier-lab access is not assumed.",
+    "evidence": "Direct new-team fit, but the proposed visual specialization and usefulness are research hypotheses.",
+    "sources": [
+      "https://jobs.ashbyhq.com/roboflow/37e3da81-2c6a-4c5e-8280-7b0dc86d3fd9",
+      "https://github.com/egnaro9/evalmut",
+      "https://arxiv.org/abs/2607.09492",
+      "https://arxiv.org/abs/2608.22103"
+    ],
+    "lanes": [
+      "company.md"
+    ]
+  }
+]

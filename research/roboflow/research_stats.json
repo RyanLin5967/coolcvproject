@@ -1,0 +1,10 @@
+{
+  "exa_queries": 71,
+  "exa_result_records": 447,
+  "unique_search_result_urls": 383,
+  "research_lanes": 7,
+  "independent_critics": 2,
+  "named_lane_candidates": 44,
+  "final_distinct_options": 12,
+  "note": "Search-result counts are discovery coverage, not a claim that every result was verified. Primary validation and decisions are documented in the lanes and critiques."
+}

@@ -1,0 +1,230 @@
+{
+  "requestId": "f6a431de8e9f3b3406f750fd0d2edb0a",
+  "resolvedSearchType": "",
+  "results": [
+    {
+      "id": "https://roboflow.com/case-studies/field-museum",
+      "title": "Case Study: Field Museum Accelerates Scientific Research with Vision AI",
+      "url": "https://roboflow.com/case-studies/field-museum",
+      "text": "Case Study: Field Museum Accelerates Scientific Research with Vision AI\n\n# The Field Museum accelerates scientific research with vision AI\n\n## How researchers are transforming millions of insect specimens into valuable data and unlocking new research possibilities\n\nIndustry Natural History and Scientific Research\n\nSOLUTIONS USED\n\n- AI Dataset Optimization\n\n- Hosted AI Model Training\n\n- Cloud Inference\n\nThe Field Museum is home to one of the world's largest natural history collections, including several million insect specimens. This immense collection, built by thousands of researchers over hundreds of years, is an invaluable resource for scientists. However, its sheer size made it difficult for researchers and curators to utilize the data for large-scale studies.\n\nTo solve this challenge, the museum launched an initiative to digitize its massive collection of pinned insects and their associated data. This project was led by Bruno de Medeiros, Assistant Curator of Insects at the Field Museum\u2019s Negaunee Integrative Research Center. As he explained, \"To research the collection, we needed to better understand what was in it. For example, one of our team members wanted to analyze how nature creates millions of color patterns across species. To conduct this and other kinds of research, we needed a better solution for digitizing specimens and organizing the data.\"\n\n### Automating the digitization process\n\nThe insect specimens are stored in drawers, each with labels containing essential information like collection time and location. Traditionally, imaging the specimens and transcribing the associated data was a slow, manual process.\n\nThis prompted the Field Museum team, along with researchers from several other institutions, to develop custom software called DrawerDissect. This solution uses a combination of computer vision and large language models to automate the process.\n\nThe software takes a single image of a drawer and transforms it into individual specimen images, each with its own structured metadata. Beyond just pairing images with text, DrawerDissect allows for automated analysis of the specimens themselves, making it possible to record color diversity, size, and shape at a speed and scale that was previously impossible.\n\n### Training custom AI models \n\nTo build the software, the team used Roboflow to train their custom computer vision models. As Elizabeth Postema, the Postdoctoral Researcher leading the software development for DrawerDissect, noted, \"Roboflow allowed our team to develop these accurate vision models, based on real-world data from the collection, even without formal training in machine learning.\"\n\nThe team first used Roboflow's annotation tools to prepare thousands of images from the specimen drawers. They then trained their custom models in the cloud, avoiding the need for expensive local hardware. The models were integrated into the DrawerDissect software via an API, allowing for seamless operation while processing drawers and conducting research analyses.\n\n### Accelerating scientific research \n\nThe DrawerDissect project has significantly advanced the Field Museum's goal of making its insect collection more accessible for research. \n\nOne impressive example of the software's power was the digitization of the museum\u2019s entire collection of over 13,000 tiger beetles in just four weeks. This task, which would have been prohibitively time-consuming with traditional methods, allowed the team to create a separate vision model to assist researchers with species identification.\n\nAs Postema said, \"With the computer vision models we developed in Roboflow, it\u2019s possible to process thousands of specimens very quickly, which is unlocking macroevolutionary analyses at a scale that was previously not feasible.\"\n\nTo learn more about the project, you can read the full research paper here, learn more about the DrawerDissect software here, and view the computer vision datasets here.\n\n## About The Field Museum\n\nLocated on Chicago\u2019s iconic Lake Michigan shore, the Field Museum first opened in 1894 and boasts a growing collection of nearly 40 million artifacts and specimens. The museum employs more than 150 scientists and researchers who travel to the far corners of the world in search of new discoveries and clues to what life was like hundreds, thousands, and millions of years ago. \n\nhttps://www.fieldmuseum.org/\n\n### Ask us about",
+      "image": "https://cdn.prod.website-files.com/5f6bc60e665f54db361e52a9/68c1b826526477de1696f141_masking_figure_hero-v2%201.jpg"
+    },
+    {
+      "id": "https://ecoevorxiv.org/repository/object/9647/download/17958/",
+      "title": "",
+      "url": "https://ecoevorxiv.org/repository/object/9647/download/17958/",
+      "text": "Title: DrawerDissect: Whole-drawer insect imaging, segmentation, and transcription using AI\n\nAuthors: *Elizabeth G. Postema 1, Leah Briscoe 1,2, Chloe Harder 1,3, George R. A. Hancock 4, Lucy D. Guarnieri 5, Tony Eisel 1,6, Kelton Welch 7, Nicole Fischer 8, Christine Johnson 9, Diego Souza 1, Dexter Phillip 1, Rebekah Baquiran 1, Tatiana Sepulveda 1, *Bruno A. S. de Medeiros 1\n\n1. Field Museum, 1400 S DuSable Lake Shore Drive, Chicago, IL 60605, USA \n2. Lake Forest College, 555 N Sheridan Rd, Lake Forest, IL 60045, USA \n3. Lane Tech College Prep High School, 2501 W Addison St, Chicago, IL 60618, USA \n4. Centre for Ecology and Conservation, University of Exeter, Penryn, TR10 9FE United \nKingdom \n5. The Ohio State University, Department of Entomology, 2021 Coffey Road, Columbus, Ohio, \n43201 \n6. Roosevelt University, 430 S Michigan Ave, Chicago, IL 60605 \n7. Ecdysis Foundation, Estelline, SD 57234, USA \n8. National Research Collections Australia, Clunis Ross St, Canberra, ACT 2601, Australia \n9. American Museum of Natural History, 200 Central Park West at 79th Street, NY 10024, USA \n\n*Corresponding authors\n\nAUTHOR CONTRIBUTIONS \nEGP led the pipeline development, imaged drawers, and analyzed data. BASM conceived the \npipeline, assisted in the pipeline development, and funded the research. EGP and BASM led the \nwriting of the manuscript. LB, CH, LDG, and TE assisted in the pipeline development, imaged \ndrawers, and analyzed data. LDG, KW, NF, CJ and BASM provided images for training AI \nmodels. GRAH developed the workflow for batch color analysis of masked specimens. DS and \nDP transcribed specimen metadata. RB and TS developed the workflow for batch-uploading data \nand images to KE EMu. All authors contributed critically to the drafts and gave final approval \nfor publication. \n\nDATA AVAILABILITY STATEMENT: The source code for DrawerDissect and the identification model Cicindel-ID are available at github.com/EGPostema/DrawerDissect and github.com/de-Medeiros-insect-lab/Cicindelinae_ID, respectively. All images and annotations used to train FMNH roboflow models can be found at universe.roboflow.com/field-museum. Training weights for Cicindel-ID are available at huggingface.co/brunoasm/eva02_large_patch14_448.Cicindela_ID_FMNH.\n\nCONFLICT OF INTEREST: The authors report no conflicts of interest.\n\n## ABSTRACT\n\n1. Many museums curate vast collections of insect specimens. These collections represent invaluable records of biodiversity information, ecological patterns and phenotypic variation. However, traditional methods of imaging specimens and digitizing their metadata are labor-intensive and risk damaging delicate specimens. High-throughput imaging of entire specimen drawers integrated with computer vision artificial intelligence (AI) models can provide a potential solution.\n\n2. We present DrawerDissect, a python-based pipeline for processing high-resolution drawer photographs, and a workflow to use it in entomological collections. By using custom vision models trained in the platform Roboflow and LLM-based transcription with Claude, DrawerDissect can crop and segment specimens from images and extract metadata from specimen labels. DrawerDissect is flexible, tuneable and modular, allowing seamless integration with downstream analyses of phenotypic features (e.g. color, pattern, and size).\n\n3. We validated Drawerdissect by digitizing the Field Museum of Natural History's (FMNH\u2019s) entire tiger beetle (family Cicindelidae) collection, processing 13,484 specimens to generate high-resolution dorsal photographs, backgroundless specimen images, and basic body measurements. Geographic data were successfully extracted for 3,648 specimens. To demonstrate the utility of the masked images, we provide an example integration of DrawerDissect with existing image analysis methods in R and ImageJ. Finally, to show the research potential of high-quality specimen images, we trained a species identification model, Cicindel-ID, using ~7,000 images of specimens in the genus Cicindela.\n\n4. DrawerDissect\u2019s novel multi-model AI workflow provides an efficient and reproducible framework that meets the demands of high-throughput digitization of natural history museum collections, unlocking the potential of vast specimen collections for future analyses.\n\nKEYWORDS: artificial intelligence, computer vision, digitization, high-throughput imaging, insects, image segmentation, machine learning, museum specimens\n\n## 1 INTRODUCTION\n\nNatural history collections connect the past to the future. Each specimen contains a unique ecological and evolutionary history, and preserving these specimens carries their histories forward into the hands of future researchers - sometimes hundreds of years after their collection. Collections have been leveraged to track the impacts of climate change among plants and animals (Bates et al., 2023; Lister, 2011; Nj et al., 2023); to understand the ecological drivers of diverse morphological traits (Crowell et al., 2024; Holmes et al., 2016); and to estimate the sizes, ranges and compositions of past populations (Davis et al., 2023). They also provide important genomic data that can be leveraged for species identification and evolutionary studies (de Medeiros et al., 2025; Ruane & Austin, 2017). However, unlocking the abundance of natural history collections comes with significant challenges. Metadata digitization and specimen imaging are necessary for collections-based research, but they are infamously time- and labor-intensive, as they traditionally involve handling specimens one at a time. The challenge is magnified for hyper-diverse groups such as insects. In North America, for example, the pace of arthropod specimen digitization cannot keep up with new specimen accessions, let alone existing collections: only ~5% of arthropod specimens have data digitally available, and fewer than 2% have been imaged (Cobb et al., 2019). Given the ecological significance of insects (Losey & Vaughan, 2006; Scudder, 2017), and their perilous position in the face of rapid global change (Wagner, 2020; Yang et al., 2021), there is an increasingly urgent need to mobilize insect specimen data and images.\n\nMost digitization efforts in the past decades have focused on the transcription of specimen label metadata to standardized formats such as DarwinCore (Wieczorek et al., 2012). This has enabled the development of numerous portals and aggregators of biodiversity data, such as the Global Biodiversity Information Facility (GBIF, 2025) and unleashed vast possibilities for research relying on analyzing such metadata. Imaging specimens has often been a secondary goal. For example, at the Field Museum of Natural History (FMNH), we have historically digitized 576,395 arthropod specimens, but only 19,998 (~3.5%) have images available. This means that only a tiny fraction (~0.15%) of an arthropod collection estimated to hold at least 12 million specimens has been photographed. The traditional focus on metadata is ",
+      "entities": [
+        {
+          "id": "https://exa.ai/library/publication/khd9v643ddc",
+          "type": "publication",
+          "version": 1,
+          "properties": {
+            "title": "DrawerDissect: Whole-drawer insect imaging, segmentation, and transcription using AI",
+            "year": 2025,
+            "date": "2025-07-15",
+            "type": "preprint",
+            "language": "en",
+            "citationCount": 1,
+            "authors": [
+              {
+                "name": "Elizabeth Postema",
+                "id": null
+              },
+              {
+                "name": "Leah Briscoe",
+                "id": null
+              },
+              {
+                "name": "Chloe Harder",
+                "id": null
+              },
+              {
+                "name": "George R. A. Hancock",
+                "id": null
+              },
+              {
+                "name": "Lucy Guarnieri",
+                "id": null
+              },
+              {
+                "name": "Tony Eisel",
+                "id": null
+              },
+              {
+                "name": "Kelton D. Welch",
+                "id": null
+              },
+              {
+                "name": "Nicole Fischer",
+                "id": null
+              },
+              {
+                "name": "Christine M. Johnson",
+                "id": null
+              },
+              {
+                "name": "Diego Souza",
+                "id": null
+              },
+              {
+                "name": "D Zamore Phillip",
+                "id": null
+              },
+              {
+                "name": "Rebekah Baquiran",
+                "id": null
+              },
+              {
+                "name": "Tatiana A. Sep\u00falveda",
+                "id": null
+              },
+              {
+                "name": "Bruno A. S. de Medeiros",
+                "id": null
+              }
+            ],
+            "referenceCount": null,
+            "abstract": "1. Many museums curate vast collections of insect specimens. These collections represent invaluable records of biodiversity information, ecological patterns and phenotypic variation. However, traditional methods of imaging specimens and digitizing their metadata are labor-intensive and risk damaging delicate specimens. High-throughput imaging of entire specimen drawers integrated with computer vision artificial intelligence (AI) models can provide a potential solution. 2. We present DrawerDissect, a python-based pipeline for processing high-resolution drawer photographs, and a workflow to use it in entomological collections. By using custom vision models trained in the platform Roboflow and LLM-based transcription with Claude, DrawerDissect can crop and segment specimens from images and extract metadata from specimen labels. DrawerDissect is flexible, tuneable and modular, allowing seamless integration with downstream analyses of phenotypic features (e.g. color, pattern, and size). 3. We validated Drawerdissect by digitizing the Field Museum of Natural History's (FMNH\u2019s) entire tiger beetle (family Cicindelidae) collection, processing 13,484 specimens to generate high-resolution dorsal photographs, backgroundless specimen images, and basic body measurements. Geographic data were successfully extracted for 3,648 specimens. To demonstrate the utility of the masked images, we provide an example integration of DrawerDissect with existing image analysis methods in R and ImageJ. Finally, to show the research potential of high-quality specimen images, we trained a species identification model, Cicindel-ID, using ~7,000 images of specimens in the genus Cicindela. 4. DrawerDissect\u2019s novel multi-model AI workflow provides an efficient and reproducible framework that meets the demands of high-throughput digitization of natural history museum collections, unlocking the potential of vast specimen collections for future analyses.",
+            "doi": "10.32942/x2qw84"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://blog.roboflow.com/scientific-research-vision-ai/",
+      "title": "Build a Scientific Research Vision AI Pipeline",
+      "url": "https://blog.roboflow.com/scientific-research-vision-ai/",
+      "publishedDate": "2025-11-01T00:00:00.000Z",
+      "text": "Build a Scientific Research Vision AI Pipeline\n\n# Scientific Research AI: Unlocking Visual Data\n\nContributing Writer Published Nov 1, 2025 \u2022 6 min read \n\nAt the Field Museum of Natural History in Chicago, for example, scientists digitized 13,500 insect specimens in a matter of weeks, nearly matching the 19,000 images collected over the previous 20 years. Their workflow, powered by vision AI built with Roboflow, shows how the right tools can unlock a new era of data-driven discovery.\n\nThis guide walks through how researchers in any domain can use vision AI to accelerate experiments, automate measurements, and make research more reproducible.\n\n## Why Scientific Research Needs Visual AI\n\nScientific progress has always been limited by one thing: time. Collecting, labeling, and analyzing experimental data is often slow, manual work. \n\nIn biology, it might mean photographing thousands of specimens. In materials science, measuring cracks under stress. In medicine, annotating microscopy slides. AI changes that dynamic. Vision AI systems can identify, segment, and measure visual data faster than any human, freeing researchers to focus on hypothesis and interpretation.\n\nAt the Field Museum, millions of pinned insect specimens sat unprocessed for decades, a priceless dataset of color, shape, and evolution. \"To research the collection, we needed to better understand what was in it,\" explained Dr. Bruno de Medeiros, Assistant Curator of Insects. \"We needed a better way to digitize specimens and organize the data.\"\n\nThat need led to DrawerDissect, an AI-powered workflow developed by Dr. Elizabeth Postema, a postdoctoral researcher at the museum.\n\n## How Vision AI Accelerates Scientific Research\n\nAI doesn't just automate a single task. It speeds up the entire research pipeline, from imaging to measurement to analysis. A prime example: \"In the last 20 years since imaging has become a big interest of the Field Museum, we did about 19,000 images in 20 years. I was able to do 13 and a half thousand in just a few weeks time.\" said Dr. Postema.\n\n### 1. Automate Data Collection\n\nThe Field Museum doesn't know the exact number of specimens they have, but Postema thinks, \"...at least for pinned insects this is somewhere around 8 or 9 million, closer to 12 million if you account for all of our wet specimens, and so this massive amount of data is kind of both a blessing and a curse.\"\n\nDrawerDissect begins with a high-throughput imaging setup called GigaMacro. Instead of photographing specimens one by one, the team captures a full drawer in a single gigapixel-level image.\n\nA custom Roboflow-trained model, Bug Finder, detects every insect in the photo and crops them into individual specimens, turning one photo into hundreds of research-ready samples.\n\nThis approach works far beyond entomology. Any field that relies on visual data, from geology to histopathology, can apply similar workflows.\n\n### 2. Measure and Analyze Faster\n\nThe next step was to create Bug Masker, a segmentation model trained on thousands of insects. It outlines the body region of each specimen, excluding legs and antennae, then measures length and width automatically.\n\nPostema validated these AI-based measurements against manual calipers, and found a near one-to-one correlation. Thousands of specimens that once required days of manual measuring can now be processed in seconds.\n\nThis same principle applies to countless forms of scientific data: cell counts, particle sizes, mineral grains, and more.\n\n### 3. Integrate Metadata with Large Language Models\n\nEvery insect drawer also contains printed or handwritten labels: names, regions, collection dates, and barcodes.\n\nDrawerDissect uses another AI step to isolate text regions and pass them to a large language model (LLM) for transcription. The model converts mixed handwriting and printed text into structured metadata automatically, outputting results in EMU-compatible spreadsheets that plug directly into the museum's database.\n\nThe result: unified image + text datasets ready for analysis, search, and sharing.\n\n### 4. Accelerate Hypothesis Testing\n\nOnce digitized, data becomes fuel for new insights. In one analysis, the Field Museum team tested Bergmann's Rule, the biological principle that animals tend to grow larger at higher latitudes. Using data from thousands of tiger beetles, AI-assisted measurements revealed clear size-by-latitude patterns in several genera, and exceptions in others.\n\nThis scale of statistical power was simply impossible before. With AI, scientists can revisit decades-old theories, and find where they still hold true.\n\n## Build Your Own Scientific Research Vision AI Pipeline\n\nYou don't need to be a machine learning expert to use AI for research. Postema started with no Python background and built DrawerDissect through experimentation and Roboflow's hosted tools. Here's a simple roadmap for applying vision AI in any scientific discipline:\n\n1. Collect Visual Data Capture images from experiments, microscopes, cameras, or archives. The more consistent the setup, the better the model performance.\n\n2. Label What Matters Use Roboflow Annotate to draw bounding boxes, polygons, or masks around your objects of interest: cells, specimens, cracks, or samples.\n\n3. Train Your Model Fine-tune a detector or segmenter in Roboflow Train. Models such as RF-DETR handle complex real-world data with minimal setup.\n\n4. Deploy Anywhere Run inference with Roboflow Deploy on cloud GPUs, local machines, or even edge devices in your lab.\n\n5. Iterate and Improve Add new examples, retrain, and monitor accuracy. Each iteration compounds your research efficiency.\n\nIf you can label 50 images, you can build your first scientific research AI pipeline.\n\n## Real-World Results: The Field Museum's Transformation\n\nThe Field Museum's journey shows what happens when AI meets scientific curiosity.\n\n- Scale: 44 drawers (\u2248 3,500 tiger beetles) digitized in 2\u20133 weeks.\n- Throughput: \u2248 41 seconds per specimen.\n- Accuracy: AI measurements match manual calipers.\n- Adoption: DrawerDissect now in use at the American Museum of Natural History and the Australian National Insect Collection.\n- Accessibility: All tools built with Roboflow APIs deployable by any researcher.\n\nAs Postema said, \"With the computer vision models we developed in Roboflow, it's possible to process thousands of specimens very quickly, unlocking macroevolutionary analyses at a scale that was previously not feasible.\"\n\n## Try It Yourself: Scientific Research AI API\n\nLabel a few specimen images, train a model, and deploy it to segment and measure new samples automatically. What took decades of manual cataloging can now become a weekend project!\n\n## The Future of Scientific Research AI\n\nThe next leap in scientific research AI will come from multimodal models, systems that can interpret images, text, and numerical data together.\n\nModels like Perception Encoder, Vision Transformers, and SAM 2 are already enabling richer insights: analyzing microsc",
+      "image": "https://storage.ghost.io/c/2c/8d/2c8d8c0d-1c15-4b6d-825e-02b78d61d40a/content/images/size/w1200/2025/11/Screenshot-2025-10-31-at-5.26.02---PM.png"
+    },
+    {
+      "id": "https://exa.ai/library/publication/7p8hyf67k59kwh704132nm2p",
+      "title": "Unlocking biodiversity data with robotic imaging and AI-driven transcription of natural history collections",
+      "url": "https://doi.org/10.1126/sciadv.aeb6975",
+      "publishedDate": "2026-04-29T00:00:00.000Z",
+      "author": "Christine A. Johnson, Erin M Willigan, Ellen Y. Hwang, Parker M Austin, Kyle L Chang, Peter Daly, et al.",
+      "text": "# Unlocking biodiversity data with robotic imaging and AI-driven transcription of natural history collections\n\nScience Advances. Published: 2026-04-29. 0 citations.\n\n## Abstract\n\nDigitizing metadata on natural history specimen labels remains a critical bottleneck for biodiversity research. We present a transformative workflow integrating robotic imaging with artificial intelligence (AI)-driven transcription for rapid, comprehensive data extraction from specimen labels. Single high-resolution images of specimens and associated labels were submitted to Gemini 2.5 Flash and GPT-4 Turbo to extract verbatim textual information. This approach yielded ~600 verbatim transcriptions per hour, a 30-fold increase in efficiency compared to traditional manual methods, which yielded ~20 transcriptions per hour. Releasing historical specimen metadata facilitates information accessibility and provides temporal and spatial context for a variety of analyses. Our method fosters the reconnection of disparate biological datasets previously segregated among departments or institutions to unite ecologically interdependent components (e.g., host/parasite and pollinator/plant) for a more complete understanding of biodiversity dynamics.\n\n## Authors\n\n- Christine A. Johnson (American Museum of Natural History): h-index 25; 2,210 citations\n- Erin M Willigan (American Museum of Natural History): h-index 0; 0 citations\n- Ellen Y. Hwang (American Museum of Natural History): h-index 1; 2 citations\n- Parker M Austin (American Museum of Natural History): h-index 0; 0 citations\n- Kyle L Chang (American Museum of Natural History): h-index 0; 0 citations\n- Peter Daly (American Museum of Natural History): h-index 0; 0 citations\n- Ann Davis (American Museum of Natural History): h-index 15; 1,291 citations\n- Jovanni M Gonzalez (American Museum of Natural History): h-index 0; 0 citations\n- Chia-Ni Kao (American Museum of Natural History): h-index 0; 0 citations\n- Isobel E J Mifsud (Columbia University): h-index 0; 0 citations\n- Kitri A Miller (American Museum of Natural History): h-index 0; 0 citations\n- Marinela Nicolescu (American Museum of Natural History): h-index 0; 0 citations\n- Ana Maria Ruiz (American Museum of Natural History): h-index 0; 0 citations\n- Elliott Y Ruo (American Museum of Natural History): h-index 0; 0 citations\n- Julia L Schwartzman (American Museum of Natural History): h-index 0; 0 citations\n- Alyssa B Seeman (American Museum of Natural History): h-index 0; 0 citations\n- Janice Stenzel (American Museum of Natural History): h-index 0; 0 citations\n- Natalia C Zurita (American Museum of Natural History): h-index 0; 0 citations\n- Lily F Berniker (American Museum of Natural History): h-index 0; 0 citations\n- Estefan\u00eda Rodr\u00edguez (American Museum of Natural History): h-index 16; 887 citations\n\n## Topics\n\n- Species Distribution and Climate Change\n- Environmental DNA in Biodiversity Studies\n- Research Data Management Practices\n\n## References\n\n- Ana K. Rosen Vollmar, James Macklin, Linda Ford. Natural History Specimen Digitization: Challenges and Concerns. Biodiversity Informatics. 2010;7(2). doi:10.17161/bi.v7i2.3992.\n- Paul Conway. Digital transformations and the archival nature of surrogates. Archives and Museum Informatics. 2014;15(1):51-69. doi:10.1007/s10502-014-9219-z.\n- Quentin D. Wheeler, Sandra Knapp, Dennis W. Stevenson, Jan Wassmer Stevenson, Stanley Blum, Brian M. Boom, et al. Mapping the biosphere: exploring species to understand the origin, organization and sustainability of biodiversity. Systematics and Biodiversity. 2012;10(1):1-20. doi:10.1080/14772000.2012.665095.\n- Andrew V. Suarez, Neil D. Tsutsui. The Value of Museum Collections for Research and Society. BioScience. 2004;54(1):66. doi:10.1641/0006-3568(2004)054[0066:tvomcf]2.0.co;2.\n- Andrew E. Z. Short, Torsten Dikow, Corrie S. Moreau. Entomological Collections in the Age of Big Data. Annual Review of Entomology. 2017;63(1):513-530. doi:10.1146/annurev-ento-031616-035536.\n- Gil Nelson, Shari Ellis. The history and impact of digitization and digital data mobilization on biodiversity research. Philosophical Transactions of the Royal Society B Biological Sciences. 2018;374(1763):20170391. doi:10.1098/rstb.2017.0391.\n- J. Mason Heberling, Joseph T. Miller, Daniel Noesgaard, Scott Weingart, Dmitry Schigel. Data integration enables global biodiversity synthesis. Proceedings of the National Academy of Sciences. 2021;118(6). doi:10.1073/pnas.2018093118.\n- Kirk R. Johnson, Ian F. P. Owens, the Global Collection Group. A global approach for natural history museum collections. Science. 2023;379(6638):1192-1194. doi:10.1126/science.adf6434.\n- Alan Stenhouse, Nicole Fisher, Brendan J. Lepschi, Alexander N. Schmidt\u2010Lebuhn, Juanita Rodr\u00edguez, Federica Turco, et al. A vision of human\u2013AI collaboration for enhanced biological collection curation and research. BioScience. 2025;75(6):457-471. doi:10.1093/biosci/biaf021.",
+      "entities": [
+        {
+          "id": "https://exa.ai/library/publication/7p8hyf67k59kwh704132nm2p",
+          "type": "publication",
+          "version": 1,
+          "properties": {
+            "title": "Unlocking biodiversity data with robotic imaging and AI-driven transcription of natural history collections",
+            "year": 2026,
+            "date": "2026-04-29",
+            "type": "article",
+            "language": "en",
+            "citationCount": 0,
+            "authors": [
+              {
+                "name": "Christine A. Johnson",
+                "id": null
+              },
+              {
+                "name": "Erin M Willigan",
+                "id": null
+              },
+              {
+                "name": "Ellen Y. Hwang",
+                "id": null
+              },
+              {
+                "name": "Parker M Austin",
+                "id": null
+              },
+              {
+                "name": "Kyle L Chang",
+                "id": null
+              },
+              {
+                "name": "Peter Daly",
+                "id": null
+              },
+              {
+                "name": "Ann Davis",
+                "id": null
+              },
+              {
+                "name": "Jovanni M Gonzalez",
+                "id": null
+              },
+              {
+                "name": "Chia-Ni Kao",
+                "id": null
+              },
+              {
+                "name": "Isobel E J Mifsud",
+                "id": null
+              },
+              {
+                "name": "Kitri A Miller",
+                "id": null
+              },
+              {
+                "name": "Marinela Nicolescu",
+                "id": null
+              },
+              {
+                "name": "Ana Maria Ruiz",
+                "id": null
+              },
+              {
+                "name": "Elliott Y Ruo",
+                "id": null
+              },
+              {
+                "name": "Julia L Schwartzman",
+                "id": null
+              },
+              {
+                "name": "Alyssa B Seeman",
+                "id": null
+              },
+              {
+                "name": "Janice Stenzel",
+                "id": null
+              },
+              {
+                "name": "Natalia C Zurita",
+                "id": null
+              },
+              {
+                "name": "Lily F Berniker",
+                "id": null
+              },
+              {
+                "name": "Estefan\u00eda Rodr\u00edguez",
+                "id": null
+              }
+            ],
+            "referenceCount": 9,
+            "abstract": "Digitizing metadata on natural history specimen labels remains a critical bottleneck for biodiversity research. We present a transformative workflow integrating robotic imaging with artificial intelligence (AI)-driven transcription for rapid, comprehensive data extraction from specimen labels. Single high-resolution images of specimens and associated labels were submitted to Gemini 2.5 Flash and GPT-4 Turbo to extract verbatim textual information. This approach yielded ~600 verbatim transcriptions per hour, a 30-fold increase in efficiency compared to traditional manual methods, which yielded ~20 transcriptions per hour. Releasing historical specimen metadata facilitates information accessibility and provides temporal and spatial context for a variety of analyses. Our method fosters the reconnection of disparate biological datasets previously segregated among departments or institutions to unite ecologically interdependent components (e.g., host/parasite and pollinator/plant) for a more complete understanding of biodiversity dynamics.",
+            "doi": "10.1126/sciadv.aeb6975"
+          }
+        }
+      ]
+    },
+    {
+      "id": "https://gigamacro.com/entomology-field-museum/",
+      "title": "Use Case: Field Museum \u2014 Whole-Drawer Imaging and AI Workflow at Scale | GIGAmacro",
+      "url": "https://gigamacro.com/entomology-field-museum/",
+      "publishedDate": "2025-11-13T00:00:00.000Z",
+      "text": "Use Case: Field Museum \u2014 Whole-Drawer Imaging and AI Workflow at Scale | GIGAmacro\n\n128 Ebbetts Pass Road, Vallejo, CA 94589+1 (415) 841-3322 [email protected] 9am - 5pm Pacific Time\n\n# Use Case: Field Museum \u2014 Whole-Drawer Imaging and AI Workflow at Scale\n\nOrganization: Field Museum\n\nChampion: Dr. Tatiana Sepulveda, Collections Manager; Bruno A. S. de Medeiros, Negaunee Assistant Curator of Pollinating Insects;\n\nProducts Used: Magnify2 imaging system with backlight and telecentric lenses.\n\nCollection Size: 7 million specimens\n\n Elizabeth Postema at the GIGAmacro whole drawer imaging station.\n\n### Background\n\nThe Field Museum\u2019s Insect Collection in Chicago, led by Dr. Bruno de Medeiros (Curator) and Dr. Tatiana Sepulved (Collection Manager), is pioneering a high-throughput imaging workflow to study insect morphology, color evolution, and biodiversity patterns. The development of this workflow is led by Dr. Elizabeth Postema (Postdoctoral Researcher). Using a GIGAmacro Magnify\u00b2 robotic imaging system, the team has captured over 130 drawers\u2014about 30\u201340,000 specimens\u2014in the first phase alone. Their goal is to digitize the museum\u2019s entire 7-million-specimen collection, linking detailed imagery to taxonomy, barcodes, and research databases.\n\n### Challenge\n\nThe team faced multiple challenges common to large natural history collections:\n\n- Balancing scale and detail: Traditional one-by-one imaging was too slow for millions of specimens but essential for detailed morphology studies.\n- Improving visibility: Researchers and curators needed to browse drawers remotely for research or loan requests\u2014something ad-hoc phone photos couldn\u2019t deliver.\n- Data pipeline bottlenecks: Post-processing thousands of images into usable specimen data was time-consuming and error-prone.\n- Operational reliability: A system usable by staff, interns, and volunteers was critical to maintain consistent throughput over long periods.\n\nThe ultimate challenge was not just imaging specimens\u2014it was building a scalable, maintainable workflow for years of daily digitization and research use.\n\n### Solution\n\nThe Field Museum implemented a whole-drawer imaging workflow using the GIGAmacro Magnify\u00b2 platform with automated focus stacking and stitched imaging.\n\n- Comprehensive coverage: Each drawer is photographed at high resolution, with smaller specimens imaged in grids using template holders.\n- Parallel capture: While one drawer runs, another is staged\u2014keeping the system continuously productive.\n- Automated processing: Post-processing software detects and crops specimens, extracts outlines and measurements, and maps images back to physical barcodes.\n- Volunteer-ready interface: The \u201cpress-go\u201d capture workflow enables easy training of interns and volunteers, converting available help into real imaging capacity.\n- Barcode integration: Every specimen now receives a Field Museum barcode, linking dorsal images and metadata directly to collection records.\n- AI Pipeline: The resulting extreme resolution imagery and data feeds directly in an AI pipeline for image segmentation and processing using custom scripting and integration with Roboflow AI tools.\n\nThis new process allows the team to capture data faster, with greater consistency and less manual intervention.\n\nPreparing a whole drawer capture on the system.\n\nExamples of the AI segmentation of the full resolution imagery during post processing.\n\n### Results & Impact\n\nThe GIGAmacro system transformed imaging into a research-enabling, high-throughput process rather than a tedious chore.\n\n- Throughput: In a relatively short amount of time, over 130 drawers and tens of thousands of specimens captured across projects, with thousands more in progress.\n- Research acceleration: Whole-drawer imagery made large-scale studies\u2014like beetle color macroevolution\u2014possible within the timeframe of a PhD or postdoc.\n- Operational efficiency:\n\n- Imaging tasks run in parallel; staff prepare the next drawer while another captures automatically.\n- Non-specialists operate the system confidently after short training sessions.\n- Collections accessibility:\n\n- High-resolution drawer images allow curators and external researchers to \u201cvisit\u201d drawers remotely.\n- Once fully linked to barcodes, researchers will browse individual specimens online and select them for sequencing or loans without handling them in person.\n- Longevity: The team estimates a long term 10\u201315-year timeline to create first-pass dorsal images and barcodes for all 7 million specimens\u2014an achievable target for the first time in the museum\u2019s history.\n\n### Representative Quotes\n\n> \u201cAny project that needs tens or hundreds of thousands of dorsal images becomes possible within a postdoc time frame. Without whole-drawer imaging, we\u2019d have to rethink the science.\u201d\n> \n> \u2014 Dr. Bruno de Medeiros, Curator\n> \n> \u201cAutomated stacking and stitching\u2014pressing \u2018Go\u2019 and letting it run\u2014has been a game-changer. I can stage the next drawer while the current one finishes.\u201d\n> \n> \u2014 Dr. Elizabeth Postema, Postdoctoral Researcher\n> \n> \u201cBecause it\u2019s so reliable, interns and volunteers can run it easily, turning extra hands into measurable throughput.\u201d\n> \n> \u2014 Dr. Bruno de Medeiros\n\n### Published Data and Resources\n\nThe Field Museum is preparing to publish its imaging workflow and dataset publicly, starting with tiger beetles as a pilot group. The team aims to integrate these high-resolution images with genetic, geographic, and ecological data\u2014linking phenotype and environment on an unprecedented scale.\n\nhttps://doi.org/10.32942/X2QW84\n\nhttps://roboflow.com/case-studies/field-museum\n\nhttps://academic.oup.com/beheco/article/34/1/1/6618784\n\nIn the near future:\n\n- Expansion to other insect families and taxa\n- Methods publication and data-sharing frameworks\n\nExample of the post-processing steps in the paper Drawer Dissect.\n\n### GIGAmacro\u2019s Role\n\nGIGAmacro worked closely with the Field Museum team to establish a reliable, high-speed imaging process that supports both research and digitization goals. The collaboration focused on:\n\n- Supporting queue-based project management and automated processing\n- Incorporating user feedback into new hardware and software refinements\n- Online training and interface refinements for the multi-user team.\n\n> \u201cWhat\u2019s amazing about GIGAmacro is the customer support. If something weird happens, I can reach out directly and get help right away.\u201d\n> \n> \u2014 Dr. Elizabeth Postema",
+      "image": "https://gigamacro.com/wp-content/uploads/2025/11/8d5909e3-ea87-479d-afb9-394e5f2b858f.png"
+    }
+  ],
+  "searchTime": 938.1,
+  "costDollars": {
+    "total": 0.007,
+    "search": {
+      "neural": 0.007
+    }
+  },
+  "_research": {
+    "query": "Roboflow Field Museum case study OCR specimens uncertainty labels digitization",
+    "retrieved_utc": "2026-09-17T17:08:21.512857+00:00"
+  }
+}
