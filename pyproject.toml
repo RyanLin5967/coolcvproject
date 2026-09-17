@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "coveragecv"
+version = "0.1.0"
+description = "Reproducible annotation coverage contracts and selective supervision for RF-DETR"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "pydantic>=2,<3", "rfc8785>=0.1.4,<1", "pillow>=11,<13",
+  "httpx>=0.28,<1", "numpy>=2,<3", "typer>=0.16,<1",
+]
+
+[project.optional-dependencies]
+train = ["rfdetr[train]==1.10.1"]
+remote = ["modal>=1,<2", "roboflow>=1,<2"]
+
+[project.scripts]
+coveragecv = "coveragecv.cli:app"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "hypothesis>=6,<7", "ruff>=0.12,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["training: requires the train extra", "integration: real model or provider integration"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/coveragecv"]
