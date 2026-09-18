@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "created_utc": "2026-09-18T01:03:31.960786+00:00",
-  "purpose": "Tracked implementation checkpoint; current live work in EXECUTION_STATUS.md",
+  "created_utc": "2026-09-18T01:19:35.233009+00:00",
+  "purpose": "Verified implementation and completed localization studies; active acquisition work is separate",
   "hash_algorithm": "sha256",
   "excluded": [
     "RESTART_MANIFEST.json (self)",
@@ -26,8 +26,8 @@
     },
     {
       "path": "EXECUTION_STATUS.md",
-      "bytes": 9322,
-      "sha256": "33a0e15f92ad9e5a61ee771d06296a4f4331227379910ab49dc39177a2222cd4"
+      "bytes": 13625,
+      "sha256": "7510b88021ab49d1dbd825ebee10e98230d75e9b386531e0253f1afa28b339c9"
     },
     {
       "path": "HANDOFF.md",
@@ -36,8 +36,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 15162,
-      "sha256": "d298bcf5d675db60e958363c65d4ad8672ebbf5be78b07843a0c9f68e67bc44e"
+      "bytes": 17681,
+      "sha256": "d86be7aaaf146c746bde4768a114e9dbc4462235647a8e219cdbb740fc9a6b1d"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -51,13 +51,18 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 18737,
-      "sha256": "485352a92a755b96e7f1ec27665b3d31977bda2b448c6c735c493fcc43711b8f"
+      "bytes": 22959,
+      "sha256": "70f5a3c3ca0713bdf55d4633f48065a213b638741603c65f28beeaa4ece7b6ee"
+    },
+    {
+      "path": "docs/CONSTRUCTION_LABEL_AUDIT.md",
+      "bytes": 9335,
+      "sha256": "cafc3040e34dae1b8f168910da8af040fba242c31b96aa7351ed6d77b338acb4"
     },
     {
       "path": "docs/DECISIONS.md",
-      "bytes": 19225,
-      "sha256": "e62977cea4189efa2426bcb3be2feed675d65bc2dbdcc30e7ab5a48aea11e815"
+      "bytes": 24944,
+      "sha256": "ea8ca453e08302d2b725a897840576b28ad11ec4b41a86ffd1d0bf38fba0ed71"
     },
     {
       "path": "docs/METRIC_AUDIT.md",
@@ -71,8 +76,8 @@
     },
     {
       "path": "docs/RESULTS.json",
-      "bytes": 102859,
-      "sha256": "f6a3aea4255c318cfade0a0a30ee41cee65a040ccfdd06d13053f8c98d2f6c24"
+      "bytes": 178267,
+      "sha256": "592e5eca83005015b76ee20aa94f9d3810ecf6844e2932c140127367f0a58b01"
     },
     {
       "path": "evidence/mvp.json",
@@ -945,6 +950,11 @@
       "sha256": "c248b6c0e9a7a3ebe944abc0ab5c28e02a5ca727eba6a63d245600b6203037a9"
     },
     {
+      "path": "scripts/evaluate_size_gated.py",
+      "bytes": 7297,
+      "sha256": "5b91a823b7247703b4083110b63074a9dd2d644a35904e64cf5e14f03d13ca00"
+    },
+    {
       "path": "scripts/evaluate_tiled.py",
       "bytes": 3295,
       "sha256": "89331d2e797c7216aa272ae6f5a07467d2f74d4662a63fd751a7acaad5043442"
@@ -1001,8 +1011,8 @@
     },
     {
       "path": "src/coveragecv/benchmarks.py",
-      "bytes": 9917,
-      "sha256": "fb25d3a016d63fae112eed335281e953113693943c6ac7aef308a7f5f64f7235"
+      "bytes": 11585,
+      "sha256": "812e421ad81fc1492d7c12842926c5874e4b1bc1d464a947ff1604ee006fa7b3"
     },
     {
       "path": "src/coveragecv/cli.py",
@@ -1166,8 +1176,8 @@
     },
     {
       "path": "src/coveragecv/workbench/static/app.js",
-      "bytes": 52047,
-      "sha256": "c7b83d2562ddd25a408dde745a16235592b4165b9cb24d1ace86b7d58500f6d1"
+      "bytes": 52681,
+      "sha256": "caea5f16d697e53d63e62d3cc36920915193577a05bc8301acefb91c081f9806"
     },
     {
       "path": "src/coveragecv/workbench/static/index.html",
@@ -1253,6 +1263,11 @@
       "path": "tests/test_refiner.py",
       "bytes": 10804,
       "sha256": "0a540233dd86e603ddfbc6645cb6a7e8935307f6fb7b5f9813c6c8cdb6e6191e"
+    },
+    {
+      "path": "tests/test_size_gated.py",
+      "bytes": 2274,
+      "sha256": "7c496baf7c8067c0644e94796c6057f63c3b2254b5274260ee6b913c9764c23d"
     },
     {
       "path": "tests/test_tiled.py",

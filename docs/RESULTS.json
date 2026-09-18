@@ -5,15 +5,16 @@
     "api_metered_at_detection_usd": 32.68,
     "capacity_reserved_usd": 3.3,
     "cash_payment_verified": false,
+    "construction_continuation_reserved_usd": 4.4,
     "failed_attempts_remain_reserved": true,
     "initial_action": "Stopped all four owned apps; verified zero containers",
     "refinement_attempts": 2,
     "refinement_reserved_usd": 1.7,
     "requested_cash_budget_usd": 0,
-    "restart_scope": "Three completed Large cloud runs plus two attempts at one fixed refinement pilot; other interrupted cohorts remain stopped",
+    "restart_scope": "Three Large runs; two attempts at one refinement pilot; four construction continuations. Older interrupted cohorts remain stopped. Tiled/size-routing evaluations are local.",
     "status": "unresolved_api_dashboard_discrepancy",
     "subsequent_authorization": "User authorized use of reported remaining credits",
-    "total_post_restart_max_reserved_usd": 5.0,
+    "total_post_restart_max_reserved_usd": 9.4,
     "user_reported_remaining_credits_usd": 12.91,
     "user_reported_workspace_usage_usd": 25.41,
     "user_reports_no_visible_card_charge": true,
@@ -27,8 +28,10 @@
     "seeds": 1,
     "status": "three cloud arms completed"
   },
-  "captured_at_utc": "2026-09-18T00:46:19.622039+00:00",
+  "captured_at_utc": "2026-09-18T01:16:38.084303+00:00",
   "collection": {
+    "additional_construction_continuation_runs_completed": 4,
+    "additional_construction_continuation_runs_planned": 4,
     "additional_refinement_pilots_completed": 1,
     "additional_refinement_pilots_planned": 1,
     "capacity_restart_completed_runs": 3,
@@ -38,6 +41,7 @@
     "interrupted_at_accounting_check": 12,
     "interrupted_runs_authorized_to_restart": 3,
     "large_accuracy_available": true,
+    "original_cohort_unchanged": true,
     "other_interrupted_runs_still_stopped": 9,
     "planned_cloud_runs": 64,
     "refinement_accuracy_available": true,
@@ -103,6 +107,1654 @@
     "training_view": "partial observed human labels only",
     "zero_area_boxes_preserved": true,
     "zero_area_excluded_before_top_k": true
+  },
+  "construction_best_aware_interpretation": {
+    "AP": 0.49882050080244833,
+    "AP_points_over_original_aware_same_routing": 0.040267200473076414,
+    "conclusion": "Only a modest extra-training gain; not a breakthrough or multi-seed benchmark.",
+    "method": "aware_standard with training-size class routing",
+    "model_passes_per_image": 5,
+    "seed": 20260917,
+    "total_optimizer_updates": 6000,
+    "validation_guided_exploration": true
+  },
+  "construction_continuation_size_routing": {
+    "interpretation": "Crop-aware remains worse than ordinary-aware with identical routing; primary crop-training negative result unchanged.",
+    "model_passes_per_image": 5,
+    "runs": [
+      {
+        "AP_delta_points": 0.7806812867769408,
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "aware_object_crops",
+        "checkpoint_sha256": "cf7c24a01f065142d935811c4738a7f040bb8764fcfa37c9a06972dc6685a498",
+        "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+        "device": "cpu",
+        "full_evaluation_sha256": "07ccb4f5d548654620b1b18c3d878df9554ba362070d11f7836ffc2b9933abe4",
+        "full_metrics": {
+          "AP": 0.4727799652111573,
+          "AP50": 0.8390525761731316,
+          "AP75": 0.4730748340637162,
+          "false_positives_per_image": 0.8833333333333333,
+          "per_class_AP": {
+            "helmet": 0.5485329195588836,
+            "no-helmet": 0.17325666412795124,
+            "no-vest": 0.44369495910048273,
+            "person": 0.6697543202614633,
+            "vest": 0.5286609630070058
+          },
+          "precision_at_threshold": 0.8610747051114024,
+          "recall_at_threshold": 0.9163179916317992
+        },
+        "metrics": {
+          "AP": 0.4805867780789267,
+          "AP50": 0.8976022850269946,
+          "AP75": 0.4828909567307269,
+          "false_positives_per_image": 0.95,
+          "per_class_AP": {
+            "helmet": 0.5475241037855433,
+            "no-helmet": 0.21329954424013833,
+            "no-vest": 0.44369495910048273,
+            "person": 0.6697543202614633,
+            "vest": 0.5286609630070058
+          },
+          "precision_at_threshold": 0.8536585365853658,
+          "recall_at_threshold": 0.9274755927475593
+        },
+        "split": "valid",
+        "tiled_category_ids": [
+          1,
+          2
+        ],
+        "tiled_evaluation_sha256": "936e6878acb7ca77c97863c43a73f76dbd44f9c226be2d93dc92c7aacc6f462f",
+        "tiled_metrics": {
+          "AP": 0.45836031997155124,
+          "AP50": 0.8945660215843193,
+          "AP75": 0.44304755605299684,
+          "false_positives_per_image": 1.3,
+          "per_class_AP": {
+            "helmet": 0.5475241037855433,
+            "no-helmet": 0.21329954424013833,
+            "no-vest": 0.38759050067552747,
+            "person": 0.6318281306808917,
+            "vest": 0.5115593204756553
+          },
+          "precision_at_threshold": 0.8136200716845878,
+          "recall_at_threshold": 0.9497907949790795
+        },
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 12.185865124920383,
+            "image_passes": 120,
+            "reserved_slot_selections": 49,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.35309808305464685,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 47.40363904181868,
+            "image_passes": 480,
+            "reserved_slot_selections": 101,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 92936
+          }
+        },
+        "validation_guided_exploration": true
+      },
+      {
+        "AP_delta_points": 1.8794384326075386,
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "aware_standard",
+        "checkpoint_sha256": "a82d651c7150f0bf2a692126a706aea5190960640aa1c6029b7b4345bdb0882c",
+        "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+        "device": "cpu",
+        "full_evaluation_sha256": "e3f46b4db4b5387dc886a523c9b5d8b7180fe7b8f076b4d2ddc45f11a648bfd3",
+        "full_metrics": {
+          "AP": 0.48002611647637294,
+          "AP50": 0.8574821222165239,
+          "AP75": 0.5097037178224105,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.4440309304339538,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8558441558441559,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "metrics": {
+          "AP": 0.49882050080244833,
+          "AP50": 0.892349840216867,
+          "AP75": 0.5005103721009128,
+          "false_positives_per_image": 0.9916666666666667,
+          "per_class_AP": {
+            "helmet": 0.5358889316747991,
+            "no-helmet": 0.298939179632249,
+            "no-vest": 0.4440309304339538,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8487928843710292,
+          "recall_at_threshold": 0.9316596931659693
+        },
+        "split": "valid",
+        "tiled_category_ids": [
+          1,
+          2
+        ],
+        "tiled_evaluation_sha256": "a0b0a5adf2f1796d351630e5eddbbf78f24bc72eba00016f28f4ec3c8c0cba80",
+        "tiled_metrics": {
+          "AP": 0.4781768625863902,
+          "AP50": 0.8829750095150437,
+          "AP75": 0.4602908533555337,
+          "false_positives_per_image": 1.3083333333333333,
+          "per_class_AP": {
+            "helmet": 0.5358889316747991,
+            "no-helmet": 0.298939179632249,
+            "no-vest": 0.40281681154593374,
+            "person": 0.6319004980301626,
+            "vest": 0.521338892048807
+          },
+          "precision_at_threshold": 0.812200956937799,
+          "recall_at_threshold": 0.9470013947001394
+        },
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 12.104621707927436,
+            "image_passes": 120,
+            "reserved_slot_selections": 35,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.18593854107894003,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 46.17334641702473,
+            "image_passes": 480,
+            "reserved_slot_selections": 80,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 87933
+          }
+        },
+        "validation_guided_exploration": true
+      },
+      {
+        "AP_delta_points": 0.7047799354411133,
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "naive_object_crops",
+        "checkpoint_sha256": "5e4af9de71386a9fbbee9a0dc872cf3aaa12fbf4046b0dab13e60c7531b3ce09",
+        "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+        "device": "cpu",
+        "full_evaluation_sha256": "03e2b87e9301efdbc33d6c4e4d71bfd232010c523d0e8a27eb18414c29d540a4",
+        "full_metrics": {
+          "AP": 0.43165462001491245,
+          "AP50": 0.8062117959320653,
+          "AP75": 0.43409444042509066,
+          "false_positives_per_image": 0.4083333333333333,
+          "per_class_AP": {
+            "helmet": 0.5199550874165099,
+            "no-helmet": 0.15091218451085064,
+            "no-vest": 0.40035283537847016,
+            "person": 0.632168728093317,
+            "vest": 0.4548842646754144
+          },
+          "precision_at_threshold": 0.9077212806026366,
+          "recall_at_threshold": 0.6722454672245467
+        },
+        "metrics": {
+          "AP": 0.4387024193693236,
+          "AP50": 0.8202114145685387,
+          "AP75": 0.44438987833731575,
+          "false_positives_per_image": 0.5583333333333333,
+          "per_class_AP": {
+            "helmet": 0.5155310859174769,
+            "no-helmet": 0.19057518278193936,
+            "no-vest": 0.40035283537847016,
+            "person": 0.632168728093317,
+            "vest": 0.4548842646754144
+          },
+          "precision_at_threshold": 0.8910569105691057,
+          "recall_at_threshold": 0.7642956764295676
+        },
+        "split": "valid",
+        "tiled_category_ids": [
+          1,
+          2
+        ],
+        "tiled_evaluation_sha256": "84dd0de1ad7cefe9f9d8970fc1860ce894f9a00394acf4c440aa9a3669630cac",
+        "tiled_metrics": {
+          "AP": 0.42311665013241967,
+          "AP50": 0.8237463627794711,
+          "AP75": 0.40572587477072536,
+          "false_positives_per_image": 0.7166666666666667,
+          "per_class_AP": {
+            "helmet": 0.5155310859174769,
+            "no-helmet": 0.19057518278193936,
+            "no-vest": 0.35853097939870043,
+            "person": 0.619211786613579,
+            "vest": 0.43173421595040296
+          },
+          "precision_at_threshold": 0.8714499252615845,
+          "recall_at_threshold": 0.8131101813110181
+        },
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 11.144799957983196,
+            "image_passes": 120,
+            "reserved_slot_selections": 355,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.11399000021629035,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 45.147236375138164,
+            "image_passes": 480,
+            "reserved_slot_selections": 608,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 96197
+          }
+        },
+        "validation_guided_exploration": true
+      },
+      {
+        "AP_delta_points": 1.4188851512774159,
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "complete_reference_object_crops",
+        "checkpoint_sha256": "1f18193d11a96875834f39d1034fa3d74f68a19262c26e0492649f7353ca27dd",
+        "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+        "device": "cpu",
+        "full_evaluation_sha256": "2de6f942c1f629341684f885b50a221c8a240204f30b227330b8c8521390d1b3",
+        "full_metrics": {
+          "AP": 0.5244922854343069,
+          "AP50": 0.9363082304554321,
+          "AP75": 0.5741165866838324,
+          "false_positives_per_image": 0.7416666666666667,
+          "per_class_AP": {
+            "helmet": 0.5596703726616814,
+            "no-helmet": 0.32626224922874164,
+            "no-vest": 0.4756517619139734,
+            "person": 0.6857382039343495,
+            "vest": 0.5751388394327888
+          },
+          "precision_at_threshold": 0.8839634941329857,
+          "recall_at_threshold": 0.9456066945606695
+        },
+        "metrics": {
+          "AP": 0.5386811369470811,
+          "AP50": 0.9404177232155959,
+          "AP75": 0.5576521560170591,
+          "false_positives_per_image": 0.7916666666666666,
+          "per_class_AP": {
+            "helmet": 0.5597087010979965,
+            "no-helmet": 0.3971681783562971,
+            "no-vest": 0.4756517619139734,
+            "person": 0.6857382039343495,
+            "vest": 0.5751388394327888
+          },
+          "precision_at_threshold": 0.8775773195876289,
+          "recall_at_threshold": 0.9497907949790795
+        },
+        "split": "valid",
+        "tiled_category_ids": [
+          1,
+          2
+        ],
+        "tiled_evaluation_sha256": "ed3281ea99a569c5413160567c847d17e22ffe7a9cb5d684ffe6b54bc899a4ad",
+        "tiled_metrics": {
+          "AP": 0.5236302001079594,
+          "AP50": 0.9354912558427386,
+          "AP75": 0.5276342995543077,
+          "false_positives_per_image": 0.9416666666666667,
+          "per_class_AP": {
+            "helmet": 0.5597087010979965,
+            "no-helmet": 0.3971681783562971,
+            "no-vest": 0.4423423722485807,
+            "person": 0.6603068102566602,
+            "vest": 0.5586249385802623
+          },
+          "precision_at_threshold": 0.8591022443890274,
+          "recall_at_threshold": 0.9609483960948396
+        },
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 11.592702166177332,
+            "image_passes": 120,
+            "reserved_slot_selections": 87,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.2710668328218162,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 35.72626137500629,
+            "image_passes": 480,
+            "reserved_slot_selections": 38,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 102382
+          }
+        },
+        "validation_guided_exploration": true
+      }
+    ],
+    "same_training_derived_rule_as_original_controls": true,
+    "seeds": 1,
+    "status": "completed_exploratory",
+    "validation_guided_exploration": true
+  },
+  "construction_crop_tiled_interaction": {
+    "binding_file_sha256": "07d5f756df9693fc3ee3469a1689dd9e6262935ae7dea1ee1c4e35f69ab5909f",
+    "completed_cases": 4,
+    "declaration": {
+      "declaration": {
+        "cases": [
+          "aware_object_crops",
+          "aware_standard",
+          "naive_object_crops",
+          "complete_reference_object_crops"
+        ],
+        "checkpoint_hashes": "bound after collection, before inference; unavailable at declaration",
+        "comparison": "same frozen slicing on all four controls; no parameter search or class removal",
+        "continuation_protocol_sha256": "632a4649d504411debe697bdd35e3b63ba3e9ca05e595007c820e8309a50f87b",
+        "device": "cpu",
+        "inference_cost": "five image passes per 640x640 image versus one; no cloud compute",
+        "kind": "crop_training_sliced_inference_interaction",
+        "pending_checkpoints": {
+          "aware_object_crops": "artifacts/object-crops/construction/20260917/aware_object_crops/detector.pt",
+          "aware_standard": "artifacts/object-crops/construction/20260917/aware_standard/detector.pt",
+          "complete_reference_object_crops": "artifacts/object-crops/construction/20260917/complete_reference_object_crops/detector.pt",
+          "naive_object_crops": "artifacts/object-crops/construction/20260917/naive_object_crops/detector.pt"
+        },
+        "primary_crop_comparison_unchanged": "full-frame complete-validation AP50:95",
+        "protocol": {
+          "batch_size": 4,
+          "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+          "include_full_frame": true,
+          "internal_edge_margin_pixels": 2,
+          "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+          "name": "construction-fixed-384-tiles-v1",
+          "nms_iou": 0.5,
+          "references": [
+            "https://github.com/obss/sahi",
+            "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+          ],
+          "resize": "PIL default RGB BICUBIC, matching original evaluator",
+          "score_floor": 0.001,
+          "score_threshold": 0.25,
+          "selection": "fixed before tiled scoring; no validation setting sweep",
+          "stride": 256,
+          "tile_size": 384
+        },
+        "scope": "one-seed exploratory interaction; all120validationimages/all5classes; test unused",
+        "source_files": {
+          "scripts/evaluate_crop_tiled.py": "b59d5c4d2bf29657acbd722ea5d7164639617cb722aa3ac687edfa785321961b",
+          "src/coveragecv/training/tiled.py": "430c30c043430909f6463a44674f6a5c2825ee1c7b6fa86ddc0f843fead4cb8c"
+        }
+      },
+      "declaration_sha256": "ddef2affe800a32bc6abfe62095d7c10c32aabef200a870395888541284999b1",
+      "frozen_at": "2026-09-18T00:59:20.979087+00:00"
+    },
+    "planned_cases": 4,
+    "pooled_with_original_cohort": false,
+    "primary_crop_comparison_unchanged": true,
+    "runs": [
+      {
+        "baseline_evaluation_sha256": "9f4ba926bb077ebb24aed6f83df6abb6e762498c572cb40692691ee299642c0e",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "aware_object_crops",
+        "checkpoint_sha256": "cf7c24a01f065142d935811c4738a7f040bb8764fcfa37c9a06972dc6685a498",
+        "device": "cpu",
+        "fresh_full_minus_historical_AP_points": 3.959236716255532e-07,
+        "full_frame_metrics": {
+          "AP": 0.4727799652111573,
+          "AP50": 0.8390525761731316,
+          "AP75": 0.4730748340637162,
+          "false_positives_per_image": 0.8833333333333333,
+          "per_class_AP": {
+            "helmet": 0.5485329195588836,
+            "no-helmet": 0.17325666412795124,
+            "no-vest": 0.44369495910048273,
+            "person": 0.6697543202614633,
+            "vest": 0.5286609630070058
+          },
+          "precision_at_threshold": 0.8610747051114024,
+          "recall_at_threshold": 0.9163179916317992
+        },
+        "full_frame_nms_metrics": {
+          "AP": 0.4675466322543999,
+          "AP50": 0.8360019263364044,
+          "AP75": 0.46304081335644176,
+          "false_positives_per_image": 0.7,
+          "per_class_AP": {
+            "helmet": 0.5481456420687113,
+            "no-helmet": 0.16513661462300078,
+            "no-vest": 0.4359751132327426,
+            "person": 0.6618737207567996,
+            "vest": 0.5266020705907452
+          },
+          "precision_at_threshold": 0.8866396761133604,
+          "recall_at_threshold": 0.9163179916317992
+        },
+        "historical_metrics": {
+          "AP": 0.47277996125192057,
+          "AP50": 0.8390526022447421,
+          "AP75": 0.4730747467590423,
+          "false_positives_per_image": 0.8833333333333333,
+          "per_class_AP": {
+            "helmet": 0.5485329439435384,
+            "no-helmet": 0.17325666412795124,
+            "no-vest": 0.443694914919644,
+            "person": 0.6697543202614633,
+            "vest": 0.5286609630070058
+          },
+          "precision_at_threshold": 0.8610747051114024,
+          "recall_at_threshold": 0.9163179916317992
+        },
+        "resolution": 512,
+        "scope": "all validation images and classes; no test scoring; one setting and one seed",
+        "split": "valid",
+        "tiled_metrics": {
+          "AP": 0.45836031997155124,
+          "AP50": 0.8945660215843193,
+          "AP75": 0.44304755605299684,
+          "false_positives_per_image": 1.3,
+          "per_class_AP": {
+            "helmet": 0.5475241037855433,
+            "no-helmet": 0.21329954424013833,
+            "no-vest": 0.38759050067552747,
+            "person": 0.6318281306808917,
+            "vest": 0.5115593204756553
+          },
+          "precision_at_threshold": 0.8136200716845878,
+          "recall_at_threshold": 0.9497907949790795
+        },
+        "tiled_minus_fresh_full_AP_points": -1.4419645239606038,
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 12.185865124920383,
+            "image_passes": 120,
+            "reserved_slot_selections": 49,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.35309808305464685,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 47.40363904181868,
+            "image_passes": 480,
+            "reserved_slot_selections": 101,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 92936
+          }
+        }
+      },
+      {
+        "baseline_evaluation_sha256": "ebfbae9ffb6e01f0b995401904c102bd5ef29fa3f44161fe3d62f9038ef3897a",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "aware_standard",
+        "checkpoint_sha256": "a82d651c7150f0bf2a692126a706aea5190960640aa1c6029b7b4345bdb0882c",
+        "device": "cpu",
+        "fresh_full_minus_historical_AP_points": -2.1514173775827317e-08,
+        "full_frame_metrics": {
+          "AP": 0.48002611647637294,
+          "AP50": 0.8574821222165239,
+          "AP75": 0.5097037178224105,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.4440309304339538,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8558441558441559,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "full_frame_nms_metrics": {
+          "AP": 0.4728221659086246,
+          "AP50": 0.8553173064367982,
+          "AP75": 0.49717941529463966,
+          "false_positives_per_image": 0.7,
+          "per_class_AP": {
+            "helmet": 0.5403220646769277,
+            "no-helmet": 0.18787835926449786,
+            "no-vest": 0.4351203888498261,
+            "person": 0.663579321372426,
+            "vest": 0.5372106953794451
+          },
+          "precision_at_threshold": 0.8869448183041723,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "historical_metrics": {
+          "AP": 0.4800261166915147,
+          "AP50": 0.8574821222165239,
+          "AP75": 0.5097037178224105,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.44403093150966244,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8558441558441559,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "resolution": 512,
+        "scope": "all validation images and classes; no test scoring; one setting and one seed",
+        "split": "valid",
+        "tiled_metrics": {
+          "AP": 0.4781768625863902,
+          "AP50": 0.8829750095150437,
+          "AP75": 0.4602908533555337,
+          "false_positives_per_image": 1.3083333333333333,
+          "per_class_AP": {
+            "helmet": 0.5358889316747991,
+            "no-helmet": 0.298939179632249,
+            "no-vest": 0.40281681154593374,
+            "person": 0.6319004980301626,
+            "vest": 0.521338892048807
+          },
+          "precision_at_threshold": 0.812200956937799,
+          "recall_at_threshold": 0.9470013947001394
+        },
+        "tiled_minus_fresh_full_AP_points": -0.18492538899827493,
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 12.104621707927436,
+            "image_passes": 120,
+            "reserved_slot_selections": 35,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.18593854107894003,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 46.17334641702473,
+            "image_passes": 480,
+            "reserved_slot_selections": 80,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 87933
+          }
+        }
+      },
+      {
+        "baseline_evaluation_sha256": "a3b61737d3cb21bf486d7c96e75f0244d76d4bca673edbe2e2497e7f31dff8a2",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "naive_object_crops",
+        "checkpoint_sha256": "5e4af9de71386a9fbbee9a0dc872cf3aaa12fbf4046b0dab13e60c7531b3ce09",
+        "device": "cpu",
+        "fresh_full_minus_historical_AP_points": 0,
+        "full_frame_metrics": {
+          "AP": 0.43165462001491245,
+          "AP50": 0.8062117959320653,
+          "AP75": 0.43409444042509066,
+          "false_positives_per_image": 0.4083333333333333,
+          "per_class_AP": {
+            "helmet": 0.5199550874165099,
+            "no-helmet": 0.15091218451085064,
+            "no-vest": 0.40035283537847016,
+            "person": 0.632168728093317,
+            "vest": 0.4548842646754144
+          },
+          "precision_at_threshold": 0.9077212806026366,
+          "recall_at_threshold": 0.6722454672245467
+        },
+        "full_frame_nms_metrics": {
+          "AP": 0.4311794336658123,
+          "AP50": 0.8233714332258435,
+          "AP75": 0.4273197437524415,
+          "false_positives_per_image": 0.3,
+          "per_class_AP": {
+            "helmet": 0.5182268085791937,
+            "no-helmet": 0.15066006970350265,
+            "no-vest": 0.4063074435929527,
+            "person": 0.6267717090721869,
+            "vest": 0.4539311373812255
+          },
+          "precision_at_threshold": 0.9303675048355899,
+          "recall_at_threshold": 0.6708507670850767
+        },
+        "historical_metrics": {
+          "AP": 0.43165462001491245,
+          "AP50": 0.8062117959320653,
+          "AP75": 0.43409444042509066,
+          "false_positives_per_image": 0.4083333333333333,
+          "per_class_AP": {
+            "helmet": 0.5199550874165099,
+            "no-helmet": 0.15091218451085064,
+            "no-vest": 0.40035283537847016,
+            "person": 0.632168728093317,
+            "vest": 0.4548842646754144
+          },
+          "precision_at_threshold": 0.9077212806026366,
+          "recall_at_threshold": 0.6722454672245467
+        },
+        "resolution": 512,
+        "scope": "all validation images and classes; no test scoring; one setting and one seed",
+        "split": "valid",
+        "tiled_metrics": {
+          "AP": 0.42311665013241967,
+          "AP50": 0.8237463627794711,
+          "AP75": 0.40572587477072536,
+          "false_positives_per_image": 0.7166666666666667,
+          "per_class_AP": {
+            "helmet": 0.5155310859174769,
+            "no-helmet": 0.19057518278193936,
+            "no-vest": 0.35853097939870043,
+            "person": 0.619211786613579,
+            "vest": 0.43173421595040296
+          },
+          "precision_at_threshold": 0.8714499252615845,
+          "recall_at_threshold": 0.8131101813110181
+        },
+        "tiled_minus_fresh_full_AP_points": -0.853796988249278,
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 11.144799957983196,
+            "image_passes": 120,
+            "reserved_slot_selections": 355,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.11399000021629035,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 45.147236375138164,
+            "image_passes": 480,
+            "reserved_slot_selections": 608,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 96197
+          }
+        }
+      },
+      {
+        "baseline_evaluation_sha256": "ea19e3127f392dc9fc20a7f50422e3c3266ad87b9dfa8a9ca74f7f3653593d5c",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "complete_reference_object_crops",
+        "checkpoint_sha256": "1f18193d11a96875834f39d1034fa3d74f68a19262c26e0492649f7353ca27dd",
+        "device": "cpu",
+        "fresh_full_minus_historical_AP_points": -1.1543676015079996e-07,
+        "full_frame_metrics": {
+          "AP": 0.5244922854343069,
+          "AP50": 0.9363082304554321,
+          "AP75": 0.5741165866838324,
+          "false_positives_per_image": 0.7416666666666667,
+          "per_class_AP": {
+            "helmet": 0.5596703726616814,
+            "no-helmet": 0.32626224922874164,
+            "no-vest": 0.4756517619139734,
+            "person": 0.6857382039343495,
+            "vest": 0.5751388394327888
+          },
+          "precision_at_threshold": 0.8839634941329857,
+          "recall_at_threshold": 0.9456066945606695
+        },
+        "full_frame_nms_metrics": {
+          "AP": 0.5181880033706425,
+          "AP50": 0.9367471310303981,
+          "AP75": 0.5577852557178666,
+          "false_positives_per_image": 0.6166666666666667,
+          "per_class_AP": {
+            "helmet": 0.5590506594686444,
+            "no-helmet": 0.3222879430800223,
+            "no-vest": 0.46157959652921804,
+            "person": 0.6796637316563078,
+            "vest": 0.5683580861190198
+          },
+          "precision_at_threshold": 0.9013333333333333,
+          "recall_at_threshold": 0.9428172942817294
+        },
+        "historical_metrics": {
+          "AP": 0.5244922865886745,
+          "AP50": 0.9363082304554321,
+          "AP75": 0.5741165866838324,
+          "false_positives_per_image": 0.7416666666666667,
+          "per_class_AP": {
+            "helmet": 0.5596703726616814,
+            "no-helmet": 0.32626224922874164,
+            "no-vest": 0.4756517676858116,
+            "person": 0.6857382039343495,
+            "vest": 0.5751388394327888
+          },
+          "precision_at_threshold": 0.8839634941329857,
+          "recall_at_threshold": 0.9456066945606695
+        },
+        "resolution": 512,
+        "scope": "all validation images and classes; no test scoring; one setting and one seed",
+        "split": "valid",
+        "tiled_metrics": {
+          "AP": 0.5236302001079594,
+          "AP50": 0.9354912558427386,
+          "AP75": 0.5276342995543077,
+          "false_positives_per_image": 0.9416666666666667,
+          "per_class_AP": {
+            "helmet": 0.5597087010979965,
+            "no-helmet": 0.3971681783562971,
+            "no-vest": 0.4423423722485807,
+            "person": 0.6603068102566602,
+            "vest": 0.5586249385802623
+          },
+          "precision_at_threshold": 0.8591022443890274,
+          "recall_at_threshold": 0.9609483960948396
+        },
+        "tiled_minus_fresh_full_AP_points": -0.08620853263475725,
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 11.592702166177332,
+            "image_passes": 120,
+            "reserved_slot_selections": 87,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.2710668328218162,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 35.72626137500629,
+            "image_passes": 480,
+            "reserved_slot_selections": 38,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 102382
+          }
+        }
+      }
+    ],
+    "scope": "Secondary one-seed interaction declared before primary continuation scores; actual completed cases shown separately.",
+    "status": "completed"
+  },
+  "construction_label_audit": {
+    "annotation_sha256": {
+      "train": "dee0d4eeebe5728f429d28f34feac8772a0dc11f48c6b8049f61c81778a0ee73",
+      "valid": "f13b4b34ce652d06e65ba3b53f080b7bd5db5f72a1bf3a916e1aaa906f12bcf5"
+    },
+    "findings": [
+      "Sparse rare-class supervision and train/validation size shift.",
+      "Variable upper-cranium versus whole-head geometry.",
+      "Specific helmet-reference defects and unannotated background-face detections requiring policy review.",
+      "Genuine detector false positives, duplicates and localization errors also remain."
+    ],
+    "hidden_training_labels_accessed": false,
+    "labels_changed": false,
+    "limitations": [
+      "Failure-selected residuals do not estimate defect prevalence.",
+      "These findings do not explain the full accuracy gap or establish a 95-AP potential."
+    ],
+    "median_nohelmet_dimensions_at512": {
+      "train": [
+        36.4,
+        52.8
+      ],
+      "validation": [
+        22.0,
+        26.4
+      ]
+    },
+    "next_annotation_review_acquisition_workflow": {
+      "implemented": false,
+      "launched": false,
+      "status": "deferred"
+    },
+    "nohelmet_validation_boxes_in_dominant_scene": 6,
+    "nohelmet_validation_boxes_total": 11,
+    "parent_digest": "542e6589b05e21bd2f356086db1eefa56580fd3dbb7a7e7d7596c9866f3bb5ac",
+    "prediction_sha256": {
+      "full": "6330c6a27171cfd16f78324891fca3e57a760805088a0fbbde1b039165410846",
+      "tiled": "7c9909514d5b3ba4f5eb9cc1a6439813244f692ef277da043c146752b2fff65b"
+    },
+    "scope": "Observed human train annotations and complete validation only; test not read.",
+    "splits_changed": false,
+    "status": "completed",
+    "support": {
+      "train": {
+        "helmet": {
+          "boxes": 689,
+          "images": 313
+        },
+        "no-helmet": {
+          "boxes": 33,
+          "images": 19
+        },
+        "no-vest": {
+          "boxes": 261,
+          "images": 133
+        },
+        "person": {
+          "boxes": 749,
+          "images": 325
+        },
+        "vest": {
+          "boxes": 387,
+          "images": 168
+        }
+      },
+      "valid": {
+        "helmet": {
+          "boxes": 233,
+          "images": 118
+        },
+        "no-helmet": {
+          "boxes": 11,
+          "images": 6
+        },
+        "no-vest": {
+          "boxes": 90,
+          "images": 52
+        },
+        "person": {
+          "boxes": 242,
+          "images": 116
+        },
+        "vest": {
+          "boxes": 141,
+          "images": 74
+        }
+      }
+    },
+    "test_data_accessed": false,
+    "verified_image_count": 36,
+    "view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1"
+  },
+  "construction_object_crops": {
+    "interpretation": "Combined sampling, scale and augmentation intervention; the ordinary aware control retains stock augmentation.",
+    "plan_audit": {
+      "anchor_samples_by_class": {
+        "1": 843,
+        "2": 775,
+        "3": 813,
+        "4": 765,
+        "5": 804
+      },
+      "fallbacks": {},
+      "full_frame_samples": 4000,
+      "median_anchor_max_side_pixels_by_class": {
+        "1": 95.90985915492958,
+        "2": 95.89297658862876,
+        "3": 162.4,
+        "4": 340.4,
+        "5": 137.59999999999997
+      },
+      "plan_digest": "b76b88d8792054be7dc0f7d7e081d7d264dc5f76ecbe83799a6dac3c503c47da",
+      "samples": 8000
+    },
+    "pooled_with_original_cohort": false,
+    "primary_AP_points_change": -0.7246155439594115,
+    "protocol": {
+      "batch": 4,
+      "cases": [
+        "aware_standard",
+        "aware_object_crops",
+        "naive_object_crops",
+        "complete_reference_object_crops"
+      ],
+      "cloud_reservation": {
+        "calls": 4,
+        "each_usd": 1.1,
+        "max_containers": 3,
+        "max_usd": 4.4,
+        "retries": 0,
+        "timeout_seconds": 1500,
+        "volumes": []
+      },
+      "complete_view_digest": "80c3bc6ead2c6d89309971e8fe8443d9623881127485672ce0ae55f41ee91b18",
+      "crop_plan_digest": "b76b88d8792054be7dc0f7d7e081d7d264dc5f76ecbe83799a6dac3c503c47da",
+      "intervention": "Combined class-balanced sampling and object enlargement with 50% full-frame context; separate one-seed exploratory study, not pooled with original 3-seed experiment.",
+      "kind": "construction_observed_object_crop_continuation",
+      "optimizer": "restarted AdamW, cosine schedule, LR5e-5 encoder5e-6",
+      "parents": {
+        "aware": {
+          "call_id": "fc-01M2RVKKS6WMHQMX92PAVJBQW9",
+          "checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed"
+        },
+        "complete_reference": {
+          "call_id": "fc-01M2RVKKS9Q8HYTPV2S5VEDS89",
+          "checkpoint_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1"
+        },
+        "naive": {
+          "call_id": "fc-01M2RVKKSBPFA77QDY0T7XVE7W",
+          "checkpoint_sha256": "d1d3f88bd8f515230343706c17ea056acbb601ec90acec2e8db8e8e91e9a58e3"
+        }
+      },
+      "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+      "primary_comparison": [
+        "aware_object_crops",
+        "aware_standard"
+      ],
+      "recipe": "augmented",
+      "reference_bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+      "resolution": 512,
+      "seed": 20260917,
+      "selection": "Fixed last update; no early stopping or validation checkpoint selection.",
+      "steps": 2000,
+      "test_evaluated": false,
+      "total_steps": 6000,
+      "training_labels": "Each arm retains its original labels; ALL crop anchor decisions use partial observed human labels only.",
+      "validation_during_training": false
+    },
+    "runs": [
+      {
+        "arm": "aware",
+        "batch": 4,
+        "checkpoint_sha256": "a82d651c7150f0bf2a692126a706aea5190960640aa1c6029b7b4345bdb0882c",
+        "continuation_updates": 2000,
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "ebfbae9ffb6e01f0b995401904c102bd5ef29fa3f44161fe3d62f9038ef3897a",
+        "experiment_protocol_sha256": "632a4649d504411debe697bdd35e3b63ba3e9ca05e595007c820e8309a50f87b",
+        "method": "aware_standard",
+        "metrics": {
+          "AP": 0.4800261166915147,
+          "AP50": 0.8574821222165239,
+          "AP75": 0.5097037178224105,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.44403093150966244,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8558441558441559,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "model_variant": "nano",
+        "object_crop_plan_digest": null,
+        "parent_checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+        "recipe": "augmented",
+        "reference_bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "seed": 20260917,
+        "start_parameter_digest": "fd0dd67a0c4ed6271988d19de4c538280f91e7a8d0fadfbd973c777973de819f",
+        "total_optimizer_updates": 6000,
+        "view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1"
+      },
+      {
+        "arm": "aware",
+        "batch": 4,
+        "checkpoint_sha256": "cf7c24a01f065142d935811c4738a7f040bb8764fcfa37c9a06972dc6685a498",
+        "continuation_updates": 2000,
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "9f4ba926bb077ebb24aed6f83df6abb6e762498c572cb40692691ee299642c0e",
+        "experiment_protocol_sha256": "632a4649d504411debe697bdd35e3b63ba3e9ca05e595007c820e8309a50f87b",
+        "method": "aware_object_crops",
+        "metrics": {
+          "AP": 0.47277996125192057,
+          "AP50": 0.8390526022447421,
+          "AP75": 0.4730747467590423,
+          "false_positives_per_image": 0.8833333333333333,
+          "per_class_AP": {
+            "helmet": 0.5485329439435384,
+            "no-helmet": 0.17325666412795124,
+            "no-vest": 0.443694914919644,
+            "person": 0.6697543202614633,
+            "vest": 0.5286609630070058
+          },
+          "precision_at_threshold": 0.8610747051114024,
+          "recall_at_threshold": 0.9163179916317992
+        },
+        "model_variant": "nano",
+        "object_crop_plan_digest": "b76b88d8792054be7dc0f7d7e081d7d264dc5f76ecbe83799a6dac3c503c47da",
+        "parent_checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+        "recipe": "augmented",
+        "reference_bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "seed": 20260917,
+        "start_parameter_digest": "fd0dd67a0c4ed6271988d19de4c538280f91e7a8d0fadfbd973c777973de819f",
+        "total_optimizer_updates": 6000,
+        "view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1"
+      },
+      {
+        "arm": "naive",
+        "batch": 4,
+        "checkpoint_sha256": "5e4af9de71386a9fbbee9a0dc872cf3aaa12fbf4046b0dab13e60c7531b3ce09",
+        "continuation_updates": 2000,
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "a3b61737d3cb21bf486d7c96e75f0244d76d4bca673edbe2e2497e7f31dff8a2",
+        "experiment_protocol_sha256": "632a4649d504411debe697bdd35e3b63ba3e9ca05e595007c820e8309a50f87b",
+        "method": "naive_object_crops",
+        "metrics": {
+          "AP": 0.43165462001491245,
+          "AP50": 0.8062117959320653,
+          "AP75": 0.43409444042509066,
+          "false_positives_per_image": 0.4083333333333333,
+          "per_class_AP": {
+            "helmet": 0.5199550874165099,
+            "no-helmet": 0.15091218451085064,
+            "no-vest": 0.40035283537847016,
+            "person": 0.632168728093317,
+            "vest": 0.4548842646754144
+          },
+          "precision_at_threshold": 0.9077212806026366,
+          "recall_at_threshold": 0.6722454672245467
+        },
+        "model_variant": "nano",
+        "object_crop_plan_digest": "b76b88d8792054be7dc0f7d7e081d7d264dc5f76ecbe83799a6dac3c503c47da",
+        "parent_checkpoint_sha256": "d1d3f88bd8f515230343706c17ea056acbb601ec90acec2e8db8e8e91e9a58e3",
+        "recipe": "augmented",
+        "reference_bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "seed": 20260917,
+        "start_parameter_digest": "ea6dd5240d7edb5d15fc1822bbd0e3fb2f3889d66a828d3f74b84e252bc774c3",
+        "total_optimizer_updates": 6000,
+        "view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1"
+      },
+      {
+        "arm": "complete_reference",
+        "batch": 4,
+        "checkpoint_sha256": "1f18193d11a96875834f39d1034fa3d74f68a19262c26e0492649f7353ca27dd",
+        "continuation_updates": 2000,
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "ea19e3127f392dc9fc20a7f50422e3c3266ad87b9dfa8a9ca74f7f3653593d5c",
+        "experiment_protocol_sha256": "632a4649d504411debe697bdd35e3b63ba3e9ca05e595007c820e8309a50f87b",
+        "method": "complete_reference_object_crops",
+        "metrics": {
+          "AP": 0.5244922865886745,
+          "AP50": 0.9363082304554321,
+          "AP75": 0.5741165866838324,
+          "false_positives_per_image": 0.7416666666666667,
+          "per_class_AP": {
+            "helmet": 0.5596703726616814,
+            "no-helmet": 0.32626224922874164,
+            "no-vest": 0.4756517676858116,
+            "person": 0.6857382039343495,
+            "vest": 0.5751388394327888
+          },
+          "precision_at_threshold": 0.8839634941329857,
+          "recall_at_threshold": 0.9456066945606695
+        },
+        "model_variant": "nano",
+        "object_crop_plan_digest": "b76b88d8792054be7dc0f7d7e081d7d264dc5f76ecbe83799a6dac3c503c47da",
+        "parent_checkpoint_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1",
+        "recipe": "augmented",
+        "reference_bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "seed": 20260917,
+        "start_parameter_digest": "12f01826c779ae26e0fa0e32fb90023ddd769b5c8b3c078926abe011cb99c027",
+        "total_optimizer_updates": 6000,
+        "view_digest": "80c3bc6ead2c6d89309971e8fe8443d9623881127485672ce0ae55f41ee91b18"
+      }
+    ],
+    "seeds": 1,
+    "status": "completed_primary_negative_not_promoted",
+    "test_evaluated": false
+  },
+  "construction_original_size_routing": {
+    "declaration_content_digest": "b8f91dbfd908134997c14d11654d28297bd882d6c407dfab31a9d11c8bffce40",
+    "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+    "design_context": "earlier aware tiled output improved rare-small recall but hurt large-person AP",
+    "frozen_at": "2026-09-18T01:03:09.403451+00:00",
+    "model_passes_per_image": 5,
+    "rule": {
+      "class_statistics": [
+        {
+          "category_id": 1,
+          "human_boxes": 689,
+          "median_longest_side_at512": 54.8,
+          "name": "helmet"
+        },
+        {
+          "category_id": 2,
+          "human_boxes": 33,
+          "median_longest_side_at512": 52.80000000000001,
+          "name": "no-helmet"
+        },
+        {
+          "category_id": 3,
+          "human_boxes": 261,
+          "median_longest_side_at512": 165.6,
+          "name": "no-vest"
+        },
+        {
+          "category_id": 4,
+          "human_boxes": 749,
+          "median_longest_side_at512": 342.8,
+          "name": "person"
+        },
+        {
+          "category_id": 5,
+          "human_boxes": 387,
+          "median_longest_side_at512": 140.4,
+          "name": "vest"
+        }
+      ],
+      "empty_class_policy": "no observed box means use raw full-frame; do not infer size",
+      "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+      "rule": "median human-observed TRAIN longest box side at512 <=96px uses tiled; others use rawfull",
+      "threshold_origin": "same96px object-size target as crop-training plan; one fixed threshold",
+      "tiled_category_ids": [
+        1,
+        2
+      ],
+      "useful": true
+    },
+    "runs": [
+      {
+        "AP_delta_points": 0.5521668814089664,
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "naive",
+        "checkpoint_sha256": "d1d3f88bd8f515230343706c17ea056acbb601ec90acec2e8db8e8e91e9a58e3",
+        "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+        "device": "cpu",
+        "full_evaluation_sha256": "9cafb83f8e732efbaf8376d6d017de1ce3e0b99b7f04b76834fd9fa536ff4de8",
+        "full_metrics": {
+          "AP": 0.463351242824805,
+          "AP50": 0.843201106264446,
+          "AP75": 0.46452126497231366,
+          "false_positives_per_image": 0.425,
+          "per_class_AP": {
+            "helmet": 0.5300939268739203,
+            "no-helmet": 0.22916788524272305,
+            "no-vest": 0.41221933179949233,
+            "person": 0.6539661416012322,
+            "vest": 0.4913089286066567
+          },
+          "precision_at_threshold": 0.9169381107491856,
+          "recall_at_threshold": 0.7852161785216178
+        },
+        "metrics": {
+          "AP": 0.46887291163889466,
+          "AP50": 0.8761075814585166,
+          "AP75": 0.4516654498129992,
+          "false_positives_per_image": 0.4583333333333333,
+          "per_class_AP": {
+            "helmet": 0.5114482396783433,
+            "no-helmet": 0.27542191650874825,
+            "no-vest": 0.41221933179949233,
+            "person": 0.6539661416012322,
+            "vest": 0.4913089286066567
+          },
+          "precision_at_threshold": 0.9131121642969984,
+          "recall_at_threshold": 0.806136680613668
+        },
+        "split": "valid",
+        "tiled_category_ids": [
+          1,
+          2
+        ],
+        "tiled_evaluation_sha256": "bf84abe359b43820a6d42ee00b9fc2c0f1e82a7678e5b1b9f251c1892fb2ae07",
+        "tiled_metrics": {
+          "AP": 0.45292199867804944,
+          "AP50": 0.8744348927124135,
+          "AP75": 0.4170155796103272,
+          "false_positives_per_image": 0.49166666666666664,
+          "per_class_AP": {
+            "helmet": 0.5114482396783433,
+            "no-helmet": 0.27542191650874825,
+            "no-vest": 0.36324865810984364,
+            "person": 0.6416930511440044,
+            "vest": 0.47279812794930737
+          },
+          "precision_at_threshold": 0.9114114114114115,
+          "recall_at_threshold": 0.8465829846582985
+        },
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 13.446344000054523,
+            "image_passes": 120,
+            "reserved_slot_selections": 1012,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.32685691700316966,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 69.57592270802706,
+            "image_passes": 480,
+            "reserved_slot_selections": 1645,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 89039
+          }
+        },
+        "validation_guided_exploration": true
+      },
+      {
+        "AP_delta_points": 1.7032218698333157,
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "aware",
+        "checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+        "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+        "device": "cpu",
+        "full_evaluation_sha256": "6330c6a27171cfd16f78324891fca3e57a760805088a0fbbde1b039165410846",
+        "full_metrics": {
+          "AP": 0.4813856100993844,
+          "AP50": 0.8708569214910943,
+          "AP75": 0.49308614594758254,
+          "false_positives_per_image": 1.025,
+          "per_class_AP": {
+            "helmet": 0.5502083928955883,
+            "no-helmet": 0.19093153328850748,
+            "no-vest": 0.4452210204752099,
+            "person": 0.6747900541884533,
+            "vest": 0.5457770496491632
+          },
+          "precision_at_threshold": 0.844106463878327,
+          "recall_at_threshold": 0.9288702928870293
+        },
+        "metrics": {
+          "AP": 0.49841782879771757,
+          "AP50": 0.8889633745938833,
+          "AP75": 0.49857938689942594,
+          "false_positives_per_image": 1.0583333333333333,
+          "per_class_AP": {
+            "helmet": 0.5433189357530837,
+            "no-helmet": 0.282982083922678,
+            "no-vest": 0.4452210204752099,
+            "person": 0.6747900541884533,
+            "vest": 0.5457770496491632
+          },
+          "precision_at_threshold": 0.8410513141426783,
+          "recall_at_threshold": 0.9372384937238494
+        },
+        "split": "valid",
+        "tiled_category_ids": [
+          1,
+          2
+        ],
+        "tiled_evaluation_sha256": "7c9909514d5b3ba4f5eb9cc1a6439813244f692ef277da043c146752b2fff65b",
+        "tiled_metrics": {
+          "AP": 0.48961818810770635,
+          "AP50": 0.8931469884896047,
+          "AP75": 0.4794689403943138,
+          "false_positives_per_image": 1.275,
+          "per_class_AP": {
+            "helmet": 0.5433189357530837,
+            "no-helmet": 0.282982083922678,
+            "no-vest": 0.4428530662579369,
+            "person": 0.6417006236771214,
+            "vest": 0.5372362309277123
+          },
+          "precision_at_threshold": 0.8172043010752689,
+          "recall_at_threshold": 0.9539748953974896
+        },
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 20.817658833926544,
+            "image_passes": 120,
+            "reserved_slot_selections": 210,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.6273915830533952,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 106.287611708045,
+            "image_passes": 480,
+            "reserved_slot_selections": 299,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 86195
+          }
+        },
+        "validation_guided_exploration": true
+      },
+      {
+        "AP_delta_points": 1.2407350269387551,
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "complete_reference",
+        "checkpoint_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1",
+        "declaration_file_sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde",
+        "device": "cpu",
+        "full_evaluation_sha256": "f3aa706f133c8fe4ea8ca5262fb2ae8428f0ef1b1ac4f8e60b6e1f21ed55c29e",
+        "full_metrics": {
+          "AP": 0.527534782007802,
+          "AP50": 0.9241345541358991,
+          "AP75": 0.5595714723217096,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5642583397419069,
+            "no-helmet": 0.33953389185072363,
+            "no-vest": 0.4722141499903977,
+            "person": 0.6883946447790321,
+            "vest": 0.57327288367695
+          },
+          "precision_at_threshold": 0.8591370558375635,
+          "recall_at_threshold": 0.9442119944211994
+        },
+        "metrics": {
+          "AP": 0.5399421322771896,
+          "AP50": 0.9362277453764969,
+          "AP75": 0.5596354110531139,
+          "false_positives_per_image": 0.9666666666666667,
+          "per_class_AP": {
+            "helmet": 0.5585137898818009,
+            "no-helmet": 0.4073151930577673,
+            "no-vest": 0.4722141499903977,
+            "person": 0.6883946447790321,
+            "vest": 0.57327288367695
+          },
+          "precision_at_threshold": 0.8544542032622334,
+          "recall_at_threshold": 0.9497907949790795
+        },
+        "split": "valid",
+        "tiled_category_ids": [
+          1,
+          2
+        ],
+        "tiled_evaluation_sha256": "a18cf4fb75589b82a317fd694c8ad4d45fcd40661b6d124e76fcc07cd5b4e9c6",
+        "tiled_metrics": {
+          "AP": 0.523548738124998,
+          "AP50": 0.931507237763447,
+          "AP75": 0.5231305025775226,
+          "false_positives_per_image": 1.0583333333333333,
+          "per_class_AP": {
+            "helmet": 0.5585137898818009,
+            "no-helmet": 0.4073151930577673,
+            "no-vest": 0.4327388745184936,
+            "person": 0.6569254220759284,
+            "vest": 0.5622504110909998
+          },
+          "precision_at_threshold": 0.8445532435740514,
+          "recall_at_threshold": 0.9623430962343096
+        },
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 37.84854675014503,
+            "image_passes": 120,
+            "reserved_slot_selections": 559,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.6790792080573738,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 106.0080335419625,
+            "image_passes": 480,
+            "reserved_slot_selections": 862,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 86732
+          }
+        },
+        "validation_guided_exploration": true
+      }
+    ],
+    "scope": "Same training-derived class rule for all controls; does not replace primary full-frame training comparison.",
+    "seeds": 1,
+    "status": "completed_exploratory",
+    "threshold_search": false,
+    "validation_guided_exploration": true
+  },
+  "construction_original_tiled": {
+    "model_passes_per_image": 5,
+    "protocol": {
+      "batch_size": 4,
+      "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+      "include_full_frame": true,
+      "internal_edge_margin_pixels": 2,
+      "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+      "name": "construction-fixed-384-tiles-v1",
+      "nms_iou": 0.5,
+      "references": [
+        "https://github.com/obss/sahi",
+        "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+      ],
+      "resize": "PIL default RGB BICUBIC, matching original evaluator",
+      "score_floor": 0.001,
+      "score_threshold": 0.25,
+      "selection": "fixed before tiled scoring; no validation setting sweep",
+      "stride": 256,
+      "tile_size": 384
+    },
+    "protocol_file_sha256": "d043b29ffc65ec459dc960e53e42f883c6cf0c8ea0532546f58b0649eed40745",
+    "runs": [
+      {
+        "baseline_evaluation_sha256": "68fc623565aa778c1237cec5e7b521fd557597cfca0ec6fec080a844099c1a3c",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "checkpoint_sha256": "d1d3f88bd8f515230343706c17ea056acbb601ec90acec2e8db8e8e91e9a58e3",
+        "device": "cpu",
+        "fresh_full_minus_historical_AP_points": -0.0036730214959257435,
+        "full_frame_metrics": {
+          "AP": 0.463351242824805,
+          "AP50": 0.843201106264446,
+          "AP75": 0.46452126497231366,
+          "false_positives_per_image": 0.425,
+          "per_class_AP": {
+            "helmet": 0.5300939268739203,
+            "no-helmet": 0.22916788524272305,
+            "no-vest": 0.41221933179949233,
+            "person": 0.6539661416012322,
+            "vest": 0.4913089286066567
+          },
+          "precision_at_threshold": 0.9169381107491856,
+          "recall_at_threshold": 0.7852161785216178
+        },
+        "full_frame_nms_metrics": {
+          "AP": 0.456043574989119,
+          "AP50": 0.8503981302255271,
+          "AP75": 0.4489932145199848,
+          "false_positives_per_image": 0.31666666666666665,
+          "per_class_AP": {
+            "helmet": 0.5257957717164132,
+            "no-helmet": 0.19901845929934608,
+            "no-vest": 0.4196013256316919,
+            "person": 0.6476315336217576,
+            "vest": 0.48817078467638636
+          },
+          "precision_at_threshold": 0.9367720465890182,
+          "recall_at_threshold": 0.7852161785216178
+        },
+        "historical_metrics": {
+          "AP": 0.46338797303976426,
+          "AP50": 0.8432020348310874,
+          "AP75": 0.4649157216221598,
+          "false_positives_per_image": 0.425,
+          "per_class_AP": {
+            "helmet": 0.53009433699742,
+            "no-helmet": 0.22916788524272305,
+            "no-vest": 0.4124148406634734,
+            "person": 0.6539540883610022,
+            "vest": 0.49130871393420233
+          },
+          "precision_at_threshold": 0.9169381107491856,
+          "recall_at_threshold": 0.7852161785216178
+        },
+        "method": "naive",
+        "resolution": 512,
+        "scope": "all validation images and classes; no test scoring; one setting and one seed",
+        "split": "valid",
+        "tiled_metrics": {
+          "AP": 0.45292199867804944,
+          "AP50": 0.8744348927124135,
+          "AP75": 0.4170155796103272,
+          "false_positives_per_image": 0.49166666666666664,
+          "per_class_AP": {
+            "helmet": 0.5114482396783433,
+            "no-helmet": 0.27542191650874825,
+            "no-vest": 0.36324865810984364,
+            "person": 0.6416930511440044,
+            "vest": 0.47279812794930737
+          },
+          "precision_at_threshold": 0.9114114114114115,
+          "recall_at_threshold": 0.8465829846582985
+        },
+        "tiled_minus_fresh_full_AP_points": -1.0429244146755556,
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 13.446344000054523,
+            "image_passes": 120,
+            "reserved_slot_selections": 1012,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.32685691700316966,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 69.57592270802706,
+            "image_passes": 480,
+            "reserved_slot_selections": 1645,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 89039
+          }
+        }
+      },
+      {
+        "baseline_evaluation_sha256": "0a2f85e7a9f8e33c0c974ba6c63fa806e2f8c14a323b857fb33272b5a43eaaf2",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+        "device": "cpu",
+        "fresh_full_minus_historical_AP_points": -0.00028671870522800624,
+        "full_frame_metrics": {
+          "AP": 0.4813856100993844,
+          "AP50": 0.8708569214910943,
+          "AP75": 0.49308614594758254,
+          "false_positives_per_image": 1.025,
+          "per_class_AP": {
+            "helmet": 0.5502083928955883,
+            "no-helmet": 0.19093153328850748,
+            "no-vest": 0.4452210204752099,
+            "person": 0.6747900541884533,
+            "vest": 0.5457770496491632
+          },
+          "precision_at_threshold": 0.844106463878327,
+          "recall_at_threshold": 0.9288702928870293
+        },
+        "full_frame_nms_metrics": {
+          "AP": 0.4743571536049726,
+          "AP50": 0.8597758824340102,
+          "AP75": 0.4813551033133117,
+          "false_positives_per_image": 0.7583333333333333,
+          "per_class_AP": {
+            "helmet": 0.547812499486549,
+            "no-helmet": 0.1737154100025387,
+            "no-vest": 0.44177378221287483,
+            "person": 0.6690113681480855,
+            "vest": 0.5394727081748146
+          },
+          "precision_at_threshold": 0.8796296296296297,
+          "recall_at_threshold": 0.9274755927475593
+        },
+        "historical_metrics": {
+          "AP": 0.4813884772864367,
+          "AP50": 0.8708622648825762,
+          "AP75": 0.49313214538963346,
+          "false_positives_per_image": 1.025,
+          "per_class_AP": {
+            "helmet": 0.5502086169933056,
+            "no-helmet": 0.19093153328850748,
+            "no-vest": 0.4452486167250269,
+            "person": 0.6747686570103373,
+            "vest": 0.5457849624150061
+          },
+          "precision_at_threshold": 0.844106463878327,
+          "recall_at_threshold": 0.9288702928870293
+        },
+        "method": "aware",
+        "resolution": 512,
+        "scope": "all validation images and classes; no test scoring; one setting and one seed",
+        "split": "valid",
+        "tiled_metrics": {
+          "AP": 0.48961818810770635,
+          "AP50": 0.8931469884896047,
+          "AP75": 0.4794689403943138,
+          "false_positives_per_image": 1.275,
+          "per_class_AP": {
+            "helmet": 0.5433189357530837,
+            "no-helmet": 0.282982083922678,
+            "no-vest": 0.4428530662579369,
+            "person": 0.6417006236771214,
+            "vest": 0.5372362309277123
+          },
+          "precision_at_threshold": 0.8172043010752689,
+          "recall_at_threshold": 0.9539748953974896
+        },
+        "tiled_minus_fresh_full_AP_points": 0.8232578008321945,
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 20.817658833926544,
+            "image_passes": 120,
+            "reserved_slot_selections": 210,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.6273915830533952,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 106.287611708045,
+            "image_passes": 480,
+            "reserved_slot_selections": 299,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 86195
+          }
+        }
+      },
+      {
+        "baseline_evaluation_sha256": "7b618806263677dac3933f1363de3a5509711fcf7a7cc7ed75c86cdc19f9ed7b",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "checkpoint_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1",
+        "device": "cpu",
+        "fresh_full_minus_historical_AP_points": -0.0022723533727009304,
+        "full_frame_metrics": {
+          "AP": 0.527534782007802,
+          "AP50": 0.9241345541358991,
+          "AP75": 0.5595714723217096,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5642583397419069,
+            "no-helmet": 0.33953389185072363,
+            "no-vest": 0.4722141499903977,
+            "person": 0.6883946447790321,
+            "vest": 0.57327288367695
+          },
+          "precision_at_threshold": 0.8591370558375635,
+          "recall_at_threshold": 0.9442119944211994
+        },
+        "full_frame_nms_metrics": {
+          "AP": 0.520037365356102,
+          "AP50": 0.9156199172307545,
+          "AP75": 0.548047936789914,
+          "false_positives_per_image": 0.725,
+          "per_class_AP": {
+            "helmet": 0.5611347075854721,
+            "no-helmet": 0.32850585058505855,
+            "no-vest": 0.46368303781119746,
+            "person": 0.6814270317028737,
+            "vest": 0.5654361990959083
+          },
+          "precision_at_threshold": 0.8858267716535433,
+          "recall_at_threshold": 0.9414225941422594
+        },
+        "historical_metrics": {
+          "AP": 0.527557505541529,
+          "AP50": 0.9241343978747975,
+          "AP75": 0.5595512888118044,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5642581769517873,
+            "no-helmet": 0.33953156037738785,
+            "no-vest": 0.47221395229999263,
+            "person": 0.6884341926657336,
+            "vest": 0.5733496454127441
+          },
+          "precision_at_threshold": 0.8591370558375635,
+          "recall_at_threshold": 0.9442119944211994
+        },
+        "method": "complete_reference",
+        "resolution": 512,
+        "scope": "all validation images and classes; no test scoring; one setting and one seed",
+        "split": "valid",
+        "tiled_metrics": {
+          "AP": 0.523548738124998,
+          "AP50": 0.931507237763447,
+          "AP75": 0.5231305025775226,
+          "false_positives_per_image": 1.0583333333333333,
+          "per_class_AP": {
+            "helmet": 0.5585137898818009,
+            "no-helmet": 0.4073151930577673,
+            "no-vest": 0.4327388745184936,
+            "person": 0.6569254220759284,
+            "vest": 0.5622504110909998
+          },
+          "precision_at_threshold": 0.8445532435740514,
+          "recall_at_threshold": 0.9623430962343096
+        },
+        "tiled_minus_fresh_full_AP_points": -0.3986043882803991,
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 37.84854675014503,
+            "image_passes": 120,
+            "reserved_slot_selections": 559,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.6790792080573738,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 106.0080335419625,
+            "image_passes": 480,
+            "reserved_slot_selections": 862,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 86732
+          }
+        }
+      }
+    ],
+    "scope": "Secondary fixed inference diagnostic; all 120 validation images/all 5 classes, no test labels; CPU throughout.",
+    "seeds": 1,
+    "status": "completed"
   },
   "ensembles": {
     "interpretation": "One fused prediction system per row, not a seed mean; 3 inference passes per image; no ground truth used during fusion; aware ensembles not promoted",
@@ -289,7 +1941,8 @@
       }
     ]
   },
-  "implementation_checkpoint": "a0131e2",
+  "handoff_status": "Current build frozen for handoff; no further experiment launched.",
+  "implementation_checkpoint": "2c32f1c",
   "limitations": [
     "The two chess tasks share one small board/camera domain. Construction safety is a separate dataset.",
     "The full ontology retains a generic bishop class with zero training positives.",
@@ -308,7 +1961,13 @@
     "Large accuracy is from one seed; its modest cross-recipe gain does not establish broad generalization.",
     "The single-seed crop-refinement pilot regressed on the primary aware model and is not promoted.",
     "Refinement timings include checkpoint load and crop preparation, and exclude detector inference and COCO scoring.",
-    "The refinement protocol required two cloud attempts after a lost temporary checkpoint; both remain in conservative reservations."
+    "The refinement protocol required two cloud attempts after a lost temporary checkpoint; both remain in conservative reservations.",
+    "The construction observed-object-crop primary comparison regressed and is not promoted.",
+    "Construction class-size routing is validation-guided secondary inference exploration and requires five image passes.",
+    "CPU/MPS raw and postprocessed outputs did not establish exact parity; all reported sliced-inference comparisons use CPU.",
+    "Fresh CPU model inference differs slightly from historic predictions; historical metrics are retained separately.",
+    "The completed annotation audit found specific defects and real model errors; no labels or benchmark scores were revised.",
+    "Annotation acquisition/adjudication is deferred and is not implemented or launched."
   ],
   "metric": {
     "comparisons": "Only matched seeds and recorded training budgets; n may differ between independent aggregate rows",
@@ -745,7 +2404,7 @@
     },
     {
       "path": "artifacts/cloud_incident.json",
-      "sha256": "2374cb41711d75b54be88929f11dabc9dff0845cae563ca15f00d888aa37ff7e"
+      "sha256": "0f7fbc3fc2f47d56c1e2588c6e8d072eaade4c79d57e5d11baae44a623846d3e"
     },
     {
       "path": "artifacts/capacity_protocol.json",
@@ -802,6 +2461,138 @@
     {
       "path": "artifacts/refinement/all-pieces/20260917/partial-human/attempts/1/failure.json",
       "sha256": "fce9afae5d95995a04ee70b86486ac2180cf384fed9315b346b2e4f1d582392e"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_standard/run.json",
+      "sha256": "5a8f0d7f0da05107aa88a818d93c76529001108b9797d89994b73a9efadb2b33"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_standard/evaluation.json",
+      "sha256": "ebfbae9ffb6e01f0b995401904c102bd5ef29fa3f44161fe3d62f9038ef3897a"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_standard/receipt.json",
+      "sha256": "224fcdda410fe0c6b18e976f6ad7dab50f99b36708d63923a0276de51d6410b7"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_object_crops/run.json",
+      "sha256": "ff2221c59656f5996f116379af4c51e26eea261f408f375fb852e2c3c36cedf0"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_object_crops/evaluation.json",
+      "sha256": "9f4ba926bb077ebb24aed6f83df6abb6e762498c572cb40692691ee299642c0e"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_object_crops/receipt.json",
+      "sha256": "00ee35c5774388de5011dc90e5e8285e92d932bd9e13f8b2e73453b01de82096"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/naive_object_crops/run.json",
+      "sha256": "323631d23423ed1a8534d076d83e809dff88edd2b214671bed3115bf0b845979"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/naive_object_crops/evaluation.json",
+      "sha256": "a3b61737d3cb21bf486d7c96e75f0244d76d4bca673edbe2e2497e7f31dff8a2"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/naive_object_crops/receipt.json",
+      "sha256": "66509029886e73f5a5756d86fe61074c19dd58dc4bebd4914f0aec98f35814d9"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/complete_reference_object_crops/run.json",
+      "sha256": "d05b575333d254a8e97c95b794d56f9c6bb74b51cae2426865df344605768ab0"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/complete_reference_object_crops/evaluation.json",
+      "sha256": "ea19e3127f392dc9fc20a7f50422e3c3266ad87b9dfa8a9ca74f7f3653593d5c"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/complete_reference_object_crops/receipt.json",
+      "sha256": "b9b1727198513a8282496748667cc1eb4bd97e9f8b7fe7b1824d58b1dd459d15"
+    },
+    {
+      "path": "artifacts/object-crops/protocol.json",
+      "sha256": "632a4649d504411debe697bdd35e3b63ba3e9ca05e595007c820e8309a50f87b"
+    },
+    {
+      "path": "artifacts/object-crops/plan_audit.json",
+      "sha256": "22e92a4ad926bd5a92d4fc9dd4b10e606af316619eb3182cf8c61c9c8cea72eb"
+    },
+    {
+      "path": "artifacts/object-crops/smoke-evidence.json",
+      "sha256": "a1e2d37a320e1b8a0f241db1a22a6e6c7cbd790bd24f1580d6bc345bbc95a47d"
+    },
+    {
+      "path": "artifacts/tiled/construction/20260917/results.json",
+      "sha256": "70d5a162d6f5f2c729c4bb93c270f7169a9c7656f05d38e483760fd65d630402"
+    },
+    {
+      "path": "artifacts/tiled/construction/20260917/protocol.json",
+      "sha256": "d043b29ffc65ec459dc960e53e42f883c6cf0c8ea0532546f58b0649eed40745"
+    },
+    {
+      "path": "artifacts/size-gated/original/results.json",
+      "sha256": "e0a0eaf71bd3ebcd36853ad9de2ad925258935125c24f79323d42acf0dd85a5b"
+    },
+    {
+      "path": "artifacts/size-gated/declaration.json",
+      "sha256": "89ae3f56452317553f34b315ebf5a4accec723d86d4f77f71a380e8cee76dfde"
+    },
+    {
+      "path": "artifacts/crop-tiled/declaration.json",
+      "sha256": "16c2a1e2a06dada50a6275050922ac0bb8c0c05823542ceb31d117085981754b"
+    },
+    {
+      "path": "artifacts/upgrade_tests_v6.log",
+      "sha256": "38bdf2a01e280999993b1f86528a061efa8b668decb3f1d3498463d89eb0e42a"
+    },
+    {
+      "path": "artifacts/upgrade_tests_v7_focused.log",
+      "sha256": "ad4f235b141711054c3cb6a6b6700792faa9978e90b635c0f9ce378f68041925"
+    },
+    {
+      "path": "artifacts/qa/object-crop-evidence/evidence.json",
+      "sha256": "e83fe96b4216bb387258156aba0f6a0e91d9d4521541b7d82e658805de4be09c"
+    },
+    {
+      "path": "artifacts/tiled/preflight_mps_raw_index/device_parity.json",
+      "sha256": "b1b71e4adbbd3eb78ad140d60a09085a493b450efc28c74d501e3a99c0407b23"
+    },
+    {
+      "path": "artifacts/tiled_device_diagnosis.json",
+      "sha256": "fe82fa0c9dbc2e751c3b75b18f3c471fbd70ad63b715ac1ce0bdb33c21681e31"
+    },
+    {
+      "path": "artifacts/crop-tiled/construction/20260917/results.json",
+      "sha256": "03c32a27df90409c3918a5b9d96e74c4299ef5910fdd6d80bdfd749c375d3c7f"
+    },
+    {
+      "path": "artifacts/crop-tiled/construction/20260917/binding.json",
+      "sha256": "07d5f756df9693fc3ee3469a1689dd9e6262935ae7dea1ee1c4e35f69ab5909f"
+    },
+    {
+      "path": "artifacts/size-gated/crops/results.json",
+      "sha256": "71a09404a69b859a7c54ab856589b57e1ea8dd6ffa4d50dae6cdff25c75a1ab3"
+    },
+    {
+      "path": "docs/CONSTRUCTION_LABEL_AUDIT.md",
+      "sha256": "cafc3040e34dae1b8f168910da8af040fba242c31b96aa7351ed6d77b338acb4"
+    },
+    {
+      "path": "artifacts/construction-label-audit/evidence.json",
+      "sha256": "1352ec9005557052aff5c10cbe26923cc7323da0c4534b69dbd9695fa443d00b"
+    },
+    {
+      "path": "artifacts/final_tests.log",
+      "sha256": "64e448645c34cf52447c45f4f2618e457461623ee49c83a2eb7cefd5ac2616ee"
+    },
+    {
+      "path": "artifacts/final_cloud_status.json",
+      "sha256": "1f58a66918bdc548fc541c7641a9b85a53eeb89a76e5936e50be5e01e54b8611"
+    },
+    {
+      "path": "artifacts/tiled_cohort_summary.json",
+      "sha256": "67f3a95205a5dd66d2cb1be63d4edca37b415191aa3bc99975070e4c53f5db18"
     }
   ],
   "tasks": {
@@ -2034,6 +3825,15 @@
       "source_sha256": "53e732acd303696c0675ff160d9de07d32e987e3d9ae9c772cbd90c96f8cce17",
       "status": "passed"
     },
+    "all_tiled_routing_comparisons": {
+      "classes": 5,
+      "completed": 7,
+      "device": "cpu",
+      "evidence": "artifacts/tiled_cohort_summary.json",
+      "reference_boxes": 717,
+      "test_scoring": false,
+      "validation_images": 120
+    },
     "browser_lifecycle": {
       "evidence": "artifacts/qa/lifecycle/evidence.json",
       "scope": "Import, invalid-policy recovery, train, worker survival after webserver restart, cancel",
@@ -2048,10 +3848,97 @@
         390
       ]
     },
+    "checkpoint_secret_scan": {
+      "checkpoint": "2c32f1c",
+      "evidence_status": "Reported by executing parent agent; no secrets copied into this snapshot.",
+      "files_scanned": 252,
+      "status": "clean"
+    },
+    "construction_panel_browser": {
+      "actual_server_results": true,
+      "evidence": "artifacts/qa/object-crop-evidence/evidence.json",
+      "mocked_results": false,
+      "mutation_attempts": 0,
+      "page_errors": 0,
+      "scope": "Panel checked while naive case remained pending; later completion is recorded from returned artifacts.",
+      "status": "passed",
+      "viewports_px": [
+        1440,
+        390
+      ]
+    },
+    "cpu_mps_matched_prediction_diagnosis": {
+      "images": [
+        {
+          "cpu_count": 7,
+          "image_id": 995,
+          "matched_labels_equal": true,
+          "max_score_difference": 0.011660933494567871,
+          "min_matched_iou": 0.9923333525657654,
+          "mps_count": 9
+        },
+        {
+          "cpu_count": 3,
+          "image_id": 996,
+          "matched_labels_equal": true,
+          "max_score_difference": 0.009761393070220947,
+          "min_matched_iou": 0.9934788942337036,
+          "mps_count": 3
+        },
+        {
+          "cpu_count": 3,
+          "image_id": 997,
+          "matched_labels_equal": true,
+          "max_score_difference": 0.09607863426208496,
+          "min_matched_iou": 0.9735697507858276,
+          "mps_count": 3
+        },
+        {
+          "cpu_count": 16,
+          "image_id": 998,
+          "matched_labels_equal": true,
+          "max_score_difference": 0.0378415584564209,
+          "min_matched_iou": 0.9793350100517273,
+          "mps_count": 15
+        }
+      ]
+    },
+    "cpu_mps_tiled_raw_parity": {
+      "checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+      "device": "mps",
+      "differences": {
+        "pred_boxes": {
+          "allclose_atol_002_rtol_002": false,
+          "max_absolute_difference": 1.100082516670227,
+          "mean_absolute_difference": 0.16327758133411407
+        },
+        "pred_logits": {
+          "allclose_atol_002_rtol_002": false,
+          "max_absolute_difference": 6.08603572845459,
+          "mean_absolute_difference": 0.5152093768119812
+        }
+      },
+      "images": [
+        995,
+        996,
+        997,
+        998
+      ],
+      "passed": false
+    },
+    "final_cloud_status": {
+      "apps_checked": 7,
+      "evidence": "artifacts/final_cloud_status.json",
+      "further_experiments_planned_for_handoff": false,
+      "running_containers": 0,
+      "status": "all_project_apps_zero_containers"
+    },
     "full_test_suite": {
-      "evidence": "artifacts/upgrade_tests_v5.log",
-      "passed": 60,
-      "scope": "Full suite at this recorded checkpoint; later refiner/export edits have separate focused checks"
+      "elapsed_seconds": 14.55,
+      "evidence": "artifacts/final_tests.log",
+      "passed": 122,
+      "scope": "Final full suite for frozen handoff",
+      "warnings": 32
     },
     "large_cpu_save_reload": {
       "architecture": "RF-DETR Large",
@@ -2106,6 +3993,11 @@
       "real_training_test_deselected": 1,
       "status": "passed",
       "submissions_intercepted": true
+    },
+    "object_crop_tiled_workbench_focused": {
+      "evidence": "artifacts/upgrade_tests_v7_focused.log",
+      "passed": 46,
+      "scope": "Later focused object-crop/tiled/workbench suite; overlaps with full suite"
     },
     "public_sdk_native_export": {
       "architectures": [

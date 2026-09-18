@@ -88,7 +88,7 @@ The first matched seed scores **46.34 naive, 48.14 aware, 52.76 complete**: a pr
 
 ## Durable work required process isolation and immutable deployments
 
-Web requests do not own training processes. SQLite WAL, transactional job claims, a scheduler lock and separate worker process groups let training survive a webserver restart. Cancellation verifies process identity before signaling. Actual browser import, invalid-policy repair, training, restart survival and cancellation checks passed. Desktop/mobile research views across all three tasks also passed; the latest recorded full suite has **60 passing tests**. Subsequent focused checks passed for the refiner recovery (23 tests) and public-SDK export (2 tests); these are not added to the full-suite count because their scope overlaps.
+Web requests do not own training processes. SQLite WAL, transactional job claims, a scheduler lock and separate worker process groups let training survive a webserver restart. Cancellation verifies process identity before signaling. Actual browser import, invalid-policy repair, training, restart survival and cancellation checks passed. Desktop/mobile research views across all three tasks also passed. The final full suite has **122 passing tests**. The construction panel was checked against real server results at desktop/mobile widths, without mutations or mocked metrics. The final provider check reports zero containers for every project Modal app; no additional experiments or acquisition work will launch for this handoff.
 
 Modal call IDs are saved before collection so reconnecting retrieves existing work. Deploying by file path failed inside the image because the module import name differed; deploying with `modal deploy -m ...` fixed it. Each deployment retains a frozen source snapshot and hashed inputs. Local fixes do not retroactively change experiments already run. GPU account concurrency also caused queues: queued work must be distinguished from failed or stalled work.
 
@@ -100,9 +100,9 @@ The user subsequently reported **$12.91 credits remaining**, **$25.41 workspace 
 
 The engineering mistake was relying too heavily on delayed usage while several jobs had already committed compute. Provider timeouts and zero idle containers bound individual jobs but do not reserve credit for concurrent work.
 
-The first bounded restart reserved **$3.30** for **three Large/704px/EMA runs** under a $3.50 cap. All three completed, bringing the original study to **55 of 64 runs**; nine remain interrupted. The refinement pilot required **two $0.85 attempts** after its postprocessing failure, for **$5.00 maximum reserved** including Large against the user's reported $12.91 remaining credits. Failed work remains counted. These are commitment ceilings, not actual metered costs or a reconciled balance.
+The first bounded restart reserved **$3.30** for **three Large/704px/EMA runs** under a $3.50 cap. All three completed, bringing the original study to **55 of 64 runs**; nine remain interrupted. The refinement pilot required **two $0.85 attempts**, and four construction continuations reserve **$4.40**. The maximum post-restart reservation is now **$9.40** against the user's reported $12.91 remaining credits. Failed work remains counted; local inference studies add no cloud calls. These are commitment ceilings, not actual metered costs or a reconciled balance.
 
-A persistent local cloud policy limits allowed apps; locked reservation ledgers count commitments independently of delayed metering. Failed or interrupted attempts remain recorded, and stopped cohorts are not automatically resumed. Local work remains separate. These controls bound this client's new commitments; they do not reconcile provider accounting or guarantee an account-wide cash outcome. Implementation checkpoint `a0131e2` preserves the earlier state while this next iteration continues.
+A persistent local cloud policy limits allowed apps; locked reservation ledgers count commitments independently of delayed metering. Failed or interrupted attempts remain recorded, and stopped cohorts are not automatically resumed. Local work remains separate. These controls bound this client's new commitments; they do not reconcile provider accounting or guarantee an account-wide cash outcome. Implementation checkpoints `a0131e2` and `2c32f1c` preserve earlier work while iteration continues.
 
 ## Maintaining this record
 
@@ -115,4 +115,48 @@ After the crop refiner regressed, an independent audit found that `no-helmet` ha
 
 A new four-case pilot continues seed-20260917 Nano512 detectors for 2,000 fixed updates: ordinary aware, crop-aware, crop-naive and crop-complete. All crop arms share an immutable plan derived exclusively from partial human training labels: 4,000 full-frame samples plus 4,000 class-balanced anchor crops. The plan gives no-helmet 775 anchor samples (repeated observations, **not new labels**), with a median longest side near 96 pixels in those crops. Extra complete labels affect supervision only, never crop selection. The primary comparison is crop-aware versus ordinary aware at the same starting weights and added update budget.
 
-Upstream JPEG draft decoding had to be disabled before applying rectangles defined in original pixels. We reuse upstream crop/flip/resize to transform every observed target, preserve image identity for coverage lookup, and replay a sequential plan with no dependence on model RNG. Seven focused checks and a real two-update training smoke passed. Four runs are now launched; results remain unmeasured here. Checkpoints are collected before scoring, following the refiner failure lesson. Conservative new commitments are $4.40 for this cohort, bringing the post-restart ceiling to $9.40 against the user-reported $12.91. This is a reservation ceiling, not actual spend or resolved account billing.
+Upstream JPEG draft decoding had to be disabled before applying rectangles defined in original pixels. We reuse upstream crop/flip/resize to transform every observed target, preserve image identity for coverage lookup, and replay a sequential plan with no dependence on model RNG. Seven focused checks and a real two-update training smoke passed before execution. Checkpoints were collected before scoring, following the refiner failure lesson.
+
+All four fixed final checkpoints now have full-frame validation results:
+
+| Continuation, seed 20260917 | AP50:95 after 6,000 total updates |
+| --- | ---: |
+| Aware · ordinary augmentation | 48.0026 |
+| Aware · observed-object crops | 47.2780 |
+| Naive · identical crop plan | 43.1655 |
+| Complete labels · identical partial-derived crop plan | 52.4492 |
+
+The primary crop effect is **−0.7246 AP points** against the matched aware continuation. This tested a substantial sampling/scale change, but it did not improve the predeclared metric and is not promoted. It does not establish that balancing or larger crops independently fail, because the intervention changed them together and the ordinary control retained stock augmentation. These one-seed continuations are not pooled with the original construction seeds. Their conservative commitment is $4.40, included in the current $9.40 reservation.
+
+## Slicing improves small-class inference, with controls and added cost
+
+We separately tested one fixed full-frame-plus-four-tiles inference policy on all three original construction checkpoints. Tiles are 384px with stride 256, internal-edge rejection is two pixels, and class-aware NMS uses IoU 0.5. It processes all 120 validation images and all five classes. Raw full-frame and full-frame NMS-only controls prevent attributing suppression changes to slicing.
+
+| Original 4,000-update checkpoint | Fresh CPU full frame | Full frame + NMS | Full frame + four tiles | Training-size class routing |
+| --- | ---: | ---: | ---: | ---: |
+| Naive | 46.3351 | 45.6044 | 45.2922 | 46.8873 |
+| Aware | 48.1386 | 47.4357 | 48.9618 | **49.8418** |
+| Complete labels | 52.7535 | 52.0037 | 52.3549 | 53.9942 |
+
+Full tiling helps the aware detector but harms some larger-object classes and both other aggregate controls. A secondary rule uses the tiled output only for classes whose median human-observed training-box longest side at 512px is ≤96px. This selects `helmet` and `no-helmet`; all other classes retain raw full-frame output. Its threshold matches the crop-plan scale target and was not swept, but the decision to add routing followed validation diagnostics, so the result is explicitly **validation-guided exploration**. The aware gain is **+1.7032 points** over its fresh CPU full-frame baseline. It costs five image passes; cached routing adds no additional model passes. The full-label control also benefits, so the entire gain cannot be attributed to coverage.
+
+CPU/MPS checks exposed nonmatching raw outputs and prediction counts despite several close matched boxes. We use CPU throughout these diagnostic comparisons and make no exact backend-parity claim. Fresh CPU scores differ slightly from historical scores; both remain recorded. This is distinct from the earlier exact metric rescoring audit, which reused saved predictions rather than rerunning model inference.
+
+The fixed four-way crop-training/tiled-inference interaction was declared before primary continuation scores, with all four cases and unchanged slicing settings. All four cases have completed:
+
+| 6,000-update continuation | Fresh CPU full frame | Full frame + tiles | Training-size class routing |
+| --- | ---: | ---: | ---: |
+| Aware · ordinary augmentation | 48.0026 | 47.8177 | **49.8821** |
+| Aware · observed-object crops | 47.2780 | 45.8360 | 48.0587 |
+| Naive · observed-object crops | 43.1655 | 42.3117 | 43.8702 |
+| Complete · observed-object crops | 52.4492 | 52.3630 | 53.8681 |
+
+Full tiling trails every continuation's own full-frame score. The training-size rule improves all four full-frame aggregates, but crop-aware still trails ordinary-aware by 1.8234 points with the same routing. Thus slicing does not rescue the negative primary crop-training result. The best 49.8821 is only **0.0403 points** above the original aware checkpoint's 49.8418 under the same routing. It is a one-seed, validation-guided, five-pass inference result, not a new multi-seed training benchmark or a substantial extra-training gain.
+
+## Annotation inspection found concrete issues, not an explanation for every error
+
+[The completed annotation audit](CONSTRUCTION_LABEL_AUDIT.md) inspected all **33 observed no-helmet training boxes in 19 images**, all **11 validation no-helmet references in six images**, 12 selected localization residuals, nine fixed-threshold no-helmet false positives and seven full-frame overlays. It verified the partial learner manifest and read no hidden training labels or test data. The residual selection deliberately focuses on failures and does not estimate annotation-error prevalence.
+
+No-helmet validation boxes are smaller than the observed training examples (median 22.0×26.4 versus 36.4×52.8 pixels at 512px), and one image contains six of eleven validation references. Head boxes vary between upper cranium and whole head/face. Specific defects include a full-person region labeled `helmet` and two differently sized helmet references around one visible helmet. Three of nine no-helmet false positives occur on unannotated background faces; whether a source policy intended to exclude them is unknown. There are also real detector errors, including hardhat-like false positives, duplicates and overextended boxes.
+
+These findings justify review of the data policy; they do **not** show that annotation defects explain the full accuracy gap, that correction would achieve 95 AP, or that all remaining errors are label noise. No annotations, classes, splits or reported scores were changed. Targeted annotation acquisition and adjudication is the proposed next product direction, but it is **deferred: no review/acquisition feature or new experiment has been implemented or launched**. The current build is frozen for handoff with its actual results and negative findings intact.

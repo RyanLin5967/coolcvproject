@@ -130,6 +130,24 @@ def build_summary(workspace: Path):
                        "classes": read_json(Path(ex["partial_view"]) / "ontology.json")["classes"],
                        "methods": methods, "runs": rows, "comparisons": [p for p in pairs if p],
                        "reference_digest": reference_digest}
+        if task == "construction":
+            tasks[task]["reference_quality"] = {
+                "status": "published_annotations_with_known_defects",
+                "source": "Unchanged published validation annotations",
+                "independently_verified_exhaustive": False,
+                "labels_splits_and_scores_unchanged": True,
+                "audit_document": "docs/CONSTRUCTION_LABEL_AUDIT.md",
+                "findings": [
+                    {"image_id": 998, "finding": "A full-person box is labeled helmet alongside a tight helmet box.",
+                     "annotation_ids": [2132, 2134], "box_IoU": 0.097872, "area_ratio": 10.2174},
+                    {"image_id": 1024, "finding": "One visible helmet has two differently sized helmet references.",
+                     "annotation_ids": [2275, 2276], "box_IoU": 0.451589, "area_ratio": 2.2144},
+                    {"image_id": 1002, "finding": "Only two of five visible people have reference annotations; no ignore regions mark the others.",
+                     "visible_people": 5, "annotated_people": 2,
+                     "fixed_threshold_no_helmet_false_positives_on_unannotated_faces": 3},
+                ],
+                "interpretation": "Targeted visual audit, not a defect-prevalence estimate. Known reference defects do not explain all model errors or the overall AP gap.",
+            }
     result = {"tasks": tasks, "completed_runs": completed, "submitted_runs": submitted, "planned_runs": 64,
               "issues": issues, "metric": "Complete-validation COCO AP50:95",
               "uncertainty": "Mean ± sample standard deviation across training seeds, not a confidence interval.",
@@ -138,6 +156,7 @@ def build_summary(workspace: Path):
                               "Stage-two recipes are exploratory; validation guides engineering and is not an untouched final test.",
                               "The separate Roboflow-hosted baseline has used the original test split.",
                               "Construction splits are repaired using filename, exact-byte and perceptual-hash groups; scene independence is not guaranteed.",
+                              "Construction uses unchanged published validation annotations with known inconsistent boxes and missing annotations. They are not independently verified as exhaustive; a targeted audit does not establish defect prevalence or explain the full AP gap.",
                               "Stage two restarts the optimizer. Teacher mining adds forward-pass compute beyond matched updates.",
                               "Large/704px/EMA is a separate one-seed combined-recipe pilot, not an isolated model-size ablation.",
                               "CUDA nondeterministic operators warn; exact bitwise reproduction is not guaranteed."]}
