@@ -22,7 +22,8 @@ from coveragecv.training.runner import (
 
 
 def train(view: Path, parent: Path, output: Path, *, arm, steps=2000, seed=20260918,
-          alpha=1, exclusive_groups=(), device="cuda", max_seconds=1300):
+          alpha=1, exclusive_groups=(), device="cuda", max_seconds=1300,
+          resolution=None, exposure_plan=None):
     if arm not in ("aware", "complete_reference") or not 1 <= steps <= 2000:
         raise ValueError("Outside the bounded research continuation")
     manifest = verify(view)
@@ -53,10 +54,19 @@ def train(view: Path, parent: Path, output: Path, *, arm, steps=2000, seed=20260
     if state["class_names"] != classes:
         raise ValueError("Parent class layout mismatch")
     mc = checkpoint_config(state, device=device)
+    if resolution is not None:
+        if resolution not in (512, 640, 768) or state.get("model_variant", "nano") != "nano":
+            raise ValueError("The scale study supports explicit Nano512/640/768 only")
+        # Resolution changes image/feature sampling, not checkpoint tensor shapes.
+        mc.resolution = resolution
     epochs = math.ceil(steps/max(1, len(data["images"])//4))+1
     _, tc = configs(view, output, batch=4, epochs=epochs, device=device, seed=seed,
                     recipe="large_fresh" if state.get("model_variant") == "large" else "augmented")
     tc.lr, tc.lr_encoder, tc.use_ema = 2e-5, 2e-6, True
+    if exposure_plan is not None:
+        if len(exposure_plan["sample_ids"]) != steps * 4:
+            raise ValueError("Exposure sequence must match the exact update budget")
+        tc.epochs = 1
     module = CoverageModelModule(mc, tc, view=view, aware=arm == "aware")
     module.model.load_state_dict(state["model"], strict=True)
     del state
@@ -68,6 +78,9 @@ def train(view: Path, parent: Path, output: Path, *, arm, steps=2000, seed=20260
     dm = RFDETRDataModule(mc, tc)
     dm.setup("fit")
     assert_data_contract(dm, view)
+    if exposure_plan is not None:
+        from coveragecv.training.exposure import bind_exposure
+        bind_exposure(dm, view, exposure_plan)
     protocol = {"kind": "ontology_aware_continuation", "arm": arm, "alpha": alpha,
                 "exclusive_groups": list(map(list, exclusive_groups)), "classes": classes,
                 "seed": seed, "requested_steps": steps, "batch": 4,
@@ -76,6 +89,9 @@ def train(view: Path, parent: Path, output: Path, *, arm, steps=2000, seed=20260
                 "train_config": tc.model_dump(mode="json"), "model_config": mc.model_dump(mode="json"),
                 "validation_during_training": False, "checkpoint_policy": "final fixed-step EMA",
                 "annotation_count": len(data["annotations"]), "status": "running"}
+    if exposure_plan is not None:
+        protocol.update(kind="full_frame_exposure_continuation", exposure_plan_digest=exposure_plan["digest"],
+                        sampling=exposure_plan["sampling"], resolution=mc.resolution)
     write_json(output / "run.json", protocol)
     trainer = build_trainer(tc, mc, accelerator="gpu" if device == "cuda" else device, devices=1,
         precision="32-true", include_training_callbacks=False,

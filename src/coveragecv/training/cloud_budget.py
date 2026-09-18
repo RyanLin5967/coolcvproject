@@ -13,7 +13,7 @@ def require_cloud_execution(app_name):
         config = read_json(lock)
         allowed = config.get("allowed_apps", [config["allowed_app"]] if config.get("allowed_app") else None)
         if config.get("blocked") or (allowed is not None and app_name not in allowed):
-            raise RuntimeError("This cloud app is outside the current credit authorization. Continue locally.")
+            raise RuntimeError("This cloud app is outside the current credit authorization. Do not launch compute.")
 
 
 def reserve_capacity_run():
@@ -47,6 +47,12 @@ def reserve_research_tiling():
 
 def reserve_segment_refinement():
     return _reserve("coveragecv-segment-refinement", "segment-refinement", "segment_refinement_authorization")
+
+
+def reserve_continuous_scale(stage):
+    if stage not in ("train", "evaluate", "smoke"):
+        raise ValueError("Unknown continuous scale stage")
+    return _reserve("coveragecv-continuous-scale", f"continuous-scale-{stage}", f"continuous_scale_{stage}")
 
 
 def _reserve(app_name, ledger_name, section):
