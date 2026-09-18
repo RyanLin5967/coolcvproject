@@ -103,3 +103,31 @@ def test_image_identity_and_configuration_fail_closed():
     other.ia_bce_loss = False
     with pytest.raises(ValueError, match="IoU-aware"):
         CoverageSetCriterion.from_stock(other, torch.ones(2, 2, dtype=torch.bool))
+
+
+def test_pseudo_classification_survives_with_zero_pseudo_regression_all_heads():
+    aware = CoverageSetCriterion.from_stock(stock(), torch.ones(2, 2, dtype=torch.bool), pseudo_box_weight=0.)
+    out, targets = fixtures()
+    targets[0]["is_pseudo"] = torch.tensor([False])
+    targets[1]["is_pseudo"] = torch.tensor([True])
+    losses = aware(out, targets)
+    sum(v for k, v in losses.items() if k.startswith("loss_")).backward()
+    for head in [out]+out["aux_outputs"]+[out["enc_outputs"]]:
+        assert torch.count_nonzero(head["pred_boxes"].grad[1]) == 0
+        assert torch.count_nonzero(head["pred_boxes"].grad[0]) > 0
+        assert torch.count_nonzero(head["pred_logits"].grad[1]) > 0
+
+
+@pytest.mark.parametrize("groups", [1, 2])
+def test_weighted_teacher_keeps_human_only_box_loss_identical(groups):
+    original = CoverageSetCriterion.from_stock(stock(groups), torch.ones(2, 2, dtype=torch.bool))
+    cautious = CoverageSetCriterion.from_stock(stock(groups), torch.ones(2, 2, dtype=torch.bool), pseudo_box_weight=.1)
+    out1, targets = fixtures(groups)
+    out2 = copy.deepcopy(out1)
+    a, b = original(out1, targets), cautious(out2, targets)
+    for key in a:
+        torch.testing.assert_close(a[key], b[key])
+    sum(v for k, v in a.items() if k.startswith("loss_")).backward()
+    sum(v for k, v in b.items() if k.startswith("loss_")).backward()
+    for x, y in zip(leaves(out1), leaves(out2)):
+        torch.testing.assert_close(x.grad, y.grad)

@@ -19,3 +19,5 @@ projects black/white pawns, converts annotations to COCO and deliberately
 withholds one class per training source. Preserve the source attribution and
 transformation notes when sharing derived data. Full provenance is in
 `research/roboflow/build_plan/DATA_PROTOCOL.md` and generated manifests.
+
+- Optional inference ensembles use [Weighted Boxes Fusion](https://github.com/ZFTurbo/Weighted-Boxes-Fusion), `ensemble-boxes==1.0.9`, MIT license. Solovyev, Wang and Gabruseva, *Weighted boxes fusion: Ensembling boxes from different object detection models* (2021), https://arxiv.org/abs/1910.13302.

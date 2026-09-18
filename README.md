@@ -1,80 +1,129 @@
 # CoverageCV
 
-Merge object-detection datasets without teaching a model that unannotated classes are absent. CoverageCV compiles explicit annotation policies into verified dataset artifacts, then carries those policies into RF-DETR's classification loss.
+**Merge partially annotated detection datasets without teaching the model that every missing box is background.** CoverageCV carries explicit annotation coverage from source data through compilation, training, evaluation and deployment.
 
-**Working MVP:** [interactive local demo](artifacts/demo/index.html). Open that file in a browser; it contains real images, observed/reference labels, predictions, three measured runs and provenance. No server is required. Generated artifacts stay on this machine and are ignored by Git.
+The working product is a local dataset workbench: **http://127.0.0.1:8765** when running. It includes editable coverage policies, immutable dataset revisions, image/provenance inspection, durable training jobs, live comparisons, multi-seed research results and verified Roboflow integration.
 
-## Run
+## Start the workbench
 
 ```sh
-uv sync --extra train --extra remote --group dev
-uv run --no-sync pytest -q
+uv sync --extra train --extra remote --extra web --extra analysis --group dev
+uv run --no-sync coveragecv serve
+```
+
+On this workspace, prepared datasets and measured runs already exist under ignored `data/` and `artifacts/`. On a fresh checkout, import your own dataset ZIP containing a `coverage.json` spec, COCO files and images, or prepare the public chess example:
+
+```sh
 uv run --no-sync coveragecv demo
-open artifacts/demo/index.html
+uv run --no-sync coveragecv serve
 ```
 
-`demo` downloads the pinned public chess dataset and RF-DETR Nano weights on its first run, groups repeated board configurations, prepares partial/complete views, trains three CPU runs for 100 updates each, evaluates complete validation labels, and generates the report. It reuses matching completed runs and rejects stale/mismatched results. Use `--output artifacts/another-attempt` for a new experiment. This command does not launch cloud workloads.
+`demo` downloads the pinned public chess data and official RF-DETR Nano weights, repairs recognized repeated-position splits, trains three 100-update CPU pilot runs and generates the historical offline report. It does not start cloud compute. The workbench job queue also runs locally; Modal experiments use the explicit research scripts.
 
-For the already generated report:
+## What is implemented
 
-```sh
-uv run --no-sync coveragecv report
-```
+- **Coverage contracts:** `unknown`, `positive_only`, `exhaustive`, and `verified_absent`, with explicit ontology mappings, source revisions, evidence and attribution. Undeclared classes default to unknown.
+- **Verified artifacts:** canonical SHA-256 identities, full file inventories, decoded image dimensions, split checks, duplicate/conflict detection, immutable learner views and atomic publication. Test images and hidden reference training labels are excluded from learner views.
+- **Arbitrary detection ontologies:** the compiler, RF-DETR trainer and evaluator support general class names/counts. Integration tests train, save, reload and evaluate a three-class non-chess fixture.
+- **Coverage-aware RF-DETR 1.10.1:** the unreduced IoU-aware classification loss masks unjustified negatives while preserving observed positives, box losses, reserved channels, decoder auxiliaries and encoder supervision. Complete coverage matches the upstream loss and gradients.
+- **Operational application:** ZIP/local import, compiler diagnostics, source-by-class policy editing, version history/diffs, coverage visualization, image inspection, training recipes, queue progress, logs, cancellation and predictions from actual checkpoints.
+- **Durable execution:** SQLite WAL, exclusive transactional claims, process-isolated workers that survive webserver restarts, restart reconciliation, explicit cancellation and artifact-bound results.
+- **Teacher experiments:** train-only predictions must agree across original/mirrored images before becoming provisional labels. Unknown coverage stays unknown; human labels win conflicts. Teacher provenance is preserved through crop/flip transforms. Experimental regression weights distinguish predicted coordinates from human boxes.
+- **Reproducible research:** shared initial parameters, paired seeds, matching update budgets, returned cloud checkpoints, run/data/hash checks, per-class metrics, error analysis and transparent reporting of unsuccessful methods.
+- **Real Roboflow integration:** resumable exact-label dataset upload/export verification, an actual Roboflow-trained baseline and a custom model whose hosted class/box mapping has been checked against native predictions.
 
-## What works
+## Measured results
 
-- A COCO compiler with explicit ontology mapping and four coverage states: `unknown`, `positive_only`, `exhaustive`, `verified_absent`. Missing declarations default to unknown. The compiler supports arbitrary class names; the bundled training/evaluation recipe is deliberately restricted to black-pawn / white-pawn.
-- Deterministic SHA-256 manifests, verified image bytes and dimensions, provenance, atomic artifact publication and run ledgers. Contradictory absence, conflicting duplicates, split collisions, unsupported annotation types and modified artifacts fail validation.
-- Learner views contain only observed train labels and complete validation labels. Test images and the withheld training-label reference are excluded from those views.
-- RF-DETR **1.10.1** integration through the upstream Lightning loop and a small criterion adapter. It masks unjustified negative classification supervision while preserving matched positives, box regression, the reserved class, auxiliary decoder heads and encoder supervision.
-- Shared detector initialization, explicit experiment arms, checkpoint/data bindings, a common complete-reference COCO evaluator and an offline interactive report.
-- A resumable Roboflow dataset uploader and export verifier. Version 2 of the [demo project](https://app.roboflow.com/ryan-lin-khj4s/coveragecv-chess-mvp/2) was downloaded again and checked image-by-image: 201 train images / 451 boxes and 58 validation images / 241 boxes, with matching classes, splits and coordinates.
+Coverage-aware training recovers supervision lost when independently annotated sources are merged. The original matched pawn experiment gained **12.56 AP points** over a naive merge across three paired seeds. With a stronger augmentation recipe, the aware model reaches **78.82 AP50:95**, within **0.11 points** of the complete-label reference while training on 451 observed boxes instead of 896.
 
-The local tests check stock loss and gradient parity for complete coverage, unknown-class gradients, matched positives, empty targets, decoder/encoder branches, artifact tampering, bad comparisons and Roboflow's VOC coordinate conversion. Saved evidence is in [`evidence/mvp.json`](evidence/mvp.json).
+All figures below are complete-validation COCO AP50:95, multiplied by 100; uncertainty is sample standard deviation across training seeds. Arms within a recipe share initial parameters, batch size and update budget.
 
-## Pilot result
-
-These are **100-update, single-seed validation measurements**, not a converged benchmark or a broad accuracy claim.
-
-| Run | AP50:95 | Recall at 0.25 | False positives/image at 0.25 |
+| Task and recipe | Naive partial labels | Coverage-aware | Complete labels |
 | --- | ---: | ---: | ---: |
-| Naive partial-label merge | 71.68% | 86.31% | 0.052 |
-| Coverage-aware | 72.34% | 97.51% | 1.310 |
-| Complete-label reference | 71.70% | 97.51% | 0.448 |
+| Pawns · 384px, 2,000 updates | 63.79 ± 2.07 (n=3) | 76.35 ± 0.70 (n=3) | 78.04 ± 0.53 (n=3) |
+| Pawns · 512px augmentation, 4,000 total updates | 76.25 ± 1.55 (n=3) | **78.82 ± 0.42 (n=3)** | 78.94 ± 0.21 (n=3) |
+| All 13 chess classes · 384px, 2,000 updates | 58.23 ± 2.40 (n=3) | 69.64 ± 1.00 (n=3) | 72.54 ± 0.09 (n=3) |
+| All 13 chess classes · 512px augmentation, 4,000 total updates | 69.03 ± 0.69 (n=3) | **72.91 ± 0.11 (n=3)** | 74.16 ± 0.13 (n=2) |
 
-The aware model finds more objects at this fixed threshold and also makes more false positives. The complete-label reference is not an accuracy ceiling after only 100 updates. The separate 30-image test split remains unevaluated. Board/camera domain is shared, repeated-position grouping is heuristic, and the pretrained detector's exposure to this public benchmark is not established. The pilot demonstrates execution and the supervision tradeoff; a larger, independent evaluation is the next ML step.
+The augmented recipe also improves the naive baseline: its paired coverage benefit is **+2.57 points on pawns** and **+3.88 on all chess classes**. The augmented pawn models achieve 100% recall at score 0.25, averaging 0.075 false positives per image. These are 58-image chess validation results; the two tasks share a board/camera domain. The full ontology retains a generic `bishop` class with no training positives. The complete-label reference is contextual, not a proven upper bound.
 
-## Compile your own data
+Construction safety supplies a separate industrial dataset: 995 train / 120 validation / 91 test images after group-based split repair. Partial training retains 2,119 boxes and withholds 4,261. Its **first matched seed** scores 46.34 naive, 48.14 aware and 52.76 complete: a preliminary **+1.80-point** gain. Only four of nine planned runs completed (naive n=2, aware n=1, complete n=1); its planned test evaluation has **not run**. The two completed naive seeds average 45.85 ± 0.69; that aggregate is not substituted into the one-seed paired comparison.
 
-Supply a JSON spec with `classes` and `sources`. Each source declares its COCO annotations, image directory, split, category-name mapping, coverage, revision, evidence and attribution. Paths resolve relative to the spec; image filenames must remain within the source image directory.
+**Unsuccessful experiments stay visible.** Longer 384px training averaged 75.36 on pawns; teacher supervision averaged 77.92, below augmentation alone. Teacher supervision also trailed augmentation on all chess classes (72.75 versus 72.91). A cautious pseudo-box pilot scored 78.70 on pawns, below its matched 78.90 augmentation control. Fixed three-model box fusion scored 78.69 on pawns and 72.48 on all chess classes; it did not improve the aware models and is not promoted.
+
+**Experiment snapshot:** 52 of 64 planned cloud runs collected; 12 were interrupted during a provider-accounting discrepancy. A bounded three-arm RF-DETR Large/704px/EMA restart is authorized, with a separate local Apple-GPU run in progress. Architecture/save/reload and 20-update Apple-GPU smoke checks passed; **no Large accuracy result is available yet**. The other interrupted cohorts remain stopped. See [decisions and difficulties](docs/DECISIONS.md) for the accounting conflict and why localization motivated this larger change.
+
+Open **Research lab** for collected measurements, actual seed counts, per-class results and localization diagnostics. [The portable results snapshot](docs/RESULTS.json) retains metrics and checkpoint/data identities without datasets or credentials. Full local ledgers live under ignored `artifacts/`. Recipe development uses validation feedback; these are not untouched-test discoveries.
+
+## Bring your own data
+
+A spec contains an ordered class ontology and source declarations. Paths resolve relative to the spec. A ZIP import must contain exactly one `coverage.json`, with all referenced files inside the archive.
 
 ```json
 {
-  "classes": ["cat", "dog"],
+  "classes": ["person", "helmet"],
   "sources": [{
-    "id": "cat-dataset", "revision": "v1", "split": "train",
-    "annotations": "annotations.coco.json", "images": "images",
-    "class_map": {"cat": "cat"}, "coverage": {"cat": "exhaustive"},
-    "evidence": "This source labels every cat; dog coverage is unknown.",
+    "id": "people-source", "revision": "v1", "split": "train",
+    "annotations": "train.coco.json", "images": "images",
+    "class_map": {"person": "person"},
+    "coverage": {"person": "exhaustive", "helmet": "unknown"},
+    "evidence": "This source labels every person; it makes no claim about helmets.",
     "attribution": "Dataset owner and license"
   }]
 }
 ```
 
+Add a validation source with complete reference coverage before training comparisons. A declaration is an assertion by the data owner: consistency checks cannot prove that annotators found every object. `verified_absent` contradicting an observed positive fails compilation.
+
 ```sh
-uv run --no-sync coveragecv compile spec.json
+uv run --no-sync coveragecv compile coverage.json
 uv run --no-sync coveragecv inspect artifacts/bundles/<digest>
 uv run --no-sync coveragecv view artifacts/bundles/<digest>
+uv run --no-sync coveragecv initialize artifacts/views/<digest> artifacts/my-initialization
+uv run --no-sync coveragecv train artifacts/views/<digest> \
+  artifacts/my-initialization/initialization.pt artifacts/my-run \
+  --arm aware --recipe augmented_fresh --max-steps 2000
 ```
 
-`exhaustive` and `verified_absent` permit negative supervision. `unknown` and `positive_only` preserve observed positives without inventing negative evidence. Coverage declarations are assertions by a data owner, not facts inferred by the compiler. Conflicting duplicate observations are rejected rather than automatically reconciled.
+Teacher supervision is explicit and auditable:
 
-## Roboflow and budget
+```sh
+uv run --no-sync coveragecv pseudo-label artifacts/views/<digest> \
+  artifacts/my-run/detector.pt artifacts/teacher-views
+uv run --no-sync coveragecv train artifacts/teacher-views/<digest> \
+  artifacts/my-initialization/initialization.pt artifacts/my-student \
+  --arm aware --recipe augmented --warm-start artifacts/my-run/detector.pt \
+  --max-steps 2000 --pseudo-box-weight 0.1
+```
 
-Roboflow hosts the versioned observed dataset. The custom-loss experiment ran locally, with no Modal compute or volumes. The account API returned `availability.entitled=false` for custom training recipes; that result does not establish that all ordinary hosted training is unavailable. Ordinary hosted training does not consume our coverage sidecar or custom criterion automatically.
+`0.1` is an experimental geometry weight, not an established winning setting. Classification still uses accepted pseudo positives. Use `1` for the original teacher recipe, or `0` to test classification-only pseudo supervision. Weighted pseudo-box experiments currently require one training process. CLI/device settings do not implicitly provision cloud resources.
 
-A model archive was also submitted to Roboflow version 1 for conversion. Its current saved status is shown in the report/execution record; uploading alone is not proof of working hosted inference. Version 1's dataset has a superseded VOC-origin issue, fixed in version 2; the uploaded model itself was trained on the correct local coordinates.
+The CLI also supports official RF-DETR Large initialization with `initialize --variant large` and training with `--recipe large_fresh`. That recipe uses 704px inputs and EMA. Use `--device mps` on compatible Apple hardware or `--device cuda` on an existing CUDA machine. The workbench offers local CPU or Apple-MPS execution and Nano/Large recipes, checks device availability, and keeps these jobs separate from cloud submissions.
 
-Credentials come from environment variables or `~/.config/coveragecv/credentials.json`, outside the repository. The user budget is $0 out of pocket. Do not start cloud training or provision persistent storage just to run the demo.
+## Roboflow integration
 
-See [execution state](EXECUTION_STATUS.md), [research and architecture](research/roboflow/build_plan/README.md), and [third-party notices](THIRD_PARTY_NOTICES.md). Earlier research plans describe a larger future system; they are not a claim that every planned feature is implemented.
+The observed [chess dataset, version 2](https://app.roboflow.com/ryan-lin-khj4s/coveragecv-chess-mvp/2) was uploaded, downloaded again and compared image-by-image: 201 train images / 451 boxes and 58 validation images / 241 boxes, with identical class/split identities and coordinates within 0.0001px.
+
+A separate complete-label project, `coveragecv-chess-hosted/1`, completed **20 epochs of Roboflow-hosted RF-DETR Nano training**. Its recipe and reported metrics differ from the matched custom-loss experiments. That baseline used the original chess test split, so the chess test set is not globally untouched.
+
+The custom 2,000-update aware model is deployed as `ryan-lin-khj4s/coveragecv-chess-mvp-3-rfdetr-nano-t3`. Hosted inference passed semantic/geometry checks on three validation images: 15 black-pawn and 13 white-pawn detections, minimum matched same-class IoU 0.936. This is a deployment smoke test, not a full hosted evaluation or bitwise equivalence claim.
+
+The connector fixes two measured compatibility issues: Roboflow VOC coordinates need a one-based origin, and the observed hosted weight importer expects the reserved classifier row first. The export explicitly reorders every main/encoder classifier; native checkpoints remain unchanged. Earlier failed attempts remain recorded, not mislabeled as successful.
+
+Coverage-aware loss runs in CoverageCV on local hardware or Modal. Ordinary Roboflow-hosted training does **not** automatically consume the coverage sidecar. Roboflow stores the versioned data, trains the separate baseline and serves the custom exported model.
+
+## Verification and cloud reproduction
+
+```sh
+uv run --no-sync pytest -q
+uv run --no-sync ruff check src tests scripts
+node --check src/coveragecv/workbench/static/app.js
+```
+
+The latest recorded full suite passed **56 tests**. The subsequent device/recipe change passed **11 focused tests**, lint/JavaScript checks and desktop/mobile browser checks with intercepted job submissions; it did not launch training through the browser. Actual MPS execution has a separate 20-update smoke check. The real browser/process lifecycle test, `scripts/qa_workbench.py`, checks import, policy failure/recovery, CPU training, restart survival and cancellation in an isolated state directory on port 8766. Research views across all three tasks also passed desktop/mobile checks. Generated evidence/screenshots remain outside Git; later in-progress changes still require their own verification.
+
+Cloud deployment uses frozen source and dataset snapshots with pinned requirements. **Deploy by module name** (`modal deploy -m coveragecv.training.modal_improve`), not by file path. This preserves the import path inside the image. See [architecture and reproduction](docs/ARCHITECTURE.md) for the complete preparation sequence; research scripts intentionally do not silently create account credentials or billing limits.
+
+Credentials are read from environment variables or `~/.config/coveragecv/credentials.json`, outside the repository. Cloud jobs have bounded resources/timeouts, zero minimum containers and no persistent Modal Volumes. The requested budget is **$0 out of pocket**, but accounting is unresolved: Modal's API reported $32.68 metered / $2.68 billed after $30 of credits, while the user reports $12.91 credits remaining, $25.41 workspace usage and no visible card charge. Neither a cash charge nor a zero-cost outcome is confirmed. After the initial stop, the user authorized continued work; the three-run restart reserves $3.30 under a $3.50 cap. Do not treat a reported spend limit or delayed usage total as proof that new work cannot incur charges.
+
+See [decisions and difficulties](docs/DECISIONS.md), [execution state](EXECUTION_STATUS.md), [historical research](research/roboflow/build_plan/README.md), and [third-party notices](THIRD_PARTY_NOTICES.md). Historical planning documents describe possibilities, not implemented capabilities.

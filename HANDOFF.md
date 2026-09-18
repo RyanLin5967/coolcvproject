@@ -1,3 +1,5 @@
+> Historical research handoff. Current implementation, live jobs and billing decisions are in [EXECUTION_STATUS.md](EXECUTION_STATUS.md).
+
 # Restart handoff
 
 Saved September 17, 2026 in `/Users/idide/projects/coolcvproject`. This file is the durable context for the next session. Read [AGENTS.md](AGENTS.md) and [the build-plan index](research/roboflow/build_plan/README.md), then follow the next user instruction.

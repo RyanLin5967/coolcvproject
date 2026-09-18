@@ -15,12 +15,21 @@ dependencies = [
 [project.optional-dependencies]
 train = ["rfdetr[train]==1.10.1"]
 remote = ["modal>=1,<2", "roboflow>=1,<2"]
+web = ["fastapi>=0.115,<1", "uvicorn>=0.35,<1", "python-multipart>=0.0.20,<1", "psutil>=5.9,<8"]
+analysis = [
+    "ensemble-boxes==1.0.9",
+]
 
 [project.scripts]
 coveragecv = "coveragecv.cli:app"
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "hypothesis>=6,<7", "ruff>=0.12,<1"]
+dev = [
+    "pytest>=8,<10",
+    "hypothesis>=6,<7",
+    "ruff>=0.12,<1",
+    "playwright>=1.63.0",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

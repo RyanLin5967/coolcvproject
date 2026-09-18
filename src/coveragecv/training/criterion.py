@@ -39,7 +39,8 @@ def coverage_table(view: Path):
 class CoverageSetCriterion(SetCriterion):
     """Apply image/class eligibility to every full unreduced classification cell."""
 
-    def __init__(self, *args, negative_allowed: torch.Tensor, valid_ids=None, contract_digest="synthetic", **kwargs):
+    def __init__(self, *args, negative_allowed: torch.Tensor, valid_ids=None, contract_digest="synthetic",
+                 pseudo_box_weight=1., **kwargs):
         if importlib.metadata.version("rfdetr") != "1.10.1":
             raise ValueError("this adapter supports exactly rfdetr==1.10.1")
         super().__init__(*args, **kwargs)
@@ -55,13 +56,16 @@ class CoverageSetCriterion(SetCriterion):
         self.register_buffer("valid_ids", (torch.ones(len(negative_allowed), dtype=torch.bool)
                                            if valid_ids is None else valid_ids.clone()), persistent=False)
         self.contract_digest = contract_digest
+        if not 0 <= pseudo_box_weight <= 1:
+            raise ValueError("pseudo box weight must be in [0, 1]")
+        self.pseudo_box_weight = float(pseudo_box_weight)
 
     @classmethod
-    def from_stock(cls, stock, negative_allowed, valid_ids=None, contract_digest="synthetic"):
+    def from_stock(cls, stock, negative_allowed, valid_ids=None, contract_digest="synthetic", pseudo_box_weight=1.):
         fields = inspect.signature(SetCriterion.__init__).parameters
         kwargs = {k: getattr(stock, k) for k in fields if k != "self"}
         custom = cls(**kwargs, negative_allowed=negative_allowed, valid_ids=valid_ids,
-                     contract_digest=contract_digest)
+                     contract_digest=contract_digest, pseudo_box_weight=pseudo_box_weight)
         custom.train(stock.training)
         return custom
 
@@ -80,7 +84,32 @@ class CoverageSetCriterion(SetCriterion):
             raise ValueError("image_id does not belong to the verified learner view")
         allowed = self.negative_allowed[ids]
         enriched = [{**target, "_coverage_allowed": row} for target, row in zip(targets, allowed)]
+        for target in enriched:
+            if "is_pseudo" in target and (target["is_pseudo"].dtype != torch.bool
+                    or target["is_pseudo"].shape != target["labels"].shape):
+                raise ValueError("pseudo provenance must align with the transformed target instances")
         return super().forward(outputs, enriched, num_boxes=num_boxes)
+
+    def loss_boxes(self, outputs, targets, indices, num_boxes, matched_targets=None):
+        if self.pseudo_box_weight == 1.:
+            return super().loss_boxes(outputs, targets, indices, num_boxes, matched_targets=matched_targets)
+        if torch.distributed.is_initialized():
+            raise ValueError("weighted pseudo-box experiments currently support one training process only")
+        idx = self._get_src_permutation_idx(indices) if matched_targets is None else matched_targets.source_indices
+        src = outputs["pred_boxes"][idx]
+        truth = (torch.cat([t["boxes"][j] for t, (_, j) in zip(targets, indices)])
+                 if matched_targets is None else matched_targets.boxes)
+        pseudo = torch.cat([t.get("is_pseudo", torch.zeros_like(t["labels"], dtype=torch.bool))[j]
+                            for t, (_, j) in zip(targets, indices)])
+        weights = torch.where(pseudo, self.pseudo_box_weight, 1.).to(src)
+        # Preserve the observed-box scale as uncertain pseudo geometry is downweighted.
+        # Group matching repeats every target equally; the mean also respects sum_group_losses.
+        normalizer = (num_boxes*(weights.mean() if len(weights) else 1.)).clamp(min=1.)
+        l1 = F.l1_loss(src, truth, reduction="none").sum(-1)
+        giou = 1-box_ops.elementwise_generalized_box_iou(
+            box_ops.box_cxcywh_to_xyxy(src), box_ops.box_cxcywh_to_xyxy(truth))
+        return {"loss_bbox": (l1*weights).sum()/normalizer,
+                "loss_giou": (giou*weights).sum()/normalizer}
 
     def loss_labels(self, outputs, targets, indices, num_boxes, log=True, matched_targets=None):
         logits = outputs["pred_logits"]

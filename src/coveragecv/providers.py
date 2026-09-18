@@ -60,12 +60,15 @@ def roboflow_preflight(output=Path("artifacts/provider")):
     return result
 
 
-def upload_demo_view(view: Path, output=Path("artifacts/provider"), project_name="coveragecv-chess-mvp"):
+def upload_demo_view(view: Path, output=Path("artifacts/provider"), project_name="coveragecv-chess-mvp", *, include_test=False):
     """Upload exact train/validation observations, with resumable per-image receipts."""
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     from .artifacts import read_json, verify
     manifest = verify(view)
+    bundled = manifest["kind"] == "coverage_bundle"
+    if include_test and not bundled:
+        raise ValueError("Test images must come from a reference bundle, never a learner view")
     workspace = roboflow_workspace()
     output.mkdir(parents=True, exist_ok=True)
     ledger_path = output / "roboflow_upload.json"
@@ -82,17 +85,18 @@ def upload_demo_view(view: Path, output=Path("artifacts/provider"), project_name
     ledger["project_id"] = project.id
     write_json(ledger_path, ledger)
     tasks = []
-    for split in ("train", "valid"):
-        data = read_json(view / split / "_annotations.coco.json")
+    for split in (("train", "valid", "test") if include_test else ("train", "valid")):
+        data = read_json(view / f"splits/{split}.coco.json" if bundled else view / split / "_annotations.coco.json")
         for image in data["images"]:
             key = f"{split}/{image['id']}"
             if ledger["images"].get(key, {}).get("annotation_format") != "voc-one-based-v1":
                 # The per-image endpoint accepts VOC; COCO is a dataset-level import format.
                 annotation = voc_annotation(image, [a for a in data["annotations"]
                                                     if a["image_id"] == image["id"]], data["categories"])
-                tasks.append((key, split, image, annotation))
+                path = view / image["file_name"] if bundled else view / split / image["file_name"]
+                tasks.append((key, split, image, annotation, path))
     def upload(task):
-        key, split, image, annotation = task
+        key, split, image, annotation, path = task
         try:
             if key in ledger["images"]:
                 image_id = ledger["images"][key]["image_id"]
@@ -100,7 +104,7 @@ def upload_demo_view(view: Path, output=Path("artifacts/provider"), project_name
                                                        annotation_overwrite=True)
                 result = {"image": {"success": True, "id": image_id}, "annotation": saved}
             else:
-                result = project.single_upload(str(view / split / image["file_name"]), annotation_path=annotation,
+                result = project.single_upload(str(path), annotation_path=annotation,
                     split=split, num_retry_uploads=0, annotation_overwrite=True, batch_name="coveragecv-group-v1",
                     metadata={"coveragecv_view": manifest["digest"], "coveragecv_image_id": image["id"]})
             image_result = result["image"]

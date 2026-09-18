@@ -1,5 +1,6 @@
 """Small account-free CLI; GPU/provider dependencies are imported only when used."""
 import json
+import math
 from pathlib import Path
 
 import typer
@@ -71,12 +72,36 @@ def doctor():
 
 
 @app.command()
-def train(view: Path, initialization: Path, output: Path, arm: str = "aware", epochs: int = 1,
-          max_steps: int = 100, batch: int = 2, device: str = "cpu"):
-    """Run the pinned two-pawn pilot using the actual upstream Lightning loop."""
+def initialize(view: Path, output: Path, seed: int = 20260917, variant: str = "nano"):
+    """Create a reproducible shared initialization for any compiled detection ontology."""
+    from .training.runner import create_initialization
+    _result(create_initialization, view, output, seed=seed, variant=variant)
+
+
+@app.command("pseudo-label")
+def pseudo_label(view: Path, teacher: Path, output: Path, device: str = "cpu",
+                 confidence: float = .7, agreement_iou: float = .6):
+    """Mine train-only teacher consensus; publish a new auditable learner view."""
+    from .training.pseudo import mine_training_labels
+    _result(mine_training_labels, view, teacher, output, device=device,
+            confidence=confidence, agreement_iou=agreement_iou)
+
+
+@app.command()
+def train(view: Path, initialization: Path, output: Path, arm: str = "aware", epochs: int | None = None,
+          max_steps: int = 100, batch: int = 2, device: str = "cpu", seed: int = 20260917,
+          recipe: str = "pilot", warm_start: Path | None = None, pseudo_box_weight: float = 1.,
+          timeout_seconds: int = 3600):
+    """Train arbitrary detection classes with coverage, augmentation and optional teacher provenance."""
     from .training.runner import run_training
+    if batch < 1 or max_steps < 1:
+        raise typer.BadParameter("batch and max-steps must be positive")
+    if epochs is None:
+        count = len(read_json(view / "train/_annotations.coco.json")["images"])
+        epochs = max(1, math.ceil(max_steps/max(1, count//batch)))
     _result(run_training, view, initialization, output, arm=arm, epochs=epochs, max_steps=max_steps,
-            batch=batch, device=device)
+            batch=batch, device=device, seed=seed, recipe=recipe, warm_start=warm_start,
+            pseudo_box_weight=pseudo_box_weight, timeout_seconds=timeout_seconds)
 
 
 @app.command()
@@ -133,6 +158,20 @@ def roboflow_verify_export(view: Path, exported: Path,
     """Verify every image, split, class and box in a downloaded Roboflow COCO export."""
     from .providers import verify_roboflow_export
     _result(verify_roboflow_export, view, exported, output)
+
+
+@app.command()
+def serve(root: Path = Path("artifacts/workbench"), port: int = 8765, seed_demo: bool = True):
+    """Open the operational dataset workbench on localhost, with a durable job queue."""
+    import uvicorn
+
+    from .workbench.api import create_app
+    from .workbench.bootstrap import bootstrap_demo
+    application = create_app(root)
+    if seed_demo and not application.state.store.projects():
+        bootstrap_demo(application.state.store)
+    typer.echo(f"CoverageCV workbench: http://127.0.0.1:{port}")
+    uvicorn.run(application, host="127.0.0.1", port=port, access_log=False, timeout_graceful_shutdown=3)
 
 
 if __name__ == "__main__":
