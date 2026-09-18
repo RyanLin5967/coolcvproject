@@ -26,8 +26,8 @@
     },
     {
       "path": "EXECUTION_STATUS.md",
-      "bytes": 10481,
-      "sha256": "f8d955c3bd9520c350819122ef2ee83edd9afb633f42bdf971d9cdd9fb62205d"
+      "bytes": 10621,
+      "sha256": "67c11e317750abd001057d1b09324872f91a1216400682ca0315736bb64b67fd"
     },
     {
       "path": "HANDOFF.md",
@@ -176,8 +176,8 @@
     },
     {
       "path": "public-demo/media/walkthrough.mp4",
-      "bytes": 1870369,
-      "sha256": "c9aa93057d8e0e7e1b254070be9c5279295f92857bfb6194b5ce21f27024e1a8"
+      "bytes": 1856950,
+      "sha256": "5dedaf1c3d3a51dd6880eae16ffef37ec842405407e429398e02f27ebacf0b60"
     },
     {
       "path": "public-demo/media/walkthrough.vtt",
