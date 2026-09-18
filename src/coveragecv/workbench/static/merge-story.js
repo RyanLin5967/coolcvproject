@@ -1,4 +1,6 @@
 // The policies below are an explicit illustration, not a claim about this image's training provenance.
+import {benchmarkTasks, recordedExtrema} from './benchmark-view.js';
+
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const requests = new WeakMap();
 let lastSource = 0;
@@ -50,7 +52,6 @@ function updateStory(root, data) {
   root.querySelectorAll('[data-story-source]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.storySource) === source)));
   root.querySelectorAll('[data-story-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.storyMode === mode)));
   root.querySelector('[data-story-overlay]').innerHTML = sample.annotations.filter(box => classIds.includes(box.category_id)).map(box => boxMarkup(box, sample, box.category_id === knownId, mode)).join('');
-  root.querySelector('[data-story-image-caption]').textContent = `Source ${source === 0 ? 'A' : 'B'} supplies ${knownName} labels. ${unknownName} labels are withheld in this illustration.`;
   root.querySelector('[data-story-known]').textContent = `${knownName}: provided labels`;
   root.querySelector('[data-story-unknown]').textContent = `${unknownName}: ${aware ? 'unreviewed, protected' : 'unreviewed, at risk'}`;
   root.querySelector('[data-story-outcome]').innerHTML = `
@@ -60,8 +61,20 @@ function updateStory(root, data) {
     <div class="merge-decision"><span>Unmatched ${esc(unknownName)} prediction</span><strong>${aware ? 'Ignore the negative signal' : 'Apply a negative signal'}</strong></div>
     <div class="merge-retained"><span aria-hidden="true">✓</span><span>Keep all provided ${esc(knownName)} labels.</span></div>
     <div class="merge-retained"><span aria-hidden="true">${aware ? '✓' : '!'}</span><span>${hidden.length} reference ${hidden.length === 1 ? 'box illustrates' : 'boxes illustrate'} the unreviewed class.</span></div>
-    <p class="merge-detail">${aware ? 'No invented boxes. No relabeling. A coverage declaration changes which classification errors the trainer is allowed to penalize.' : 'The dataset merge can be valid JSON and still erase the distinction between “not present” and “not annotated.”'}</p>`;
-  root.querySelector('[data-story-action]').textContent = aware ? 'See the measured results →' : 'Fix the merge with CoverageCV →';
+    ${aware ? '' : '<p class="merge-detail">The dataset merge can be valid JSON and still erase the distinction between “not present” and “not annotated.”</p>'}`;
+  root.querySelector('[data-story-action]').textContent = aware ? 'View benchmark results →' : 'Fix the merge with CoverageCV →';
+}
+
+function resultsPreview() {
+  const roles = ['naive', 'aware', 'complete_reference'];
+  return `<section class="merge-results" aria-labelledby="merge-results-title">
+    <div class="merge-results-heading"><div><span class="merge-results-kicker">RECORDED EXPERIMENTS</span><h2 id="merge-results-title">The measured results</h2></div><p>AP50:95 · higher is better</p></div>
+    <table class="merge-results-table"><thead><tr><th scope="col">Dataset</th><th scope="col">Ordinary training</th><th scope="col" class="ours">CoverageCV<span>OUR METHOD</span></th><th scope="col">Fully labeled reference</th></tr></thead><tbody>
+      ${Object.entries(benchmarkTasks).map(([key, task]) => `<tr data-story-result="${key}"><th scope="row"><button data-story-compare="${key}" aria-label="View ${esc(task.name)} benchmarks">${esc(task.name)} <span aria-hidden="true">↗</span></button></th>${roles.map(role => `<td class="${role === 'aware' ? 'ours' : ''}">${(recordedExtrema[key][role].metrics.AP * 100).toFixed(2)}</td>`).join('')}</tr>`).join('')}
+    </tbody></table>
+    <p class="merge-results-note">Minimum ordinary training and fully labeled reference; maximum CoverageCV. Selected independently; training and inference settings differ.</p>
+    <div class="merge-results-next"><p>Explore each dataset and its model predictions.</p><button class="merge-primary" data-story-compare>Open full benchmarks <span aria-hidden="true">→</span></button></div>
+  </section>`;
 }
 
 /** Render a cached, recorded-image explanation. api is the workbench or public-snapshot adapter. */
@@ -74,8 +87,8 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
   try { data = await loadStory(api, state); }
   catch (error) {
     if (container.firstElementChild !== loading) return;
-    container.innerHTML = `<section class="merge-story-empty"><h1>A missing label is not a negative example.</h1><p>${esc(error.message)}</p><button class="button" data-story-fallback>See the measured results →</button></section>`;
-    container.querySelector('[data-story-fallback]').addEventListener('click', onCompare);
+    container.innerHTML = `<section class="merge-story-empty"><h1>A missing label is not a negative example.</h1><p>${esc(error.message)}</p><button class="button primary" data-story-fallback>View benchmark results →</button></section>`;
+    container.querySelector('[data-story-fallback]').addEventListener('click', () => onCompare());
     return;
   }
   if (container.firstElementChild !== loading) return;
@@ -85,10 +98,10 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
       <div class="merge-eyebrow"><span aria-hidden="true">↳</span> COVERAGE-AWARE DATASET COMPILER</div>
       <h1>A missing label is not<br class="merge-desktop-break"> a negative example.</h1>
       <p>Two datasets. Different labeling rules. Merge them carelessly, and a model can learn to ignore the objects you want it to find.</p>
-      ${publicDemo?'<button class="merge-watch" data-action="watch-demo">Watch the walkthrough <span aria-hidden="true">↗</span></button>':''}
+      <div class="merge-hero-actions"><button class="merge-primary" data-story-compare>View benchmark results <span aria-hidden="true">→</span></button>${publicDemo?'<button class="merge-watch" data-action="watch-demo">Watch the walkthrough <span aria-hidden="true">↗</span></button>':''}</div>
     </header>
     <section class="merge-stage" aria-label="Interactive dataset merge explanation">
-      <div class="merge-stage-heading"><span class="merge-live-dot" aria-hidden="true"></span><strong>Try the merge</strong><span class="merge-recorded">Interactive explanation · recorded image</span></div>
+      <div class="merge-stage-heading"><span class="merge-live-dot" aria-hidden="true"></span><strong>Try the merge</strong><span class="merge-recorded">Illustrative example</span></div>
       <div class="merge-inputs">
         <div class="merge-source-list" role="group" aria-label="Illustrative source policy">
           ${names.map((name, index) => `<button class="merge-source" data-story-source="${index}" aria-pressed="${index === lastSource}"><span class="merge-source-letter">${index === 0 ? 'A' : 'B'}</span><span><strong>${esc(name)} dataset</strong><small>Labels ${esc(name)} only</small></span><span class="merge-source-check" aria-hidden="true">✓</span></button>`).join('')}
@@ -99,14 +112,12 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
         <figure class="merge-visual">
           <div class="merge-photo" style="aspect-ratio:${sample.width}/${sample.height}"><img src="${esc(sample.image_url)}" width="${sample.width}" height="${sample.height}" alt="Recorded construction validation image with explanatory boxes for ${esc(names.join(' and '))}" decoding="async"><svg data-story-overlay viewBox="0 0 ${sample.width} ${sample.height}" aria-label="Reference label illustration" role="img"></svg></div>
           <div class="merge-legend"><span><i class="merge-legend-known"></i><span data-story-known></span></span><span><i class="merge-legend-unknown"></i><span data-story-unknown></span></span></div>
-          <figcaption data-story-image-caption></figcaption>
         </figure>
         <div class="merge-outcome-panel"><div data-story-outcome aria-live="polite" aria-atomic="true"></div><button class="merge-primary" data-story-action></button></div>
       </div>
-      <p class="merge-disclaimer">Illustration, not model predictions: the two source policies above are synthetic. Boxes come from a recorded validation image and explain the training rule. This image was not trained under these illustrative policies. Measured experiments are reported separately.</p>
     </section>
+    ${resultsPreview()}
     <section class="merge-pipeline" aria-label="How CoverageCV works"><div><span>01</span><h3>Declare what is known</h3><p>Record which classes each source actually reviewed.</p></div><div><span>02</span><h3>Compile a safe dataset</h3><p>Keep coverage, labels and provenance together in an immutable artifact.</p></div><div><span>03</span><h3>Train with that context</h3><p>Preserve observed labels. Suppress unjustified negative supervision.</p></div></section>
-    <div class="merge-proof-link"><p>Does this improve the model? Compare our method with the ordinary merge and a fully labeled control.</p><button data-story-compare>Explore the benchmarks <span aria-hidden="true">↗</span></button></div>
   </div>`;
   const root = container.firstElementChild;
   root.compare = onCompare;
@@ -120,7 +131,8 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
       if (root.dataset.mode === 'coverage') { root.compare(); return; }
       lastMode = 'coverage'; root.dataset.mode = 'coverage';
     }
-    if (event.target.closest('[data-story-compare]')) { root.compare(); return; }
+    const compare = event.target.closest('[data-story-compare]');
+    if (compare) { root.compare(compare.dataset.storyCompare || undefined); return; }
     if (source || mode || event.target.closest('[data-story-action]')) updateStory(root, data);
   });
   updateStory(root, data);

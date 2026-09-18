@@ -22,6 +22,18 @@ with sync_playwright() as playwright:
                 window.EventSource = class extends Native {constructor(...args){super(...args);window.qaStream=this}};""")
             page.goto(f"http://127.0.0.1:{port}")
             page.locator(".merge-story").wait_for()
+            expected = {"pawns": [61.40, 79.20, 77.72], "all-pieces": [56.73, 73.68, 72.48],
+                        "construction": [42.31, 51.62, 51.82]}
+            hero_button = page.locator('.merge-hero [data-story-compare]')
+            bounds = hero_button.bounding_box()
+            assert bounds and bounds['y'] + bounds['height'] <= 1000, (port, width, 'results CTA below fold')
+            for task, values in expected.items():
+                actual = [float(text) for text in page.locator(f'[data-story-result="{task}"] td').all_text_contents()]
+                assert actual == values, (task, actual)
+            assert page.evaluate("document.documentElement.scrollWidth<=window.innerWidth"), (port, width, 'merge overflow')
+            hero_button.click()
+            page.locator('#benchmark-comparison[data-task="pawns"]').wait_for()
+            page.locator('#navigation [data-page="merge"]').click()
             page.locator(".merge-photo img").evaluate("image=>image.decode()")
             page.evaluate("window.qaImage=document.querySelector('.merge-photo img')")
             page.locator('[data-story-mode="coverage"]').click()
@@ -29,9 +41,12 @@ with sync_playwright() as playwright:
             page.locator('[data-story-source="1"]').click()
             assert page.evaluate("window.qaImage===document.querySelector('.merge-photo img')")
             page.screenshot(path=str(OUT / f"merge-{port}-{width}.png"), full_page=True)
-            page.locator('#navigation [data-page="research"]').click()
-            expected = {"pawns": [61.40, 79.20, 77.72], "all-pieces": [56.73, 73.68, 72.48],
-                        "construction": [42.31, 51.62, 51.82]}
+            page.locator('[data-story-action]').click()
+            page.locator('#benchmark-comparison[data-task="pawns"]').wait_for()
+            for task in expected:
+                page.locator('#navigation [data-page="merge"]').click()
+                page.locator(f'[data-story-compare="{task}"]').click()
+                page.locator(f'#benchmark-comparison[data-task="{task}"]').wait_for()
             for task, values in expected.items():
                 page.locator(f'[data-research-task="{task}"]').click()
                 page.locator(f'#benchmark-comparison[data-task="{task}"]').wait_for()

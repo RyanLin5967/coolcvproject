@@ -68,7 +68,7 @@ function renderShell(){
 function render(){
  $('content').dataset.page=S.page;
  if(!S.state){$('content').innerHTML='<div class="loading"><div class="spin"></div>Opening your workspace…</div>';return}
- if(S.page==='merge'){renderMergeStory($('content'),{api,state:S.state,publicDemo,onCompare:()=>{S.page='research';renderShell();render();window.scrollTo({top:0,behavior:'instant'})}});return}
+ if(S.page==='merge'){renderMergeStory($('content'),{api,state:S.state,publicDemo,onCompare:(task)=>{S.researchTask=task??'pawns';S.page='research';renderShell();render();window.scrollTo({top:0,behavior:'instant'})}});return}
  if(S.page==='platform'){renderPlatform();return}
  if(S.page==='research'){renderResearch();return}
  if(S.page==='activity'){renderActivity();return}
