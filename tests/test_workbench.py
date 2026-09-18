@@ -11,7 +11,12 @@ pytest.importorskip("fastapi")
 from fastapi.testclient import TestClient
 
 from coveragecv.artifacts import digest, file_digest, read_json, verify, write_json
-from coveragecv.workbench.api import create_app, object_crop_evidence, refinement_evidence
+from coveragecv.workbench.api import (
+    acquisition_evidence,
+    create_app,
+    object_crop_evidence,
+    refinement_evidence,
+)
 from coveragecv.workbench.scheduler import Scheduler
 from coveragecv.workbench.service import extract_dataset, revision_diff
 from coveragecv.workbench.store import Store
@@ -162,6 +167,126 @@ def test_crop_study_refuses_broken_artifact_bindings(crop_study, invalid):
     else:
         assert evidence["cases"]["aware_object_crops"]["status"] == "evidence_incomplete"
         assert "metrics" not in evidence["cases"]["aware_object_crops"]
+
+
+@pytest.fixture
+def acquisition_study(crop_study):
+    study = crop_study / "acquisition"
+    zero = crop_study / "object-crops/construction/20260917/aware_standard"
+    old_protocol = read_json(crop_study / "object-crops/protocol.json")
+    declaration = {"reference_labels_read_for_selection": False, "test_labels_used": False,
+                   "partial_view_digest": "partial-view", "plans": {"guided": "guided-plan", "random": "random-plan"}}
+    write_json(study / "selection_frozen.json", {"declaration": declaration, "declaration_digest": digest(declaration),
+                                                "frozen_at": "2026-09-18T00:00:00Z"})
+    protocol = {key: old_protocol[key] for key in ("seed", "steps", "batch", "recipe", "resolution", "parents",
+                                                  "reference_bundle_digest", "validation_during_training")}
+    protocol.update(kind="fixed_budget_coverage_acquisition_simulation", total_training_steps=6000,
+                    selection_frozen_file_sha256=file_digest(study / "selection_frozen.json"),
+                    review_units_per_acquisition_arm=150, views={}, limitations=["Simulation only"],
+                    zero_review_control={"folder": str(zero.relative_to(crop_study.parent)),
+                                         "checkpoint_sha256": file_digest(zero / "detector.pt")})
+    cases = {"guided": "aware", "random": "aware", "complete_standard": "complete_reference"}
+    for case in cases:
+        acquisition = None
+        if case != "complete_standard":
+            per_class = [{"class_name": name, "review_units": 30, "boxes_before": 33,
+                          "added_boxes": 2 if case == "guided" else 1,
+                          "boxes_after": 35 if case == "guided" else 34}
+                         for name in ("helmet", "no-helmet", "no-vest", "person", "vest")]
+            acquisition = {"simulation": True, "actual_new_human_annotation": False,
+                           "same_label_budget_as_original_experiment": False, "validation_or_test_labels_used": False,
+                           "unrequested_reference_labels_used": False, "plan_digest": declaration["plans"][case],
+                           "partial_view_digest": "partial-view", "review_units": 150, "per_class": per_class,
+                           "added_boxes": 10 if case == "guided" else 5, "boxes_before": 165,
+                           "boxes_after": 175 if case == "guided" else 170}
+        protocol["views"][case] = {"digest": f"{case}-view", "acquisition": acquisition}
+    write_json(study / "protocol.json", protocol)
+    protocol_sha = file_digest(study / "protocol.json")
+    output = study / "construction/20260917"
+    results = {}
+    for case, arm in cases.items():
+        folder = output / case
+        folder.mkdir(parents=True)
+        (folder / "detector.pt").write_bytes(f"acquisition-{case}".encode())
+        sha = file_digest(folder / "detector.pt")
+        parent = protocol["parents"][arm]["checkpoint_sha256"]
+        run = {key: protocol[key] for key in ("seed", "steps", "batch", "recipe", "total_training_steps",
+                                             "validation_during_training")}
+        run.update(status="completed", arm=arm, method=case, detector_sha256=sha,
+                   view_digest=protocol["views"][case]["digest"], parent_checkpoint_sha256=parent,
+                   warm_start_sha256=parent, experiment_protocol_sha256=protocol_sha,
+                   model_config={"resolution": 512}, annotation_acquisition=protocol["views"][case]["acquisition"])
+        write_json(folder / "run.json", run)
+        write_json(folder / "call.json", {"request": {"case": case, "protocol_sha256": protocol_sha}})
+        write_json(folder / "receipt.json", {"status": "completed", "evaluation_status": "completed",
+                                             "checkpoint_sha256": sha})
+        metrics = {"AP": {"guided": .42, "random": .46, "complete_standard": .6}[case], "AP50": .8}
+        write_json(folder / "evaluation.json", {"checkpoint_sha256": sha, "split": "valid",
+                   "bundle_digest": "reference", "metrics": metrics, "device": "cpu", "resolution": 512,
+                   "score_threshold": 0.25, "postprocess": "stock RF-DETR; reserved output omitted from semantic COCO mapping"})
+        results[case] = {"metrics": metrics, "checkpoint_sha256": sha,
+                         "evaluation_sha256": file_digest(folder / "evaluation.json"),
+                         "acquisition": protocol["views"][case]["acquisition"]}
+    zero_eval = read_json(zero / "evaluation.json")
+    zero_eval.update(device="cpu", resolution=512, score_threshold=0.25,
+                     postprocess="stock RF-DETR; reserved output omitted from semantic COCO mapping")
+    write_json(zero / "evaluation.json", zero_eval)
+    results["zero_review"] = {"metrics": zero_eval["metrics"], "checkpoint_sha256": zero_eval["checkpoint_sha256"],
+                              "evaluation_sha256": file_digest(zero / "evaluation.json"), "acquisition": None}
+    write_json(output / "comparison.json", {"status": "completed", "seed": 20260917, "results": results,
+               "protocol_sha256": protocol_sha, "review_units_per_acquisition_arm": 150,
+               "primary_AP_delta_points": -4, "guided_vs_zero_review_AP_delta_points": -3,
+               "random_vs_zero_review_AP_delta_points": 1})
+    return crop_study
+
+
+def test_acquisition_reports_real_yield_and_regression_without_claiming_new_human_labels(acquisition_study):
+    evidence = acquisition_evidence(acquisition_study)
+    assert evidence["status"] == "completed" and evidence["simulation"] is True and evidence["n"] == 1
+    assert evidence["primary_AP_delta_points"] == pytest.approx(-4)
+    assert evidence["guided_vs_zero_review_AP_delta_points"] == pytest.approx(-3)
+    assert evidence["cases"]["guided"]["acquisition"]["added_boxes"] == 10
+    assert evidence["cases"]["random"]["acquisition"]["added_boxes"] == 5
+    assert "queries" not in evidence["cases"]["guided"]["acquisition"]
+    receipt_path = acquisition_study / "acquisition/construction/20260917/guided/receipt.json"
+    receipt = read_json(receipt_path)
+    receipt.update(status="trained", evaluation_status="pending")
+    write_json(receipt_path, receipt)
+    pending = acquisition_evidence(acquisition_study)
+    assert pending["status"] == "in_progress" and "primary_AP_delta_points" not in pending
+    assert pending["cases"]["guided"]["status"] == "evaluating"
+    assert "metrics" not in pending["cases"]["guided"]
+    assert pending["cases"]["guided"]["acquisition"]["added_boxes"] == 10
+
+
+@pytest.mark.parametrize("invalid", ["frozen_selection", "checkpoint", "acquisition", "reference", "comparison",
+                                    "device", "resolution", "threshold", "postprocess"])
+def test_acquisition_refuses_mismatched_selection_and_result_bindings(acquisition_study, invalid):
+    study = acquisition_study / "acquisition"
+    folder = study / "construction/20260917/guided"
+    if invalid == "checkpoint":
+        (folder / "detector.pt").write_bytes(b"unrelated model")
+    else:
+        path, key, value = {
+            "frozen_selection": (study / "selection_frozen.json", "frozen_at", "changed"),
+            "acquisition": (folder / "run.json", "annotation_acquisition", None),
+            "reference": (folder / "evaluation.json", "bundle_digest", "changed"),
+            "device": (folder / "evaluation.json", "device", "mps"),
+            "resolution": (folder / "evaluation.json", "resolution", 704),
+            "threshold": (folder / "evaluation.json", "score_threshold", .5),
+            "postprocess": (folder / "evaluation.json", "postprocess", "different decoder"),
+            "comparison": (study / "construction/20260917/comparison.json", "primary_AP_delta_points", 95),
+        }[invalid]
+        data = read_json(path)
+        data[key] = value
+        write_json(path, data)
+    evidence = acquisition_evidence(acquisition_study)
+    assert "primary_AP_delta_points" not in evidence
+    if invalid in ("frozen_selection", "comparison"):
+        assert evidence["status"] == "evidence_incomplete"
+    else:
+        assert evidence["cases"]["guided"]["status"] == "evidence_incomplete"
+        assert "metrics" not in evidence["cases"]["guided"]
 
 
 @pytest.fixture

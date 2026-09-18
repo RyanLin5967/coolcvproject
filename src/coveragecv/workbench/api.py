@@ -181,6 +181,121 @@ def object_crop_evidence(artifacts: Path):
     return evidence
 
 
+def acquisition_evidence(artifacts: Path):
+    """Expose a separate annotation-reveal simulation, with its actual review budget."""
+    study = artifacts / "acquisition"
+    protocol_path = study / "protocol.json"
+    if not protocol_path.exists():
+        return None
+    evidence = {"task": "construction", "status": "in_progress", "n": 1, "simulation": True, "cases": {}}
+    cases = {"guided": "aware", "random": "aware", "zero_review": "aware", "complete_standard": "complete_reference"}
+    try:
+        protocol, frozen = read_json(protocol_path), read_json(study / "selection_frozen.json")
+        protocol_sha = file_digest(protocol_path)
+        declaration = frozen["declaration"]
+        if (protocol["kind"] != "fixed_budget_coverage_acquisition_simulation"
+                or file_digest(study / "selection_frozen.json") != protocol["selection_frozen_file_sha256"]
+                or digest(declaration) != frozen["declaration_digest"]
+                or declaration["reference_labels_read_for_selection"] is not False
+                or declaration["test_labels_used"] is not False or protocol["validation_during_training"] is not False):
+            raise ValueError("selection freeze binding mismatch")
+        yields = {}
+        for case in ("guided", "random"):
+            acquisition = protocol["views"][case]["acquisition"]
+            per_class = acquisition["per_class"]
+            if (acquisition["simulation"] is not True or acquisition["actual_new_human_annotation"] is not False
+                    or acquisition["same_label_budget_as_original_experiment"] is not False
+                    or acquisition["validation_or_test_labels_used"] is not False
+                    or acquisition["unrequested_reference_labels_used"] is not False
+                    or acquisition["plan_digest"] != declaration["plans"][case]
+                    or acquisition["partial_view_digest"] != declaration["partial_view_digest"]
+                    or acquisition["review_units"] != protocol["review_units_per_acquisition_arm"]
+                    or sum(row["review_units"] for row in per_class) != acquisition["review_units"]
+                    or sum(row["added_boxes"] for row in per_class) != acquisition["added_boxes"]
+                    or acquisition["boxes_after"] - acquisition["boxes_before"] != acquisition["added_boxes"]):
+                raise ValueError("acquisition counts or simulation provenance mismatch")
+            yields[case] = {key: acquisition[key] for key in
+                           ("review_units", "added_boxes", "boxes_before", "boxes_after", "per_class")}
+        evidence.update(seed=protocol["seed"], steps=protocol["steps"], total_steps=protocol["total_training_steps"],
+                        review_units_per_arm=protocol["review_units_per_acquisition_arm"],
+                        resolution=protocol["resolution"], protocol_sha256=protocol_sha,
+                        selection_frozen_at=frozen["frozen_at"], limitations=protocol["limitations"])
+    except (OSError, ValueError, KeyError, TypeError):
+        return {**evidence, "status": "evidence_incomplete", "issue": "Acquisition protocol, selection freeze or review counts failed verification."}
+    output = study / "construction" / str(protocol["seed"])
+    verified = {}
+    for case, arm in cases.items():
+        row = {"status": "not_started", "acquisition": yields.get(case)}
+        evidence["cases"][case] = row
+        try:
+            zero_review = case == "zero_review"
+            folder = (safe_child(artifacts.parent, protocol["zero_review_control"]["folder"])
+                      if zero_review else output / case)
+            acquisition = None if zero_review else protocol["views"][case]["acquisition"]
+            if not zero_review:
+                if not (folder / "call.json").exists():
+                    continue
+                if read_json(folder / "call.json")["request"] != {"case": case, "protocol_sha256": protocol_sha}:
+                    raise ValueError("request binding mismatch")
+                row["status"] = "submitted"
+            if not (folder / "receipt.json").exists():
+                continue
+            receipt, run = read_json(folder / "receipt.json"), read_json(folder / "run.json")
+            sha = file_digest(folder / "detector.pt")
+            parent = protocol["parents"][arm]["checkpoint_sha256"]
+            expected_view = declaration["partial_view_digest"] if zero_review else protocol["views"][case]["digest"]
+            if (receipt["checkpoint_sha256"] != sha or run["detector_sha256"] != sha
+                    or run["status"] != "completed" or run["arm"] != arm
+                    or run["method"] != ("aware_standard" if zero_review else case)
+                    or run["seed"] != protocol["seed"] or run["steps"] != protocol["steps"]
+                    or run["total_training_steps"] != protocol["total_training_steps"]
+                    or run["batch"] != protocol["batch"] or run["recipe"] != protocol["recipe"]
+                    or run["model_config"]["resolution"] != protocol["resolution"]
+                    or run["view_digest"] != expected_view or run["parent_checkpoint_sha256"] != parent
+                    or run["warm_start_sha256"] != parent or run["validation_during_training"] is not False):
+                raise ValueError("checkpoint training contract mismatch")
+            if zero_review:
+                if sha != protocol["zero_review_control"]["checkpoint_sha256"] or run.get("object_crop_plan_digest") is not None:
+                    raise ValueError("zero-review control differs")
+            elif run["experiment_protocol_sha256"] != protocol_sha or run["annotation_acquisition"] != acquisition:
+                raise ValueError("acquired training view differs")
+            row.update(status="evaluating", checkpoint_sha256=sha)
+            if receipt.get("status") != "completed" or receipt.get("evaluation_status") != "completed":
+                continue
+            evaluation_path = folder / "evaluation.json"
+            evaluation = read_json(evaluation_path)
+            if (evaluation["checkpoint_sha256"] != sha or evaluation["split"] != "valid"
+                    or evaluation["bundle_digest"] != protocol["reference_bundle_digest"]
+                    or evaluation["device"] != "cpu" or evaluation["resolution"] != protocol["resolution"]
+                    or evaluation["score_threshold"] != 0.25
+                    or evaluation["postprocess"] != "stock RF-DETR; reserved output omitted from semantic COCO mapping"):
+                raise ValueError("evaluation binding mismatch")
+            row.update(status="completed", metrics=evaluation["metrics"])
+            verified[case] = {"metrics": evaluation["metrics"], "checkpoint_sha256": sha,
+                              "evaluation_sha256": file_digest(evaluation_path), "acquisition": acquisition}
+        except (OSError, ValueError, KeyError, TypeError):
+            row.update(status="evidence_incomplete", issue="Acquisition request, checkpoint or reference verification failed.")
+            row.pop("metrics", None)
+    comparison_path = output / "comparison.json"
+    if len(verified) == len(cases) and comparison_path.exists():
+        try:
+            comparison = read_json(comparison_path)
+            if (comparison["status"] != "completed" or comparison["seed"] != protocol["seed"]
+                    or comparison["protocol_sha256"] != protocol_sha or comparison["results"] != verified
+                    or comparison["review_units_per_acquisition_arm"] != protocol["review_units_per_acquisition_arm"]):
+                raise ValueError("comparison identity mismatch")
+            scores = {case: row["metrics"]["AP"] * 100 for case, row in verified.items()}
+            deltas = {"primary_AP_delta_points": scores["guided"] - scores["random"],
+                      "guided_vs_zero_review_AP_delta_points": scores["guided"] - scores["zero_review"],
+                      "random_vs_zero_review_AP_delta_points": scores["random"] - scores["zero_review"]}
+            if any(abs(value - comparison[key]) > 1e-9 for key, value in deltas.items()):
+                raise ValueError("comparison arithmetic mismatch")
+            evidence.update(status="completed", **deltas)
+        except (OSError, ValueError, KeyError, TypeError):
+            evidence.update(status="evidence_incomplete", issue="The final acquisition comparison failed verification.")
+    return evidence
+
+
 def create_app(root: Path = Path("artifacts/workbench"), *, run_scheduler=True):
     store = Store(root)
     scheduler = Scheduler(store)
@@ -272,6 +387,7 @@ def create_app(root: Path = Path("artifacts/workbench"), *, run_scheduler=True):
         result["cloud_incident"] = read_json(incident) if incident.exists() else None
         result["refinement"] = refinement_evidence(path.parent)
         result["object_crops"] = object_crop_evidence(path.parent)
+        result["acquisition"] = acquisition_evidence(path.parent)
         if result["cloud_incident"]:
             project_root = path.parent.parent
             completed = {str(Path(run["folder"]).relative_to(project_root))

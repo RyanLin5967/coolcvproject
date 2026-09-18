@@ -5,7 +5,7 @@ from pathlib import Path
 
 import typer
 
-from .artifacts import read_json, verify
+from .artifacts import file_digest, read_json, verify, write_json
 from .compiler import compile_bundle, materialize_view
 from .schema import CompileSpec, DiagnosticError
 
@@ -102,6 +102,33 @@ def train(view: Path, initialization: Path, output: Path, arm: str = "aware", ep
     _result(run_training, view, initialization, output, arm=arm, epochs=epochs, max_steps=max_steps,
             batch=batch, device=device, seed=seed, recipe=recipe, warm_start=warm_start,
             pseudo_box_weight=pseudo_box_weight, timeout_seconds=timeout_seconds)
+
+
+@app.command("plan-reviews")
+def plan_reviews_command(view: Path, predictions: Path, checkpoint: Path, output: Path,
+                         mode: str = "guided", per_class: int = 30, seed: int = 20260917):
+    """Freeze image/class review requests from valid COCO training predictions; no oracle access."""
+    from .training.acquisition import plan_reviews
+    if output.exists():
+        raise typer.BadParameter("output already exists; keep frozen review plans immutable")
+    payload = read_json(predictions)
+    sha = file_digest(checkpoint)
+    if isinstance(payload, dict):
+        if (payload.get("split") != "train" or payload.get("view_digest") != verify(view)["digest"]
+                or payload.get("checkpoint_sha256") != sha):
+            raise typer.BadParameter("prediction metadata must match the training view and checkpoint")
+        payload = payload["predictions"]
+    plan = plan_reviews(view, payload, mode=mode, per_class=per_class, seed=seed, checkpoint_sha256=sha)
+    write_json(output, plan)
+    typer.echo(json.dumps({"plan": str(output), "digest": plan["digest"], "mode": mode,
+                           "review_units": len(plan["queries"])}))
+
+
+@app.command("simulate-reviews")
+def simulate_reviews(view: Path, published_reference: Path, plan: Path, output: Path):
+    """Reveal frozen queries from published TRAIN annotations into a new immutable view."""
+    from .training.acquisition import apply_reviews
+    _result(apply_reviews, view, published_reference, read_json(plan), output)
 
 
 @app.command()

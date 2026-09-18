@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "created_utc": "2026-09-18T01:19:35.233009+00:00",
-  "purpose": "Verified implementation and completed localization studies; active acquisition work is separate",
+  "created_utc": "2026-09-18T01:49:27.173391+00:00",
+  "purpose": "Completed CoverageCV build, annotation acquisition comparison and fixed inference interaction; no active experiment",
   "hash_algorithm": "sha256",
   "excluded": [
     "RESTART_MANIFEST.json (self)",
@@ -26,8 +26,8 @@
     },
     {
       "path": "EXECUTION_STATUS.md",
-      "bytes": 13625,
-      "sha256": "7510b88021ab49d1dbd825ebee10e98230d75e9b386531e0253f1afa28b339c9"
+      "bytes": 8365,
+      "sha256": "b49908c6a2eb523f1ee62a92f93ee0b4b9fe4c8db176d874c4440d8cd204051a"
     },
     {
       "path": "HANDOFF.md",
@@ -36,8 +36,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 17681,
-      "sha256": "d86be7aaaf146c746bde4768a114e9dbc4462235647a8e219cdbb740fc9a6b1d"
+      "bytes": 22074,
+      "sha256": "d4f0f37e34e91e24ccb5be4576017e0ef45891a497c83683b1d3e306a80678f1"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -50,9 +50,14 @@
       "sha256": "2b4062d2f8646e18129d9e976d190d214ee28f4639d4ce699d1434d9027a6a8a"
     },
     {
+      "path": "docs/ACQUISITION_LABEL_AUDIT.md",
+      "bytes": 6088,
+      "sha256": "5cbb6eda123ea3d46413d0ffd1e69ed33a28e7a10f1c960769ea60566be0381d"
+    },
+    {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 22959,
-      "sha256": "70f5a3c3ca0713bdf55d4633f48065a213b638741603c65f28beeaa4ece7b6ee"
+      "bytes": 27760,
+      "sha256": "003a2626ba7cbc4651fc2aee0d79f8517d95f9ae75ef394a5db716cef0adac49"
     },
     {
       "path": "docs/CONSTRUCTION_LABEL_AUDIT.md",
@@ -61,8 +66,8 @@
     },
     {
       "path": "docs/DECISIONS.md",
-      "bytes": 24944,
-      "sha256": "ea8ca453e08302d2b725a897840576b28ad11ec4b41a86ffd1d0bf38fba0ed71"
+      "bytes": 31435,
+      "sha256": "945cf4f1612d1316d831c9b8d85b81bf2558d5541f9c00b81392056db3e84588"
     },
     {
       "path": "docs/METRIC_AUDIT.md",
@@ -76,8 +81,8 @@
     },
     {
       "path": "docs/RESULTS.json",
-      "bytes": 178267,
-      "sha256": "592e5eca83005015b76ee20aa94f9d3810ecf6844e2932c140127367f0a58b01"
+      "bytes": 231726,
+      "sha256": "3936e0b531393e387dbd5ab027d29cb61bbdb5313cfd95314ddcfcdae3ca2048"
     },
     {
       "path": "evidence/mvp.json",
@@ -930,9 +935,19 @@
       "sha256": "b94cbf8bc07908601e18d04fca446f751c4d11c5aa05e9e4ce8a61c93a65a20b"
     },
     {
+      "path": "scripts/audit_acquisition.py",
+      "bytes": 3516,
+      "sha256": "233982f6d945f663bf2598bae5136b594378f89a618cd05b0f513b6438a87e51"
+    },
+    {
       "path": "scripts/collect_experiments.py",
       "bytes": 2158,
       "sha256": "005747150d98112a9712a7be78acf223fc6e2882ad33888bb137e7c1bd8239ea"
+    },
+    {
+      "path": "scripts/evaluate_acquisition_tiled.py",
+      "bytes": 11014,
+      "sha256": "c2b48d7ec654844d03f68b013e07526b3507b31134cb0995ff00b6f4a780323d"
     },
     {
       "path": "scripts/evaluate_construction_holdout.py",
@@ -960,9 +975,19 @@
       "sha256": "89331d2e797c7216aa272ae6f5a07467d2f74d4662a63fd751a7acaad5043442"
     },
     {
+      "path": "scripts/prepare_acquisition.py",
+      "bytes": 7589,
+      "sha256": "546d26652b9eae2eec6f886967ff2cdaeac817f17096739a80fe6775ece98499"
+    },
+    {
       "path": "scripts/qa_workbench.py",
       "bytes": 4803,
       "sha256": "a9baf14614c2ed040ee60fe2ecd0b08f6435fdfdb9fa50783d6cd732175b1c2c"
+    },
+    {
+      "path": "scripts/run_acquisition.py",
+      "bytes": 7609,
+      "sha256": "749dbfc8130a8d7912feca829641361b968f1451706685721ef9f78d817dc60d"
     },
     {
       "path": "scripts/run_capacity.py",
@@ -1016,8 +1041,8 @@
     },
     {
       "path": "src/coveragecv/cli.py",
-      "bytes": 8414,
-      "sha256": "d33469f5673d256b6d92f62fba0b295019af06395f1be3b38e2010ec292cec45"
+      "bytes": 9964,
+      "sha256": "6f9a1c1c2a1a761be820c286675917655de2d32f46e03559f95da7df93077cc2"
     },
     {
       "path": "src/coveragecv/compiler.py",
@@ -1070,9 +1095,14 @@
       "sha256": "c6b7ab176ddfdac25204aaf78e9f7dbb61c62c6c25334c5e71e98c8b16abf4cf"
     },
     {
+      "path": "src/coveragecv/training/acquisition.py",
+      "bytes": 18051,
+      "sha256": "eb1164c9e6ad1078f9402579f506e6263904346c2036850da4c033306484f611"
+    },
+    {
       "path": "src/coveragecv/training/cloud_budget.py",
-      "bytes": 2018,
-      "sha256": "9ad638af402d0a43567287e332eb985651b0926e9255efc43e74c405aa74251a"
+      "bytes": 2274,
+      "sha256": "fd9b0c349fdd8703549b3977ce9c7e79588b8a8ff187dbf27f0bf86248fda917"
     },
     {
       "path": "src/coveragecv/training/criterion.py",
@@ -1093,6 +1123,11 @@
       "path": "src/coveragecv/training/evaluate.py",
       "bytes": 6967,
       "sha256": "4cd62373e7ef827336fb8b5da0317685c248077ab44726a50a583dc2699111ce"
+    },
+    {
+      "path": "src/coveragecv/training/modal_acquisition.py",
+      "bytes": 5034,
+      "sha256": "7fb0f03ff9c478ef74cdab546008b7b40dd1c081217ddae56b98ab4d7ea85876"
     },
     {
       "path": "src/coveragecv/training/modal_capacity.py",
@@ -1156,8 +1191,8 @@
     },
     {
       "path": "src/coveragecv/workbench/api.py",
-      "bytes": 27122,
-      "sha256": "c08f73e014f44264d5b0a03cb45361260cabae82a2b2ce05435217e47b6ddfbe"
+      "bytes": 35678,
+      "sha256": "2772dae1c1b81e2fd6aef23e6d5432075dca77a90c612338ba7237549b7fbdb9"
     },
     {
       "path": "src/coveragecv/workbench/bootstrap.py",
@@ -1176,8 +1211,8 @@
     },
     {
       "path": "src/coveragecv/workbench/static/app.js",
-      "bytes": 52681,
-      "sha256": "caea5f16d697e53d63e62d3cc36920915193577a05bc8301acefb91c081f9806"
+      "bytes": 57031,
+      "sha256": "dc330bbf54c457d0e1bf920c76ca0a68ef30b9de3933e472995d53a33bcdf044"
     },
     {
       "path": "src/coveragecv/workbench/static/index.html",
@@ -1200,14 +1235,19 @@
       "sha256": "340a42a6d36f296f18cee61193cc8b9e3f07991e4ee238461ba44622f3682b60"
     },
     {
+      "path": "tests/test_acquisition.py",
+      "bytes": 15681,
+      "sha256": "ebaa9ae3bc6f44aae8fd644317bfc27f195931a771d5035aa27dc6de19c660d6"
+    },
+    {
       "path": "tests/test_benchmarks.py",
       "bytes": 1895,
       "sha256": "5d9541bc8d9c61fbe6b767157aa386186743089aa38c665a2baf3e41a5f3c490"
     },
     {
       "path": "tests/test_cloud_budget.py",
-      "bytes": 1322,
-      "sha256": "e343510c4dc6b9d9c24c0814d6e3033dd985b0f42e73f2e1ff9b80e5541f33b8"
+      "bytes": 2129,
+      "sha256": "7735eacc3ac5c1cc8ac545a8d9db63ec89f4b9e61c99d896bfd4f1f74136cf41"
     },
     {
       "path": "tests/test_compiler.py",
@@ -1276,8 +1316,8 @@
     },
     {
       "path": "tests/test_workbench.py",
-      "bytes": 22424,
-      "sha256": "90abaae1ef1face82c6f5e396c97f84b2d66ee77cbc83e27c23d85b3993e60bc"
+      "bytes": 30814,
+      "sha256": "4d92385e6516bc8b42ca8f78adf3fdb6bf666cec83d4f4a6aa96a92d233daae2"
     },
     {
       "path": "uv.lock",

@@ -88,7 +88,7 @@ The first matched seed scores **46.34 naive, 48.14 aware, 52.76 complete**: a pr
 
 ## Durable work required process isolation and immutable deployments
 
-Web requests do not own training processes. SQLite WAL, transactional job claims, a scheduler lock and separate worker process groups let training survive a webserver restart. Cancellation verifies process identity before signaling. Actual browser import, invalid-policy repair, training, restart survival and cancellation checks passed. Desktop/mobile research views across all three tasks also passed. The final full suite has **122 passing tests**. The construction panel was checked against real server results at desktop/mobile widths, without mutations or mocked metrics. The final provider check reports zero containers for every project Modal app; no additional experiments or acquisition work will launch for this handoff.
+Web requests do not own training processes. SQLite WAL, transactional job claims, a scheduler lock and separate worker process groups let training survive a webserver restart. Cancellation verifies process identity before signaling. Actual browser import, invalid-policy repair, training, restart survival and cancellation checks passed. Desktop/mobile research views across all three tasks also passed. The current full suite has **154 passing tests**. The completed acquisition view also passed actual desktop/mobile browser checks; independent rescoring matched all four primary metric dictionaries exactly. The construction panel was checked against real server results without mocked metrics. The latest post-training provider check reports zero containers across all project apps; remaining inference analysis is local.
 
 Modal call IDs are saved before collection so reconnecting retrieves existing work. Deploying by file path failed inside the image because the module import name differed; deploying with `modal deploy -m ...` fixed it. Each deployment retains a frozen source snapshot and hashed inputs. Local fixes do not retroactively change experiments already run. GPU account concurrency also caused queues: queued work must be distinguished from failed or stalled work.
 
@@ -100,7 +100,7 @@ The user subsequently reported **$12.91 credits remaining**, **$25.41 workspace 
 
 The engineering mistake was relying too heavily on delayed usage while several jobs had already committed compute. Provider timeouts and zero idle containers bound individual jobs but do not reserve credit for concurrent work.
 
-The first bounded restart reserved **$3.30** for **three Large/704px/EMA runs** under a $3.50 cap. All three completed, bringing the original study to **55 of 64 runs**; nine remain interrupted. The refinement pilot required **two $0.85 attempts**, and four construction continuations reserve **$4.40**. The maximum post-restart reservation is now **$9.40** against the user's reported $12.91 remaining credits. Failed work remains counted; local inference studies add no cloud calls. These are commitment ceilings, not actual metered costs or a reconciled balance.
+The first bounded restart reserved **$3.30** for **three Large/704px/EMA runs** under a $3.50 cap. All three completed, bringing the original study to **55 of 64 runs**; nine remain interrupted. The refinement pilot required **two $0.85 attempts**, four construction crop continuations reserve **$4.40**, and three newly authorized acquisition calls reserve **$3.30**. The maximum post-restart reservation is now **$12.70** against the user's reported $12.91 remaining credits. Failed work remains counted; local inference studies add no cloud calls. These are commitment ceilings, not actual metered costs or a reconciled balance.
 
 A persistent local cloud policy limits allowed apps; locked reservation ledgers count commitments independently of delayed metering. Failed or interrupted attempts remain recorded, and stopped cohorts are not automatically resumed. Local work remains separate. These controls bound this client's new commitments; they do not reconcile provider accounting or guarantee an account-wide cash outcome. Implementation checkpoints `a0131e2` and `2c32f1c` preserve earlier work while iteration continues.
 
@@ -126,7 +126,7 @@ All four fixed final checkpoints now have full-frame validation results:
 | Naive · identical crop plan | 43.1655 |
 | Complete labels · identical partial-derived crop plan | 52.4492 |
 
-The primary crop effect is **−0.7246 AP points** against the matched aware continuation. This tested a substantial sampling/scale change, but it did not improve the predeclared metric and is not promoted. It does not establish that balancing or larger crops independently fail, because the intervention changed them together and the ordinary control retained stock augmentation. These one-seed continuations are not pooled with the original construction seeds. Their conservative commitment is $4.40, included in the current $9.40 reservation.
+The primary crop effect is **−0.7246 AP points** against the matched aware continuation. This tested a substantial sampling/scale change, but it did not improve the predeclared metric and is not promoted. It does not establish that balancing or larger crops independently fail, because the intervention changed them together and the ordinary control retained stock augmentation. These one-seed continuations are not pooled with the original construction seeds. Their conservative commitment is $4.40, included in the post-restart reservation ledger.
 
 ## Slicing improves small-class inference, with controls and added cost
 
@@ -159,4 +159,44 @@ Full tiling trails every continuation's own full-frame score. The training-size 
 
 No-helmet validation boxes are smaller than the observed training examples (median 22.0×26.4 versus 36.4×52.8 pixels at 512px), and one image contains six of eleven validation references. Head boxes vary between upper cranium and whole head/face. Specific defects include a full-person region labeled `helmet` and two differently sized helmet references around one visible helmet. Three of nine no-helmet false positives occur on unannotated background faces; whether a source policy intended to exclude them is unknown. There are also real detector errors, including hardhat-like false positives, duplicates and overextended boxes.
 
-These findings justify review of the data policy; they do **not** show that annotation defects explain the full accuracy gap, that correction would achieve 95 AP, or that all remaining errors are label noise. No annotations, classes, splits or reported scores were changed. Targeted annotation acquisition and adjudication is the proposed next product direction, but it is **deferred: no review/acquisition feature or new experiment has been implemented or launched**. The current build is frozen for handoff with its actual results and negative findings intact.
+These findings justify review of the data policy; they do **not** show that annotation defects explain the full accuracy gap, that correction would achieve 95 AP, or that all remaining errors are label noise. The audit changed no annotations, classes, splits or reported scores. The user subsequently approved a separate acquisition simulation, described below; the original benchmark remains preserved. No new human adjudication is claimed.
+
+## Acquisition tests whether review selection yields useful new supervision
+
+Repeating 33 no-helmet examples did not supply new appearance diversity. The implemented next experiment spends an explicit **150 image/class review units per arm**, with 30 reviews per class, to compare maximum-confidence guided selection against seeded random selection. Both plans were frozen before reading any published reference training labels. Selection only sees the existing partial training view, coverage and detector predictions; confidence ranks queries and does not itself create annotations or establish absence.
+
+Applying the frozen requests to the published training oracle adds **265 guided boxes** versus **198 random boxes**. Guided no-helmet support grows **33 → 84**; random grows **33 → 38**. The total observed labels become 2,384 versus 2,317. Guided queries touch 141 unique images and random queries 143, illustrating why 150 image/class reviews must not be described as 150 distinct images. These are newly revealed published annotations, not new human work, and their correctness inherits source limitations.
+
+The compiler preserves observed labels and records every queried pair, coverage transition, acquired annotation and source digest in a new immutable view. Unrequested reference labels do not enter training. The original learner and its benchmark scores remain unchanged; validation is copied unchanged and test labels remain unused. Equal review budgets intentionally produce different acquired box counts, so this is **not** a same-label-budget comparison or a new isolated loss-function claim.
+
+Reviews also change negative supervision: guided acquisition records 140 exhaustive and 10 verified-absent pairs, while random records 86 exhaustive and 64 verified-absent pairs. These states describe the published-oracle simulation, not independently established annotation truth. Any downstream effect therefore combines newly revealed positives with newly trusted negatives. Manifest comparisons confirm all 121 validation payloads remain byte-identical in both acquired views.
+
+Guided and random arms start from the identical original 4,000-update aware checkpoint and add **2,000 fixed updates**. A complete-standard arm starts from its matching complete checkpoint; all use Nano/512px, batch 4, the same continuation recipe and final-step evaluation. The existing 6,000-update ordinary-aware continuation is reused as the **zero-review control**, avoiding duplicate training. The primary comparison is guided minus random AP50:95 on the unchanged full-frame validation set; all four controls will be reported together. One seed and validation-guided design remain explicit limitations.
+
+Twenty-one focused checks and a real two-update CPU smoke passed, followed by a 154-test full suite. Three cloud calls reserve $3.30, bringing the conservative post-restart total to $12.70; provider accounting is still unresolved. All three checkpoints were collected and verified before local scoring.
+
+The unchanged full-frame primary comparison completed:
+
+| Arm, seed 20260917 · 6,000 updates | Review units | Observed training boxes | AP50:95 | No-helmet AP |
+| --- | ---: | ---: | ---: | ---: |
+| Zero review · reused ordinary-aware control | 0 | 2,119 | 48.0026 | 20.0247 |
+| Seeded random acquisition | 150 | 2,317 | 47.3432 | 15.1395 |
+| Maximum-confidence guided acquisition | 150 | 2,384 | **49.8486** | 26.6056 |
+| Complete-label standard continuation | — | 6,380 | 52.4241 | 34.1330 |
+
+The primary guided-minus-random effect is **+2.5054 AP points**; guided gains **+1.8460** over zero review. Random loses **0.6594** versus zero review, so revealing more published labels did not automatically help. This supports the guided acquisition strategy in this one controlled seed; it does not establish a universal annotation-efficiency gain, independent human review quality or equal-box-budget superiority. Review units are not actual human time or cost: drawing 265 boxes may take more effort than drawing 198. Added positives and changed negative coverage both contribute to the intervention.
+
+A bounded local interaction applied the exact existing CPU tiling and original training-size class-routing rule to all three new checkpoints. Its declaration preceded secondary scores, with no parameter search or further GPU training. All cases completed:
+
+| Acquisition arm | Single-pass primary AP50:95 | Original five-pass class-routing AP50:95 |
+| --- | ---: | ---: |
+| Zero review | 48.0026 | 49.8821 |
+| Random | 47.3432 | 49.3254 |
+| Guided | **49.8486** | **51.6204** |
+| Complete-standard | 52.4241 | 53.7707 |
+
+The best guided configuration has AP50 **92.2047** and strict AP50:95 **51.6204**. Its routed gain is **+1.7384 points** over the matched zero-review routed control and **+2.2951** over random with the same routing. The recorded guided CPU run took **39.45 seconds for 600 image passes**, versus **8.02 seconds for 120 full-frame passes** across the same 120 images, approximately 4.92× the measured time. This is a secondary one-seed interaction between added published training labels and five-pass inference; it does not replace the single-pass acquisition primary result or establish human-cost efficiency.
+
+Final integrity checks confirmed all 120 validation images, all 717 reference boxes, all five classes, exact class-wise selection from raw/tiled outputs and per-class AP consistency. All newly authorized experiments and audits are complete. The original benchmark remains 55/64 collected with nine historical interruptions; the acquisition/crop/refinement studies stay separate. No further experiment is pending in this delivery.
+
+[The acquired-label audit](ACQUISITION_LABEL_AUDIT.md) inspected all 51 guided and five random new no-helmet entries after selection, without reading model outcomes or changing the running study. It found no obvious hardhat-versus-no-helmet or whole-body labeling error in that subset, while noting variable upper-head geometry. Guided supplies 11 boxes with both dimensions ≤32px at model scale; random supplies none. But nine guided boxes come from five frames of one rooftop camera sequence, and all five random head boxes are already contained in guided. The 21 guided image hashes therefore do not establish 21 independent scenes. These are useful checks on acquired supervision, not new human adjudication or evidence that the trained model improved.

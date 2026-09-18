@@ -29,6 +29,7 @@ uv run --no-sync coveragecv serve
 - **Operational application:** ZIP/local import, compiler diagnostics, source-by-class policy editing, version history/diffs, coverage visualization, image inspection, training recipes, queue progress, logs, cancellation and predictions from actual checkpoints.
 - **Durable execution:** SQLite WAL, exclusive transactional claims, process-isolated workers that survive webserver restarts, restart reconciliation, explicit cancellation and artifact-bound results.
 - **Teacher experiments:** train-only predictions must agree across original/mirrored images before becoming provisional labels. Unknown coverage stays unknown; human labels win conflicts. Teacher provenance is preserved through crop/flip transforms. Experimental regression weights distinguish predicted coordinates from human boxes.
+- **Simulated annotation acquisition:** freeze guided and random image/class review plans before opening a published training-label oracle, then create immutable views containing only the requested newly revealed labels and reviewed coverage states. Review units, actual acquired boxes and source provenance are recorded separately.
 - **Reproducible research:** shared initial parameters, paired seeds, matching update budgets, returned cloud checkpoints, run/data/hash checks, per-class metrics, error analysis and transparent reporting of unsuccessful methods.
 - **Real Roboflow integration:** resumable exact-label dataset upload/export verification, an actual Roboflow-trained baseline and a custom model whose hosted class/box mapping has been checked against native predictions.
 
@@ -64,7 +65,24 @@ The last policy routes `helmet` and `no-helmet` through tiled inference because 
 
 The same fixed tiling was declared for all four continuation checkpoints before their primary scores. All four are now evaluated; full tiling lowers each full-frame score. Applying the training-size routing rule gives **49.88 ordinary-aware, 48.06 crop-aware, 43.87 crop-naive and 53.87 crop-complete**. The best aware result is only **0.04 points** above the original detector with the same routing: the extra training did not produce a breakthrough. Crop training remains worse than its matched ordinary-aware control under both inference policies. CPU and MPS outputs did not pass exact/raw parity, so these diagnostic comparisons use CPU throughout.
 
-[The construction label audit](docs/CONSTRUCTION_LABEL_AUDIT.md) inspected all 33 observed no-helmet training boxes and 11 validation references, plus selected errors. It found a training/validation scale shift, inconsistent head geometry and specific reference defects, alongside real model errors. One scene contributes six of the eleven rare-class references. Labels and splits remain unchanged; these findings do not explain the entire accuracy gap or justify a 95-AP claim. A proposed annotation-review/acquisition workflow is **deferred, not implemented or launched**.
+[The construction label audit](docs/CONSTRUCTION_LABEL_AUDIT.md) inspected all 33 observed no-helmet training boxes and 11 validation references, plus selected errors. It found a training/validation scale shift, inconsistent head geometry and specific reference defects, alongside real model errors. One scene contributes six of the eleven rare-class references. The original benchmark remains unchanged; these findings do not explain the entire accuracy gap or justify a 95-AP claim.
+
+The new **acquisition simulation** compares model-guided review against seeded random review. Both plans were frozen before reading the published training-label oracle, with **150 image/class reviews each: 30 per class**. Guided selection ranks eligible training pairs by maximum model confidence. It reveals **265 additional boxes**, versus **198** for random; no-helmet support rises from 33 to **84 guided / 38 random**. These are newly exposed published annotations, not new human adjudication. Equal review units do not imply equal acquired boxes or the same label budget as the original study.
+
+The three runs completed. Guided and random continue from the same original aware checkpoint; a complete-label continuation provides context. Each adds 2,000 updates for 6,000 total, and the existing matched ordinary-aware continuation is reused as the zero-review control. On unchanged full-frame validation:
+
+| Acquisition arm · one seed | Simulated review units | Training boxes | AP50:95 |
+| --- | ---: | ---: | ---: |
+| Zero review | 0 | 2,119 | 48.00 |
+| Seeded random | 150 | 2,317 | 47.34 |
+| Maximum-confidence guided | 150 | 2,384 | **49.85** |
+| Complete-label reference | — | 6,380 | 52.42 |
+
+Guided review gains **2.51 AP points over random** and **1.85 over zero review**; random loses 0.66 points versus zero review. This is a promising single-seed acquisition result, with unequal acquired box counts and a potentially imperfect published oracle—not a same-label-budget loss comparison or new human annotation. Review units are not measured human time or monetary cost: annotating 265 boxes could require more effort than 198. Test labels remain unused.
+
+The completed secondary check applies the **unchanged original tiling/class-routing policy** to all new checkpoints: **51.62 guided, 49.33 random, 49.88 zero-review and 53.77 complete AP50:95**. Guided AP50 is 92.20. This best aware configuration gains 1.74 AP points over the matched zero-review model with the same routing. It uses 265 additional published training boxes and five image passes; measured guided CPU inference took 39.45 seconds versus 8.02 for one full-frame pass across 120 images. This is a separate, single-seed, validation-guided acquisition/inference interaction and does not replace the single-pass primary comparison. All planned new experiments and audits are complete.
+
+[The acquired-label audit](docs/ACQUISITION_LABEL_AUDIT.md) found no obvious hardhat/whole-body label mistakes in all 51 guided and five random acquired no-helmet entries. However, all five random boxes also appear in guided, and nine guided boxes share one camera sequence. More labels therefore do not imply proportionally more independent scenes; no label changes or new human adjudication were performed.
 
 **Unsuccessful experiments stay visible.** Longer 384px training averaged 75.36 on pawns; teacher supervision averaged 77.92, below augmentation alone. Teacher supervision also trailed augmentation on all chess classes (72.75 versus 72.91). A cautious pseudo-box pilot scored 78.70 on pawns, below its matched 78.90 augmentation control. Fixed three-model box fusion scored 78.69 on pawns and 72.48 on all chess classes; it did not improve the aware models and is not promoted.
 
@@ -117,6 +135,22 @@ uv run --no-sync coveragecv train artifacts/teacher-views/<digest> \
 
 The CLI also supports official RF-DETR Large initialization with `initialize --variant large` and training with `--recipe large_fresh`. That recipe uses 704px inputs and EMA. Use `--device mps` on compatible Apple hardware or `--device cuda` on an existing CUDA machine. The workbench offers local CPU or Apple-MPS execution and Nano/Large recipes, checks device availability, and keeps these jobs separate from cloud submissions.
 
+Freeze review plans locally before applying either to a published training reference:
+
+```sh
+uv run --no-sync coveragecv plan-reviews artifacts/views/<partial-digest> \
+  artifacts/train-predictions.json artifacts/my-run/detector.pt artifacts/reviews/guided.json \
+  --mode guided --per-class 30
+uv run --no-sync coveragecv plan-reviews artifacts/views/<partial-digest> \
+  artifacts/train-predictions.json artifacts/my-run/detector.pt artifacts/reviews/random.json \
+  --mode random --per-class 30
+uv run --no-sync coveragecv simulate-reviews artifacts/views/<partial-digest> \
+  artifacts/views/<published-complete-training-digest> artifacts/reviews/guided.json \
+  artifacts/acquired-views
+```
+
+These commands require no provider account and launch no training. Plans refuse overwrite. Prediction dictionaries must identify the training split, view and checkpoint; plain COCO prediction lists are also accepted. Boxes must have positive area and valid image bounds: the CLI does not silently clip them. The controlled study explicitly recorded its preprocessing and froze both plans before revelation. `simulate-reviews` uses published training annotations; it does not perform or claim human review.
+
 ## Roboflow integration
 
 The observed [chess dataset, version 2](https://app.roboflow.com/ryan-lin-khj4s/coveragecv-chess-mvp/2) was uploaded, downloaded again and compared image-by-image: 201 train images / 451 boxes and 58 validation images / 241 boxes, with identical class/split identities and coordinates within 0.0001px.
@@ -137,12 +171,12 @@ uv run --no-sync ruff check src tests scripts
 node --check src/coveragecv/workbench/static/app.js
 ```
 
-The final full suite passed **122 tests**. Public-SDK export and real CPU/MPS training have separate execution evidence. Browser checks covered research views on desktop/mobile and the actual construction-study panel without mocked results; training-form checks intercepted submissions. The real browser/process lifecycle test, `scripts/qa_workbench.py`, checks import, policy failure/recovery, CPU training, restart survival and cancellation in an isolated state directory on port 8766. Generated evidence/screenshots remain outside Git. At handoff, every project Modal app reports zero containers; no further experiments are being launched.
+The current full suite passed **154 tests**. The completed acquisition view passed actual desktop/mobile browser checks, and independent rescoring exactly reproduced all four primary metric dictionaries. All project Modal apps report zero containers at the post-training check. Public-SDK export and real CPU/MPS training have separate execution evidence. Prior browser checks covered research views and the actual construction-study panel; training-form checks intercepted submissions. The real browser/process lifecycle test, `scripts/qa_workbench.py`, checks import, policy failure/recovery, CPU training, restart survival and cancellation in an isolated state directory on port 8766. Generated evidence/screenshots remain outside Git; focused checks are not added to the full-suite count.
 
 Plain Nano and Large exports load through the public `RFDETR.from_checkpoint(...)` API with exact parameter equality, including the actual trained 73.68-AP Large aware checkpoint. An export metadata fix supplies the upstream top-level model identifier and architecture overrides, including the Nano continuation's positional-encoding size; earlier source checkpoints remain unchanged.
 
 Cloud deployment uses frozen source and dataset snapshots with pinned requirements. **Deploy by module name** (`modal deploy -m coveragecv.training.modal_improve`), not by file path. This preserves the import path inside the image. See [architecture and reproduction](docs/ARCHITECTURE.md) for the complete preparation sequence; research scripts intentionally do not silently create account credentials or billing limits.
 
-Credentials are read from environment variables or `~/.config/coveragecv/credentials.json`, outside the repository. Cloud jobs have bounded resources/timeouts, zero minimum containers and no persistent Modal Volumes. The requested budget is **$0 out of pocket**, but accounting is unresolved: Modal's API reported $32.68 metered / $2.68 billed after $30 of credits, while the user reports $12.91 credits remaining, $25.41 workspace usage and no visible card charge. Neither a cash charge nor a zero-cost outcome is confirmed. After the user authorized continued work, reservations were $3.30 for Large, $1.70 for two refinement attempts and $4.40 for four construction continuations: **$9.40 maximum reserved** against the user-reported remaining credits. Failed work remains counted; local tiled evaluation adds no cloud calls. Reservations are not actual usage figures or a reconciled balance.
+Credentials are read from environment variables or `~/.config/coveragecv/credentials.json`, outside the repository. Cloud jobs have bounded resources/timeouts, zero minimum containers and no persistent Modal Volumes. The requested budget is **$0 out of pocket**, but accounting is unresolved: Modal's API reported $32.68 metered / $2.68 billed after $30 of credits, while the user reports $12.91 credits remaining, $25.41 workspace usage and no visible card charge. Neither a cash charge nor a zero-cost outcome is confirmed. Authorized reservations are $3.30 for Large, $1.70 for two refinement attempts, $4.40 for construction crop continuations and $3.30 for three acquisition calls: **$12.70 maximum reserved** against the user-reported $12.91 remaining credits. Failed work remains counted; local tiled evaluation adds no cloud calls. Reservations are not actual usage figures or a reconciled balance.
 
 See [decisions and difficulties](docs/DECISIONS.md), [execution state](EXECUTION_STATUS.md), [historical research](research/roboflow/build_plan/README.md), and [third-party notices](THIRD_PARTY_NOTICES.md). Historical planning documents describe possibilities, not implemented capabilities.

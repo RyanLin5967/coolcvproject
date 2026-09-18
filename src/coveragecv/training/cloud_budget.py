@@ -1,6 +1,7 @@
 """Persistent local kill switch; a provider dashboard limit is not a billing guarantee."""
 import fcntl
 import uuid
+from decimal import Decimal
 from pathlib import Path
 
 from coveragecv.artifacts import read_json, write_json
@@ -28,6 +29,10 @@ def reserve_object_crop_run():
     return _reserve("coveragecv-object-crops", "object-crops", "object_crop_authorization")
 
 
+def reserve_acquisition_run():
+    return _reserve("coveragecv-acquisition", "acquisition", "acquisition_authorization")
+
+
 def _reserve(app_name, ledger_name, section):
     require_cloud_execution(app_name)
     root = Path.home() / ".config/coveragecv"
@@ -39,8 +44,9 @@ def _reserve(app_name, ledger_name, section):
         path = root / f"{ledger_name}-reservations.json"
         reservations = read_json(path) if path.exists() else {}
         cost = config["reservation_per_run_usd"]
+        committed = sum((Decimal(str(value)) for value in reservations.values()), Decimal(0))
         if (len(reservations) >= config["allowed_new_runs"] or
-                sum(reservations.values())+cost > config["new_compute_reservation_limit_usd"]):
+                committed+Decimal(str(cost)) > Decimal(str(config["new_compute_reservation_limit_usd"]))):
             raise RuntimeError(f"No unreserved credit remains for another {ledger_name} run")
         identity = uuid.uuid4().hex
         reservations[identity] = cost

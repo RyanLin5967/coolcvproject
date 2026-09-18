@@ -1,5 +1,6 @@
 {
   "accounting": {
+    "acquisition_reserved_usd": 3.3,
     "api_billed_at_detection_usd": 2.68,
     "api_credits_applied_usd": 30,
     "api_metered_at_detection_usd": 32.68,
@@ -11,14 +12,1045 @@
     "refinement_attempts": 2,
     "refinement_reserved_usd": 1.7,
     "requested_cash_budget_usd": 0,
-    "restart_scope": "Three Large runs; two attempts at one refinement pilot; four construction continuations. Older interrupted cohorts remain stopped. Tiled/size-routing evaluations are local.",
+    "restart_scope": "Three Large runs; two attempts at one refinement pilot; four construction crop continuations; three separately authorized acquisition calls. Older interrupted cohorts remain stopped.",
     "status": "unresolved_api_dashboard_discrepancy",
     "subsequent_authorization": "User authorized use of reported remaining credits",
-    "total_post_restart_max_reserved_usd": 9.4,
+    "total_post_restart_max_reserved_usd": 12.7,
     "user_reported_remaining_credits_usd": 12.91,
     "user_reported_workspace_usage_usd": 25.41,
     "user_reports_no_visible_card_charge": true,
     "zero_cash_outcome_verified": false
+  },
+  "acquisition_simulation": {
+    "accuracy_available": true,
+    "acquired_label_visual_audit": {
+      "absence_of_obvious_errors_is_not_correctness_guarantee": true,
+      "evidence": "artifacts/acquisition-label-audit/evidence.json",
+      "guided": {
+        "both_dimensions_at_most32px": 11,
+        "images": 21,
+        "new_boxes": 51
+      },
+      "guided_same_camera_sequence_boxes": 9,
+      "guided_same_camera_sequence_images": 5,
+      "labels_or_selection_changed": false,
+      "model_results_read_for_audit": false,
+      "new_human_adjudication": false,
+      "observed_obvious_hardhat_or_wholebody_label_errors": 0,
+      "random": {
+        "both_dimensions_at_most32px": 0,
+        "images": 3,
+        "new_boxes": 5
+      },
+      "random_boxes_also_in_guided": 5,
+      "scene_independence_established": false,
+      "scope": "All acquired no-helmet entries;56 arm-specific entries,51 unique boxes",
+      "status": "completed"
+    },
+    "greater_box_count_may_require_more_human_effort": true,
+    "guided_minus_zero_review_AP_points": 1.8459719399782202,
+    "interpretation": "Guided and random have equal 150 image-class review units, not equal acquired boxes; reveals published training labels, not new human annotation or original fixed-label-budget comparison.",
+    "local_cli": {
+      "overwrites_existing_plans": false,
+      "plan_reviews": "plan-reviews VIEW PREDICTIONS CHECKPOINT OUTPUT --mode guided|random --per-class 30 --seed 20260917",
+      "planning_has_oracle_argument": false,
+      "provider_account_required": false,
+      "silently_clips_predictions": false,
+      "simulate_reviews": "simulate-reviews VIEW PUBLISHED_REFERENCE PLAN OUTPUT",
+      "training_launched_by_commands": false
+    },
+    "new_training_calls_collected": 3,
+    "new_training_calls_planned": 3,
+    "pooled_with_original_cohort": false,
+    "primary_guided_minus_random_AP_points": 2.505362338905023,
+    "protocol": {
+      "batch": 4,
+      "cloud_reservation": {
+        "calls": 3,
+        "each_usd": 1.1,
+        "max_containers": 3,
+        "max_usd": 3.3,
+        "retries": 0,
+        "timeout_seconds": 1500,
+        "volumes": []
+      },
+      "dataset_sha256": "735f6e188173b3ffb0d4ce6b6b380cd9f2307f371e31591664821d7d0720811c",
+      "kind": "fixed_budget_coverage_acquisition_simulation",
+      "limitations": [
+        "Additional published TRAIN annotations are revealed; not the original fixed-label-budget experiment.",
+        "Equal image-class reviews can acquire different box counts; report both.",
+        "Published annotation oracle can contain errors; no new human adjudication is claimed.",
+        "One fixed seed, validation-guided design, unchanged published validation labels; test remains unused."
+      ],
+      "optimizer": "restarted AdamW, cosine, LR5e-5 encoder5e-6",
+      "parents": {
+        "aware": {
+          "checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed"
+        },
+        "complete_reference": {
+          "checkpoint_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1"
+        }
+      },
+      "primary_comparison": [
+        "guided",
+        "random"
+      ],
+      "recipe": "augmented",
+      "reference_bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+      "resolution": 512,
+      "review_units_per_acquisition_arm": 150,
+      "seed": 20260917,
+      "selection_frozen_file_sha256": "0a540ac2c089d12ca176e904d1d7afa60ef7da7fc21bb99bc6add9633c34c02a",
+      "steps": 2000,
+      "total_training_steps": 6000,
+      "validation_during_training": false,
+      "zero_review_control": {
+        "checkpoint_sha256": "a82d651c7150f0bf2a692126a706aea5190960640aa1c6029b7b4345bdb0882c",
+        "metrics": {
+          "AP": 0.4800261166915147,
+          "AP50": 0.8574821222165239,
+          "AP75": 0.5097037178224105,
+          "false_positives_per_image": 0.925,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.44403093150966244,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8558441558441559,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "new_cloud_training": false,
+        "reused": true,
+        "source_case": "aware_standard",
+        "source_study": "construction_object_crops"
+      }
+    },
+    "random_minus_zero_review_AP_points": -0.6593903989268028,
+    "results": {
+      "complete_standard": {
+        "batch": 4,
+        "checkpoint_sha256": "1ee494473f5df5e94dd2870db40c7a2b119f6ea9dfac140d989ba956f513d0da",
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "90e0085c7ff75e2f2dd5711b33053c2ece46e41fede1315cf847f2a4819f6eeb",
+        "metrics": {
+          "AP": 0.5242414940910727,
+          "AP50": 0.9225079705378619,
+          "AP75": 0.5605239016185216,
+          "AR100": 0.6383091131636636,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.7916666666666666,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5652728290878793,
+            "no-helmet": 0.3413301271272125,
+            "no-vest": 0.45950576974068613,
+            "person": 0.6824600695687942,
+            "vest": 0.5726386749307916
+          },
+          "precision_at_threshold": 0.8766233766233766,
+          "recall_at_threshold": 0.9414225941422594
+        },
+        "parent_checkpoint_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1",
+        "recipe": "augmented",
+        "reused_existing_zero_review_control": false,
+        "seed": 20260917,
+        "start_parameter_digest": "12f01826c779ae26e0fa0e32fb90023ddd769b5c8b3c078926abe011cb99c027",
+        "total_optimizer_updates": 6000,
+        "training_elapsed_seconds": 320.741146082,
+        "training_timing_scope": "Recorded training elapsed time; not end-to-end cloud bill or annotation effort.",
+        "view_digest": "80c3bc6ead2c6d89309971e8fe8443d9623881127485672ce0ae55f41ee91b18",
+        "warm_start_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1"
+      },
+      "guided": {
+        "batch": 4,
+        "checkpoint_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "5e2714721acc9eef6beaa924363bdb40c00b4b1d6969957dc164ef9e8c0005d4",
+        "metrics": {
+          "AP": 0.4984858360912969,
+          "AP50": 0.9093744668515361,
+          "AP75": 0.5389739618958563,
+          "AR100": 0.6357056810121453,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.8833333333333333,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5472583129375809,
+            "no-helmet": 0.26605605418668815,
+            "no-vest": 0.4693891060730845,
+            "person": 0.6707939276215877,
+            "vest": 0.5389317796375434
+          },
+          "precision_at_threshold": 0.8617992177314211,
+          "recall_at_threshold": 0.9218967921896792
+        },
+        "parent_checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+        "recipe": "augmented",
+        "reused_existing_zero_review_control": false,
+        "seed": 20260917,
+        "start_parameter_digest": "fd0dd67a0c4ed6271988d19de4c538280f91e7a8d0fadfbd973c777973de819f",
+        "total_optimizer_updates": 6000,
+        "training_elapsed_seconds": 387.935019247,
+        "training_timing_scope": "Recorded training elapsed time; not end-to-end cloud bill or annotation effort.",
+        "view_digest": "875b4c33d3aa027317b31bd94a970bf955844be1fa025f4e18aca891e2f91467",
+        "warm_start_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed"
+      },
+      "random": {
+        "batch": 4,
+        "checkpoint_sha256": "75cf1710cd7664a75ec834780eca5195b272ee3f4aa460d9aed6f383e890d310",
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "ea30da20bfbd19accdf0a5003abadc4d3211cff346bad474a45c497cbf68a138",
+        "metrics": {
+          "AP": 0.47343221270224667,
+          "AP50": 0.8109975017896963,
+          "AP75": 0.5146059043416429,
+          "AR100": 0.6164540529861754,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.7916666666666666,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5500060046274384,
+            "no-helmet": 0.15139484570576875,
+            "no-vest": 0.4512225184286887,
+            "person": 0.6678529631207336,
+            "vest": 0.5466847316286041
+          },
+          "precision_at_threshold": 0.8735019973368842,
+          "recall_at_threshold": 0.9149232914923291
+        },
+        "parent_checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+        "recipe": "augmented",
+        "reused_existing_zero_review_control": false,
+        "seed": 20260917,
+        "start_parameter_digest": "fd0dd67a0c4ed6271988d19de4c538280f91e7a8d0fadfbd973c777973de819f",
+        "total_optimizer_updates": 6000,
+        "training_elapsed_seconds": 407.58153892,
+        "training_timing_scope": "Recorded training elapsed time; not end-to-end cloud bill or annotation effort.",
+        "view_digest": "33655e4f14384bb9c5ca541a7b478da61d174d748c53ed7f11600e3169d10d20",
+        "warm_start_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed"
+      },
+      "zero_review": {
+        "batch": 4,
+        "checkpoint_sha256": "a82d651c7150f0bf2a692126a706aea5190960640aa1c6029b7b4345bdb0882c",
+        "device": "cuda",
+        "evaluation_device": "cpu",
+        "evaluation_sha256": "ebfbae9ffb6e01f0b995401904c102bd5ef29fa3f44161fe3d62f9038ef3897a",
+        "metrics": {
+          "AP": 0.4800261166915147,
+          "AP50": 0.8574821222165239,
+          "AP75": 0.5097037178224105,
+          "AR100": 0.6320295660467334,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.925,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.44403093150966244,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8558441558441559,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "parent_checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+        "recipe": "augmented",
+        "reused_existing_zero_review_control": true,
+        "seed": 20260917,
+        "start_parameter_digest": "fd0dd67a0c4ed6271988d19de4c538280f91e7a8d0fadfbd973c777973de819f",
+        "total_optimizer_updates": 6000,
+        "view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+        "warm_start_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed"
+      }
+    },
+    "review_units_are_measured_human_time_or_money": false,
+    "secondary_tiled_routing": {
+      "cost": "five image passes per640px image; CPU only, zero new cloud compute",
+      "declaration_sha256": "c65cdfedfd9364c146e8ba1f753a9a25c357ffd083e9ccd3ab1cfb1e6511e974",
+      "integrity_audit": {
+        "audits": [
+          {
+            "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+            "all120images_all717boxes_all5classes": true,
+            "case": "guided",
+            "exact_semantic_source_selection": true,
+            "gated_evaluation_sha256": "124d6233fd2e96afe0534ff1d2f9f8b683c6071dc148833d90fa30c4a7a08716",
+            "independent_selected_per_class_AP_error": 0,
+            "passed": true
+          },
+          {
+            "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+            "all120images_all717boxes_all5classes": true,
+            "case": "random",
+            "exact_semantic_source_selection": true,
+            "gated_evaluation_sha256": "868ebe9309d14b1353a8580240ff2ff5a638bcd18c0e71761cef2c047255c55b",
+            "independent_selected_per_class_AP_error": 1.1102230246251565e-16,
+            "passed": true
+          },
+          {
+            "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+            "all120images_all717boxes_all5classes": true,
+            "case": "complete_standard",
+            "exact_semantic_source_selection": true,
+            "gated_evaluation_sha256": "c5bd14f2b87b23e3d346b7e969954ad17f980eb5f5d6bf5ba8ae8068184a0a62",
+            "independent_selected_per_class_AP_error": 1.1102230246251565e-16,
+            "passed": true
+          }
+        ],
+        "completed_cases": 3,
+        "passed": true
+      },
+      "interpretation": "separate exploratory interaction; acquisition primary scores already observed",
+      "metric": "COCO AP50:95, fractions",
+      "new_cloud_training": false,
+      "runs": [
+        {
+          "added_boxes": 265,
+          "case": "guided",
+          "checkpoint_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+          "combined_image_passes": 600,
+          "combined_seconds": 39.44580683298409,
+          "full_image_passes": 120,
+          "full_metrics": {
+            "AP": 0.49848575534147715,
+            "AP50": 0.9093744668515361,
+            "AP75": 0.5389737721446641,
+            "AR100": 0.6357056810121453,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.8833333333333333,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5472583129375809,
+              "no-helmet": 0.26605605418668815,
+              "no-vest": 0.4693887023239857,
+              "person": 0.6707939276215877,
+              "vest": 0.5389317796375434
+            },
+            "precision_at_threshold": 0.8617992177314211,
+            "recall_at_threshold": 0.9218967921896792
+          },
+          "full_seconds": 8.017386042047292,
+          "gated_metrics": {
+            "AP": 0.516204168610153,
+            "AP50": 0.9220473449487437,
+            "AP75": 0.5214847658294942,
+            "AR100": 0.636064635362516,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.9666666666666667,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5387727354824648,
+              "no-helmet": 0.36313369798518313,
+              "no-vest": 0.4693887023239857,
+              "person": 0.6707939276215877,
+              "vest": 0.5389317796375434
+            },
+            "precision_at_threshold": 0.8522292993630574,
+            "recall_at_threshold": 0.9330543933054394
+          },
+          "gated_minus_fresh_full_AP_points": 1.7718413268675792,
+          "gated_minus_zero_review_AP_points": 1.7383667807704617,
+          "integrity": {
+            "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+            "all120images_all717boxes_all5classes": true,
+            "case": "guided",
+            "exact_semantic_source_selection": true,
+            "gated_evaluation_sha256": "124d6233fd2e96afe0534ff1d2f9f8b683c6071dc148833d90fa30c4a7a08716",
+            "independent_selected_per_class_AP_error": 0,
+            "passed": true
+          },
+          "nms_metrics": {
+            "AP": 0.491582595468367,
+            "AP50": 0.914951775513501,
+            "AP75": 0.5234097824810688,
+            "AR100": 0.5855543472345591,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.6833333333333333,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.546431127816736,
+              "no-helmet": 0.2630734776774381,
+              "no-vest": 0.4558067811327136,
+              "person": 0.6625459929855,
+              "vest": 0.530055597729448
+            },
+            "precision_at_threshold": 0.8896366083445492,
+            "recall_at_threshold": 0.9218967921896792
+          },
+          "observed_time_ratio": 4.920033365751632,
+          "primary_metrics": {
+            "AP": 0.4984858360912969,
+            "AP50": 0.9093744668515361,
+            "AP75": 0.5389739618958563,
+            "AR100": 0.6357056810121453,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.8833333333333333,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5472583129375809,
+              "no-helmet": 0.26605605418668815,
+              "no-vest": 0.4693891060730845,
+              "person": 0.6707939276215877,
+              "vest": 0.5389317796375434
+            },
+            "precision_at_threshold": 0.8617992177314211,
+            "recall_at_threshold": 0.9218967921896792
+          },
+          "review_units": 150,
+          "tiled_metrics": {
+            "AP": 0.4961885241372664,
+            "AP50": 0.918882943916141,
+            "AP75": 0.47694853154364497,
+            "AR100": 0.6010559801449633,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 1.2833333333333334,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5387727354824648,
+              "no-helmet": 0.36313369798518313,
+              "no-vest": 0.4234081280703901,
+              "person": 0.6218615237409112,
+              "vest": 0.5337665354073826
+            },
+            "precision_at_threshold": 0.8157894736842105,
+            "recall_at_threshold": 0.9511854951185496
+          }
+        },
+        {
+          "added_boxes": 198,
+          "case": "random",
+          "checkpoint_sha256": "75cf1710cd7664a75ec834780eca5195b272ee3f4aa460d9aed6f383e890d310",
+          "combined_image_passes": 600,
+          "combined_seconds": 39.552472001174465,
+          "full_image_passes": 120,
+          "full_metrics": {
+            "AP": 0.4734322194371783,
+            "AP50": 0.8109975017896963,
+            "AP75": 0.5146059454488215,
+            "AR100": 0.6164540529861754,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.7916666666666666,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5500060499131364,
+              "no-helmet": 0.15139484570576875,
+              "no-vest": 0.45122251537243974,
+              "person": 0.6678529556867501,
+              "vest": 0.5466847305077968
+            },
+            "precision_at_threshold": 0.8735019973368842,
+            "recall_at_threshold": 0.9149232914923291
+          },
+          "full_seconds": 7.950269875116646,
+          "gated_metrics": {
+            "AP": 0.49325365459817583,
+            "AP50": 0.8928928896487052,
+            "AP75": 0.5022907005554826,
+            "AR100": 0.6248582667981145,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.8333333333333334,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5439254845937813,
+              "no-helmet": 0.2565825868301116,
+              "no-vest": 0.45122251537243974,
+              "person": 0.6678529556867501,
+              "vest": 0.5466847305077968
+            },
+            "precision_at_threshold": 0.8696219035202086,
+            "recall_at_threshold": 0.9302649930264993
+          },
+          "gated_minus_fresh_full_AP_points": 1.9821435160997547,
+          "gated_minus_zero_review_AP_points": -0.5566846204272502,
+          "integrity": {
+            "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+            "all120images_all717boxes_all5classes": true,
+            "case": "random",
+            "exact_semantic_source_selection": true,
+            "gated_evaluation_sha256": "868ebe9309d14b1353a8580240ff2ff5a638bcd18c0e71761cef2c047255c55b",
+            "independent_selected_per_class_AP_error": 1.1102230246251565e-16,
+            "passed": true
+          },
+          "nms_metrics": {
+            "AP": 0.46834866525474067,
+            "AP50": 0.8116260961210626,
+            "AP75": 0.5030995062377502,
+            "AR100": 0.5718581608918398,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.6666666666666666,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5487965972025142,
+              "no-helmet": 0.14928689297501174,
+              "no-vest": 0.44305894970642185,
+              "person": 0.6611560792119029,
+              "vest": 0.5394448071778526
+            },
+            "precision_at_threshold": 0.8913043478260869,
+            "recall_at_threshold": 0.9149232914923291
+          },
+          "observed_time_ratio": 4.974984827240742,
+          "primary_metrics": {
+            "AP": 0.47343221270224667,
+            "AP50": 0.8109975017896963,
+            "AP75": 0.5146059043416429,
+            "AR100": 0.6164540529861754,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.7916666666666666,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5500060046274384,
+              "no-helmet": 0.15139484570576875,
+              "no-vest": 0.4512225184286887,
+              "person": 0.6678529631207336,
+              "vest": 0.5466847316286041
+            },
+            "precision_at_threshold": 0.8735019973368842,
+            "recall_at_threshold": 0.9149232914923291
+          },
+          "review_units": 150,
+          "tiled_metrics": {
+            "AP": 0.4690591496196359,
+            "AP50": 0.8844643310449167,
+            "AP75": 0.4562590634293921,
+            "AR100": 0.5854359976853232,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 1.3,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5439254845937813,
+              "no-helmet": 0.2565825868301116,
+              "no-vest": 0.4024364622374174,
+              "person": 0.620045555980725,
+              "vest": 0.5223056584561441
+            },
+            "precision_at_threshold": 0.8131736526946107,
+            "recall_at_threshold": 0.9470013947001394
+          }
+        },
+        {
+          "added_boxes": null,
+          "case": "complete_standard",
+          "checkpoint_sha256": "1ee494473f5df5e94dd2870db40c7a2b119f6ea9dfac140d989ba956f513d0da",
+          "combined_image_passes": 600,
+          "combined_seconds": 39.61528866714798,
+          "full_image_passes": 120,
+          "full_metrics": {
+            "AP": 0.5242414792986546,
+            "AP50": 0.9225079705378619,
+            "AP75": 0.560523906928895,
+            "AR100": 0.6383091131636636,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.7916666666666666,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5652728290878793,
+              "no-helmet": 0.3413301271272125,
+              "no-vest": 0.4595057729241061,
+              "person": 0.6824599858516786,
+              "vest": 0.5726386815023969
+            },
+            "precision_at_threshold": 0.8766233766233766,
+            "recall_at_threshold": 0.9414225941422594
+          },
+          "full_seconds": 8.117062584031373,
+          "gated_metrics": {
+            "AP": 0.5377069355606339,
+            "AP50": 0.9353873962394198,
+            "AP75": 0.5581028617671449,
+            "AR100": 0.6498346691527391,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.8666666666666667,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5580391484160765,
+              "no-helmet": 0.41589108910891087,
+              "no-vest": 0.4595057729241061,
+              "person": 0.6824599858516786,
+              "vest": 0.5726386815023969
+            },
+            "precision_at_threshold": 0.8670076726342711,
+            "recall_at_threshold": 0.9456066945606695
+          },
+          "gated_minus_fresh_full_AP_points": 1.3465456261979258,
+          "gated_minus_zero_review_AP_points": 3.888643475818554,
+          "integrity": {
+            "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+            "all120images_all717boxes_all5classes": true,
+            "case": "complete_standard",
+            "exact_semantic_source_selection": true,
+            "gated_evaluation_sha256": "c5bd14f2b87b23e3d346b7e969954ad17f980eb5f5d6bf5ba8ae8068184a0a62",
+            "independent_selected_per_class_AP_error": 1.1102230246251565e-16,
+            "passed": true
+          },
+          "nms_metrics": {
+            "AP": 0.5195234635076785,
+            "AP50": 0.9207008447680358,
+            "AP75": 0.5472340784213919,
+            "AR100": 0.5972589176982467,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.625,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5630982318405282,
+              "no-helmet": 0.3385122797994085,
+              "no-vest": 0.4573272570194196,
+              "person": 0.6766470368696579,
+              "vest": 0.5620325120093783
+            },
+            "precision_at_threshold": 0.8998664886515354,
+            "recall_at_threshold": 0.9400278940027894
+          },
+          "observed_time_ratio": 4.880495654312533,
+          "primary_metrics": {
+            "AP": 0.5242414940910727,
+            "AP50": 0.9225079705378619,
+            "AP75": 0.5605239016185216,
+            "AR100": 0.6383091131636636,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 0.7916666666666666,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5652728290878793,
+              "no-helmet": 0.3413301271272125,
+              "no-vest": 0.45950576974068613,
+              "person": 0.6824600695687942,
+              "vest": 0.5726386749307916
+            },
+            "precision_at_threshold": 0.8766233766233766,
+            "recall_at_threshold": 0.9414225941422594
+          },
+          "review_units": null,
+          "tiled_metrics": {
+            "AP": 0.5198128784716618,
+            "AP50": 0.9315353780340535,
+            "AP75": 0.5204374091088614,
+            "AR100": 0.6112197774894913,
+            "boxes": 717,
+            "class_support": {
+              "1": 233,
+              "2": 11,
+              "3": 90,
+              "4": 242,
+              "5": 141
+            },
+            "false_positives_per_image": 1.05,
+            "images": 120,
+            "negative_image_false_positives_per_image": 0,
+            "negative_images": 0,
+            "per_class_AP": {
+              "helmet": 0.5580391484160765,
+              "no-helmet": 0.41589108910891087,
+              "no-vest": 0.41659365359206063,
+              "person": 0.6631320427573474,
+              "vest": 0.5454084584839134
+            },
+            "precision_at_threshold": 0.8450184501845018,
+            "recall_at_threshold": 0.9581589958158996
+          }
+        }
+      ],
+      "scope": "all120validationimages/all717boxes/all5classes; test unevaluated",
+      "single_pass_primary_unchanged": true,
+      "status": "completed",
+      "zero_review_control": {
+        "checkpoint_sha256": "a82d651c7150f0bf2a692126a706aea5190960640aa1c6029b7b4345bdb0882c",
+        "full_metrics": {
+          "AP": 0.48002611647637294,
+          "AP50": 0.8574821222165239,
+          "AP75": 0.5097037178224105,
+          "AR100": 0.6320295660467334,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.925,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.4440309304339538,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8558441558441559,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "gated_evaluation_sha256": "38939ef454b7432222dcd9c4b4e67319fc8b4b0dbd921162f9179257fd1e4110",
+        "gated_metrics": {
+          "AP": 0.49882050080244833,
+          "AP50": 0.892349840216867,
+          "AP75": 0.5005103721009128,
+          "AR100": 0.6296105258594529,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.9916666666666667,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5358889316747991,
+            "no-helmet": 0.298939179632249,
+            "no-vest": 0.4440309304339538,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "precision_at_threshold": 0.8487928843710292,
+          "recall_at_threshold": 0.9316596931659693
+        }
+      }
+    },
+    "selection_frozen": {
+      "declaration": {
+        "budget": "150 image-class review units per arm; acquired box counts can differ",
+        "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+        "plans": {
+          "guided": "39c05e783deb5d8e1426f4992ef08e3ac99de35e29f53a1201c80589922e6d9a",
+          "random": "ce6012235c3230fa9f8c9924573b89834a9e427ce8855ca3c5c490eb3095879b"
+        },
+        "preprocessing": {
+          "clipped_predictions": 0,
+          "dropped_zero_area": 63,
+          "raw_prediction_file_sha256": "c5f7338a681cff199b5a35ac6c0d1d4fc022bfe39926429e704ab1d51a94eae3",
+          "raw_predictions": 297178,
+          "retained_predictions": 297115,
+          "rule": "Clip xyxy to original image bounds; discard zero-area after clipping; no reference labels used"
+        },
+        "reference_labels_read_for_selection": false,
+        "selection": "30 image-class reviews per class; guided max model confidence versus uniform seeded random",
+        "study": "Simulated acquisition from published TRAIN annotations, not actual human work",
+        "test_labels_used": false
+      },
+      "declaration_digest": "922ef1ec6ab65097c6863c81933c200749aeb64868b6794ea6080e638c83b48e",
+      "frozen_at": "2026-09-18T01:23:24.652534+00:00"
+    },
+    "status": "completed_primary",
+    "views": {
+      "complete_standard": {
+        "view_digest": "80c3bc6ead2c6d89309971e8fe8443d9623881127485672ce0ae55f41ee91b18"
+      },
+      "guided": {
+        "acquisition": {
+          "actual_new_human_annotation": false,
+          "added_boxes": 265,
+          "annotation_source": "published training annotations; known source errors may remain",
+          "boxes_after": 2384,
+          "boxes_before": 2119,
+          "equal_review_units_do_not_imply_equal_added_boxes": true,
+          "kind": "simulated_annotation_acquisition",
+          "observed_labels_preserved": true,
+          "ontology_digest": "0c157a4371ee1d8075875cfb9f3edfd08b21ae2bdf533573a4b25a714da5de2d",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "per_class": [
+            {
+              "added_boxes": 56,
+              "boxes_after": 745,
+              "boxes_before": 689,
+              "category_id": 1,
+              "class_name": "helmet",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 51,
+              "boxes_after": 84,
+              "boxes_before": 33,
+              "category_id": 2,
+              "class_name": "no-helmet",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 53,
+              "boxes_after": 314,
+              "boxes_before": 261,
+              "category_id": 3,
+              "class_name": "no-vest",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 51,
+              "boxes_after": 800,
+              "boxes_before": 749,
+              "category_id": 4,
+              "class_name": "person",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 54,
+              "boxes_after": 441,
+              "boxes_before": 387,
+              "category_id": 5,
+              "class_name": "vest",
+              "review_units": 30
+            }
+          ],
+          "plan_digest": "39c05e783deb5d8e1426f4992ef08e3ac99de35e29f53a1201c80589922e6d9a",
+          "reference_training_annotations_sha256": "d3b19f141c34eb745ddea70afb7d2fa0269dc13f9613cda3e5e1d0980847ffe5",
+          "reference_view_digest": "80c3bc6ead2c6d89309971e8fe8443d9623881127485672ce0ae55f41ee91b18",
+          "review_units": 150,
+          "reviewed_coverage_states": {
+            "exhaustive": 140,
+            "verified_absent": 10
+          },
+          "reviewed_unique_images": 141,
+          "same_label_budget_as_original_experiment": false,
+          "simulation": true,
+          "unrequested_reference_labels_used": false,
+          "validation_or_test_labels_used": false
+        },
+        "validation_payloads_byte_identical": 121,
+        "view_digest": "875b4c33d3aa027317b31bd94a970bf955844be1fa025f4e18aca891e2f91467"
+      },
+      "random": {
+        "acquisition": {
+          "actual_new_human_annotation": false,
+          "added_boxes": 198,
+          "annotation_source": "published training annotations; known source errors may remain",
+          "boxes_after": 2317,
+          "boxes_before": 2119,
+          "equal_review_units_do_not_imply_equal_added_boxes": true,
+          "kind": "simulated_annotation_acquisition",
+          "observed_labels_preserved": true,
+          "ontology_digest": "0c157a4371ee1d8075875cfb9f3edfd08b21ae2bdf533573a4b25a714da5de2d",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "per_class": [
+            {
+              "added_boxes": 54,
+              "boxes_after": 743,
+              "boxes_before": 689,
+              "category_id": 1,
+              "class_name": "helmet",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 5,
+              "boxes_after": 38,
+              "boxes_before": 33,
+              "category_id": 2,
+              "class_name": "no-helmet",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 11,
+              "boxes_after": 272,
+              "boxes_before": 261,
+              "category_id": 3,
+              "class_name": "no-vest",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 88,
+              "boxes_after": 837,
+              "boxes_before": 749,
+              "category_id": 4,
+              "class_name": "person",
+              "review_units": 30
+            },
+            {
+              "added_boxes": 40,
+              "boxes_after": 427,
+              "boxes_before": 387,
+              "category_id": 5,
+              "class_name": "vest",
+              "review_units": 30
+            }
+          ],
+          "plan_digest": "ce6012235c3230fa9f8c9924573b89834a9e427ce8855ca3c5c490eb3095879b",
+          "reference_training_annotations_sha256": "d3b19f141c34eb745ddea70afb7d2fa0269dc13f9613cda3e5e1d0980847ffe5",
+          "reference_view_digest": "80c3bc6ead2c6d89309971e8fe8443d9623881127485672ce0ae55f41ee91b18",
+          "review_units": 150,
+          "reviewed_coverage_states": {
+            "exhaustive": 86,
+            "verified_absent": 64
+          },
+          "reviewed_unique_images": 143,
+          "same_label_budget_as_original_experiment": false,
+          "simulation": true,
+          "unrequested_reference_labels_used": false,
+          "validation_or_test_labels_used": false
+        },
+        "validation_payloads_byte_identical": 121,
+        "view_digest": "33655e4f14384bb9c5ca541a7b478da61d174d748c53ed7f11600e3169d10d20"
+      }
+    }
   },
   "capacity_interpretation": {
     "aware_vs_same_seed_nano_512_AP_points": 0.6870965693980269,
@@ -28,8 +1060,12 @@
     "seeds": 1,
     "status": "three cloud arms completed"
   },
-  "captured_at_utc": "2026-09-18T01:16:38.084303+00:00",
+  "captured_at_utc": "2026-09-18T01:48:38.708931+00:00",
   "collection": {
+    "acquisition_accuracy_available": true,
+    "acquisition_secondary_completed_cases": 3,
+    "additional_acquisition_training_calls_collected": 3,
+    "additional_acquisition_training_calls_planned": 3,
     "additional_construction_continuation_runs_completed": 4,
     "additional_construction_continuation_runs_planned": 4,
     "additional_refinement_pilots_completed": 1,
@@ -109,12 +1145,17 @@
     "zero_area_excluded_before_top_k": true
   },
   "construction_best_aware_interpretation": {
-    "AP": 0.49882050080244833,
-    "AP_points_over_original_aware_same_routing": 0.040267200473076414,
-    "conclusion": "Only a modest extra-training gain; not a breakthrough or multi-seed benchmark.",
-    "method": "aware_standard with training-size class routing",
+    "AP": 0.516204168610153,
+    "AP50": 0.9220473449487437,
+    "AP_points_over_matched_random_same_routing": 2.295051401197712,
+    "AP_points_over_matched_zero_review_same_routing": 1.7383667807704617,
+    "additional_published_training_boxes": 265,
+    "conclusion": "Best measured aware configuration; separate extra-label and five-pass inference interaction, one seed.",
+    "method": "guided acquisition with ORIGINAL training-size class routing",
     "model_passes_per_image": 5,
+    "primary_single_pass_result_unchanged": true,
     "seed": 20260917,
+    "simulated_review_units": 150,
     "total_optimizer_updates": 6000,
     "validation_guided_exploration": true
   },
@@ -856,6 +1897,16 @@
     "scope": "Secondary one-seed interaction declared before primary continuation scores; actual completed cases shown separately.",
     "status": "completed"
   },
+  "construction_fixed_label_best_aware_interpretation": {
+    "AP": 0.49882050080244833,
+    "AP_points_over_original_aware_same_routing": 0.040267200473076414,
+    "conclusion": "Only a modest extra-training gain; not a breakthrough or multi-seed benchmark.",
+    "method": "aware_standard with training-size class routing",
+    "model_passes_per_image": 5,
+    "seed": 20260917,
+    "total_optimizer_updates": 6000,
+    "validation_guided_exploration": true
+  },
   "construction_label_audit": {
     "annotation_sha256": {
       "train": "dee0d4eeebe5728f429d28f34feac8772a0dc11f48c6b8049f61c81778a0ee73",
@@ -884,9 +1935,11 @@
       ]
     },
     "next_annotation_review_acquisition_workflow": {
-      "implemented": false,
-      "launched": false,
-      "status": "deferred"
+      "cloud_execution_authorized": true,
+      "implemented": true,
+      "new_human_adjudication": false,
+      "original_benchmark_changed": false,
+      "status": "simulated_acquisition_implemented_primary_completed"
     },
     "nohelmet_validation_boxes_in_dominant_scene": 6,
     "nohelmet_validation_boxes_total": 11,
@@ -1941,7 +2994,7 @@
       }
     ]
   },
-  "handoff_status": "Current build frozen for handoff; no further experiment launched.",
+  "handoff_status": "All newly authorized experiments and audits complete; original 55/64 cohort retains nine historical interruptions.",
   "implementation_checkpoint": "2c32f1c",
   "limitations": [
     "The two chess tasks share one small board/camera domain. Construction safety is a separate dataset.",
@@ -1967,7 +3020,12 @@
     "CPU/MPS raw and postprocessed outputs did not establish exact parity; all reported sliced-inference comparisons use CPU.",
     "Fresh CPU model inference differs slightly from historic predictions; historical metrics are retained separately.",
     "The completed annotation audit found specific defects and real model errors; no labels or benchmark scores were revised.",
-    "Annotation acquisition/adjudication is deferred and is not implemented or launched."
+    "Additional published TRAIN annotations are revealed; not the original fixed-label-budget experiment.",
+    "Equal image-class reviews can acquire different box counts; report both.",
+    "Published annotation oracle can contain errors; no new human adjudication is claimed.",
+    "One fixed seed, validation-guided design, unchanged published validation labels; test remains unused.",
+    "The acquisition primary gain is a one-seed fixed-review-budget result with different acquired box counts, not equal-label-budget superiority.",
+    "Simulated image-class review units are not measured human time or monetary cost; more acquired boxes may require more annotation effort."
   ],
   "metric": {
     "comparisons": "Only matched seeds and recorded training budgets; n may differ between independent aggregate rows",
@@ -2463,18 +3521,6 @@
       "sha256": "fce9afae5d95995a04ee70b86486ac2180cf384fed9315b346b2e4f1d582392e"
     },
     {
-      "path": "artifacts/object-crops/construction/20260917/aware_standard/run.json",
-      "sha256": "5a8f0d7f0da05107aa88a818d93c76529001108b9797d89994b73a9efadb2b33"
-    },
-    {
-      "path": "artifacts/object-crops/construction/20260917/aware_standard/evaluation.json",
-      "sha256": "ebfbae9ffb6e01f0b995401904c102bd5ef29fa3f44161fe3d62f9038ef3897a"
-    },
-    {
-      "path": "artifacts/object-crops/construction/20260917/aware_standard/receipt.json",
-      "sha256": "224fcdda410fe0c6b18e976f6ad7dab50f99b36708d63923a0276de51d6410b7"
-    },
-    {
       "path": "artifacts/object-crops/construction/20260917/aware_object_crops/run.json",
       "sha256": "ff2221c59656f5996f116379af4c51e26eea261f408f375fb852e2c3c36cedf0"
     },
@@ -2593,6 +3639,122 @@
     {
       "path": "artifacts/tiled_cohort_summary.json",
       "sha256": "67f3a95205a5dd66d2cb1be63d4edca37b415191aa3bc99975070e4c53f5db18"
+    },
+    {
+      "path": "artifacts/acquisition/protocol.json",
+      "sha256": "27a6604991fad76b1e4beeba5b08feddaf5cf893f86bb76e845c90435fa5dc89"
+    },
+    {
+      "path": "artifacts/acquisition/selection_frozen.json",
+      "sha256": "0a540ac2c089d12ca176e904d1d7afa60ef7da7fc21bb99bc6add9633c34c02a"
+    },
+    {
+      "path": "artifacts/acquisition/guided-plan.json",
+      "sha256": "c157b81dc6df7a14c7245ac5ae9b166e5df7d6a1fdfb6cda8f8cc5f12ac7350d"
+    },
+    {
+      "path": "artifacts/acquisition/random-plan.json",
+      "sha256": "0fc825b9a66521f18c7b2a7bef6ac45f557d97764f96a5658d6c606bac9ba230"
+    },
+    {
+      "path": "artifacts/acquisition/smoke-evidence.json",
+      "sha256": "e13dd400ee9cab4f726de86a9537153a50f9a6ca4f15e78b39073f4143737e57"
+    },
+    {
+      "path": "artifacts/acquisition/views/875b4c33d3aa027317b31bd94a970bf955844be1fa025f4e18aca891e2f91467/acquisition-audit.json",
+      "sha256": "ec3e747f3b1409582b727a4e8ae34740f0a35019acebab2fd808445d02ca5858"
+    },
+    {
+      "path": "artifacts/acquisition/views/33655e4f14384bb9c5ca541a7b478da61d174d748c53ed7f11600e3169d10d20/acquisition-audit.json",
+      "sha256": "a5fa89388f3ee92ce5bd46b2864913d55f280cb6190224652e944872ff9c19c1"
+    },
+    {
+      "path": "artifacts/acquisition/full_tests.log",
+      "sha256": "9a67688b5f85e246e799f63787d4c3ea1bab929fae3e2d17e729c6ae6fb660f4"
+    },
+    {
+      "path": "docs/ACQUISITION_LABEL_AUDIT.md",
+      "sha256": "5cbb6eda123ea3d46413d0ffd1e69ed33a28e7a10f1c960769ea60566be0381d"
+    },
+    {
+      "path": "artifacts/acquisition-label-audit/evidence.json",
+      "sha256": "3bb5a9152312f63f4529517f51d9d4956cf7e7e3cfed13d287657386a8d334e2"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/comparison.json",
+      "sha256": "948b9655c10d159c530d063bed0a458b6f795cd45c99648d8437b667fbc8f14c"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/complete_standard/run.json",
+      "sha256": "9b3742bb0fe63e85333de0b1181956f50d769174bec6a5a27e0723532258452e"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/complete_standard/evaluation.json",
+      "sha256": "90e0085c7ff75e2f2dd5711b33053c2ece46e41fede1315cf847f2a4819f6eeb"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/complete_standard/receipt.json",
+      "sha256": "5a60bae2786f41b0d8e4cbe2cda996193504f9bc523554edd092823edc30b0b1"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/guided/run.json",
+      "sha256": "edc683bb0d23fc2223e946f023dc7d74277f93d226b1c866d4f25eb084a18326"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/guided/evaluation.json",
+      "sha256": "5e2714721acc9eef6beaa924363bdb40c00b4b1d6969957dc164ef9e8c0005d4"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/guided/receipt.json",
+      "sha256": "a587d4581f6e7a6841021d440ef6b784dd57d28dc571826cdedf32e40784ccf8"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/random/run.json",
+      "sha256": "b7572764f571df427d68fb78f5fb44744bfa8b1015d2dd37e0d97079e3652f23"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/random/evaluation.json",
+      "sha256": "ea30da20bfbd19accdf0a5003abadc4d3211cff346bad474a45c497cbf68a138"
+    },
+    {
+      "path": "artifacts/acquisition/construction/20260917/random/receipt.json",
+      "sha256": "bfc036f70d4f63b3ee28b8595e5612a5ee865f4a91b721cfd1b54f3523538bf4"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_standard/run.json",
+      "sha256": "5a8f0d7f0da05107aa88a818d93c76529001108b9797d89994b73a9efadb2b33"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_standard/evaluation.json",
+      "sha256": "ebfbae9ffb6e01f0b995401904c102bd5ef29fa3f44161fe3d62f9038ef3897a"
+    },
+    {
+      "path": "artifacts/object-crops/construction/20260917/aware_standard/receipt.json",
+      "sha256": "224fcdda410fe0c6b18e976f6ad7dab50f99b36708d63923a0276de51d6410b7"
+    },
+    {
+      "path": "artifacts/acquisition/rescoring_audit.json",
+      "sha256": "cc4c436469dd376422d0756fad6c1208383ef5ca11d6193d07f106dc79d86bbe"
+    },
+    {
+      "path": "artifacts/qa/acquisition-evidence/evidence.json",
+      "sha256": "87947cec0ab369effc79b032fd48455e91921081a665eae46f6608536d4d067d"
+    },
+    {
+      "path": "artifacts/acquisition/cloud_status.json",
+      "sha256": "98541cb512567efaa4575e3ac2f6f1abf774939e27408d7f3f8bab62588a013a"
+    },
+    {
+      "path": "artifacts/acquisition-tiled/construction/20260917/results.json",
+      "sha256": "ae5a4f302fb8739cebff5df56544f4888d67939f788e8fd5d7038cb30548c2e1"
+    },
+    {
+      "path": "artifacts/acquisition-tiled/construction/20260917/integrity.json",
+      "sha256": "e5b6553d5de812419ce624627a799eede702ed06e899b3fa99c7713a6e91fcfe"
+    },
+    {
+      "path": "artifacts/acquisition-tiled/declaration.json",
+      "sha256": "c65cdfedfd9364c146e8ba1f753a9a25c357ffd083e9ccd3ab1cfb1e6511e974"
     }
   ],
   "tasks": {
@@ -3817,6 +4979,171 @@
     }
   },
   "verification": {
+    "acquisition_browser": {
+      "actual_server_results": true,
+      "completed_cases": [
+        "guided",
+        "random",
+        "zero_review",
+        "complete_standard"
+      ],
+      "evidence": "artifacts/qa/acquisition-evidence/evidence.json",
+      "mocked_results": false,
+      "mutation_attempts": 0,
+      "overflow": false,
+      "page_errors": 0,
+      "status": "passed",
+      "viewports_px": [
+        1440,
+        390
+      ]
+    },
+    "acquisition_focused": {
+      "evidence_status": "Successful run reported by executing parent agent",
+      "passed": 21,
+      "scope": "Focused acquisition tests before cloud deployment"
+    },
+    "acquisition_primary_rescoring": {
+      "comparison_sha256": "948b9655c10d159c530d063bed0a458b6f795cd45c99648d8437b667fbc8f14c",
+      "digest": "7948cb689d973656c9a8cb7528e7278053749aa247a464c65ee8116b5f0cc976",
+      "primary_AP_delta_points": 2.5053623389050204,
+      "reference_boxes": 717,
+      "reference_categories": [
+        {
+          "id": 1,
+          "name": "helmet",
+          "supercategory": "none"
+        },
+        {
+          "id": 2,
+          "name": "no-helmet",
+          "supercategory": "none"
+        },
+        {
+          "id": 3,
+          "name": "no-vest",
+          "supercategory": "none"
+        },
+        {
+          "id": 4,
+          "name": "person",
+          "supercategory": "none"
+        },
+        {
+          "id": 5,
+          "name": "vest",
+          "supercategory": "none"
+        }
+      ],
+      "reference_images": 120,
+      "reference_validation_sha256": "02505212727f9f50c4a9e7c3b6c42ec067c1feed3ee03c6de2cc4c7a687554dd",
+      "results": {
+        "complete_standard": {
+          "AP": 0.5242414940910727,
+          "AP50": 0.9225079705378619,
+          "checkpoint_sha256": "1ee494473f5df5e94dd2870db40c7a2b119f6ea9dfac140d989ba956f513d0da",
+          "evaluation_sha256": "90e0085c7ff75e2f2dd5711b33053c2ece46e41fede1315cf847f2a4819f6eeb",
+          "metrics_exact": true,
+          "per_class_AP": {
+            "helmet": 0.5652728290878793,
+            "no-helmet": 0.3413301271272125,
+            "no-vest": 0.45950576974068613,
+            "person": 0.6824600695687942,
+            "vest": 0.5726386749307916
+          },
+          "prediction_count": 35877
+        },
+        "guided": {
+          "AP": 0.4984858360912969,
+          "AP50": 0.9093744668515361,
+          "checkpoint_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+          "evaluation_sha256": "5e2714721acc9eef6beaa924363bdb40c00b4b1d6969957dc164ef9e8c0005d4",
+          "metrics_exact": true,
+          "per_class_AP": {
+            "helmet": 0.5472583129375809,
+            "no-helmet": 0.26605605418668815,
+            "no-vest": 0.4693891060730845,
+            "person": 0.6707939276215877,
+            "vest": 0.5389317796375434
+          },
+          "prediction_count": 35982
+        },
+        "random": {
+          "AP": 0.47343221270224667,
+          "AP50": 0.8109975017896963,
+          "checkpoint_sha256": "75cf1710cd7664a75ec834780eca5195b272ee3f4aa460d9aed6f383e890d310",
+          "evaluation_sha256": "ea30da20bfbd19accdf0a5003abadc4d3211cff346bad474a45c497cbf68a138",
+          "metrics_exact": true,
+          "per_class_AP": {
+            "helmet": 0.5500060046274384,
+            "no-helmet": 0.15139484570576875,
+            "no-vest": 0.4512225184286887,
+            "person": 0.6678529631207336,
+            "vest": 0.5466847316286041
+          },
+          "prediction_count": 35966
+        },
+        "zero_review": {
+          "AP": 0.4800261166915147,
+          "AP50": 0.8574821222165239,
+          "checkpoint_sha256": "a82d651c7150f0bf2a692126a706aea5190960640aa1c6029b7b4345bdb0882c",
+          "evaluation_sha256": "ebfbae9ffb6e01f0b995401904c102bd5ef29fa3f44161fe3d62f9038ef3897a",
+          "metrics_exact": true,
+          "per_class_AP": {
+            "helmet": 0.5406091129327978,
+            "no-helmet": 0.2002470767438735,
+            "no-vest": 0.44403093150966244,
+            "person": 0.6725666173155584,
+            "vest": 0.5426768449556814
+          },
+          "prediction_count": 35965
+        }
+      },
+      "scope": "Rescored saved predictions through COCO and operating-point scorer; not an independent inference rerun.",
+      "status": "passed",
+      "test_labels_evaluated": false
+    },
+    "acquisition_real_cpu_smoke": {
+      "checkpoint_sha256": "a9897b2d4cd4bb381d79f9349ab07c35558caf629b9d0e3c6ad4ce092bfdf84c",
+      "device": "cpu",
+      "evidence": "artifacts/acquisition/smoke-evidence.json",
+      "protocol_sha256": "27a6604991fad76b1e4beeba5b08feddaf5cf893f86bb76e845c90435fa5dc89",
+      "status": "passed",
+      "training_steps": 2
+    },
+    "acquisition_secondary_integrity": {
+      "audits": [
+        {
+          "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+          "all120images_all717boxes_all5classes": true,
+          "case": "guided",
+          "exact_semantic_source_selection": true,
+          "gated_evaluation_sha256": "124d6233fd2e96afe0534ff1d2f9f8b683c6071dc148833d90fa30c4a7a08716",
+          "independent_selected_per_class_AP_error": 0,
+          "passed": true
+        },
+        {
+          "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+          "all120images_all717boxes_all5classes": true,
+          "case": "random",
+          "exact_semantic_source_selection": true,
+          "gated_evaluation_sha256": "868ebe9309d14b1353a8580240ff2ff5a638bcd18c0e71761cef2c047255c55b",
+          "independent_selected_per_class_AP_error": 1.1102230246251565e-16,
+          "passed": true
+        },
+        {
+          "COCO_metadata_note": "scorer assigns sequential prediction IDs; semantic fields unchanged",
+          "all120images_all717boxes_all5classes": true,
+          "case": "complete_standard",
+          "exact_semantic_source_selection": true,
+          "gated_evaluation_sha256": "c5bd14f2b87b23e3d346b7e969954ad17f980eb5f5d6bf5ba8ae8068184a0a62",
+          "independent_selected_per_class_AP_error": 1.1102230246251565e-16,
+          "passed": true
+        }
+      ],
+      "completed_cases": 3,
+      "passed": true
+    },
     "actual_large_aware_public_sdk_export": {
       "all_tensor_values_equal": true,
       "class_names_equal": true,
@@ -3926,19 +5253,11 @@
       ],
       "passed": false
     },
-    "final_cloud_status": {
-      "apps_checked": 7,
-      "evidence": "artifacts/final_cloud_status.json",
-      "further_experiments_planned_for_handoff": false,
-      "running_containers": 0,
-      "status": "all_project_apps_zero_containers"
-    },
     "full_test_suite": {
-      "elapsed_seconds": 14.55,
-      "evidence": "artifacts/final_tests.log",
-      "passed": 122,
-      "scope": "Final full suite for frozen handoff",
-      "warnings": 32
+      "elapsed_seconds": 19.18,
+      "evidence": "artifacts/acquisition/full_tests.log",
+      "passed": 154,
+      "scope": "Current full suite including acquisition, budget and acquisition-UI tests; actual acquisition browser check also passed."
     },
     "large_cpu_save_reload": {
       "architecture": "RF-DETR Large",
@@ -3998,6 +5317,20 @@
       "evidence": "artifacts/upgrade_tests_v7_focused.log",
       "passed": 46,
       "scope": "Later focused object-crop/tiled/workbench suite; overlaps with full suite"
+    },
+    "post_acquisition_cloud_status": {
+      "apps_checked": 8,
+      "evidence": "artifacts/acquisition/cloud_status.json",
+      "remaining_authorized_inference_is_local": true,
+      "running_containers": 0,
+      "status": "all_project_apps_zero_containers"
+    },
+    "pre_acquisition_cloud_status": {
+      "apps_checked": 7,
+      "evidence": "artifacts/final_cloud_status.json",
+      "running_containers": 0,
+      "scope": "Historical zero-container checkpoint before newly authorized acquisition deployment",
+      "status": "all_project_apps_zero_containers"
     },
     "public_sdk_native_export": {
       "architectures": [
