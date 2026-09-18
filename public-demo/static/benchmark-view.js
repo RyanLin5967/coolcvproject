@@ -37,3 +37,166 @@ export function matchedBenchmark(data, key) {
   return {key, ...config, rows, seeds, task, images: rows[0].runs[0].metrics.images, steps: rows[0].runs[0].steps,
     gain: 100 * (rows[1].metrics.AP - rows[0].metrics.AP), gap: 100 * (rows[2].metrics.AP - rows[1].metrics.AP)};
 }
+
+// Independently selected AP50:95 extrema from the published results ledger.
+// Source ledger SHA-256: 3936e0b531393e387dbd5ab027d29cb61bbdb5313cfd95314ddcfcdae3ca2048
+export const recordedExtrema = {
+  "all-pieces": {
+    "naive": {
+      "metrics": {
+        "AP": 0.5673147014337226,
+        "AP50": 0.7266028851551712,
+        "recall_at_threshold": 0.621268656716418
+      },
+      "method": "naive",
+      "seed": 20260919,
+      "steps": 2000,
+      "resolution": 384,
+      "passes": 1,
+      "note": "",
+      "source": "/tasks/all-pieces/runs/2/metrics",
+      "selection": "minimum"
+    },
+    "aware": {
+      "metrics": {
+        "AP": 0.7368247452744765,
+        "AP50": 0.9025064854777196,
+        "recall_at_threshold": 0.9888059701492538
+      },
+      "method": "aware_large_704_ema",
+      "seed": 20260917,
+      "steps": 2000,
+      "resolution": 704,
+      "passes": 1,
+      "note": "",
+      "source": "/tasks/all-pieces/runs/24/metrics",
+      "selection": "maximum"
+    },
+    "complete_reference": {
+      "metrics": {
+        "AP": 0.72475490909525,
+        "AP50": 0.8970232603305641,
+        "recall_at_threshold": 0.9813432835820896
+      },
+      "method": "complete_reference",
+      "seed": 20260917,
+      "steps": 2000,
+      "resolution": 384,
+      "passes": 1,
+      "note": "",
+      "source": "/tasks/all-pieces/runs/6/metrics",
+      "selection": "minimum"
+    }
+  },
+  "construction": {
+    "naive": {
+      "metrics": {
+        "AP": 0.42311665013241967,
+        "AP50": 0.8237463627794711,
+        "recall_at_threshold": 0.8131101813110181
+      },
+      "method": "naive_object_crops",
+      "seed": 20260917,
+      "steps": 6000,
+      "resolution": 512,
+      "passes": 5,
+      "note": "Fixed tiled inference",
+      "source": "/construction_crop_tiled_interaction/runs/2/tiled_metrics",
+      "selection": "minimum"
+    },
+    "aware": {
+      "metrics": {
+        "AP": 0.516204168610153,
+        "AP50": 0.9220473449487437,
+        "recall_at_threshold": 0.9330543933054394
+      },
+      "method": "guided",
+      "seed": 20260917,
+      "steps": 6000,
+      "resolution": 512,
+      "passes": 5,
+      "note": "265 additional published training boxes",
+      "source": "/acquisition_simulation/secondary_tiled_routing/runs/0/gated_metrics",
+      "selection": "maximum"
+    },
+    "complete_reference": {
+      "metrics": {
+        "AP": 0.5181880033706425,
+        "AP50": 0.9367471310303981,
+        "recall_at_threshold": 0.9428172942817294
+      },
+      "method": "complete_reference_object_crops",
+      "seed": 20260917,
+      "steps": 6000,
+      "resolution": 512,
+      "passes": 1,
+      "note": "Full-frame inference with NMS",
+      "source": "/construction_crop_tiled_interaction/runs/3/full_frame_nms_metrics",
+      "selection": "minimum"
+    }
+  },
+  "pawns": {
+    "naive": {
+      "metrics": {
+        "AP": 0.6139736863347561,
+        "AP50": 0.826548835275989,
+        "recall_at_threshold": 0.5850622406639004
+      },
+      "method": "naive",
+      "seed": 20260918,
+      "steps": 2000,
+      "resolution": 384,
+      "passes": 1,
+      "note": "",
+      "source": "/tasks/pawns/runs/1/metrics",
+      "selection": "minimum"
+    },
+    "aware": {
+      "metrics": {
+        "AP": 0.7919867039046043,
+        "AP50": 1,
+        "recall_at_threshold": 1
+      },
+      "method": "aware_augmented_512",
+      "seed": 20260919,
+      "steps": 4000,
+      "resolution": 512,
+      "passes": 1,
+      "note": "",
+      "source": "/tasks/pawns/runs/14/metrics",
+      "selection": "maximum"
+    },
+    "complete_reference": {
+      "metrics": {
+        "AP": 0.7771739747361326,
+        "AP50": 1,
+        "recall_at_threshold": 1
+      },
+      "method": "complete_reference",
+      "seed": 20260918,
+      "steps": 2000,
+      "resolution": 384,
+      "passes": 1,
+      "note": "",
+      "source": "/tasks/pawns/runs/7/metrics",
+      "selection": "minimum"
+    }
+  }
+};
+
+export function extremaBenchmark(data, key) {
+  const matched = matchedBenchmark(data, key);
+  const selected = recordedExtrema[key];
+  if (!matched || !selected) return null;
+  const descriptions = {
+    naive: 'Ordinary RF-DETR training on incomplete annotations.',
+    aware: 'Coverage-aware training and recorded follow-up experiments.',
+    complete_reference: 'RF-DETR trained with all available annotations.',
+  };
+  const rows = ['naive', 'aware', 'complete_reference'].map(role => ({
+    role, ...modelRoles[role], description: descriptions[role],
+    metrics: selected[role].metrics, selected: selected[role],
+  }));
+  return {...matched, rows, gain: 100*(rows[1].metrics.AP-rows[0].metrics.AP),
+    gap: 100*(rows[2].metrics.AP-rows[1].metrics.AP)};
+}

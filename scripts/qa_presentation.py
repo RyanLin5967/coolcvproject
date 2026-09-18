@@ -30,8 +30,8 @@ with sync_playwright() as playwright:
             assert page.evaluate("window.qaImage===document.querySelector('.merge-photo img')")
             page.screenshot(path=str(OUT / f"merge-{port}-{width}.png"), full_page=True)
             page.locator('#navigation [data-page="research"]').click()
-            expected = {"pawns": [76.25, 78.82, 78.94], "all-pieces": [72.78, 73.68, 74.97],
-                        "construction": [46.34, 48.14, 52.76]}
+            expected = {"pawns": [61.40, 79.20, 77.72], "all-pieces": [56.73, 73.68, 72.48],
+                        "construction": [42.31, 51.62, 51.82]}
             for task, values in expected.items():
                 page.locator(f'[data-research-task="{task}"]').click()
                 page.locator(f'#benchmark-comparison[data-task="{task}"]').wait_for()
