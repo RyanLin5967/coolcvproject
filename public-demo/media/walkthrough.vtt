@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00.500 --> 00:05.000
+CoverageCV preserves annotation coverage when detection datasets are merged.
+
+00:05.000 --> 00:12.000
+This illustration withholds person labels. An ordinary loss can penalize correct person predictions.
+
+00:12.000 --> 00:19.000
+CoverageCV keeps supplied labels, but suppresses negative supervision for an unreviewed class.
+
+00:19.000 --> 00:25.000
+Switch sources: the same rule protects helmets when only people were annotated.
+
+00:25.000 --> 00:34.000
+On chess pawns: 78.82 AP50:95 versus 76.25 for ordinary training. Three matched seeds; 58 validation images.
+
+00:34.000 --> 00:40.000
+Recorded predictions use actual checkpoints. The reference has complete labels; it is not a frontier model.
+
+00:40.000 --> 00:46.000
+Inspect additional validation images. Benchmark scores use the full validation set.

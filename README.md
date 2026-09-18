@@ -2,7 +2,19 @@
 
 **Merge partially annotated detection datasets without teaching the model that every missing box is background.** CoverageCV carries explicit annotation coverage from source data through compilation, training, evaluation and deployment.
 
-The working product is a local dataset workbench: **http://127.0.0.1:8765** when running. It includes editable coverage policies, immutable dataset revisions, image/provenance inspection, durable training jobs, live comparisons, multi-seed research results and verified Roboflow integration.
+Start with the **merge demo**: inspect what goes wrong when sources label different classes, toggle coverage-aware supervision, then compare measured benchmarks and actual model predictions. Local dataset editing and training live in the secondary workbench.
+
+## Try the public demo
+
+No accounts, API keys, Python dependencies or model downloads are needed for the recorded-results presentation:
+
+```sh
+python3 -m http.server 8767 --directory public-demo
+```
+
+Open **http://127.0.0.1:8767**. The committed static demo includes a captioned walkthrough, three curated matched benchmarks, and six evenly spaced validation examples per dataset. It runs entirely in the browser. The merge illustration uses explicit synthetic policies; prediction galleries use real saved model outputs. [Dataset credits](public-demo/ATTRIBUTION.md) accompany the images.
+
+[Cloudflare deployment instructions](docs/DEPLOYMENT.md) cover publishing this directory at `coverage.ryanlin.dev`. The local application below exposes the full compiler and training workbench. It is not required to host the public demo.
 
 ## Start the workbench
 
@@ -88,7 +100,7 @@ The completed secondary check applies the **unchanged original tiling/class-rout
 
 **Experiment snapshot:** 55 of the original 64 planned cloud runs collected; nine remain interrupted. Independent local rescoring reproduced all three completed Large metric dictionaries exactly. An additional crop refiner trained on the 994 observed human boxes has also finished: applied to the same-seed Nano/512px models, it changed AP from **69.21 → 69.33 naive, 73.00 → 72.55 aware, and 74.06 → 73.29 complete**. The primary aware result regressed by 0.44 points, so **the refiner is not promoted**. Its aware evaluation added 23.19 seconds for 58 images on local CPU, excluding detector inference and COCO scoring. See [decisions and difficulties](docs/DECISIONS.md) for the lost first checkpoint, zero-area-box fix, MPS incompatibility and recovery without further cloud training.
 
-Open **Research lab** for collected measurements, actual seed counts, per-class results and localization diagnostics. [The portable results snapshot](docs/RESULTS.json) retains metrics and checkpoint/data identities without datasets or credentials. Full local ledgers live under ignored `artifacts/`. Recipe development uses validation feedback; these are not untouched-test discoveries.
+Open **Benchmarks** for the curated matched comparisons and the collapsed experiment history. [The portable results snapshot](docs/RESULTS.json) retains metrics and checkpoint/data identities without datasets or credentials. Full local ledgers live under ignored `artifacts/`. Recipe development uses validation feedback; these are not untouched-test discoveries.
 
 ## Bring your own data
 

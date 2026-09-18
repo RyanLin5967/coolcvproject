@@ -1,3 +1,15 @@
+# Current presentation checkpoint — 2026-09-17
+
+The user asked for a polished, distinctive merge-focused demo, a GitHub push, Cloudflare subdomain steps and a demo video. Those presentation changes are now implemented. Default page is an interactive missing-label/coverage explanation; benchmarks curate one matched comparison per dataset; predictions use the same final recipe checkpoints. Generic training/import/history/provider tools are secondary local workbench controls. Public static export is `public-demo/`, served locally at http://127.0.0.1:8767; full workbench remains http://127.0.0.1:8765. Source is `src/coveragecv/workbench/static`; rebuild copied assets with `python3 scripts/build_public_demo.py`. See docs/DEPLOYMENT.md for exact Cloudflare Pages settings (root public-demo, command exit 0, output .).
+
+No new cloud jobs, training or model result changes. Imported final saved presentation jobs: pawns dbee2b4299204c35, all-pieces fb48928676e54b30; construction ecd38e0e6be34958. Public snapshot checks 9 checkpoint/evaluation contracts and uses 12 licensed image files across18 evenly spaced gallery slots. Benchmarks display matched seed cohorts: pawns76.25/78.82/78.94; all13Large72.78/73.68/74.97; construction46.34/48.14/52.76. Single-run galleries explicitly differ from seed averages. A full-label reference is not frontier/SOTA.
+
+Fresh SSE history replay and canvas replacement were fixed. 162 tests pass (14.79s), Ruff/JS syntax pass, and actual desktop1440/mobile390 browser QA passes for BOTH local and standalone public app. Evidence artifacts/qa/presentation/evidence.json. Presentation changes are being committed and pushed to authorized PUBLIC origin https://github.com/RyanLin5967/coolcvproject.git; check git status/log/remote to confirm final state after resume. Cloudflare deployment itself still requires connecting the repo in the user's dashboard; do not claim coverage.ryanlin.dev is already live. Credentials stay outside Git. There is no active experiment to resume.
+
+The older completed ML checkpoint follows for historical context; its server PID is obsolete.
+
+---
+
 # Execution status — 2026-09-17, 21:47 EDT
 
 Read this file before resuming. User authorizes autonomous work and explicitly approved important remaining experiments; checkpoint means save/report, not abandon active work. Full access, approval never. Do not resume the ancient restricted research agents listed in AGENTS.md. Credentials stay outside Git, artifacts and output.

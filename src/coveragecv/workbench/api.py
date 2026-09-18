@@ -602,13 +602,22 @@ def create_app(root: Path = Path("artifacts/workbench"), *, run_scheduler=True):
 
     @app.get("/api/events")
     async def events(request: Request):
+        latest = store.latest_event_id()
         try:
-            after = int(request.headers.get("last-event-id", "0"))
+            after = int(request.headers.get("last-event-id", ""))
+            fresh = after < 0 or after > latest
         except ValueError:
-            after = 0
+            fresh = True
+        if fresh:
+            after = latest
 
         async def stream():
             cursor, last_heartbeat = after, time.monotonic()
+            if fresh:
+                # A new tab fetches current state, so replaying the whole history
+                # only repeatedly redraws it. One sync closes the race with that
+                # fetch; newer events remain durable and reconnects replay them.
+                yield f"id: {cursor}\ndata: {json.dumps({'id': cursor, 'data': {'type': 'sync'}})}\n\n"
             while not await request.is_disconnected():
                 for event in store.events(cursor):
                     cursor = event["id"]

@@ -175,3 +175,7 @@ class Store:
     def events(self, after=0):
         with self.connection() as db:
             return [self.decode(r) for r in db.execute("SELECT * FROM events WHERE id>? ORDER BY id LIMIT 100", (after,))]
+
+    def latest_event_id(self):
+        with self.connection() as db:
+            return db.execute("SELECT COALESCE(MAX(id),0) FROM events").fetchone()[0]

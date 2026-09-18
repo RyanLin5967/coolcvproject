@@ -1,8 +1,12 @@
+import asyncio
 import io
+import json
 import time
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import AsyncMock
 
 import pytest
 from PIL import Image
@@ -23,6 +27,83 @@ from coveragecv.workbench.store import Store
 from coveragecv.workbench.worker import execute
 
 HEADERS = {"X-CoverageCV": "workbench"}
+
+
+@pytest.mark.parametrize("cursor", [None, "", "invalid", "-1", "99999"])
+def test_new_event_stream_syncs_once_without_replaying_history(tmp_path, cursor):
+    app = create_app(tmp_path / "state", run_scheduler=False)
+    store = app.state.store
+    with store.connection() as db:
+        for _ in range(205):  # More than two historical event batches.
+            store._event(db, None, {"type": "completed"})
+    endpoint = next(route.endpoint for route in app.routes if getattr(route, "path", None) == "/api/events")
+    request = SimpleNamespace(headers={} if cursor is None else {"last-event-id": cursor},
+                              is_disconnected=AsyncMock(return_value=False))
+
+    async def inspect():
+        response = await endpoint(request)
+        stream = response.body_iterator
+        try:
+            frame = await anext(stream)
+            assert frame.startswith("id: 205\n")
+            assert json.loads(frame.split("data: ")[1]) == {"id": 205, "data": {"type": "sync"}}
+            # A mutation arriving during the initial state fetch still follows
+            # the sync; no older event may be replayed in its place.
+            with store.connection() as db:
+                store._event(db, None, {"type": "queued", "project_id": "new-project"})
+            frame = await anext(stream)
+            assert frame.startswith("id: 206\n")
+            assert json.loads(frame.split("data: ")[1])["data"]["project_id"] == "new-project"
+        finally:
+            await stream.aclose()
+
+    asyncio.run(inspect())
+
+
+@pytest.mark.parametrize("cursor", [0, 199])
+def test_reconnected_event_stream_replays_only_missed_events(tmp_path, cursor):
+    app = create_app(tmp_path / "state", run_scheduler=False)
+    store = app.state.store
+    with store.connection() as db:
+        for index in range(205):
+            store._event(db, None, {"type": "completed", "sequence": index + 1})
+    endpoint = next(route.endpoint for route in app.routes if getattr(route, "path", None) == "/api/events")
+    request = SimpleNamespace(headers={"last-event-id": str(cursor)},
+                              is_disconnected=AsyncMock(return_value=False))
+
+    async def inspect():
+        response = await endpoint(request)
+        stream = response.body_iterator
+        try:
+            for expected in range(cursor + 1, 206):
+                frame = await anext(stream)
+                event = json.loads(frame.split("data: ")[1])
+                assert event["id"] == expected
+                assert event["data"] == {"type": "completed", "sequence": expected}
+        finally:
+            await stream.aclose()
+
+    asyncio.run(inspect())
+
+
+def test_idle_event_stream_heartbeat_is_not_a_state_change(tmp_path, monkeypatch):
+    from coveragecv.workbench import api
+    app = create_app(tmp_path / "state", run_scheduler=False)
+    endpoint = next(route.endpoint for route in app.routes if getattr(route, "path", None) == "/api/events")
+    request = SimpleNamespace(headers={}, is_disconnected=AsyncMock(return_value=False))
+    clock = iter([0, 11])
+    monkeypatch.setattr(api, "time", SimpleNamespace(monotonic=lambda: next(clock)))
+
+    async def inspect():
+        response = await endpoint(request)
+        stream = response.body_iterator
+        try:
+            assert "sync" in await anext(stream)
+            assert await anext(stream) == ": heartbeat\n\n"
+        finally:
+            await stream.aclose()
+
+    asyncio.run(inspect())
 
 
 def test_refiner_evidence_requires_all_arms_and_durable_completion(tmp_path):
