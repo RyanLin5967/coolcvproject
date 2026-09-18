@@ -10,14 +10,158 @@ from PIL import Image
 pytest.importorskip("fastapi")
 from fastapi.testclient import TestClient
 
-from coveragecv.artifacts import read_json, verify, write_json
-from coveragecv.workbench.api import create_app
+from coveragecv.artifacts import digest, file_digest, read_json, verify, write_json
+from coveragecv.workbench.api import create_app, object_crop_evidence, refinement_evidence
 from coveragecv.workbench.scheduler import Scheduler
 from coveragecv.workbench.service import extract_dataset, revision_diff
 from coveragecv.workbench.store import Store
 from coveragecv.workbench.worker import execute
 
 HEADERS = {"X-CoverageCV": "workbench"}
+
+
+def test_refiner_evidence_requires_all_arms_and_durable_completion(tmp_path):
+    folder = tmp_path / "refinement/all-pieces/20260917/partial-human"
+    folder.mkdir(parents=True)
+    assert refinement_evidence(tmp_path)["status"] == "not_started"
+    write_json(folder / "call.json", {"call_id": "test-call"})
+    assert refinement_evidence(tmp_path)["status"] == "submitted"
+    receipt = {"status": "trained", "checkpoint_sha256": "refiner-hash", "evaluation_status": "pending"}
+    write_json(folder / "receipt.json", receipt)
+    assert refinement_evidence(tmp_path)["status"] == "evaluating"
+    comparison = {"status": "completed", "refiner_sha256": "refiner-hash", "same_refiner_for_all_arms": True,
+                  "results": {method: {"refiner_checkpoint_sha256": "refiner-hash",
+                                       "classification_and_scores_changed": False,
+                                       "train_evaluation_exact_image_overlap": False,
+                                       "baseline_metrics": {"AP": .73}, "metrics": {"AP": .68},
+                                       "predictions": [{"image_id": 1}]}
+                              for method in ("naive_augmented_512", "aware_augmented_512", "complete_augmented_512")}}
+    write_json(folder / "comparison.json", comparison)
+    assert refinement_evidence(tmp_path)["results"] == {}
+    receipt.update(status="completed", evaluation_status="completed")
+    write_json(folder / "receipt.json", receipt)
+    evidence = refinement_evidence(tmp_path)
+    assert evidence["status"] == "completed" and evidence["n"] == 1
+    assert len(evidence["results"]) == 3
+    assert evidence["results"]["aware_augmented_512"]["metrics"]["AP"] == .68  # Preserve regressions.
+    assert "predictions" not in evidence["results"]["aware_augmented_512"]
+
+
+@pytest.mark.parametrize("invalid", ["checkpoint", "changed_scores", "overlap", "missing_arm"])
+def test_refiner_rejects_inconsistent_comparison_provenance(tmp_path, invalid):
+    folder = tmp_path / "refinement/all-pieces/20260917/partial-human"
+    folder.mkdir(parents=True)
+    write_json(folder / "receipt.json", {"status": "completed", "evaluation_status": "completed",
+                                         "checkpoint_sha256": "refiner-hash"})
+    row = {"refiner_checkpoint_sha256": "refiner-hash", "classification_and_scores_changed": False,
+           "train_evaluation_exact_image_overlap": False}
+    if invalid == "checkpoint":
+        row["refiner_checkpoint_sha256"] = "different-model"
+    elif invalid == "changed_scores":
+        row["classification_and_scores_changed"] = True
+    elif invalid == "overlap":
+        row["train_evaluation_exact_image_overlap"] = True
+    methods = ["naive_augmented_512", "aware_augmented_512", "complete_augmented_512"]
+    if invalid == "missing_arm":
+        methods.pop()
+    write_json(folder / "comparison.json", {"status": "completed", "refiner_sha256": "refiner-hash",
+               "same_refiner_for_all_arms": True,
+               "results": {method: row for method in methods}})
+    evidence = refinement_evidence(tmp_path)
+    assert evidence["status"] == "evidence_incomplete" and evidence["results"] == {}
+
+
+@pytest.fixture
+def crop_study(tmp_path):
+    study = tmp_path / "object-crops"
+    output = study / "construction/20260917"
+    cases = {"aware_standard": ("aware", False), "aware_object_crops": ("aware", True),
+             "naive_object_crops": ("naive", True), "complete_reference_object_crops": ("complete_reference", True)}
+    plan = {"source_view_digest": "partial-view", "train_only": True, "validation_or_test_labels_used": False,
+            "classes": ["no-helmet"], "samples": 2, "anchor_counts": {"1": 33}}
+    plan["digest"] = digest(plan)
+    protocol = {"cases": list(cases), "crop_plan_digest": plan["digest"], "partial_view_digest": "partial-view",
+                "complete_view_digest": "complete-view", "reference_bundle_digest": "reference",
+                "seed": 20260917, "steps": 2000, "total_steps": 6000, "batch": 4,
+                "resolution": 512, "recipe": "augmented", "validation_during_training": False,
+                "test_evaluated": False, "parents": {arm: {"checkpoint_sha256": f"parent-{arm}"}
+                                                    for arm, _ in cases.values()}}
+    write_json(study / "plan.json", plan)
+    write_json(study / "protocol.json", protocol)
+    write_json(study / "plan_audit.json", {"plan_digest": plan["digest"], "full_frame_samples": 1,
+               "anchor_samples_by_class": {"1": 1}, "median_anchor_max_side_pixels_by_class": {"1": 96}})
+    protocol_sha = file_digest(study / "protocol.json")
+    comparison = {"status": "completed", "seed": 20260917, "protocol_sha256": protocol_sha,
+                  "crop_plan_digest": plan["digest"], "primary_AP_delta_points": 5, "results": {}}
+    for case, (arm, crops) in cases.items():
+        folder = output / case
+        folder.mkdir(parents=True)
+        (folder / "detector.pt").write_bytes(case.encode())
+        sha = file_digest(folder / "detector.pt")
+        parent_sha = protocol["parents"][arm]["checkpoint_sha256"]
+        metrics = {"AP": .5 if crops else .45, "AP50": .8, "AP75": .4, "per_class_AP": {"no-helmet": .25}}
+        parent_metrics = {"AP": .4, "AP50": .7, "AP75": .3, "per_class_AP": {"no-helmet": .15}}
+        write_json(folder / "call.json", {"request": {"case": case, "protocol_sha256": protocol_sha}})
+        write_json(folder / "receipt.json", {"status": "completed", "evaluation_status": "completed",
+                                             "checkpoint_sha256": sha})
+        write_json(folder / "run.json", {"status": "completed", "detector_sha256": sha, "arm": arm,
+                   "method": case, "seed": 20260917, "steps": 2000, "total_training_steps": 6000,
+                   "batch": 4, "recipe": "augmented", "model_config": {"resolution": 512},
+                   "view_digest": "complete-view" if arm == "complete_reference" else "partial-view",
+                   "parent_checkpoint_sha256": parent_sha, "warm_start_sha256": parent_sha,
+                   "experiment_protocol_sha256": protocol_sha, "object_crop_plan_digest": plan["digest"] if crops else None,
+                   "validation_during_training": False})
+        write_json(folder / "evaluation.json", {"checkpoint_sha256": sha, "split": "valid",
+                                                "bundle_digest": "reference", "metrics": metrics})
+        write_json(tmp_path / "gpu/construction/20260917" / arm / "evaluation.json",
+                   {"checkpoint_sha256": parent_sha, "split": "valid", "bundle_digest": "reference",
+                    "metrics": parent_metrics})
+        comparison["results"][case] = {"metrics": metrics, "parent_metrics": parent_metrics,
+                                         "checkpoint_sha256": sha, "parent_checkpoint_sha256": parent_sha}
+    write_json(output / "comparison.json", comparison)
+    return tmp_path
+
+
+def test_crop_study_keeps_continuations_separate_and_waits_for_evaluation(crop_study):
+    evidence = object_crop_evidence(crop_study)
+    assert evidence["status"] == "completed" and evidence["n"] == 1
+    assert evidence["primary_AP_delta_points"] == pytest.approx(5)
+    assert len(evidence["cases"]) == 4
+    assert evidence["cases"]["aware_object_crops"]["parent_metrics"]["AP"] == .4
+    receipt_path = crop_study / "object-crops/construction/20260917/aware_standard/receipt.json"
+    receipt = read_json(receipt_path)
+    receipt.update(status="trained", evaluation_status="pending")
+    write_json(receipt_path, receipt)
+    evidence = object_crop_evidence(crop_study)
+    assert evidence["status"] == "in_progress" and "primary_AP_delta_points" not in evidence
+    assert evidence["cases"]["aware_standard"]["status"] == "evaluating"
+    assert "metrics" not in evidence["cases"]["aware_standard"]
+
+
+@pytest.mark.parametrize("invalid", ["checkpoint", "reference", "request", "plan", "warm_start", "comparison"])
+def test_crop_study_refuses_broken_artifact_bindings(crop_study, invalid):
+    study = crop_study / "object-crops"
+    case = study / "construction/20260917/aware_object_crops"
+    if invalid == "checkpoint":
+        (case / "detector.pt").write_bytes(b"different trained model")
+    else:
+        path, key, value = {
+            "reference": (case / "evaluation.json", "bundle_digest", "different-reference"),
+            "request": (case / "call.json", "request", {"case": "different-study"}),
+            "plan": (study / "plan.json", "source_view_digest", "unobserved-source"),
+            "warm_start": (case / "run.json", "warm_start_sha256", "different-parent"),
+            "comparison": (study / "construction/20260917/comparison.json", "primary_AP_delta_points", 99),
+        }[invalid]
+        data = read_json(path)
+        data[key] = value
+        write_json(path, data)
+    evidence = object_crop_evidence(crop_study)
+    assert "primary_AP_delta_points" not in evidence
+    if invalid in ("comparison", "plan"):
+        assert evidence["status"] == "evidence_incomplete"
+    else:
+        assert evidence["cases"]["aware_object_crops"]["status"] == "evidence_incomplete"
+        assert "metrics" not in evidence["cases"]["aware_object_crops"]
 
 
 @pytest.fixture

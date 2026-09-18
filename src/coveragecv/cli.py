@@ -111,6 +111,13 @@ def evaluate(checkpoint: Path, bundle: Path, output: Path, split: str = "valid")
     _result(lambda: evaluate_checkpoint(checkpoint, bundle, output, split=split)["metrics"])
 
 
+@app.command("export-native")
+def export_native(checkpoint: Path, output: Path):
+    """Export an immutable model copy loadable by RFDETR.from_checkpoint."""
+    from .training.deploy import export_for_sdk
+    _result(export_for_sdk, checkpoint, output)
+
+
 @app.command()
 def report(experiment: Path = Path("artifacts/chess_experiment.json"), runs: Path = Path("artifacts/mvp"),
            output: Path = Path("artifacts/demo/index.html")):

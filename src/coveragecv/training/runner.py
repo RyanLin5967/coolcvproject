@@ -156,7 +156,9 @@ class RunEvidence(Callback):
 
 def run_training(view: Path, initialization: Path, output: Path, *, arm, epochs=10, batch=2,
                  max_steps=-1, device="cpu", seed=20260917, timeout_seconds=3600,
-                 recipe="pilot", warm_start: Path | None = None, pseudo_box_weight=1.):
+                 recipe="pilot", warm_start: Path | None = None, pseudo_box_weight=1.,
+                 object_crop_plan: dict | None = None, crop_source_view: Path | None = None,
+                 validation_during_training: bool | None = None):
     if arm not in ("naive", "aware", "complete_reference"):
         raise ValueError("unknown experiment arm")
     if not 0 <= pseudo_box_weight <= 1 or (pseudo_box_weight != 1 and arm != "aware"):
@@ -200,6 +202,17 @@ def run_training(view: Path, initialization: Path, output: Path, *, arm, epochs=
         dm._dataset_train.prepare = PreservePseudoProvenance(dm._dataset_train.prepare)
     elif pseudo_box_weight != 1:
         raise ValueError("pseudo box weighting requires an audited pseudo-label learner view")
+    if object_crop_plan is not None:
+        if crop_source_view is None or max_steps < 1 or epochs != 1:
+            raise ValueError("object crops require an explicit source view and one fixed-step epoch")
+        if (view / "pseudo-labels.json").exists():
+            raise ValueError("object crops currently require human-only supervision")
+        from coveragecv.training.object_crops import install_object_crops
+        install_object_crops(dm, view, crop_source_view, object_crop_plan)
+        write_json(output / "object_crop_plan.json", object_crop_plan)
+    elif crop_source_view is not None:
+        raise ValueError("crop source supplied without a crop plan")
+    run_validation = not tc.use_ema if validation_during_training is None else validation_during_training
     spec = {"arm": arm, "seed": seed, "classes": classes, "epochs": epochs, "batch": batch, "max_steps": max_steps,
             "view_digest": manifest["digest"], "initialization_sha256": file_digest(initialization),
             "initial_parameter_digest": sha, "model_config": mc.model_dump(mode="json"),
@@ -209,7 +222,8 @@ def run_training(view: Path, initialization: Path, output: Path, *, arm, epochs=
             "warm_start_sha256": file_digest(warm_start) if warm_start else None,
             "optimizer_restarted": warm_start is not None, "pseudo_box_weight": pseudo_box_weight,
             "model_variant": variant, "export_weights": "ema" if tc.use_ema else "last",
-            "validation_during_training": not tc.use_ema}
+            "validation_during_training": run_validation,
+            "object_crop_plan_digest": object_crop_plan["digest"] if object_crop_plan is not None else None}
     spec["determinism"] = f"warn_on_nondeterministic_{device}_ops" if device in ("cuda", "mps") else "deterministic"
     write_json(output / "run.json", spec)
     started = time.monotonic()
@@ -223,7 +237,7 @@ def run_training(view: Path, initialization: Path, output: Path, *, arm, epochs=
         devices=1, precision="32-true", include_training_callbacks=False,
         callbacks=callbacks, enable_checkpointing=False, enable_progress_bar=False,
         enable_model_summary=False, num_sanity_val_steps=0, max_steps=max_steps,
-        limit_val_batches=0 if tc.use_ema else 1.0,
+        limit_val_batches=1.0 if run_validation else 0,
         max_time={"seconds": timeout_seconds}, log_every_n_steps=1,
         deterministic="warn" if device in ("cuda", "mps") else True)
     try:
@@ -247,10 +261,13 @@ def save_detector(module, mc, tc, path):
     args = vars(_namespace_from_configs(mc, tc))
     classes = read_json(Path(tc.dataset_dir) / "ontology.json")["classes"]
     variant = "large" if isinstance(mc, RFDETRLargeConfig) else "nano"
+    model_name = "RFDETRLarge" if variant == "large" else "RFDETRNano"
     args.update(model_name=f"rf-detr-{variant}", class_names=classes, num_classes=len(classes))
     # Plain detector state + metadata; no custom criterion object is serialized.
+    # The public from_checkpoint loader needs its canonical top-level variant name.
+    # model_config restores custom resolution and PE grids without caller overrides.
     torch.save({"model": {k: v.detach().cpu() for k, v in module.model.state_dict().items()},
-                "args": args, "class_names": classes, "model_variant": variant,
+                "args": args, "class_names": classes, "model_variant": variant, "model_name": model_name,
                 "model_config": mc.model_dump(mode="json")}, path)
 
 

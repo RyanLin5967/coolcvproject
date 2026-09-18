@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
-from coveragecv.artifacts import read_json, safe_child, verify
+from coveragecv.artifacts import digest, file_digest, read_json, safe_child, verify
 from coveragecv.compiler import _jsonl
 from coveragecv.schema import CoverageState, DiagnosticError
 
@@ -51,6 +51,134 @@ class TrainRequest(Input):
     arms: list[Literal["naive", "aware", "complete_reference"]] = Field(default=["naive", "aware"], min_length=1, max_length=3)
     recipe: Literal["pilot", "augmented_fresh", "large_fresh"] = "pilot"
     device: Literal["cpu", "mps"] = "cpu"
+
+
+def refinement_evidence(artifacts: Path):
+    """Publish the separate refiner pilot only after its matched evaluations finish."""
+    folder = artifacts / "refinement/all-pieces/20260917/partial-human"
+    methods = ("naive_augmented_512", "aware_augmented_512", "complete_augmented_512")
+    evidence = {"task": "all-pieces", "seed": 20260917, "n": 1, "status": "not_started",
+                "results": {}, "prior_failed_attempts": len(list(folder.glob("attempts/*/failure.json")))}
+    if (folder / "call.json").exists():
+        evidence["status"] = "submitted"
+    receipt = read_json(folder / "receipt.json") if (folder / "receipt.json").exists() else {}
+    if receipt.get("status") in ("trained", "completed"):
+        evidence.update(status="evaluating", checkpoint_collected=True,
+                        refiner_sha256=receipt.get("checkpoint_sha256"))
+    comparison = folder / "comparison.json"
+    if not comparison.exists():
+        return evidence
+    data = read_json(comparison)
+    rows = data.get("results", {})
+    sha = receipt.get("checkpoint_sha256")
+    if (receipt.get("status") != "completed" or receipt.get("evaluation_status") != "completed"
+            or data.get("status") != "completed"
+            or not sha or data.get("refiner_sha256") != sha or set(rows) != set(methods)
+            or data.get("same_refiner_for_all_arms") is not True
+            or any(row.get("refiner_checkpoint_sha256") != sha
+                   or row.get("classification_and_scores_changed") is not False
+                   or row.get("train_evaluation_exact_image_overlap") is not False
+                   for row in rows.values())):
+        evidence.update(status="evidence_incomplete", issue="Refiner completion or provenance checks are incomplete.")
+        return evidence
+    evidence.update(status="completed", same_refiner_for_all_arms=True,
+                    training_labels=data.get("training_labels"), evaluation_device=data.get("evaluation_device"),
+                    results={method: {key: value for key, value in rows[method].items() if key != "predictions"}
+                             for method in methods})
+    return evidence
+
+
+def object_crop_evidence(artifacts: Path):
+    """Read the fixed construction study without mixing it into detector seed means."""
+    study = artifacts / "object-crops"
+    protocol_path = study / "protocol.json"
+    if not protocol_path.exists():
+        return None
+    evidence = {"task": "construction", "status": "in_progress", "n": 1, "cases": {}}
+    cases = {"aware_standard": ("aware", False), "aware_object_crops": ("aware", True),
+             "naive_object_crops": ("naive", True), "complete_reference_object_crops": ("complete_reference", True)}
+    try:
+        protocol, plan, audit = (read_json(study / name) for name in ("protocol.json", "plan.json", "plan_audit.json"))
+        protocol_sha = file_digest(protocol_path)
+        plan_sha = digest({key: value for key, value in plan.items() if key != "digest"})
+        if (set(protocol["cases"]) != set(cases) or plan["digest"] != plan_sha
+                or protocol["crop_plan_digest"] != plan_sha or audit["plan_digest"] != plan_sha
+                or plan["source_view_digest"] != protocol["partial_view_digest"]
+                or plan["train_only"] is not True or plan["validation_or_test_labels_used"] is not False):
+            raise ValueError("study plan identity mismatch")
+        no_helmet = str(plan["classes"].index("no-helmet") + 1)
+        evidence.update(seed=protocol["seed"], steps=protocol["steps"], total_steps=protocol["total_steps"],
+                        resolution=protocol["resolution"], crop_plan_digest=plan_sha, protocol_sha256=protocol_sha,
+                        samples=plan["samples"], full_frame_samples=audit["full_frame_samples"],
+                        no_helmet_anchor_samples=audit["anchor_samples_by_class"][no_helmet],
+                        no_helmet_original_boxes=plan["anchor_counts"][no_helmet],
+                        no_helmet_median_max_side=audit["median_anchor_max_side_pixels_by_class"][no_helmet],
+                        validation_during_training=protocol["validation_during_training"],
+                        test_evaluated=protocol["test_evaluated"])
+    except (OSError, ValueError, KeyError, TypeError):
+        return {**evidence, "status": "evidence_incomplete", "issue": "Study protocol or crop plan verification failed."}
+    output = study / "construction" / str(protocol["seed"])
+    for case, (arm, crops) in cases.items():
+        folder = output / case
+        row = {"arm": arm, "uses_object_crops": crops, "status": "not_started"}
+        evidence["cases"][case] = row
+        try:
+            if not (folder / "call.json").exists():
+                continue
+            request = {"case": case, "protocol_sha256": protocol_sha}
+            if read_json(folder / "call.json")["request"] != request:
+                raise ValueError("cloud request identity mismatch")
+            row["status"] = "submitted"
+            if not (folder / "receipt.json").exists():
+                continue
+            receipt, run = read_json(folder / "receipt.json"), read_json(folder / "run.json")
+            sha = file_digest(folder / "detector.pt")
+            expected_view = protocol["complete_view_digest" if arm == "complete_reference" else "partial_view_digest"]
+            parent_sha = protocol["parents"][arm]["checkpoint_sha256"]
+            if (receipt["checkpoint_sha256"] != sha or run["detector_sha256"] != sha
+                    or run["status"] != "completed" or run["arm"] != arm or run["method"] != case
+                    or run["seed"] != protocol["seed"] or run["steps"] != protocol["steps"]
+                    or run["batch"] != protocol["batch"] or run["recipe"] != protocol["recipe"]
+                    or run["model_config"]["resolution"] != protocol["resolution"]
+                    or run["total_training_steps"] != protocol["total_steps"] or run["view_digest"] != expected_view
+                    or run["parent_checkpoint_sha256"] != parent_sha or run["warm_start_sha256"] != parent_sha
+                    or run["experiment_protocol_sha256"] != protocol_sha
+                    or run["object_crop_plan_digest"] != (plan_sha if crops else None)
+                    or run["validation_during_training"] is not False):
+                raise ValueError("trained checkpoint contract mismatch")
+            row.update(status="evaluating", checkpoint_sha256=sha, parent_checkpoint_sha256=parent_sha)
+            if receipt.get("status") != "completed" or receipt.get("evaluation_status") != "completed":
+                continue
+            evaluation = read_json(folder / "evaluation.json")
+            parent = read_json(artifacts / "gpu/construction" / str(protocol["seed"]) / arm / "evaluation.json")
+            if (evaluation["checkpoint_sha256"] != sha or parent["checkpoint_sha256"] != parent_sha
+                    or any(item["split"] != "valid" or item["bundle_digest"] != protocol["reference_bundle_digest"]
+                           for item in (evaluation, parent))):
+                raise ValueError("evaluation reference binding mismatch")
+            row.update(status="completed", metrics=evaluation["metrics"], parent_metrics=parent["metrics"])
+        except (OSError, ValueError, KeyError, TypeError):
+            row.update(status="evidence_incomplete", issue="Request, checkpoint, plan or evaluation verification failed.")
+            row.pop("metrics", None)
+            row.pop("parent_metrics", None)
+    comparison_path = output / "comparison.json"
+    if all(row["status"] == "completed" for row in evidence["cases"].values()) and comparison_path.exists():
+        try:
+            comparison = read_json(comparison_path)
+            rows = comparison["results"]
+            if (comparison["status"] != "completed" or set(rows) != set(cases)
+                    or comparison["protocol_sha256"] != protocol_sha or comparison["crop_plan_digest"] != plan_sha
+                    or comparison["seed"] != protocol["seed"]
+                    or any(rows[case] != {key: row[key] for key in ("metrics", "parent_metrics", "checkpoint_sha256",
+                                                                   "parent_checkpoint_sha256")}
+                           for case, row in evidence["cases"].items())):
+                raise ValueError("comparison binding mismatch")
+            delta = 100 * (rows["aware_object_crops"]["metrics"]["AP"] - rows["aware_standard"]["metrics"]["AP"])
+            if abs(delta - comparison["primary_AP_delta_points"]) > 1e-9:
+                raise ValueError("comparison arithmetic mismatch")
+            evidence.update(status="completed", primary_AP_delta_points=delta)
+        except (OSError, ValueError, KeyError, TypeError):
+            evidence.update(status="evidence_incomplete", issue="The final matched comparison could not be verified.")
+    return evidence
 
 
 def create_app(root: Path = Path("artifacts/workbench"), *, run_scheduler=True):
@@ -142,6 +270,17 @@ def create_app(root: Path = Path("artifacts/workbench"), *, run_scheduler=True):
         result["ensembles"] = read_json(ensembles).get("runs", []) if ensembles.exists() else []
         incident = path.parent / "cloud_incident.json"
         result["cloud_incident"] = read_json(incident) if incident.exists() else None
+        result["refinement"] = refinement_evidence(path.parent)
+        result["object_crops"] = object_crop_evidence(path.parent)
+        if result["cloud_incident"]:
+            project_root = path.parent.parent
+            completed = {str(Path(run["folder"]).relative_to(project_root))
+                         for task in result["tasks"].values() for run in task["runs"]
+                         if Path(run["folder"]).is_relative_to(project_root)}
+            cancelled = result["cloud_incident"].get("cancelled", [])
+            restarted = sum(row["path"] in completed for row in cancelled)
+            result["interruption_counts"] = {"historical": len(cancelled), "subsequently_completed": restarted,
+                                              "remaining": len(cancelled) - restarted}
         return result
 
     @app.get("/api/projects/{project_id}")

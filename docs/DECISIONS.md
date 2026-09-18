@@ -26,6 +26,10 @@ Three concrete integration failures shaped the connector:
 
 A separate 20-epoch Roboflow-hosted RF-DETR Nano baseline also finished. Its recipe, label access and provider AP50 differ from our matched AP50:95 experiments. It used the original chess test split, so that test is not globally untouched. Ordinary hosted training does not consume our custom criterion; the coverage-aware stage runs in CoverageCV, while Roboflow versions data, trains the separate baseline and serves the exported custom model.
 
+A later portability check found a distinct native-export issue: the public `RFDETR.from_checkpoint(...)` loader needed a top-level upstream model identifier and faithful architecture metadata. The export now provides them. Nano/512px and Large/704px checkpoints loaded through that public API with exactly identical parameters, without retraining or modifying the original source files. Two focused regression tests cover the public loader. Successful loading through our internal adapter had not been sufficient evidence of public-SDK compatibility.
+
+The actual trained Large aware checkpoint subsequently passed the same public-SDK tensor/class-name check. Independent local rescoring of all three completed Large arms also matched their full saved metric dictionaries exactly. Neither check adds another training seed, but both address whether the reported model and scores can be reproduced outside the original cloud call.
+
 ## Bigger changes need stronger controls
 
 The first three-seed pawn study gained **12.56 AP points** from coverage (63.79 naive → 76.35 aware). On all 13 chess classes it gained **11.42 points** (58.23 → 69.64). These demonstrate the missing-negative-supervision mechanism on one small domain.
@@ -46,9 +50,35 @@ At the fixed score threshold, the first-seed coverage-aware pawn model finds 237
 
 We therefore implemented a materially different recipe: official RF-DETR Large 2026 weights, 704px inputs, four decoder layers and upstream EMA. The one-seed cloud pilot uses matched naive/aware/complete arms, 2,000 updates each. This is a combined recipe comparison, not an isolated estimate of model size or EMA. Nano augmentation results used 4,000 total updates, so that cross-recipe comparison has a different training budget.
 
-Real CPU train/save/reload and 20-update Apple-MPS smoke checks passed. Those checks establish that the path executes and preserves its checkpoint, **not** that its accuracy is higher. A separate local MPS aware run is in progress without cloud charges. It is kept distinct from CUDA measurements; local matching controls are conditional on the predeclared local pilot result. No Large accuracy result is available in this snapshot.
+All three restarted cloud arms completed: **72.78 naive, 73.68 aware and 74.97 complete AP50:95**. Coverage adds **0.91 points** within the matched Large recipe. The aware score improves by **0.69 points** over the same-seed Nano/512px model (73.00); the corresponding Nano naive/complete scores are 69.21/74.06. This was a substantial implementation change but a modest measured accuracy gain, not a breakthrough. One seed and unequal cross-recipe update budgets limit the inference; larger capacity alone did not solve strict localization.
 
-The workbench now exposes local device availability and Nano/Large recipes. Eleven focused tests and desktop/mobile browser checks passed; browser job submissions were intercepted rather than launching extra training. A class-agnostic crop refiner is also being prototyped as a localization hypothesis, with no measured result yet. A requested 95-point target is an ambition, not a forecast: pawn AP50 already reaches 100, while the stricter AP50:95 is 78.82. Reporting the easier metric as though it met the strict target would be misleading.
+Real CPU train/save/reload and 20-update Apple-MPS smoke checks also passed. Separate local MPS execution remains distinct from CUDA measurements. The workbench exposes local device availability and Nano/Large recipes; focused tests and desktop/mobile browser checks passed with intercepted submissions, rather than launching extra training through the browser.
+
+A requested 95-point target is an ambition, not a forecast: pawn AP50 already reaches 100, while the stricter AP50:95 is 78.82. Reporting the easier metric as though it met the strict target would be misleading.
+
+## A direct box-refinement pilot follows the modest capacity gain
+
+The next experiment targets coordinates directly with one class-agnostic crop refiner. It trains on the all-class learner view's **994 observed human boxes** from 201 images, with no hidden reference boxes or pseudo labels. An ImageNet ResNet18 encoder sees 224px crops with 1.5× context, predicts coordinate corrections and keeps BatchNorm frozen. The crop's integer bounds/padding and inverse transform are explicit and tested.
+
+The predeclared final model uses **1,000 updates, batch 32**, center/scale proposal jitter, horizontal flips and **25% identity proposals**. Identity examples teach it to leave already-correct boxes alone. The objective is `5 × SmoothL1(beta=1/9) + 2 × GIoU`; no validation checkpoint selection is permitted. This exact recipe is frozen before cloud execution.
+
+Apply the **same partial-trained refiner** to all three seed-20260917 Nano/512px arms, preserving their classes and confidence scores. Only eligible positive-area proposals (confidence ≥0.05, top 100 eligible boxes per image) are corrected. The complete-label detector does not receive a separately complete-trained refiner. The primary question is whether aware AP improves against its original predictions under the unchanged evaluator. If it does not, do not promote the added inference stage.
+
+A real two-update CPU train/save/reload/inference smoke check passed, including preserved classes and scores. The first cloud attempt then completed 1,000 training updates but failed during postprocessing: RF-DETR emitted finite zero-area boxes that our refiner rejected. Because training and evaluation shared one temporary cloud workspace and the function failed before returning, that trained checkpoint was lost. The original attempt and failure remain recorded.
+
+The fix preserves zero-area boxes unchanged in evaluation and excludes them before selecting the top 100 correction candidates. Twenty-three focused checks passed. More importantly, the workflow now **collects and verifies the trained checkpoint first**, writes its durable receipt, and evaluates controls separately. Evaluation can restart from the same checkpoint instead of repeating paid training.
+
+The retry checkpoint was safely collected before a second incompatibility appeared: Apple MPS does not support this refiner's 7×7-to-4×4 adaptive pooling. This time the checkpoint survived. Local evaluation now defaults to CPU with the same architecture and weights, without another cloud call. Device, inference seconds, evaluated images and changed-box counts accompany the result so extra inference work remains visible. Both cloud attempts count against the conservative reservation: $0.85 each, $1.70 total.
+
+The completed comparison is a negative result for the primary hypothesis:
+
+| Seed-20260917 Nano/512px detector | Original AP50:95 | With shared refiner | Change | CPU refinement seconds / 58 images |
+| --- | ---: | ---: | ---: | ---: |
+| Naive | 69.2098 | 69.3292 | +0.1194 | 42.73 |
+| Coverage-aware | 72.9954 | 72.5534 | **−0.4420** | 23.19 |
+| Complete labels | 74.0649 | 73.2851 | −0.7798 | 30.86 |
+
+The added stage is **not promoted**: it failed the predeclared aware-AP criterion despite a small naive gain. Timing includes checkpoint loading and crop preparation, but excludes detector inference and COCO scoring. The aware pass changed 1,026 boxes while keeping classes/scores unchanged. Retry training took 98.45 seconds for all 1,000 updates; the collected checkpoint is `d201b55a8a1f498d8afcfed9bd0348c9ef06680c21600a66570ea5824ceff364`. Synthetic proposal jitter did not establish useful correction behavior on real detector errors; that distribution mismatch remains a possible explanation, not a demonstrated cause.
 
 ## A separate dataset exposed a smaller effect
 
@@ -58,7 +88,7 @@ The first matched seed scores **46.34 naive, 48.14 aware, 52.76 complete**: a pr
 
 ## Durable work required process isolation and immutable deployments
 
-Web requests do not own training processes. SQLite WAL, transactional job claims, a scheduler lock and separate worker process groups let training survive a webserver restart. Cancellation verifies process identity before signaling. Actual browser import, invalid-policy repair, training, restart survival and cancellation checks passed. Desktop/mobile research views across all three tasks also passed; the latest recorded full suite has 56 passing tests, before subsequent in-progress edits.
+Web requests do not own training processes. SQLite WAL, transactional job claims, a scheduler lock and separate worker process groups let training survive a webserver restart. Cancellation verifies process identity before signaling. Actual browser import, invalid-policy repair, training, restart survival and cancellation checks passed. Desktop/mobile research views across all three tasks also passed; the latest recorded full suite has **60 passing tests**. Subsequent focused checks passed for the refiner recovery (23 tests) and public-SDK export (2 tests); these are not added to the full-suite count because their scope overlaps.
 
 Modal call IDs are saved before collection so reconnecting retrieves existing work. Deploying by file path failed inside the image because the module import name differed; deploying with `modal deploy -m ...` fixed it. Each deployment retains a frozen source snapshot and hashed inputs. Local fixes do not retroactively change experiments already run. GPU account concurrency also caused queues: queued work must be distinguished from failed or stalled work.
 
@@ -70,8 +100,19 @@ The user subsequently reported **$12.91 credits remaining**, **$25.41 workspace 
 
 The engineering mistake was relying too heavily on delayed usage while several jobs had already committed compute. Provider timeouts and zero idle containers bound individual jobs but do not reserve credit for concurrent work.
 
-The restart is now restricted to **three Large/704px/EMA runs**, reserving **$3.30** under a **$3.50** cap before submission. A persistent local cloud policy blocks other apps; a locked reservation ledger counts commitments independently of delayed metering. Failed or interrupted attempts remain recorded. Other stopped cohorts are not automatically resumed. Local MPS work continues separately. These controls bound this client's new commitments; they do not reconcile provider accounting or guarantee an account-wide cash outcome.
+The first bounded restart reserved **$3.30** for **three Large/704px/EMA runs** under a $3.50 cap. All three completed, bringing the original study to **55 of 64 runs**; nine remain interrupted. The refinement pilot required **two $0.85 attempts** after its postprocessing failure, for **$5.00 maximum reserved** including Large against the user's reported $12.91 remaining credits. Failed work remains counted. These are commitment ceilings, not actual metered costs or a reconciled balance.
+
+A persistent local cloud policy limits allowed apps; locked reservation ledgers count commitments independently of delayed metering. Failed or interrupted attempts remain recorded, and stopped cohorts are not automatically resumed. Local work remains separate. These controls bound this client's new commitments; they do not reconcile provider accounting or guarantee an account-wide cash outcome. Implementation checkpoint `a0131e2` preserves the earlier state while this next iteration continues.
 
 ## Maintaining this record
 
 Update this file when a result changes the next experiment, a provider incompatibility is discovered, a run fails, or accounting is reconciled. Preserve negative findings, distinguish smoke checks from accuracy evidence, keep exact seed counts, and link the supporting receipt in the portable results snapshot. Report meaningful decisions and difficulties in chat while work continues; saving a checkpoint must not be treated as a request to stop.
+
+
+## Construction: change object scale and sampling together
+
+After the crop refiner regressed, an independent audit found that `no-helmet` has only 33 observed training boxes in 19 images. Its validation objects are about 22×26 pixels at the existing model input size; this class contributes 64.37% of the aware-to-complete AP gap. Training loss improves while validation geometry plateaus. That evidence motivates targeted enlargement and class-balanced sampling, rather than another undirected extension.
+
+A new four-case pilot continues seed-20260917 Nano512 detectors for 2,000 fixed updates: ordinary aware, crop-aware, crop-naive and crop-complete. All crop arms share an immutable plan derived exclusively from partial human training labels: 4,000 full-frame samples plus 4,000 class-balanced anchor crops. The plan gives no-helmet 775 anchor samples (repeated observations, **not new labels**), with a median longest side near 96 pixels in those crops. Extra complete labels affect supervision only, never crop selection. The primary comparison is crop-aware versus ordinary aware at the same starting weights and added update budget.
+
+Upstream JPEG draft decoding had to be disabled before applying rectangles defined in original pixels. We reuse upstream crop/flip/resize to transform every observed target, preserve image identity for coverage lookup, and replay a sequential plan with no dependence on model RNG. Seven focused checks and a real two-update training smoke passed. Four runs are now launched; results remain unmeasured here. Checkpoints are collected before scoring, following the refiner failure lesson. Conservative new commitments are $4.40 for this cohort, bringing the post-restart ceiling to $9.40 against the user-reported $12.91. This is a reservation ceiling, not actual spend or resolved account billing.

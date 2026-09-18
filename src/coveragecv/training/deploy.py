@@ -4,12 +4,49 @@ RF-DETR 1.10.1's training labels are semantic-first with the reserved slot last.
 The observed Roboflow hosted import pipeline consumes a background-first layout.
 The export reorders classifier rows only; native checkpoints are never modified.
 """
+import os
 import re
+import tempfile
 from pathlib import Path
 
 import torch
 
 from coveragecv.artifacts import file_digest, write_json
+
+
+def export_for_sdk(checkpoint: Path, output: Path):
+    """Add public-loader identity metadata; preserve every original weight and class."""
+    checkpoint, output = Path(checkpoint), Path(output)
+    if output.resolve() == checkpoint.resolve() or output.exists():
+        raise ValueError("SDK export requires a new output file; source checkpoints are immutable")
+    native = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    variant = native.get("model_variant", "nano")
+    if variant not in ("nano", "large") or not native.get("model_config") or not native.get("class_names"):
+        raise ValueError("SDK export requires a recorded Nano/Large architecture and ontology")
+    if native["model_config"]["num_classes"] != len(native["class_names"]):
+        raise ValueError("checkpoint architecture and ontology disagree")
+    source_sha = file_digest(checkpoint)
+    native["model_name"] = "RFDETRLarge" if variant == "large" else "RFDETRNano"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(dir=output.parent, prefix=".sdk-", delete=False) as stream:
+            temporary = Path(stream.name)
+            torch.save(native, stream)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, output)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+    if file_digest(checkpoint) != source_sha:
+        raise ValueError("source checkpoint changed during export")
+    metadata = {"source_checkpoint_sha256": source_sha, "export_checkpoint_sha256": file_digest(output),
+                "model_name": native["model_name"], "model_config": native["model_config"],
+                "classes": native["class_names"], "weights_modified": False,
+                "class_order_modified": False, "source_checkpoint_modified": False}
+    write_json(output.with_suffix(".export.json"), metadata)
+    return metadata
 
 
 def reorder_classifier_rows(state, classes):
