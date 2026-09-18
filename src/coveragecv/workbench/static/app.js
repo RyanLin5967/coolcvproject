@@ -5,7 +5,10 @@ const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const states={unknown:['Unknown','#e4bd70','#fff4dd','#a5792d'],positive_only:['Positives only','#8a9bd8','#edf0fb','#6075bc'],exhaustive:['Exhaustive','#6da58b','#e8f3ee','#167864'],verified_absent:['Verified absent','#b798cf','#f2ebf8','#8860a8']};
 const armNames=Object.fromEntries(Object.entries(modelRoles).map(([key,role])=>[key,role.label]));
 const publicDemo=document.documentElement.dataset.demo==='true';
-let snapshotPromise;
+let snapshotPromise, predictionHighlightsPromise;
+function loadPredictionHighlights(){
+ return predictionHighlightsPromise??=fetch('/static/prediction-highlights.json').then(response=>{if(!response.ok)throw new Error('Recorded prediction selections could not be loaded.');return response.json()}).catch(error=>{predictionHighlightsPromise=null;throw error});
+}
 const predictionCache=new Map(), imageCache=new Map(), exampleRequests=new Map();
 let predictionRequest=0, researchRequest=0, renderedSignature='';
 const deviceNames={cpu:'CPU',mps:'Apple GPU',cuda:'CUDA GPU'};
@@ -13,6 +16,13 @@ const colors=['#477dce','#e49938','#ad60b5','#46a99a','#d26068','#859849','#766d
 const S={page:'merge',tab:'overview',state:null,project:null,revision:null,projectId:localStorage.getItem('coveragecv-project'),revisionId:null,pending:{},split:'train',filter:'all',limit:24,selectedJob:null,examples:{},sample:null,sampleMode:'observed',example:0,confidence:.25,researchTask:'pawns',research:null};
 let refreshToken=0,toastTimer,refreshTimer;
 async function api(path,body,method='POST'){
+ if(path.startsWith('/jobs/highlights-')){
+  if(body!==undefined)throw new Error('Recorded selections are read-only.');
+  const route=(await loadPredictionHighlights()).routes[path];
+  if(!route)throw new Error('Recorded selection is unavailable.');
+  if(!publicDemo&&path.endsWith('/examples'))return {...route,images:route.images.map(image=>({...image,image_url:image.local_image_url}))};
+  return route;
+ }
  if(publicDemo){
   if(body!==undefined)throw new Error('This is the public demo. Training and dataset edits run in the local workbench.');
   snapshotPromise??=fetch('/data/snapshot.json').then(r=>{if(!r.ok)throw new Error('Demo data could not be loaded.');return r.json()});
@@ -63,7 +73,7 @@ function render(){
  if(S.page==='research'){renderResearch();return}
  if(S.page==='activity'){renderActivity();return}
  if(!S.project){$('content').innerHTML=`<div class="empty"><div class="empty-symbol">▦</div><div class="eyebrow">EVERY LABEL HAS A CONTEXT</div><h1>Make coverage part of your dataset.</h1><p>Combine datasets, declare what each source actually annotates, and measure what happens when your model respects that policy.</p><button class="button primary" data-action="demo">Explore the working example →</button> <button class="button" data-action="import">Import your dataset</button></div>`;return}
- if(S.page==='experiments'){renderExperiments();return}
+ if(S.page==='experiments'){renderExperiments().catch(error=>toast(error.message,true));return}
  renderDataset();
 }
 function pageHeading(title,description,actions=''){return `<div class="page-heading"><div><div class="eyebrow">${S.page==='datasets'?'DATASET PROJECT':S.page==='experiments'?'RECORDED MODEL PREDICTIONS':'LOCAL WORKBENCH'}</div><h1>${esc(title)}</h1><p class="muted small-text">${description}</p></div><div class="heading-actions">${actions}</div></div>`}
@@ -95,7 +105,7 @@ async function renderResearch(force=false){
   const guided=acquisition.cases.guided,random=acquisition.cases.random;
   html+=`<details class="disclosure" id="acquisition-evidence"><summary>Separate experiment: choosing what to label · +${acquisition.primary_AP_delta_points.toFixed(2)} AP</summary><div><p>We also tested which missing labels to review. Both strategies get 150 image/class reviews and the same extra training.</p><div class="table-wrap"><table><thead><tr><th>Review strategy</th><th>New boxes</th><th>AP50:95</th></tr></thead><tbody><tr><td>Random selection · control</td><td>${random.acquisition.added_boxes}</td><td>${(random.metrics.AP*100).toFixed(2)}</td></tr><tr class="aware"><td>CoverageCV guided selection · ours</td><td>${guided.acquisition.added_boxes}</td><td>${(guided.metrics.AP*100).toFixed(2)}</td></tr></tbody></table></div><p class="benchmark-note">One-run simulation using withheld published training labels. These are additional annotations, not new human work. Equal review counts do not imply equal annotation effort. This matched label-review experiment is separate from the selected extrema above.</p></div></details>`;
  }
- html+=`<div class="benchmark-next"><p>Inspect saved predictions from matched training runs.</p><button class="button primary" data-page="experiments">Compare predictions →</button></div>`;
+ html+=`<div class="benchmark-next"><p>Inspect predictions from these selected experiments.</p><button class="button primary" data-page="experiments">Compare predictions →</button></div>`;
  html+=`<details class="disclosure archive"><summary>Experiment history & limitations</summary><div><p>The cards select individual extrema. The table below retains recipe averages, including stronger controls and regressions.</p><div class="table-wrap"><table><thead><tr><th>Recorded recipe</th><th>Runs</th><th>AP50:95</th></tr></thead><tbody>${Object.values(benchmark.task.methods).map(method=>`<tr><td>${esc(method.label)}</td><td>${method.n}</td><td>${(100*method.metrics.AP.mean).toFixed(2)}</td></tr>`).join('')}</tbody></table></div><p>Some recipes used different budgets or incomplete seed cohorts; rows here are not automatically matched comparisons. Validation guided experiment design. These results do not establish state-of-the-art performance.</p><a href="https://github.com/RyanLin5967/coolcvproject/blob/main/docs/DECISIONS.md" target="_blank" rel="noopener">Read the full experiment record ↗</a></div></details>`;
  const viewKey=JSON.stringify([S.researchTask,rows.map(row=>row.metrics),acquisition?.status]);
  if($('content').dataset.viewKey===viewKey&&$('benchmark-comparison'))return;
@@ -146,12 +156,15 @@ function projectTask(project){
  if(/pawn|partial annotations/i.test(project.name))return 'pawns';
  return null;
 }
-function renderExperiments(){
+async function renderExperiments(){
+ const projectId=S.projectId,task=projectTask(S.project);
+ const highlight=task?(await loadPredictionHighlights()).selections[task]:null;
+ if(S.page!=='experiments'||S.projectId!==projectId)return;
  const jobs=S.project.jobs.filter(job=>['train','imported'].includes(job.kind));
- const measured=jobs.filter(job=>Object.keys(job.result?.arms??{}).length);
+ const measured=[...(highlight?[highlight]:[]),...jobs.filter(job=>Object.keys(job.result?.arms??{}).length)];
  const complete=measured.filter(job=>['naive','aware','complete_reference'].every(arm=>job.result.arms[arm]));
  const ranked=[...(complete.length?complete:measured)].sort((a,b)=>Math.min(...Object.values(b.result.arms).map(x=>x.run.total_training_steps??x.run.steps))-Math.min(...Object.values(a.result.arms).map(x=>x.run.total_training_steps??x.run.steps)));
- if(!measured.some(job=>job.id===S.selectedJob)){S.selectedJob=ranked[0]?.id??null;S.example=0}
+ if(!measured.some(job=>job.id===S.selectedJob)){S.selectedJob=highlight?.id??ranked[0]?.id??null;S.example=0}
  const selected=measured.find(job=>job.id===S.selectedJob),arms=selected?.result?.arms??{};
  const active=jobs.filter(job=>['queued','running','cancelling'].includes(job.status));
  const progress=active.map(jobCard).join('');
@@ -164,10 +177,10 @@ function renderExperiments(){
  let html=pageHeading('Predictions','Compare the three models on the same validation image.');
  html+=`<div class="dataset-switcher" aria-label="Prediction dataset">${S.state.projects.map(project=>`<button data-experiment-project="${project.id}" aria-pressed="${project.id===S.projectId}" class="${project.id===S.projectId?'selected':''}">${esc(benchmarkTasks[projectTask(project)]?.name??project.name)}</button>`).join('')}</div><div id="experiment-progress">${progress}</div>`;
  if(!selected){$('content').innerHTML=html+'<div class="card empty"><h2>No measured predictions yet</h2><p>Run a local comparison to inspect the results here.</p></div>';return}
- const first=Object.values(arms)[0].run;
+ const first=Object.values(arms)[0].run,isHighlight=selected.selection_kind==='extrema';
  const rows=['naive','aware','complete_reference'].filter(arm=>arms[arm]).map(role=>({role,...modelRoles[role],metrics:arms[role].metrics}));
- html+=`<div id="experiment-results" data-signature="${esc(key)}"><div class="benchmark-context"><b>${esc(S.project.name)}</b><span>${(first.total_training_steps??first.steps).toLocaleString()} updates · one recorded run</span><span>Seed ${first.seed} · benchmark averages may differ</span></div>`;
- if(measured.length>1&&!publicDemo)html+=`<details class="disclosure"><summary>Other saved runs</summary><div><label>Recorded comparison<select class="input" id="result-selection">${measured.map(job=>{const run=Object.values(job.result.arms)[0].run;return `<option value="${job.id}" ${job.id===selected.id?'selected':''}>${run.total_training_steps??run.steps} updates · seed ${run.seed} · ${deviceNames[run.device]??esc(run.device)}</option>`}).join('')}</select></label><p>Each selection shows its own real checkpoint. These single-run scores can differ from benchmark averages.</p></div></details>`;
+ html+=`<div id="experiment-results" data-signature="${esc(key)}"><div class="benchmark-context"><b>${esc(S.project.name)}</b>${isHighlight?'<span>Same selected runs as Benchmarks</span><span>Independent minima and maxima · settings differ</span>':`<span>${(first.total_training_steps??first.steps).toLocaleString()} updates · one recorded run</span><span>Seed ${first.seed}</span>`}</div>`;
+ if(measured.length>1&&!publicDemo)html+=`<details class="disclosure"><summary>Other saved runs</summary><div><label>Recorded comparison<select class="input" id="result-selection">${measured.map(job=>{const run=Object.values(job.result.arms)[0].run;return `<option value="${job.id}" ${job.id===selected.id?'selected':''}>${job.selection_kind==='extrema'?'Benchmark selection · minima / maxima':`${run.total_training_steps??run.steps} updates · seed ${run.seed} · ${deviceNames[run.device]??esc(run.device)}`}</option>`}).join('')}</select></label><p>Each selection shows its own real checkpoint. Other saved comparisons retain their own original models and scores.</p></div></details>`;
  html+=`<section class="card prediction-section"><div class="card-heading"><div><h2>Compare predictions</h2><p>Colored boxes are the model's predictions on the same validation image.</p></div></div><div class="prediction-controls"><label>Validation image<select id="prediction-example" aria-label="Validation example" disabled><option>Loading images…</option></select></label><label>Display confidence <span id="confidence-label">${S.confidence.toFixed(2)}</span><input id="prediction-confidence" type="range" min=".01" max=".9" step=".01" value="${S.confidence}"></label><p>Changing confidence updates the boxes, not the benchmark scores.</p></div><div class="prediction-grid">${rows.map(row=>`<article class="prediction-card ${row.role}"><span class="role-tag">${row.tag}</span><h3>${row.label}</h3><p class="prediction-score"><b>${(row.metrics.AP*100).toFixed(2)}</b> AP50:95 <span>· full validation set</span></p><canvas id="prediction-${row.role}" width="640" height="640" aria-label="${row.label} predictions"></canvas><p id="prediction-count-${row.role}">Loading recorded predictions…</p></article>`).join('')}</div></section>${methodExplainer()}</div>`;
  $('content').innerHTML=html;
  if(!exampleRequests.has(selected.id))exampleRequests.set(selected.id,api(`/jobs/${selected.id}/examples`).catch(error=>{exampleRequests.delete(selected.id);throw error}));
@@ -235,6 +248,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('button,a')
  if(b.dataset.page){
   const oldPage=S.page;S.page=b.dataset.page;
   if(S.page==='experiments'&&oldPage==='research'){
+   S.selectedJob=null;S.example=0;
    const project=S.state.projects.find(project=>projectTask(project)===S.researchTask);
    if(project&&project.id!==S.projectId){S.projectId=project.id;S.revisionId=null;S.selectedJob=null;S.example=0;await refresh()}
    else {renderShell();render()}

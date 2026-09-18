@@ -13,7 +13,7 @@ def main():
         raise ValueError("Export the verified public snapshot before building the demo")
     static = OUTPUT / "static"
     static.mkdir(exist_ok=True)
-    for name in ("app.js", "benchmark-view.js", "merge-story.js", "style.css", "merge-story.css"):
+    for name in ("app.js", "benchmark-view.js", "merge-story.js", "style.css", "merge-story.css", "prediction-highlights.json"):
         (static / name).write_bytes((SOURCE / name).read_bytes())
     index = (SOURCE / "index.html").read_text().replace('<html lang="en">', '<html lang="en" data-demo="true">')
     (OUTPUT / "index.html").write_text(index)

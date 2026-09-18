@@ -44,6 +44,21 @@ with sync_playwright() as playwright:
             page.wait_for_function("document.querySelector('#prediction-count-aware').textContent.match(/^\\d+ predictions/)")
             labels = page.locator('[data-experiment-project]').all_text_contents()
             assert len(labels) == len(set(labels)), labels
+            highlights = json.loads((ROOT / "public-demo/static/prediction-highlights.json").read_text())
+            task_labels = {"pawns": "Chess pawns", "all-pieces": "All chess pieces", "construction": "Construction safety"}
+            for task, label in task_labels.items():
+                page.locator('[data-experiment-project]').filter(has_text=label).click()
+                page.wait_for_function("task=>document.querySelector('#experiment-results')?.dataset.signature.includes('highlights-'+task)", arg=task)
+                page.locator('#prediction-example:not([disabled])').wait_for()
+                page.wait_for_function("document.querySelector('#prediction-count-aware').textContent.match(/^\\d+ predictions/)")
+                scores = [float(value) for value in page.locator('.prediction-score b').all_text_contents()]
+                assert scores == expected[task], (task, scores)
+                selection_id = highlights['selections'][task]['id']
+                image_id = highlights['routes'][f'/jobs/{selection_id}/examples']['images'][0]['id']
+                rows = highlights['routes'][f'/jobs/{selection_id}/predictions/{image_id}']
+                for arm, boxes in rows.items():
+                    count = sum(box['score'] >= .25 for box in boxes)
+                    assert page.locator(f'#prediction-count-{arm}').inner_text().startswith(f'{count} predictions'), (task, arm)
             page.evaluate("""window.qaCanvas=document.querySelector('#prediction-aware');
                 window.qaPixels=qaCanvas.toDataURL();window.qaMutations=0;
                 new MutationObserver(rows=>{qaMutations+=rows.filter(r=>[...r.removedNodes].some(n=>n===qaCanvas||n.contains?.(qaCanvas))).length})
