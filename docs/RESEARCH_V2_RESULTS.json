@@ -1,0 +1,1988 @@
+{
+  "evaluation_protocol_sha256": "6557b0a7061f9290a58f0ba0ebd5bdaa5752f27d661dec6c706d45fb670e18e4",
+  "evaluation_source_files": {
+    "__init__.py": "b35942806fb138157ee7d9a4275d37f2e77a3cd0a655b3e7eaa6fe976025fd31",
+    "artifacts.py": "9be8d98dff3c3da78a4c5bbb52a7ae96bbcb4bdd2460e3d343ea22a7dec51d3f",
+    "audit.py": "e4af27edea596755b337157bb9c5115d9139b999a75df448e45555a9aca6c173",
+    "benchmarks.py": "812e421ad81fc1492d7c12842926c5874e4b1bc1d464a947ff1604ee006fa7b3",
+    "cli.py": "6f9a1c1c2a1a761be820c286675917655de2d32f46e03559f95da7df93077cc2",
+    "compiler.py": "affe8a99f9c94b072e413c2af4f252177c713c5db62e3ee804b59a81b99cbeb3",
+    "construction.py": "ee887b30221f931a28b5b6533acc113b8fb2515289ff1b82409d2a89aba9eab5",
+    "datasets.py": "c328bd91dbd373051aaa67c7a23f274d7d11fbe153a6ea9e06043e654d4f77a7",
+    "error_analysis.py": "7358afe4bce4670081b69c8353dbd136f2aa2072cabf33af13ee3f9ba3d210cb",
+    "full_chess.py": "7f9846ce30ef93aaf9d2042df5f860f71d5e88a2111261d64602d3bc047240e7",
+    "providers.py": "f3edc4104b9ccef283ea8e8ae8cb8c203ce8a83a1f0ea846e134ce1a0a2a886d",
+    "report.py": "5b157cc200922408ced8b9737cf037543c26c0b396d5ee1f72dafedb2a37a33c",
+    "report_template.html": "000a903c27e9570876eefa176273bcf4ff22f114c8d68e55d9fdc6e260e5b5a8",
+    "schema.py": "7455b3764907aa0c64f7cc4c5511a15b7cf673050844b6fa865ecab608734288",
+    "training/__init__.py": "c6b7ab176ddfdac25204aaf78e9f7dbb61c62c6c25334c5e71e98c8b16abf4cf",
+    "training/acquisition.py": "eb1164c9e6ad1078f9402579f506e6263904346c2036850da4c033306484f611",
+    "training/cloud_budget.py": "6e65ed539928f252dc51ee3a4b890065923231fbe8a2f3c3d8c2d81e573cda87",
+    "training/criterion.py": "7ea8b58760288bc17c76dadd065077a666e3f840b7f3e949ed76c86d9b46229c",
+    "training/deploy.py": "e11a7b2ab50f42cce36ec04d4cd9a206b9f4ba7057a745b0ca50c084f1b364f1",
+    "training/ensemble.py": "d9f89c5190d34bf569be1bad740a77e8b87d1ee1a2c0bdd118283085669de16c",
+    "training/evaluate.py": "4cd62373e7ef827336fb8b5da0317685c248077ab44726a50a583dc2699111ce",
+    "training/localization_cascade.py": "09c2255018f78672dc69e8b3c88c9ab1201aab37176892a7b65e556c6ac2097b",
+    "training/modal_acquisition.py": "7fb0f03ff9c478ef74cdab546008b7b40dd1c081217ddae56b98ab4d7ea85876",
+    "training/modal_capacity.py": "83d7efcf17e84bd2ac578aabf6c5717d0c63816bbab0a9370644652c45de8b2a",
+    "training/modal_improve.py": "d9762d2d547042bfcdecc1f720b80003917e8e76dc41b6d98e5790588b446816",
+    "training/modal_object_crops.py": "532e1eab73ae61d2f0c5fe9d8e0e2d215fff21137b78253da98dceab8432d379",
+    "training/modal_refine.py": "ef8fbb2cad83e9b0353a26c0b7baaab72258df287c2f6017489ba6a3f04a146b",
+    "training/modal_research_evaluation.py": "c719e1fe0497e3da7476671f05c96fe09d9d16d8b7be0a43dd28577c32ccf2c7",
+    "training/modal_research_v2.py": "e46ddc080a18b9df63ef10ad2edb661d0fa7efd8d0f396b2c8c0de4911aa770d",
+    "training/modal_runner.py": "579bce5c73745273508b417aebeee3d8600b4379196282422f888bf13cba29af",
+    "training/object_crops.py": "6864b92eaedbd2bb802039c6866d5581e4bf20ab3023c48b92e8a7ba7a275aaf",
+    "training/power_localization.py": "caab492d5a0beb506f7abeb7f97595f338cf3f5da39ffe7a0fb649f6d73eb6f0",
+    "training/provenance.py": "cf316688dbc5147acc9c80a4277e1b602c2d3db2f2e89ea6024ab772789949ad",
+    "training/pseudo.py": "d0143fea0664b8c86a51b8fda9276f50655716999297adc7c50bf4ecd8753294",
+    "training/refiner.py": "3047b1292cbc01f6aa6b04bc71336c006dc733a7c4c530860d8971115f29286d",
+    "training/research_v2.py": "9fa139c6200612da6ff09400938afb67f0a64b9142ffca07b3a4128a20ece401",
+    "training/runner.py": "0f1f37c9742262c9c81bb1fc82a6d7c752c43193e33b67f7cbdf4f0df2c682a0",
+    "training/tiled.py": "430c30c043430909f6463a44674f6a5c2825ee1c7b6fa86ddc0f843fead4cb8c",
+    "workbench/__init__.py": "fd9bb9283b1dc699a8e25ed02b03c4edabf5216740366cefdbcad2061c7c9cdd",
+    "workbench/api.py": "ec683c875458d69b31220f08669c4ac7e4a80a424957b4ef3e00ce3b21d3fb88",
+    "workbench/bootstrap.py": "f44e0af85ef6f7e3d9c9a5117f71a7bd105df884809281a47da27e9e5661c1ab",
+    "workbench/scheduler.py": "7da6942fa143f3574417396485ac21fe37426dc69d5add4828dbfce689d315bc",
+    "workbench/service.py": "a91c8638e9d565cdbfed206d93aa5d67aca06ee21911cb934aa470528443acdf",
+    "workbench/static/app.js": "f21146b3c2f763cac26d6fde1465417b2211e15f855b3207ade850baabc506e3",
+    "workbench/static/benchmark-view.js": "7ece9d72d77d66e6be77fdbc852a0cfb57a00538f59f0fde1901403e53a0251c",
+    "workbench/static/index.html": "fb08a8280a7a4f24c62f5051165e559bf1612ab91475ce1b0dd1fb5d4383edba",
+    "workbench/static/merge-story.css": "0f263f76da0642fcb02ad3f5341569bd4fb520f0ebb050f298e340d5fe63d134",
+    "workbench/static/merge-story.js": "964a5617b40ee9a1734c4b9370d47d3f736161b85927550cc8ebb0cc74d67687",
+    "workbench/static/prediction-highlights.json": "7713b453ac2043ae8294e0d0e34ed4b422d3c2346014c9b9c33f25513943b5fa",
+    "workbench/static/style.css": "883a5d9c7593aeae3d2a33bb764d388948ecf386f0f46947597c27b4170d09d6",
+    "workbench/store.py": "75a30cd25db72ae65d5011299078db0866b08d8d6a8383402ea86f5cecdcdcfc",
+    "workbench/worker.py": "340a42a6d36f296f18cee61193cc8b9e3f07991e4ee238461ba44622f3682b60"
+  },
+  "generated_at": "2026-09-18T16:51:46.456901+00:00",
+  "limitations": [
+    "One continuation seed; validation used repeatedly across development.",
+    "Chess tasks share one dataset/domain; construction reference has documented annotation defects.",
+    "Construction aware variants share the same previously acquired 265 additional train boxes.",
+    "Parents and new runs are rescored on CUDA; older published CPU results may differ numerically.",
+    "Complete labels are a controlled reference, not a frontier benchmark or guaranteed upper bound."
+  ],
+  "local_pilot": {
+    "runs": [
+      {
+        "alpha": 3,
+        "arm": "aware",
+        "checkpoint_sha256": "3413c743bd96f3a76aa8587e79142461a9699965b14b3f8313b06510ff34e789",
+        "metrics": {
+          "AP": 0.7868058561984878,
+          "AP50": 1,
+          "AP75": 0.984893016807472,
+          "AR100": 0.8331473829201101,
+          "boxes": 241,
+          "class_support": {
+            "1": 120,
+            "2": 121
+          },
+          "false_positives_per_image": 0.05172413793103448,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 27,
+          "per_class_AP": {
+            "black-pawn": 0.7668454106510731,
+            "white-pawn": 0.8067663017459021
+          },
+          "precision_at_threshold": 0.9877049180327869,
+          "recall_at_threshold": 1
+        },
+        "steps": 1000,
+        "task": "pawns"
+      }
+    ],
+    "status": "stopped_at_user_request_no_local_compute",
+    "uncompleted_cases": [
+      "pawns-aware-alpha1",
+      "pawns-complete_reference-alpha3"
+    ]
+  },
+  "metric": "Unchanged complete-validation COCO AP50:95; metrics are fractions, deltas percentage points",
+  "rejected_cascade_train_selection": {
+    "baseline_holdout_mean_iou": 0.9093277182734214,
+    "holdout_proposals": 534,
+    "selected_alpha": 1,
+    "selected_holdout_mean_iou": 0.9093277182734214,
+    "selected_strength": 0,
+    "status": "rejected_on_train_holdout",
+    "train_proposals": 1548,
+    "trials": [
+      {
+        "alpha": 1,
+        "holdout_mean_iou": 0.9093277182734214,
+        "strength": 0
+      },
+      {
+        "alpha": 1,
+        "holdout_mean_iou": 0.8987678908023897,
+        "strength": 0.5
+      },
+      {
+        "alpha": 1,
+        "holdout_mean_iou": 0.8808608232467438,
+        "strength": 1
+      },
+      {
+        "alpha": 10,
+        "holdout_mean_iou": 0.9093277182734214,
+        "strength": 0
+      },
+      {
+        "alpha": 10,
+        "holdout_mean_iou": 0.9006404878395291,
+        "strength": 0.5
+      },
+      {
+        "alpha": 10,
+        "holdout_mean_iou": 0.8853587238099948,
+        "strength": 1
+      },
+      {
+        "alpha": 100,
+        "holdout_mean_iou": 0.9093277182734214,
+        "strength": 0
+      },
+      {
+        "alpha": 100,
+        "holdout_mean_iou": 0.9035396086344541,
+        "strength": 0.5
+      },
+      {
+        "alpha": 100,
+        "holdout_mean_iou": 0.8934315021308951,
+        "strength": 1
+      },
+      {
+        "alpha": 1000,
+        "holdout_mean_iou": 0.9093277182734214,
+        "strength": 0
+      },
+      {
+        "alpha": 1000,
+        "holdout_mean_iou": 0.9060906086871119,
+        "strength": 0.5
+      },
+      {
+        "alpha": 1000,
+        "holdout_mean_iou": 0.9007467481938951,
+        "strength": 1
+      }
+    ]
+  },
+  "secondary_tiled": {
+    "failures": {},
+    "results": {
+      "construction-control": {
+        "baseline_evaluation_sha256": "11adf6fffe925b53cf6fc69065c409ae6549b92fe58d6da69d9b96152ebd3d5e",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "construction-control",
+        "checkpoint_sha256": "8dd4f3c8d9c3be1085151e108110e9153447463393743a30d32d6ad66b4a641f",
+        "class_gate": {
+          "class_statistics": [
+            {
+              "category_id": 1,
+              "human_boxes": 689,
+              "median_longest_side_at512": 54.8,
+              "name": "helmet"
+            },
+            {
+              "category_id": 2,
+              "human_boxes": 33,
+              "median_longest_side_at512": 52.80000000000001,
+              "name": "no-helmet"
+            },
+            {
+              "category_id": 3,
+              "human_boxes": 261,
+              "median_longest_side_at512": 165.6,
+              "name": "no-vest"
+            },
+            {
+              "category_id": 4,
+              "human_boxes": 749,
+              "median_longest_side_at512": 342.8,
+              "name": "person"
+            },
+            {
+              "category_id": 5,
+              "human_boxes": 387,
+              "median_longest_side_at512": 140.4,
+              "name": "vest"
+            }
+          ],
+          "empty_class_policy": "no observed box means use raw full-frame; do not infer size",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "rule": "median human-observed TRAIN longest box side at512 <=96px uses tiled; others use rawfull",
+          "threshold_origin": "same96px object-size target as crop-training plan; one fixed threshold",
+          "tiled_category_ids": [
+            1,
+            2
+          ],
+          "useful": true
+        },
+        "device": "cuda",
+        "metrics": {
+          "AP": 0.5194319303391717,
+          "AP50": 0.928384688964481,
+          "AP75": 0.5118144194843703,
+          "AR100": 0.6331331322371908,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.8833333333333333,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5409944324265563,
+            "no-helmet": 0.3891772748703442,
+            "no-vest": 0.4568319803087803,
+            "person": 0.6720535920095665,
+            "vest": 0.5381023720806113
+          },
+          "precision_at_threshold": 0.8630490956072352,
+          "recall_at_threshold": 0.9316596931659693
+        },
+        "model_variant": "nano",
+        "per_class_routing_audit": true,
+        "protocol": {
+          "batch_size": 4,
+          "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+          "include_full_frame": true,
+          "internal_edge_margin_pixels": 2,
+          "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+          "name": "construction-fixed-384-tiles-v1",
+          "nms_iou": 0.5,
+          "references": [
+            "https://github.com/obss/sahi",
+            "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+          ],
+          "resize": "PIL default RGB BICUBIC, matching original evaluator",
+          "score_floor": 0.001,
+          "score_threshold": 0.25,
+          "selection": "fixed before tiled scoring; no validation setting sweep",
+          "stride": 256,
+          "tile_size": 384
+        },
+        "research_tiling_protocol_sha256": "0c5cc74ee88180fbbbbcdd660b67df7621f6696ee8ce5988e7149bd7b5b7d957",
+        "resolution": 512,
+        "score_threshold": 0.25,
+        "split": "valid",
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 3.286040174,
+            "image_passes": 120,
+            "reserved_slot_selections": 33,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.4130800130000125,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 7.3475337530000004,
+            "image_passes": 480,
+            "reserved_slot_selections": 112,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 88965
+          }
+        }
+      },
+      "construction-exclusive": {
+        "baseline_evaluation_sha256": "8bab1917b4a43daf72a7bfc32fd380936a6974a6acf0ecd2d732180cb3b31ccb",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "construction-exclusive",
+        "checkpoint_sha256": "58076f331ddfeee5c676b426bc470fb6a8af040c3a28830ec39acf97ed497243",
+        "class_gate": {
+          "class_statistics": [
+            {
+              "category_id": 1,
+              "human_boxes": 689,
+              "median_longest_side_at512": 54.8,
+              "name": "helmet"
+            },
+            {
+              "category_id": 2,
+              "human_boxes": 33,
+              "median_longest_side_at512": 52.80000000000001,
+              "name": "no-helmet"
+            },
+            {
+              "category_id": 3,
+              "human_boxes": 261,
+              "median_longest_side_at512": 165.6,
+              "name": "no-vest"
+            },
+            {
+              "category_id": 4,
+              "human_boxes": 749,
+              "median_longest_side_at512": 342.8,
+              "name": "person"
+            },
+            {
+              "category_id": 5,
+              "human_boxes": 387,
+              "median_longest_side_at512": 140.4,
+              "name": "vest"
+            }
+          ],
+          "empty_class_policy": "no observed box means use raw full-frame; do not infer size",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "rule": "median human-observed TRAIN longest box side at512 <=96px uses tiled; others use rawfull",
+          "threshold_origin": "same96px object-size target as crop-training plan; one fixed threshold",
+          "tiled_category_ids": [
+            1,
+            2
+          ],
+          "useful": true
+        },
+        "device": "cuda",
+        "metrics": {
+          "AP": 0.5209427679705265,
+          "AP50": 0.9254011902222609,
+          "AP75": 0.5204772668805856,
+          "AR100": 0.6352449610456933,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.8666666666666667,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5396898102166762,
+            "no-helmet": 0.3929471518580429,
+            "no-vest": 0.45873459172406106,
+            "person": 0.6762517406838447,
+            "vest": 0.5370905453700077
+          },
+          "precision_at_threshold": 0.8649350649350649,
+          "recall_at_threshold": 0.9288702928870293
+        },
+        "model_variant": "nano",
+        "per_class_routing_audit": true,
+        "protocol": {
+          "batch_size": 4,
+          "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+          "include_full_frame": true,
+          "internal_edge_margin_pixels": 2,
+          "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+          "name": "construction-fixed-384-tiles-v1",
+          "nms_iou": 0.5,
+          "references": [
+            "https://github.com/obss/sahi",
+            "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+          ],
+          "resize": "PIL default RGB BICUBIC, matching original evaluator",
+          "score_floor": 0.001,
+          "score_threshold": 0.25,
+          "selection": "fixed before tiled scoring; no validation setting sweep",
+          "stride": 256,
+          "tile_size": 384
+        },
+        "research_tiling_protocol_sha256": "0c5cc74ee88180fbbbbcdd660b67df7621f6696ee8ce5988e7149bd7b5b7d957",
+        "resolution": 512,
+        "score_threshold": 0.25,
+        "split": "valid",
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 3.392298854,
+            "image_passes": 120,
+            "reserved_slot_selections": 35,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.39284229300000106,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 6.125038806999999,
+            "image_passes": 480,
+            "reserved_slot_selections": 120,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 90579
+          }
+        }
+      },
+      "construction-exclusive_power": {
+        "baseline_evaluation_sha256": "2f0c731304f78544f4542dd979e9cc1be55e33ff756c627eb19fb44fbbd8b252",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "construction-exclusive_power",
+        "checkpoint_sha256": "ea1c72f795d8c4fbed610adb23d99bb6a1272076eaf18cb2141dd55aeab3f249",
+        "class_gate": {
+          "class_statistics": [
+            {
+              "category_id": 1,
+              "human_boxes": 689,
+              "median_longest_side_at512": 54.8,
+              "name": "helmet"
+            },
+            {
+              "category_id": 2,
+              "human_boxes": 33,
+              "median_longest_side_at512": 52.80000000000001,
+              "name": "no-helmet"
+            },
+            {
+              "category_id": 3,
+              "human_boxes": 261,
+              "median_longest_side_at512": 165.6,
+              "name": "no-vest"
+            },
+            {
+              "category_id": 4,
+              "human_boxes": 749,
+              "median_longest_side_at512": 342.8,
+              "name": "person"
+            },
+            {
+              "category_id": 5,
+              "human_boxes": 387,
+              "median_longest_side_at512": 140.4,
+              "name": "vest"
+            }
+          ],
+          "empty_class_policy": "no observed box means use raw full-frame; do not infer size",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "rule": "median human-observed TRAIN longest box side at512 <=96px uses tiled; others use rawfull",
+          "threshold_origin": "same96px object-size target as crop-training plan; one fixed threshold",
+          "tiled_category_ids": [
+            1,
+            2
+          ],
+          "useful": true
+        },
+        "device": "cuda",
+        "metrics": {
+          "AP": 0.5123662112840127,
+          "AP50": 0.9291500320825147,
+          "AP75": 0.5031585025987256,
+          "AR100": 0.625838658540645,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.85,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5400467469002613,
+            "no-helmet": 0.34755100510051,
+            "no-vest": 0.4686757659291341,
+            "person": 0.6715838946994026,
+            "vest": 0.5339736437907553
+          },
+          "precision_at_threshold": 0.867704280155642,
+          "recall_at_threshold": 0.9330543933054394
+        },
+        "model_variant": "nano",
+        "per_class_routing_audit": true,
+        "protocol": {
+          "batch_size": 4,
+          "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+          "include_full_frame": true,
+          "internal_edge_margin_pixels": 2,
+          "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+          "name": "construction-fixed-384-tiles-v1",
+          "nms_iou": 0.5,
+          "references": [
+            "https://github.com/obss/sahi",
+            "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+          ],
+          "resize": "PIL default RGB BICUBIC, matching original evaluator",
+          "score_floor": 0.001,
+          "score_threshold": 0.25,
+          "selection": "fixed before tiled scoring; no validation setting sweep",
+          "stride": 256,
+          "tile_size": 384
+        },
+        "research_tiling_protocol_sha256": "0c5cc74ee88180fbbbbcdd660b67df7621f6696ee8ce5988e7149bd7b5b7d957",
+        "resolution": 512,
+        "score_threshold": 0.25,
+        "split": "valid",
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 1.9344233300000013,
+            "image_passes": 120,
+            "reserved_slot_selections": 30,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.39548332599999014,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 6.5310464040000085,
+            "image_passes": 480,
+            "reserved_slot_selections": 106,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 87903
+          }
+        }
+      },
+      "construction-full_power": {
+        "baseline_evaluation_sha256": "7f0bd4021b9e3dacf1795bde84aece13b554894576acc6c4a15db225721df6f1",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "construction-full_power",
+        "checkpoint_sha256": "5191f034c4094210d8f65fdc6647ca6757a0be3dc51b5323f330c9c39f986290",
+        "class_gate": {
+          "class_statistics": [
+            {
+              "category_id": 1,
+              "human_boxes": 689,
+              "median_longest_side_at512": 54.8,
+              "name": "helmet"
+            },
+            {
+              "category_id": 2,
+              "human_boxes": 33,
+              "median_longest_side_at512": 52.80000000000001,
+              "name": "no-helmet"
+            },
+            {
+              "category_id": 3,
+              "human_boxes": 261,
+              "median_longest_side_at512": 165.6,
+              "name": "no-vest"
+            },
+            {
+              "category_id": 4,
+              "human_boxes": 749,
+              "median_longest_side_at512": 342.8,
+              "name": "person"
+            },
+            {
+              "category_id": 5,
+              "human_boxes": 387,
+              "median_longest_side_at512": 140.4,
+              "name": "vest"
+            }
+          ],
+          "empty_class_policy": "no observed box means use raw full-frame; do not infer size",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "rule": "median human-observed TRAIN longest box side at512 <=96px uses tiled; others use rawfull",
+          "threshold_origin": "same96px object-size target as crop-training plan; one fixed threshold",
+          "tiled_category_ids": [
+            1,
+            2
+          ],
+          "useful": true
+        },
+        "device": "cuda",
+        "metrics": {
+          "AP": 0.5423963698483883,
+          "AP50": 0.9385037920982153,
+          "AP75": 0.5585637428298624,
+          "AR100": 0.6551707786895108,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.85,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5545547380740202,
+            "no-helmet": 0.42835283528352835,
+            "no-vest": 0.4704509863818017,
+            "person": 0.6874215202863089,
+            "vest": 0.5712017692162829
+          },
+          "precision_at_threshold": 0.8693982074263764,
+          "recall_at_threshold": 0.9470013947001394
+        },
+        "model_variant": "nano",
+        "per_class_routing_audit": true,
+        "protocol": {
+          "batch_size": 4,
+          "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+          "include_full_frame": true,
+          "internal_edge_margin_pixels": 2,
+          "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+          "name": "construction-fixed-384-tiles-v1",
+          "nms_iou": 0.5,
+          "references": [
+            "https://github.com/obss/sahi",
+            "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+          ],
+          "resize": "PIL default RGB BICUBIC, matching original evaluator",
+          "score_floor": 0.001,
+          "score_threshold": 0.25,
+          "selection": "fixed before tiled scoring; no validation setting sweep",
+          "stride": 256,
+          "tile_size": 384
+        },
+        "research_tiling_protocol_sha256": "0c5cc74ee88180fbbbbcdd660b67df7621f6696ee8ce5988e7149bd7b5b7d957",
+        "resolution": 512,
+        "score_threshold": 0.25,
+        "split": "valid",
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 1.985858644000004,
+            "image_passes": 120,
+            "reserved_slot_selections": 105,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.35952348200000017,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 6.744510743999996,
+            "image_passes": 480,
+            "reserved_slot_selections": 212,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 90989
+          }
+        }
+      },
+      "parent-aware": {
+        "baseline_evaluation_sha256": "f50a80b8995dc27b408b7be94eae25a5a4adecdf31998c35b8614cff9dd1c15d",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "parent-aware",
+        "checkpoint_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+        "class_gate": {
+          "class_statistics": [
+            {
+              "category_id": 1,
+              "human_boxes": 689,
+              "median_longest_side_at512": 54.8,
+              "name": "helmet"
+            },
+            {
+              "category_id": 2,
+              "human_boxes": 33,
+              "median_longest_side_at512": 52.80000000000001,
+              "name": "no-helmet"
+            },
+            {
+              "category_id": 3,
+              "human_boxes": 261,
+              "median_longest_side_at512": 165.6,
+              "name": "no-vest"
+            },
+            {
+              "category_id": 4,
+              "human_boxes": 749,
+              "median_longest_side_at512": 342.8,
+              "name": "person"
+            },
+            {
+              "category_id": 5,
+              "human_boxes": 387,
+              "median_longest_side_at512": 140.4,
+              "name": "vest"
+            }
+          ],
+          "empty_class_policy": "no observed box means use raw full-frame; do not infer size",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "rule": "median human-observed TRAIN longest box side at512 <=96px uses tiled; others use rawfull",
+          "threshold_origin": "same96px object-size target as crop-training plan; one fixed threshold",
+          "tiled_category_ids": [
+            1,
+            2
+          ],
+          "useful": true
+        },
+        "device": "cuda",
+        "metrics": {
+          "AP": 0.5133777510675176,
+          "AP50": 0.9215596094028605,
+          "AP75": 0.5123832168307941,
+          "AR100": 0.6278894209358509,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.975,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5387039021655093,
+            "no-helmet": 0.34983175240600983,
+            "no-vest": 0.4690969105932595,
+            "person": 0.6700591904068076,
+            "vest": 0.5391969997660019
+          },
+          "precision_at_threshold": 0.851145038167939,
+          "recall_at_threshold": 0.9330543933054394
+        },
+        "model_variant": "nano",
+        "per_class_routing_audit": true,
+        "protocol": {
+          "batch_size": 4,
+          "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+          "include_full_frame": true,
+          "internal_edge_margin_pixels": 2,
+          "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+          "name": "construction-fixed-384-tiles-v1",
+          "nms_iou": 0.5,
+          "references": [
+            "https://github.com/obss/sahi",
+            "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+          ],
+          "resize": "PIL default RGB BICUBIC, matching original evaluator",
+          "score_floor": 0.001,
+          "score_threshold": 0.25,
+          "selection": "fixed before tiled scoring; no validation setting sweep",
+          "stride": 256,
+          "tile_size": 384
+        },
+        "research_tiling_protocol_sha256": "0c5cc74ee88180fbbbbcdd660b67df7621f6696ee8ce5988e7149bd7b5b7d957",
+        "resolution": 512,
+        "score_threshold": 0.25,
+        "split": "valid",
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 3.2030113769999815,
+            "image_passes": 120,
+            "reserved_slot_selections": 21,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.3079222130000119,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 5.172949051000018,
+            "image_passes": 480,
+            "reserved_slot_selections": 85,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 84368
+          }
+        }
+      },
+      "parent-complete_reference": {
+        "baseline_evaluation_sha256": "60da12b661546e75e60f43396f381779a685d80b5c85f619373729c5b38200a8",
+        "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+        "case": "parent-complete_reference",
+        "checkpoint_sha256": "1ee494473f5df5e94dd2870db40c7a2b119f6ea9dfac140d989ba956f513d0da",
+        "class_gate": {
+          "class_statistics": [
+            {
+              "category_id": 1,
+              "human_boxes": 689,
+              "median_longest_side_at512": 54.8,
+              "name": "helmet"
+            },
+            {
+              "category_id": 2,
+              "human_boxes": 33,
+              "median_longest_side_at512": 52.80000000000001,
+              "name": "no-helmet"
+            },
+            {
+              "category_id": 3,
+              "human_boxes": 261,
+              "median_longest_side_at512": 165.6,
+              "name": "no-vest"
+            },
+            {
+              "category_id": 4,
+              "human_boxes": 749,
+              "median_longest_side_at512": 342.8,
+              "name": "person"
+            },
+            {
+              "category_id": 5,
+              "human_boxes": 387,
+              "median_longest_side_at512": 140.4,
+              "name": "vest"
+            }
+          ],
+          "empty_class_policy": "no observed box means use raw full-frame; do not infer size",
+          "partial_view_digest": "d388715244900aee03fe206c0259a759d71b74eeea1e595c45691ae3c87813a1",
+          "rule": "median human-observed TRAIN longest box side at512 <=96px uses tiled; others use rawfull",
+          "threshold_origin": "same96px object-size target as crop-training plan; one fixed threshold",
+          "tiled_category_ids": [
+            1,
+            2
+          ],
+          "useful": true
+        },
+        "device": "cuda",
+        "metrics": {
+          "AP": 0.5375335031942876,
+          "AP50": 0.9354962992169116,
+          "AP75": 0.5567833173870532,
+          "AR100": 0.6502722634820658,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.8916666666666667,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5574344502877532,
+            "no-helmet": 0.41589108910891087,
+            "no-vest": 0.46012951068588803,
+            "person": 0.681817743150949,
+            "vest": 0.5723947227379365
+          },
+          "precision_at_threshold": 0.8636942675159236,
+          "recall_at_threshold": 0.9456066945606695
+        },
+        "model_variant": "nano",
+        "per_class_routing_audit": true,
+        "protocol": {
+          "batch_size": 4,
+          "boundary_rule": "reject tile detections touching internal tile edges within 2 original pixels",
+          "include_full_frame": true,
+          "internal_edge_margin_pixels": 2,
+          "merge": "class-aware torchvision CPU NMS; score descending, original-order ties",
+          "name": "construction-fixed-384-tiles-v1",
+          "nms_iou": 0.5,
+          "references": [
+            "https://github.com/obss/sahi",
+            "https://supervision.roboflow.com/latest/detection/tools/inference_slicer/"
+          ],
+          "resize": "PIL default RGB BICUBIC, matching original evaluator",
+          "score_floor": 0.001,
+          "score_threshold": 0.25,
+          "selection": "fixed before tiled scoring; no validation setting sweep",
+          "stride": 256,
+          "tile_size": 384
+        },
+        "research_tiling_protocol_sha256": "0c5cc74ee88180fbbbbcdd660b67df7621f6696ee8ce5988e7149bd7b5b7d957",
+        "resolution": 512,
+        "score_threshold": 0.25,
+        "split": "valid",
+        "timing": {
+          "full": {
+            "batches": 30,
+            "elapsed_seconds": 2.9811197060000154,
+            "image_passes": 120,
+            "reserved_slot_selections": 123,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 0
+          },
+          "merge_seconds": 0.3773539390000167,
+          "tiles": {
+            "batches": 120,
+            "elapsed_seconds": 6.603304589999993,
+            "image_passes": 480,
+            "reserved_slot_selections": 253,
+            "tile_boxes_rejected_at_boundaries_or_zero_area": 90687
+          }
+        }
+      }
+    },
+    "status": "completed"
+  },
+  "segmentation_refinement": {
+    "foundation_model": "facebook/sam2.1-hiera-large",
+    "protocol_sha256": "f10117dffbfb8121aac379c823ea35863d0d6c89cb5e608d3d3ea8a696836902",
+    "revision": "665f8e2ad61cf5f53d65644ff27c8ee525124610",
+    "selection": {
+      "baseline_holdout_iou": 0.9131517916625346,
+      "best": {
+        "calibration": "none",
+        "mean_iou": 0.9131517916625346,
+        "strength": 0
+      },
+      "class_bias": {
+        "1": [
+          -0.08210953617934733,
+          -0.04728746262374017,
+          0.07115074223923916,
+          0.029144319212477232
+        ],
+        "10": [
+          -0.08473944338078385,
+          -0.038664642949881964,
+          0.07108056591930934,
+          0.019484932245741104
+        ],
+        "11": [
+          -0.11426083586511826,
+          -0.052722244985959184,
+          0.07755247714464503,
+          0.025060428829457193
+        ],
+        "12": [
+          -0.08376050688038411,
+          -0.042682277121789416,
+          0.08443268994463748,
+          0.028720799177511355
+        ],
+        "13": [
+          -0.08329564405654458,
+          -0.048361209316216514,
+          0.07246732278752097,
+          0.025291868902322705
+        ],
+        "2": [
+          -0.03011944647428385,
+          -0.02989861769989417,
+          0.0695131533616975,
+          0.02242511985716031
+        ],
+        "3": [
+          -0.03816600956246761,
+          -0.038087867692548676,
+          0.05708763844495651,
+          0.030470294154038853
+        ],
+        "4": [
+          -0.04669136722720108,
+          -0.03369879253203245,
+          0.06898822106794907,
+          0.018383865018812784
+        ],
+        "5": [
+          -0.06557370488030805,
+          -0.05028545572290303,
+          0.073633895881064,
+          0.03844437485654607
+        ],
+        "6": [
+          -0.02817238044062332,
+          -0.035806817151168444,
+          0.030573210373693305,
+          0.02469968930777443
+        ],
+        "7": [
+          -0.07379814032860305,
+          -0.07826385498276633,
+          0.06011001300496644,
+          0.03699432607889183
+        ],
+        "8": [
+          -0.09912923851952089,
+          -0.037799760708988606,
+          0.092622708317238,
+          0.02859529579982595
+        ],
+        "9": [
+          -0.10605469916576929,
+          -0.03509372344129638,
+          0.058223721617831015,
+          0.020425298497461487
+        ]
+      },
+      "fit_proposals": 779,
+      "global_bias": [
+        -0.08210953617934733,
+        -0.04728746262374017,
+        0.07115074223923916,
+        0.029144319212477232
+      ],
+      "holdout_proposals": 263,
+      "limitation": "Refiner holdout images were previously seen by the detector; no validation selection",
+      "status": "rejected_on_train_holdout",
+      "trials": [
+        {
+          "calibration": "none",
+          "mean_iou": 0.9015505062404281,
+          "strength": 0.25
+        },
+        {
+          "calibration": "none",
+          "mean_iou": 0.8702394944747419,
+          "strength": 0.5
+        },
+        {
+          "calibration": "none",
+          "mean_iou": 0.7842744771860567,
+          "strength": 1
+        },
+        {
+          "calibration": "global",
+          "mean_iou": 0.906352570031422,
+          "strength": 0.25
+        },
+        {
+          "calibration": "global",
+          "mean_iou": 0.8943727416794535,
+          "strength": 0.5
+        },
+        {
+          "calibration": "global",
+          "mean_iou": 0.8631201842937544,
+          "strength": 1
+        },
+        {
+          "calibration": "class",
+          "mean_iou": 0.9068573468563257,
+          "strength": 0.25
+        },
+        {
+          "calibration": "class",
+          "mean_iou": 0.8949692622448848,
+          "strength": 0.5
+        },
+        {
+          "calibration": "class",
+          "mean_iou": 0.863721864476455,
+          "strength": 1
+        }
+      ]
+    },
+    "status": "rejected_on_train_holdout",
+    "weight_files": {
+      "model.safetensors": "dc407dce21301fd94abb395c5099b4f2c455fdc8a8f261ac3d0ea6d4cd197230"
+    }
+  },
+  "single_seed": true,
+  "status": "completed",
+  "tasks": {
+    "all-pieces": {
+      "control": {
+        "annotation_count": 994,
+        "checkpoint_sha256": "d7e37308de5b58d80293e98c630081ae761ca2ab243f0b3ff49dc0a80416d4fd",
+        "evaluation_sha256": "117e7c4b1def2605e93039706e819d7a95df460e91c0db823c465f97210a7321",
+        "metrics": {
+          "AP": 0.7375823004894584,
+          "AP50": 0.9033423614658043,
+          "AP75": 0.892077336926168,
+          "AR100": 0.8439848345458708,
+          "boxes": 536,
+          "class_support": {
+            "1": 1,
+            "10": 40,
+            "11": 121,
+            "12": 21,
+            "13": 33,
+            "2": 29,
+            "3": 28,
+            "4": 34,
+            "5": 120,
+            "6": 17,
+            "7": 34,
+            "8": 30,
+            "9": 28
+          },
+          "false_positives_per_image": 0.25862068965517243,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 1,
+          "per_class_AP": {
+            "bishop": 0.024999999999999994,
+            "black-bishop": 0.641678889064108,
+            "black-king": 0.8446127134452576,
+            "black-knight": 0.7662658536440701,
+            "black-pawn": 0.7836296204914585,
+            "black-queen": 0.8416777602129961,
+            "black-rook": 0.782174820117843,
+            "white-bishop": 0.7841655523226906,
+            "white-king": 0.8537176571908204,
+            "white-knight": 0.8206054994303086,
+            "white-pawn": 0.797409038841703,
+            "white-queen": 0.8241286766039241,
+            "white-rook": 0.8235038249977802
+          },
+          "precision_at_threshold": 0.9724770642201835,
+          "recall_at_threshold": 0.9888059701492538
+        },
+        "model_variant": "large",
+        "parent_sha256": "53e732acd303696c0675ff160d9de07d32e987e3d9ae9c772cbd90c96f8cce17",
+        "resolution": 704,
+        "spec": {
+          "alpha": 1,
+          "arm": "aware",
+          "exclusive_groups": [],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "all-pieces"
+        },
+        "total_training_steps": 4000,
+        "training_seconds": 565.957173968,
+        "view_digest": "3d1073195c1cdd8ce0f10f047e6242ec23db738323b864a5e5ab8b86f7864a01"
+      },
+      "exclusive": {
+        "annotation_count": 994,
+        "checkpoint_sha256": "8ac75ca89295d92e7b9890e5261ce054d15fdeb813cfe04564c2936981186cc3",
+        "delta_vs_continuation_control_points": 0.3440664619474565,
+        "evaluation_sha256": "a2f5bd5443308030a5708e7baa455a8ea2be7c3db64a5c4ed3f58968f7488ce6",
+        "metrics": {
+          "AP": 0.741022965108933,
+          "AP50": 0.9049523853353046,
+          "AP75": 0.894450818386032,
+          "AR100": 0.851065786662781,
+          "boxes": 536,
+          "class_support": {
+            "1": 1,
+            "10": 40,
+            "11": 121,
+            "12": 21,
+            "13": 33,
+            "2": 29,
+            "3": 28,
+            "4": 34,
+            "5": 120,
+            "6": 17,
+            "7": 34,
+            "8": 30,
+            "9": 28
+          },
+          "false_positives_per_image": 0.2413793103448276,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 1,
+          "per_class_AP": {
+            "bishop": 0.020000000000000004,
+            "black-bishop": 0.6492123955167634,
+            "black-king": 0.8444611598656515,
+            "black-knight": 0.7753041043793106,
+            "black-pawn": 0.780034427837021,
+            "black-queen": 0.8498788965616642,
+            "black-rook": 0.7919257187569422,
+            "white-bishop": 0.8007471381196091,
+            "white-king": 0.8532382061735585,
+            "white-knight": 0.8266217055062471,
+            "white-pawn": 0.7948101126823875,
+            "white-queen": 0.8204491877759204,
+            "white-rook": 0.8266154932410533
+          },
+          "precision_at_threshold": 0.9742647058823529,
+          "recall_at_threshold": 0.9888059701492538
+        },
+        "model_variant": "large",
+        "parent_sha256": "53e732acd303696c0675ff160d9de07d32e987e3d9ae9c772cbd90c96f8cce17",
+        "resolution": 704,
+        "spec": {
+          "alpha": 1,
+          "arm": "aware",
+          "exclusive_groups": [
+            [
+              "black-bishop",
+              "black-king",
+              "black-knight",
+              "black-pawn",
+              "black-queen",
+              "black-rook",
+              "white-bishop",
+              "white-king",
+              "white-knight",
+              "white-pawn",
+              "white-queen",
+              "white-rook"
+            ]
+          ],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "all-pieces"
+        },
+        "total_training_steps": 4000,
+        "training_seconds": 582.028953003,
+        "view_digest": "3d1073195c1cdd8ce0f10f047e6242ec23db738323b864a5e5ab8b86f7864a01"
+      },
+      "exclusive_power": {
+        "annotation_count": 994,
+        "checkpoint_sha256": "32b16595ae817e83e7da8903c303435dc2ae63fd7fa5e0385cdba684958fa35a",
+        "delta_vs_continuation_control_points": -0.09188957054329094,
+        "evaluation_sha256": "cd59cb13f0e6fd6cc84823e37de3cc1203c64ac91d40e24d078b44d319c9042f",
+        "metrics": {
+          "AP": 0.7366634047840255,
+          "AP50": 0.9044377484561449,
+          "AP75": 0.8920689459833581,
+          "AR100": 0.846068760823048,
+          "boxes": 536,
+          "class_support": {
+            "1": 1,
+            "10": 40,
+            "11": 121,
+            "12": 21,
+            "13": 33,
+            "2": 29,
+            "3": 28,
+            "4": 34,
+            "5": 120,
+            "6": 17,
+            "7": 34,
+            "8": 30,
+            "9": 28
+          },
+          "false_positives_per_image": 0.27586206896551724,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 1,
+          "per_class_AP": {
+            "bishop": 0.021212121212121203,
+            "black-bishop": 0.6440499559744935,
+            "black-king": 0.8372620155788474,
+            "black-knight": 0.7713289143168561,
+            "black-pawn": 0.777439793849336,
+            "black-queen": 0.8340285266150377,
+            "black-rook": 0.7843169585917239,
+            "white-bishop": 0.8011513464776329,
+            "white-king": 0.8523747143945164,
+            "white-knight": 0.8267679760834751,
+            "white-pawn": 0.7954590339332497,
+            "white-queen": 0.8147354295869147,
+            "white-rook": 0.8164974755781274
+          },
+          "precision_at_threshold": 0.9706959706959707,
+          "recall_at_threshold": 0.9888059701492538
+        },
+        "model_variant": "large",
+        "parent_sha256": "53e732acd303696c0675ff160d9de07d32e987e3d9ae9c772cbd90c96f8cce17",
+        "resolution": 704,
+        "spec": {
+          "alpha": 3,
+          "arm": "aware",
+          "exclusive_groups": [
+            [
+              "black-bishop",
+              "black-king",
+              "black-knight",
+              "black-pawn",
+              "black-queen",
+              "black-rook",
+              "white-bishop",
+              "white-king",
+              "white-knight",
+              "white-pawn",
+              "white-queen",
+              "white-rook"
+            ]
+          ],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "all-pieces"
+        },
+        "total_training_steps": 4000,
+        "training_seconds": 595.0639789700001,
+        "view_digest": "3d1073195c1cdd8ce0f10f047e6242ec23db738323b864a5e5ab8b86f7864a01"
+      },
+      "full_power": {
+        "annotation_count": 1989,
+        "checkpoint_sha256": "9ffec8a65b6ffd93e5bfef51ba2cdef18e1615f5366694607e3498db79ba9492",
+        "evaluation_sha256": "f9fe12cb3daba180a66e7a530cee181b3f4e27ee1d5277fe0fa36eb1d4a5ca2a",
+        "metrics": {
+          "AP": 0.7520285246776557,
+          "AP50": 0.9066146643487305,
+          "AP75": 0.9020361032454012,
+          "AR100": 0.8486578325786328,
+          "boxes": 536,
+          "class_support": {
+            "1": 1,
+            "10": 40,
+            "11": 121,
+            "12": 21,
+            "13": 33,
+            "2": 29,
+            "3": 28,
+            "4": 34,
+            "5": 120,
+            "6": 17,
+            "7": 34,
+            "8": 30,
+            "9": 28
+          },
+          "false_positives_per_image": 0.5172413793103449,
+          "images": 58,
+          "negative_image_false_positives_per_image": 1,
+          "negative_images": 1,
+          "per_class_AP": {
+            "bishop": 0.022580645161290314,
+            "black-bishop": 0.663874663804112,
+            "black-king": 0.8693130463660459,
+            "black-knight": 0.8005328909452076,
+            "black-pawn": 0.7966840752017403,
+            "black-queen": 0.8362942008486562,
+            "black-rook": 0.8024857575581757,
+            "white-bishop": 0.8404051434690772,
+            "white-king": 0.8582108857298142,
+            "white-knight": 0.8199075615964097,
+            "white-pawn": 0.7963680638796893,
+            "white-queen": 0.8495218219300922,
+            "white-rook": 0.820192064319214
+          },
+          "precision_at_threshold": 0.9463327370304114,
+          "recall_at_threshold": 0.9869402985074627
+        },
+        "model_variant": "large",
+        "parent_sha256": "b8d1e5429cb6a456f138beca67a5eeae420803fd217bb7922a81fec98744b14f",
+        "resolution": 704,
+        "spec": {
+          "alpha": 3,
+          "arm": "complete_reference",
+          "exclusive_groups": [],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "all-pieces"
+        },
+        "total_training_steps": 4000,
+        "training_seconds": 591.597160214,
+        "view_digest": "772ce4fd84aed8ad86e86ffef62f99a9509df8aa3e1e784386e14102c01a6a99"
+      },
+      "parent_aware": {
+        "checkpoint_sha256": "53e732acd303696c0675ff160d9de07d32e987e3d9ae9c772cbd90c96f8cce17",
+        "evaluation_sha256": "d066dcb5c062086adc11cc12bdd4a5f0b6868b32f2044269b088328e51df7107",
+        "metrics": {
+          "AP": 0.7371304990349321,
+          "AP50": 0.9025753629447181,
+          "AP75": 0.8895784381844057,
+          "AR100": 0.8459509703217061,
+          "boxes": 536,
+          "class_support": {
+            "1": 1,
+            "10": 40,
+            "11": 121,
+            "12": 21,
+            "13": 33,
+            "2": 29,
+            "3": 28,
+            "4": 34,
+            "5": 120,
+            "6": 17,
+            "7": 34,
+            "8": 30,
+            "9": 28
+          },
+          "false_positives_per_image": 0.3103448275862069,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 1,
+          "per_class_AP": {
+            "bishop": 0.008235294117647061,
+            "black-bishop": 0.657643110255041,
+            "black-king": 0.854890756302521,
+            "black-knight": 0.7648032381035332,
+            "black-pawn": 0.7810608328072921,
+            "black-queen": 0.8539924286546301,
+            "black-rook": 0.7705085140398735,
+            "white-bishop": 0.7957132387850938,
+            "white-king": 0.8565847898576242,
+            "white-knight": 0.8155976122175344,
+            "white-pawn": 0.785009318916412,
+            "white-queen": 0.8330268741159831,
+            "white-rook": 0.8056304792809312
+          },
+          "precision_at_threshold": 0.9671532846715328,
+          "recall_at_threshold": 0.9888059701492538
+        },
+        "model_variant": "large",
+        "resolution": 704
+      },
+      "parent_complete_reference": {
+        "checkpoint_sha256": "b8d1e5429cb6a456f138beca67a5eeae420803fd217bb7922a81fec98744b14f",
+        "evaluation_sha256": "da665ba81c7e21ea9c277946d3952f9963f3425c34f1b7035f4e76096caf73f6",
+        "metrics": {
+          "AP": 0.7499234966272621,
+          "AP50": 0.9055422288835945,
+          "AP75": 0.8996435283007196,
+          "AR100": 0.8510600508041961,
+          "boxes": 536,
+          "class_support": {
+            "1": 1,
+            "10": 40,
+            "11": 121,
+            "12": 21,
+            "13": 33,
+            "2": 29,
+            "3": 28,
+            "4": 34,
+            "5": 120,
+            "6": 17,
+            "7": 34,
+            "8": 30,
+            "9": 28
+          },
+          "false_positives_per_image": 0.43103448275862066,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 1,
+          "per_class_AP": {
+            "bishop": 0.008974358974358975,
+            "black-bishop": 0.6755084251443643,
+            "black-king": 0.8720098311347291,
+            "black-knight": 0.805764969472199,
+            "black-pawn": 0.7901232045975695,
+            "black-queen": 0.8332113525169847,
+            "black-rook": 0.7933947576933882,
+            "white-bishop": 0.8228905467170091,
+            "white-king": 0.8560508743237826,
+            "white-knight": 0.8249007276466279,
+            "white-pawn": 0.7920196678144086,
+            "white-queen": 0.8544128519994857,
+            "white-rook": 0.8197438881194996
+          },
+          "precision_at_threshold": 0.954954954954955,
+          "recall_at_threshold": 0.9888059701492538
+        },
+        "model_variant": "large",
+        "resolution": 704
+      }
+    },
+    "construction": {
+      "control": {
+        "annotation_count": 2384,
+        "checkpoint_sha256": "8dd4f3c8d9c3be1085151e108110e9153447463393743a30d32d6ad66b4a641f",
+        "evaluation_sha256": "11adf6fffe925b53cf6fc69065c409ae6549b92fe58d6da69d9b96152ebd3d5e",
+        "metrics": {
+          "AP": 0.5064168668606129,
+          "AP50": 0.9041891740527845,
+          "AP75": 0.5369964579776023,
+          "AR100": 0.6400469051595475,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.825,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.550178281593326,
+            "no-helmet": 0.31491810831078115,
+            "no-vest": 0.4568319803087803,
+            "person": 0.6720535920095665,
+            "vest": 0.5381023720806113
+          },
+          "precision_at_threshold": 0.8693931398416886,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "model_variant": "nano",
+        "parent_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+        "resolution": 512,
+        "spec": {
+          "alpha": 1,
+          "arm": "aware",
+          "exclusive_groups": [],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "construction"
+        },
+        "total_training_steps": 8000,
+        "training_seconds": 431.91699122100005,
+        "view_digest": "875b4c33d3aa027317b31bd94a970bf955844be1fa025f4e18aca891e2f91467"
+      },
+      "exclusive": {
+        "annotation_count": 2384,
+        "checkpoint_sha256": "58076f331ddfeee5c676b426bc470fb6a8af040c3a28830ec39acf97ed497243",
+        "delta_vs_continuation_control_points": 0.032677745388931534,
+        "evaluation_sha256": "8bab1917b4a43daf72a7bfc32fd380936a6974a6acf0ecd2d732180cb3b31ccb",
+        "metrics": {
+          "AP": 0.5067436443145023,
+          "AP50": 0.9066674904749147,
+          "AP75": 0.5482373014026761,
+          "AR100": 0.628658929051936,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.7833333333333333,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5488687161605188,
+            "no-helmet": 0.31277262763407926,
+            "no-vest": 0.45873459172406106,
+            "person": 0.6762517406838447,
+            "vest": 0.5370905453700077
+          },
+          "precision_at_threshold": 0.8751660026560425,
+          "recall_at_threshold": 0.9191073919107392
+        },
+        "model_variant": "nano",
+        "parent_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+        "resolution": 512,
+        "spec": {
+          "alpha": 1,
+          "arm": "aware",
+          "exclusive_groups": [
+            [
+              "helmet",
+              "no-helmet"
+            ],
+            [
+              "vest",
+              "no-vest"
+            ]
+          ],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "construction"
+        },
+        "total_training_steps": 8000,
+        "training_seconds": 418.074499488,
+        "view_digest": "875b4c33d3aa027317b31bd94a970bf955844be1fa025f4e18aca891e2f91467"
+      },
+      "exclusive_power": {
+        "annotation_count": 2384,
+        "checkpoint_sha256": "ea1c72f795d8c4fbed610adb23d99bb6a1272076eaf18cb2141dd55aeab3f249",
+        "delta_vs_continuation_control_points": 0.3038666158449832,
+        "evaluation_sha256": "2f0c731304f78544f4542dd979e9cc1be55e33ff756c627eb19fb44fbbd8b252",
+        "metrics": {
+          "AP": 0.5094555330190628,
+          "AP50": 0.9071573071082594,
+          "AP75": 0.5616633045871287,
+          "AR100": 0.6452221934606607,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.775,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5483736860729304,
+            "no-helmet": 0.3246706746030917,
+            "no-vest": 0.4686757659291341,
+            "person": 0.6715838946994026,
+            "vest": 0.5339736437907553
+          },
+          "precision_at_threshold": 0.876657824933687,
+          "recall_at_threshold": 0.9218967921896792
+        },
+        "model_variant": "nano",
+        "parent_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+        "resolution": 512,
+        "spec": {
+          "alpha": 3,
+          "arm": "aware",
+          "exclusive_groups": [
+            [
+              "helmet",
+              "no-helmet"
+            ],
+            [
+              "vest",
+              "no-vest"
+            ]
+          ],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "construction"
+        },
+        "total_training_steps": 8000,
+        "training_seconds": 435.411323122,
+        "view_digest": "875b4c33d3aa027317b31bd94a970bf955844be1fa025f4e18aca891e2f91467"
+      },
+      "full_power": {
+        "annotation_count": 6380,
+        "checkpoint_sha256": "5191f034c4094210d8f65fdc6647ca6757a0be3dc51b5323f330c9c39f986290",
+        "evaluation_sha256": "7f0bd4021b9e3dacf1795bde84aece13b554894576acc6c4a15db225721df6f1",
+        "metrics": {
+          "AP": 0.528168168787644,
+          "AP50": 0.9289957456479473,
+          "AP75": 0.5705347483171355,
+          "AR100": 0.6465948910578291,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.8,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5556572060629261,
+            "no-helmet": 0.3561093619909002,
+            "no-vest": 0.4704509863818017,
+            "person": 0.6874215202863089,
+            "vest": 0.5712017692162829
+          },
+          "precision_at_threshold": 0.8754863813229572,
+          "recall_at_threshold": 0.9414225941422594
+        },
+        "model_variant": "nano",
+        "parent_sha256": "1ee494473f5df5e94dd2870db40c7a2b119f6ea9dfac140d989ba956f513d0da",
+        "resolution": 512,
+        "spec": {
+          "alpha": 3,
+          "arm": "complete_reference",
+          "exclusive_groups": [],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "construction"
+        },
+        "total_training_steps": 8000,
+        "training_seconds": 432.781886171,
+        "view_digest": "80c3bc6ead2c6d89309971e8fe8443d9623881127485672ce0ae55f41ee91b18"
+      },
+      "parent_aware": {
+        "checkpoint_sha256": "a1bcc7c0ea7864a1c57e7732b038689b8c185093d723c106f2bb8defb9506572",
+        "evaluation_sha256": "f50a80b8995dc27b408b7be94eae25a5a4adecdf31998c35b8614cff9dd1c15d",
+        "metrics": {
+          "AP": 0.497228876242026,
+          "AP50": 0.9011135818691326,
+          "AP75": 0.5297709120515852,
+          "AR100": 0.6346315200384649,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.8833333333333333,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5473498869195591,
+            "no-helmet": 0.2604413935245025,
+            "no-vest": 0.4690969105932595,
+            "person": 0.6700591904068076,
+            "vest": 0.5391969997660019
+          },
+          "precision_at_threshold": 0.8617992177314211,
+          "recall_at_threshold": 0.9218967921896792
+        },
+        "model_variant": "nano",
+        "resolution": 512
+      },
+      "parent_complete_reference": {
+        "checkpoint_sha256": "1ee494473f5df5e94dd2870db40c7a2b119f6ea9dfac140d989ba956f513d0da",
+        "evaluation_sha256": "60da12b661546e75e60f43396f381779a685d80b5c85f619373729c5b38200a8",
+        "metrics": {
+          "AP": 0.5242111793998269,
+          "AP50": 0.9225592684061067,
+          "AP75": 0.5602211798771473,
+          "AR100": 0.6421255603997404,
+          "boxes": 717,
+          "class_support": {
+            "1": 233,
+            "2": 11,
+            "3": 90,
+            "4": 242,
+            "5": 141
+          },
+          "false_positives_per_image": 0.8166666666666667,
+          "images": 120,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 0,
+          "per_class_AP": {
+            "helmet": 0.5653105010662164,
+            "no-helmet": 0.3414034193581442,
+            "no-vest": 0.46012951068588803,
+            "person": 0.681817743150949,
+            "vest": 0.5723947227379365
+          },
+          "precision_at_threshold": 0.8732212160413971,
+          "recall_at_threshold": 0.9414225941422594
+        },
+        "model_variant": "nano",
+        "resolution": 512
+      }
+    },
+    "pawns": {
+      "control": {
+        "annotation_count": 451,
+        "checkpoint_sha256": "757fc3da9acb4589c9dbe86ed46d03bf4c00a08b1a237f84ba074029287bfa15",
+        "evaluation_sha256": "d9257e52260b5a4b2a7f5e4292586555d43643647e82b481043cb16073bc8cc7",
+        "metrics": {
+          "AP": 0.7831556151299666,
+          "AP50": 1,
+          "AP75": 0.9764257540236493,
+          "AR100": 0.8335433884297521,
+          "boxes": 241,
+          "class_support": {
+            "1": 120,
+            "2": 121
+          },
+          "false_positives_per_image": 0.017241379310344827,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 27,
+          "per_class_AP": {
+            "black-pawn": 0.761376400167433,
+            "white-pawn": 0.8049348300925001
+          },
+          "precision_at_threshold": 0.9958677685950413,
+          "recall_at_threshold": 1
+        },
+        "model_variant": "nano",
+        "parent_sha256": "b6981a3f557a2451bd9cef154e5dcc0085bafebd3db2ca232d9067095f667552",
+        "resolution": 512,
+        "spec": {
+          "alpha": 1,
+          "arm": "aware",
+          "exclusive_groups": [],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "pawns"
+        },
+        "total_training_steps": 6000,
+        "training_seconds": 404.55988798500005,
+        "view_digest": "861765878e12514b67acb926b583eb13a459e5a9fd76f1fac4727a04cea86f76"
+      },
+      "exclusive": {
+        "annotation_count": 451,
+        "checkpoint_sha256": "3a32ebf0cca7309824f70b0b86bb5d7e26b0271080e05f8f247020eeef609c7b",
+        "delta_vs_continuation_control_points": 0.45061944923814323,
+        "evaluation_sha256": "7a5954f88bf65dee3642aa0658a6ff71081e743c4a35908544daf0ec1858a72a",
+        "metrics": {
+          "AP": 0.787661809622348,
+          "AP50": 1,
+          "AP75": 0.9770275997283963,
+          "AR100": 0.8377100550964188,
+          "boxes": 241,
+          "class_support": {
+            "1": 120,
+            "2": 121
+          },
+          "false_positives_per_image": 0.034482758620689655,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 27,
+          "per_class_AP": {
+            "black-pawn": 0.7657063752479722,
+            "white-pawn": 0.8096172439967237
+          },
+          "precision_at_threshold": 0.9917695473251029,
+          "recall_at_threshold": 1
+        },
+        "model_variant": "nano",
+        "parent_sha256": "b6981a3f557a2451bd9cef154e5dcc0085bafebd3db2ca232d9067095f667552",
+        "resolution": 512,
+        "spec": {
+          "alpha": 1,
+          "arm": "aware",
+          "exclusive_groups": [
+            [
+              "black-pawn",
+              "white-pawn"
+            ]
+          ],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "pawns"
+        },
+        "total_training_steps": 6000,
+        "training_seconds": 426.933910166,
+        "view_digest": "861765878e12514b67acb926b583eb13a459e5a9fd76f1fac4727a04cea86f76"
+      },
+      "exclusive_power": {
+        "annotation_count": 451,
+        "checkpoint_sha256": "5a517ccb9a891e86eea9f15edb58c69e8bf83a16a3c50feb4b79c74c5c1dc969",
+        "delta_vs_continuation_control_points": -0.09940147148111977,
+        "evaluation_sha256": "8af797504d23db2501f47c57383efe268f73516da09996dc4544829748ad066e",
+        "metrics": {
+          "AP": 0.7821616004151554,
+          "AP50": 1,
+          "AP75": 0.9773834613920944,
+          "AR100": 0.8331370523415979,
+          "boxes": 241,
+          "class_support": {
+            "1": 120,
+            "2": 121
+          },
+          "false_positives_per_image": 0.06896551724137931,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 27,
+          "per_class_AP": {
+            "black-pawn": 0.7575719261684103,
+            "white-pawn": 0.8067512746619006
+          },
+          "precision_at_threshold": 0.9836734693877551,
+          "recall_at_threshold": 1
+        },
+        "model_variant": "nano",
+        "parent_sha256": "b6981a3f557a2451bd9cef154e5dcc0085bafebd3db2ca232d9067095f667552",
+        "resolution": 512,
+        "spec": {
+          "alpha": 3,
+          "arm": "aware",
+          "exclusive_groups": [
+            [
+              "black-pawn",
+              "white-pawn"
+            ]
+          ],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "pawns"
+        },
+        "total_training_steps": 6000,
+        "training_seconds": 451.280203173,
+        "view_digest": "861765878e12514b67acb926b583eb13a459e5a9fd76f1fac4727a04cea86f76"
+      },
+      "full_power": {
+        "annotation_count": 896,
+        "checkpoint_sha256": "1b9d4c45e2909f7192a6334505a9808435de957f32d3b8977dc7170fed229fa2",
+        "evaluation_sha256": "fe48f6b6221651937b4bd2d36954926051a74886ebc1aaeb9b16db08a3a338e9",
+        "metrics": {
+          "AP": 0.7860843359675053,
+          "AP50": 1,
+          "AP75": 0.9791250277804012,
+          "AR100": 0.8402341597796144,
+          "boxes": 241,
+          "class_support": {
+            "1": 120,
+            "2": 121
+          },
+          "false_positives_per_image": 0,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 27,
+          "per_class_AP": {
+            "black-pawn": 0.787683751658645,
+            "white-pawn": 0.7844849202763656
+          },
+          "precision_at_threshold": 1,
+          "recall_at_threshold": 1
+        },
+        "model_variant": "nano",
+        "parent_sha256": "73e4ec158e9d291e9122bc14df968ca032e13565311cd2ed24e9c4c7e3516b43",
+        "resolution": 512,
+        "spec": {
+          "alpha": 3,
+          "arm": "complete_reference",
+          "exclusive_groups": [],
+          "seed": 20260918,
+          "steps": 2000,
+          "task": "pawns"
+        },
+        "total_training_steps": 6000,
+        "training_seconds": 407.44081368499997,
+        "view_digest": "40a8a7c48d667295172a477d784a9d6d1aa82f8a7c2da5510b536a000b95dbc5"
+      },
+      "parent_aware": {
+        "checkpoint_sha256": "b6981a3f557a2451bd9cef154e5dcc0085bafebd3db2ca232d9067095f667552",
+        "evaluation_sha256": "d93c31b3af6b7d690ceb7a33601472ec8cac0826fbe3529eb1b65da132cab2c0",
+        "metrics": {
+          "AP": 0.7890281614277729,
+          "AP50": 1,
+          "AP75": 0.9856869746597784,
+          "AR100": 0.8369008264462809,
+          "boxes": 241,
+          "class_support": {
+            "1": 120,
+            "2": 121
+          },
+          "false_positives_per_image": 0.05172413793103448,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 27,
+          "per_class_AP": {
+            "black-pawn": 0.7748495600869886,
+            "white-pawn": 0.8032067627685573
+          },
+          "precision_at_threshold": 0.9877049180327869,
+          "recall_at_threshold": 1
+        },
+        "model_variant": "nano",
+        "resolution": 512
+      },
+      "parent_complete_reference": {
+        "checkpoint_sha256": "73e4ec158e9d291e9122bc14df968ca032e13565311cd2ed24e9c4c7e3516b43",
+        "evaluation_sha256": "f6d5efccb82af9e4ddca03b2ce310dd19e2375ce5c9c0aa85fe1e533ea5d045a",
+        "metrics": {
+          "AP": 0.7896617312649523,
+          "AP50": 1,
+          "AP75": 0.980991980391869,
+          "AR100": 0.8464634986225894,
+          "boxes": 241,
+          "class_support": {
+            "1": 120,
+            "2": 121
+          },
+          "false_positives_per_image": 0.017241379310344827,
+          "images": 58,
+          "negative_image_false_positives_per_image": 0,
+          "negative_images": 27,
+          "per_class_AP": {
+            "black-pawn": 0.7865301475204023,
+            "white-pawn": 0.7927933150095022
+          },
+          "precision_at_threshold": 0.9958677685950413,
+          "recall_at_threshold": 1
+        },
+        "model_variant": "nano",
+        "resolution": 512
+      }
+    }
+  },
+  "test_set_evaluated": false,
+  "tiling_protocol_sha256": "0c5cc74ee88180fbbbbcdd660b67df7621f6696ee8ce5988e7149bd7b5b7d957",
+  "training_protocol_sha256": "43295719d77961dbacacda8012485f41a7e9031e2a43ae2c6d176f8bbec7abdc",
+  "training_source_files": {
+    "__init__.py": "b35942806fb138157ee7d9a4275d37f2e77a3cd0a655b3e7eaa6fe976025fd31",
+    "artifacts.py": "9be8d98dff3c3da78a4c5bbb52a7ae96bbcb4bdd2460e3d343ea22a7dec51d3f",
+    "audit.py": "e4af27edea596755b337157bb9c5115d9139b999a75df448e45555a9aca6c173",
+    "benchmarks.py": "812e421ad81fc1492d7c12842926c5874e4b1bc1d464a947ff1604ee006fa7b3",
+    "cli.py": "6f9a1c1c2a1a761be820c286675917655de2d32f46e03559f95da7df93077cc2",
+    "compiler.py": "affe8a99f9c94b072e413c2af4f252177c713c5db62e3ee804b59a81b99cbeb3",
+    "construction.py": "ee887b30221f931a28b5b6533acc113b8fb2515289ff1b82409d2a89aba9eab5",
+    "datasets.py": "c328bd91dbd373051aaa67c7a23f274d7d11fbe153a6ea9e06043e654d4f77a7",
+    "error_analysis.py": "7358afe4bce4670081b69c8353dbd136f2aa2072cabf33af13ee3f9ba3d210cb",
+    "full_chess.py": "7f9846ce30ef93aaf9d2042df5f860f71d5e88a2111261d64602d3bc047240e7",
+    "providers.py": "f3edc4104b9ccef283ea8e8ae8cb8c203ce8a83a1f0ea846e134ce1a0a2a886d",
+    "report.py": "5b157cc200922408ced8b9737cf037543c26c0b396d5ee1f72dafedb2a37a33c",
+    "report_template.html": "000a903c27e9570876eefa176273bcf4ff22f114c8d68e55d9fdc6e260e5b5a8",
+    "schema.py": "7455b3764907aa0c64f7cc4c5511a15b7cf673050844b6fa865ecab608734288",
+    "training/__init__.py": "c6b7ab176ddfdac25204aaf78e9f7dbb61c62c6c25334c5e71e98c8b16abf4cf",
+    "training/acquisition.py": "eb1164c9e6ad1078f9402579f506e6263904346c2036850da4c033306484f611",
+    "training/cloud_budget.py": "3dbf993ea0e9d7e69b3be4888a582b06e4b4b6d411d520a8eed4104c4ce33a3f",
+    "training/criterion.py": "7ea8b58760288bc17c76dadd065077a666e3f840b7f3e949ed76c86d9b46229c",
+    "training/deploy.py": "e11a7b2ab50f42cce36ec04d4cd9a206b9f4ba7057a745b0ca50c084f1b364f1",
+    "training/ensemble.py": "d9f89c5190d34bf569be1bad740a77e8b87d1ee1a2c0bdd118283085669de16c",
+    "training/evaluate.py": "4cd62373e7ef827336fb8b5da0317685c248077ab44726a50a583dc2699111ce",
+    "training/localization_cascade.py": "09c2255018f78672dc69e8b3c88c9ab1201aab37176892a7b65e556c6ac2097b",
+    "training/modal_acquisition.py": "7fb0f03ff9c478ef74cdab546008b7b40dd1c081217ddae56b98ab4d7ea85876",
+    "training/modal_capacity.py": "83d7efcf17e84bd2ac578aabf6c5717d0c63816bbab0a9370644652c45de8b2a",
+    "training/modal_improve.py": "d9762d2d547042bfcdecc1f720b80003917e8e76dc41b6d98e5790588b446816",
+    "training/modal_object_crops.py": "532e1eab73ae61d2f0c5fe9d8e0e2d215fff21137b78253da98dceab8432d379",
+    "training/modal_refine.py": "ef8fbb2cad83e9b0353a26c0b7baaab72258df287c2f6017489ba6a3f04a146b",
+    "training/modal_research_v2.py": "e46ddc080a18b9df63ef10ad2edb661d0fa7efd8d0f396b2c8c0de4911aa770d",
+    "training/modal_runner.py": "579bce5c73745273508b417aebeee3d8600b4379196282422f888bf13cba29af",
+    "training/object_crops.py": "6864b92eaedbd2bb802039c6866d5581e4bf20ab3023c48b92e8a7ba7a275aaf",
+    "training/power_localization.py": "7ebabbbcd9dad2349a5d7938118be5de816ebaff7e239b5092ee1406feb7cd1b",
+    "training/provenance.py": "cf316688dbc5147acc9c80a4277e1b602c2d3db2f2e89ea6024ab772789949ad",
+    "training/pseudo.py": "d0143fea0664b8c86a51b8fda9276f50655716999297adc7c50bf4ecd8753294",
+    "training/refiner.py": "3047b1292cbc01f6aa6b04bc71336c006dc733a7c4c530860d8971115f29286d",
+    "training/research_v2.py": "9fa139c6200612da6ff09400938afb67f0a64b9142ffca07b3a4128a20ece401",
+    "training/runner.py": "0f1f37c9742262c9c81bb1fc82a6d7c752c43193e33b67f7cbdf4f0df2c682a0",
+    "training/tiled.py": "430c30c043430909f6463a44674f6a5c2825ee1c7b6fa86ddc0f843fead4cb8c",
+    "workbench/__init__.py": "fd9bb9283b1dc699a8e25ed02b03c4edabf5216740366cefdbcad2061c7c9cdd",
+    "workbench/api.py": "ec683c875458d69b31220f08669c4ac7e4a80a424957b4ef3e00ce3b21d3fb88",
+    "workbench/bootstrap.py": "f44e0af85ef6f7e3d9c9a5117f71a7bd105df884809281a47da27e9e5661c1ab",
+    "workbench/scheduler.py": "7da6942fa143f3574417396485ac21fe37426dc69d5add4828dbfce689d315bc",
+    "workbench/service.py": "a91c8638e9d565cdbfed206d93aa5d67aca06ee21911cb934aa470528443acdf",
+    "workbench/static/app.js": "f21146b3c2f763cac26d6fde1465417b2211e15f855b3207ade850baabc506e3",
+    "workbench/static/benchmark-view.js": "7ece9d72d77d66e6be77fdbc852a0cfb57a00538f59f0fde1901403e53a0251c",
+    "workbench/static/index.html": "fb08a8280a7a4f24c62f5051165e559bf1612ab91475ce1b0dd1fb5d4383edba",
+    "workbench/static/merge-story.css": "0f263f76da0642fcb02ad3f5341569bd4fb520f0ebb050f298e340d5fe63d134",
+    "workbench/static/merge-story.js": "964a5617b40ee9a1734c4b9370d47d3f736161b85927550cc8ebb0cc74d67687",
+    "workbench/static/prediction-highlights.json": "7713b453ac2043ae8294e0d0e34ed4b422d3c2346014c9b9c33f25513943b5fa",
+    "workbench/static/style.css": "883a5d9c7593aeae3d2a33bb764d388948ecf386f0f46947597c27b4170d09d6",
+    "workbench/store.py": "75a30cd25db72ae65d5011299078db0866b08d8d6a8383402ea86f5cecdcdcfc",
+    "workbench/worker.py": "340a42a6d36f296f18cee61193cc8b9e3f07991e4ee238461ba44622f3682b60"
+  }
+}

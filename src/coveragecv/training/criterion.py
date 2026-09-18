@@ -40,7 +40,7 @@ class CoverageSetCriterion(SetCriterion):
     """Apply image/class eligibility to every full unreduced classification cell."""
 
     def __init__(self, *args, negative_allowed: torch.Tensor, valid_ids=None, contract_digest="synthetic",
-                 pseudo_box_weight=1., **kwargs):
+                 pseudo_box_weight=1., exclusive_groups=(), **kwargs):
         if importlib.metadata.version("rfdetr") != "1.10.1":
             raise ValueError("this adapter supports exactly rfdetr==1.10.1")
         super().__init__(*args, **kwargs)
@@ -59,13 +59,31 @@ class CoverageSetCriterion(SetCriterion):
         if not 0 <= pseudo_box_weight <= 1:
             raise ValueError("pseudo box weight must be in [0, 1]")
         self.pseudo_box_weight = float(pseudo_box_weight)
+        # This is an object-level ontology contract, NOT an image-level coverage
+        # promotion. Only queries matched to observed positives gain negatives
+        # for explicitly declared mutually exclusive classes.
+        relation = torch.zeros((self.num_classes, self.num_classes), dtype=torch.bool)
+        seen = set()
+        self.exclusive_groups = tuple(tuple(group) for group in exclusive_groups)
+        for group in self.exclusive_groups:
+            if (len(group) < 2 or len(set(group)) != len(group) or any(
+                    isinstance(label, bool) or not isinstance(label, int) or not 0 <= label < self.num_classes-1
+                    for label in group) or seen.intersection(group)):
+                raise ValueError("Exclusive groups must be disjoint sets of at least two semantic class indices")
+            seen.update(group)
+            for label in group:
+                relation[label, list(group)] = True
+                relation[label, label] = False
+        self.register_buffer("mutually_exclusive", relation, persistent=False)
 
     @classmethod
-    def from_stock(cls, stock, negative_allowed, valid_ids=None, contract_digest="synthetic", pseudo_box_weight=1.):
+    def from_stock(cls, stock, negative_allowed, valid_ids=None, contract_digest="synthetic", pseudo_box_weight=1.,
+                   exclusive_groups=()):
         fields = inspect.signature(SetCriterion.__init__).parameters
         kwargs = {k: getattr(stock, k) for k in fields if k != "self"}
         custom = cls(**kwargs, negative_allowed=negative_allowed, valid_ids=valid_ids,
-                     contract_digest=contract_digest, pseudo_box_weight=pseudo_box_weight)
+                     contract_digest=contract_digest, pseudo_box_weight=pseudo_box_weight,
+                     exclusive_groups=exclusive_groups)
         custom.train(stock.training)
         return custom
 
@@ -142,6 +160,8 @@ class CoverageSetCriterion(SetCriterion):
         allowed = torch.cat((semantic_allowed, torch.ones((len(targets), 1), dtype=torch.bool,
                                                          device=logits.device)), dim=1)
         eligible = allowed[:, None, :].expand_as(logits).clone()
+        if self.exclusive_groups:
+            eligible[idx] |= self.mutually_exclusive[labels]
         eligible[positive_indices] = True
         losses = {"loss_ce": (cells*eligible).sum()/num_boxes}
         if log:

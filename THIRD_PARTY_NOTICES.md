@@ -21,3 +21,8 @@ transformation notes when sharing derived data. Full provenance is in
 `research/roboflow/build_plan/DATA_PROTOCOL.md` and generated manifests.
 
 - Optional inference ensembles use [Weighted Boxes Fusion](https://github.com/ZFTurbo/Weighted-Boxes-Fusion), `ensemble-boxes==1.0.9`, MIT license. Solovyev, Wang and Gabruseva, *Weighted boxes fusion: Ensembling boxes from different object detection models* (2021), https://arxiv.org/abs/1910.13302.
+
+
+## SAM2.1 experimental boundary refinement
+
+The rejected segmentation-refinement experiment uses Meta’s SAM2.1 Large pretrained weights through Hugging Face Transformers, pinned to revision `665f8e2ad61cf5f53d65644ff27c8ee525124610`. Meta licenses the model checkpoints under Apache-2.0: https://github.com/facebookresearch/sam2. The checkpoint is downloaded into the disposable cloud image and is not redistributed in this repository. The refinement/calibration implementation in `segment_refinement.py` is original. SAM2 is not part of the published predictor because its training-only acceptance test failed.

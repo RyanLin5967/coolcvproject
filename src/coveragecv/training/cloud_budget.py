@@ -33,6 +33,22 @@ def reserve_acquisition_run():
     return _reserve("coveragecv-acquisition", "acquisition", "acquisition_authorization")
 
 
+def reserve_research_v2_run():
+    return _reserve("coveragecv-research-v2", "research-v2", "research_v2_authorization")
+
+
+def reserve_research_evaluation():
+    return _reserve("coveragecv-research-evaluation", "research-evaluation", "research_evaluation_authorization")
+
+
+def reserve_research_tiling():
+    return _reserve("coveragecv-research-tiling", "research-tiling", "research_tiling_authorization")
+
+
+def reserve_segment_refinement():
+    return _reserve("coveragecv-segment-refinement", "segment-refinement", "segment_refinement_authorization")
+
+
 def _reserve(app_name, ledger_name, section):
     require_cloud_execution(app_name)
     root = Path.home() / ".config/coveragecv"

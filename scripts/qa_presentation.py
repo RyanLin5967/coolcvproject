@@ -22,8 +22,8 @@ with sync_playwright() as playwright:
                 window.EventSource = class extends Native {constructor(...args){super(...args);window.qaStream=this}};""")
             page.goto(f"http://127.0.0.1:{port}")
             page.locator(".merge-story").wait_for()
-            expected = {"pawns": [61.40, 79.20, 77.72], "all-pieces": [56.73, 73.68, 72.48],
-                        "construction": [42.31, 51.62, 51.82]}
+            expected = {"pawns": [61.40, 79.20, 77.72], "all-pieces": [56.73, 74.10, 72.48],
+                        "construction": [42.31, 52.09, 51.82]}
             hero_button = page.locator('.merge-hero [data-story-compare]')
             bounds = hero_button.bounding_box()
             assert bounds and bounds['y'] + bounds['height'] <= 1000, (port, width, 'results CTA below fold')

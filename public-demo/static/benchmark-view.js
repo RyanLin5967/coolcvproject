@@ -39,7 +39,7 @@ export function matchedBenchmark(data, key) {
 }
 
 // Independently selected AP50:95 extrema from the published results ledger.
-// Source ledger SHA-256: 3936e0b531393e387dbd5ab027d29cb61bbdb5313cfd95314ddcfcdae3ca2048
+// Source ledger SHA-256: f34b93d40019b82441e78433acb6346d220aabfe0c1c28eda75c0cac4de352d8
 export const recordedExtrema = {
   "all-pieces": {
     "naive": {
@@ -59,17 +59,17 @@ export const recordedExtrema = {
     },
     "aware": {
       "metrics": {
-        "AP": 0.7368247452744765,
-        "AP50": 0.9025064854777196,
+        "AP": 0.741022965108933,
+        "AP50": 0.9049523853353046,
         "recall_at_threshold": 0.9888059701492538
       },
-      "method": "aware_large_704_ema",
-      "seed": 20260917,
-      "steps": 2000,
+      "method": "research_v2_exclusive",
+      "seed": 20260918,
+      "steps": 4000,
       "resolution": 704,
       "passes": 1,
       "note": "",
-      "source": "/tasks/all-pieces/runs/24/metrics",
+      "source": "/research_v2/tasks/all-pieces/exclusive/metrics",
       "selection": "maximum"
     },
     "complete_reference": {
@@ -106,17 +106,17 @@ export const recordedExtrema = {
     },
     "aware": {
       "metrics": {
-        "AP": 0.516204168610153,
-        "AP50": 0.9220473449487437,
-        "recall_at_threshold": 0.9330543933054394
+        "AP": 0.5209427679705265,
+        "AP50": 0.9254011902222609,
+        "recall_at_threshold": 0.9288702928870293
       },
-      "method": "guided",
-      "seed": 20260917,
-      "steps": 6000,
+      "method": "research_v2_exclusive",
+      "seed": 20260918,
+      "steps": 8000,
       "resolution": 512,
       "passes": 5,
       "note": "265 additional published training boxes",
-      "source": "/acquisition_simulation/secondary_tiled_routing/runs/0/gated_metrics",
+      "source": "/research_v2/secondary_tiled/results/construction-exclusive/metrics",
       "selection": "maximum"
     },
     "complete_reference": {

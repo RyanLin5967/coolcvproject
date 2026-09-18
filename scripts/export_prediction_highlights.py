@@ -18,14 +18,14 @@ SOURCES = {
     },
     'all-pieces': {
         'naive': ('artifacts/gpu/all-pieces/20260919/naive', 'evaluation.json'),
-        'aware': ('artifacts/capacity/all-pieces/20260917/aware_large_704_ema', 'evaluation.json'),
+        'aware': ('artifacts/research_v2/runs/all-pieces-exclusive', 'evaluation.json'),
         'complete_reference': ('artifacts/gpu/all-pieces/20260917/complete_reference', 'evaluation.json'),
     },
     'construction': {
         'naive': ('artifacts/object-crops/construction/20260917/naive_object_crops',
                   'artifacts/crop-tiled/construction/20260917/naive_object_crops/tiled.json'),
-        'aware': ('artifacts/acquisition/construction/20260917/guided',
-                  'artifacts/acquisition-tiled/construction/20260917/guided/size_gated.json'),
+        'aware': ('artifacts/research_v2/runs/construction-exclusive',
+                  'artifacts/research_v2/tiled/construction-exclusive/size_gated.json'),
         'complete_reference': ('artifacts/object-crops/construction/20260917/complete_reference_object_crops',
                                'artifacts/crop-tiled/construction/20260917/complete_reference_object_crops/full_frame_nms.json'),
     },

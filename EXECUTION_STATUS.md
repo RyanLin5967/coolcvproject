@@ -1,3 +1,21 @@
+# Completed GPU optimization follow-up — 2026-09-18
+
+User explicitly forbids local ML compute because it froze their computer. Local training was stopped and verified absent. All later training/evaluation ran on cloud GPUs. Do not restart local MPS/CPU model jobs. Lightweight edits, metadata checks and artifact transfers are fine.
+
+Completed: 12fixed-step2000-update ontology/Alpha-GIoU continuations,18GPU evaluations including6parents,6construction tiled comparisons, and1SAM2.1 boundary pilot. All paid calls collected without duplicate resubmissions. One earlier visual cascade and the SAM2pilot were rejected on train-only refiner holdouts before validation. The earlier local pawn alpha3 run scored78.6806; alpha1 was interrupted near918updates, full never started. Do not relabel those as completed controls.
+
+Current recorded maxima AP50:95: pawns79.19867039046044(unchanged), allpieces74.1022965108933(newexclusive), construction52.09427679705265(newexclusive+existingtiles). Matched continued-training controls73.7582/allpieces and51.9432/tiledconstruction show only+0.3441/+0.1511-point ontology effects. Full references75.2029/allpieces and54.2396/tiledconstruction remain stronger. No large breakthrough or95AP was achieved.
+
+Evidence: docs/RESEARCH_V2.md, docs/RESEARCH_V2_RESULTS.json, docs/RESULTS.json.research_v2; detailed predictions/checkpoints/call receipts in ignored artifacts/research_v2. SAMpilot artifacts/segment_refinement/result.json: baselineheldoutIoU.91315179, bestnonzero.90685735; rejected. Source/weight revisions and immutable protocol hashes recorded. All newly planned experiments are complete; never resubmit old calls.
+
+UI only updates the two improved scores, provenance and corresponding actual prediction galleries; baselines/layout unchanged. scripts/export_prediction_highlights.py verified9checkpoint/evaluation contracts, same6preselected images per task. Source/public assets synchronized by scripts/build_public_demo.py. Public domain coverage.ryanlin.dev; GitHub origin RyanLin5967/coolcvproject main. Publication is being finalized; check git log/remote for the final commit.
+
+Validation: full suite178passed before local compute was prohibited;20focused checks subsequently passed before stopping local work, including the new collection recovery and pseudo-weight guard checks. Twelve real GPU training runs, all GPU evaluations, per-class routing audits, source/checkpoint/reference hashes and gallery export passed. Ruff and diff checks pass. No further local model test was run after the user prohibition.
+
+Budget: user explicitly reconfirmed20.31REMAINING credits. Conservative separate ceilings14.40training+3.60scoring+1.20tiling+1.00SAM=20.20; all original ledgers retained. Final API observation2026-09-18T16:57UTC24.49metered/0billed vs20.31before; an earlier read was25.16. Estimates fluctuate, so do not treat either difference as a settled bill or remaining balance. All eight owned cloud apps verified0activecontainers; all9public selection/gallery contracts and source/static byte parity verified with lightweight checks. Provider controls remain0cash; no new volumes/retries. Apps min_containers0, let them scale down naturally. Credentials remain outside Git. Qualified Modal deployment uses `modal deploy -m coveragecv.training.<module>`; deploying evaluator by file path previously caused a fixed import error.
+
+---
+
 # Current presentation checkpoint — 2026-09-17
 
 The user asked for a polished, distinctive merge-focused demo, a GitHub push, Cloudflare subdomain steps and a demo video. Those presentation changes are now implemented. Default page is an interactive missing-label/coverage explanation; benchmarks curate one matched comparison per dataset; predictions use the same final recipe checkpoints. Generic training/import/history/provider tools are secondary local workbench controls. Public static export is `public-demo/`, served locally at http://127.0.0.1:8767; full workbench remains http://127.0.0.1:8765. Source is `src/coveragecv/workbench/static`; rebuild copied assets with `python3 scripts/build_public_demo.py`. See docs/DEPLOYMENT.md for exact Cloudflare Pages settings (root public-demo, command exit 0, output .).
