@@ -5,6 +5,7 @@ visitor actually sees while walking the site, which ones can they recompute, and
 still bare assertions? Anything in the second list is something to avoid quoting on camera.
 """
 import json
+import re
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
@@ -29,6 +30,19 @@ for cohort in MANIFEST["cohorts"]:
             VERIFIABLE.setdefault(f"{100 * mean:.2f}", []).append(f"{cohort['key']}/{role}.mean.{field}")
             if field == "AP":
                 COHORT_MEANS.setdefault(cohort["key"], {})[role] = mean
+
+
+def caption_scores():
+    """Scores quoted in the walkthrough captions are on-screen claims too.
+
+    The embedded video is a surface a visitor sees, so a number in its caption track has
+    to be recomputable for the same reason a number on a card does.
+    """
+    track = ROOT / "public-demo/media/walkthrough.vtt"
+    if not track.exists():
+        return []
+    quoted = re.findall(r"\b\d{2}\.\d{1,2}\b", track.read_text())
+    return [value for value in quoted if value not in VERIFIABLE]
 
 
 def main():
@@ -90,7 +104,8 @@ def main():
     # The point of the rehearsal: the headline a viewer reads on Benchmarks must be the
     # same number the Verify page recomputes for that cohort. A mismatch here means the
     # site argues with itself on camera.
-    mismatches = []
+    mismatches = [f"walkthrough.vtt quotes {value}, which is not recomputable"
+                  for value in caption_scores()]
     for key, means in COHORT_MEANS.items():
         cards = findings["pages"].get(f"benchmarks/{key}", {}).get("cards", [])
         shown = {card["role"]: card["AP"] for card in cards}
