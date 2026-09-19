@@ -1,3 +1,29 @@
+# CORRECTION: ee14c6d ALSO CONTAINS THE 2026-09-18 RESEARCH WORK — 2026-09-19
+
+Commit ee14c6d is titled for the verification surface but its contents are wider. The
+2026-09-18 continuous-research work was already staged in the index when this session
+started, and `git commit` commits the index, not only the paths named in `git add`. So
+ee14c6d additionally carries: docs/CONTINUOUS_*, docs/CONTEXT_ZOOM_RESULT.json,
+docs/CROSS_RESOLUTION_RESULTS.json, docs/GEOMETRY_CONSISTENCY_RESULT.json,
+docs/SCALE_CONFIRMATION_RESULTS.json, docs/RESEARCH_LOOP.json, docs/RESULTS.json,
+scripts/prepare_* and scripts/run_* for context-zoom, cross-resolution, geometry,
+scale-confirmation and stable-assignment, the matching src/coveragecv/training modules,
+tests/test_context_zoom.py and tests/test_geometry_consistency.py, and refreshed
+public-demo snapshot/highlight assets. Those files were staged for publication by the
+prior session, so committing them is not itself wrong; the commit message failing to
+mention them is. Recorded here rather than rewritten, because the commit is already on
+the public origin and history is not being force-pushed.
+
+Unchanged by this: src/coveragecv/training/stable_assignment.py and its prep/wrapper/tests
+remain UNFINISHED AND UNTESTED drafts, never frozen, deployed or submitted. The
+cloud-smoke-only test for it is skipped locally. Do not read its presence in a commit as
+evidence that it works.
+
+Nothing secret was published: the tree was scanned before the push and the bundle carries
+only repo-relative paths.
+
+---
+
 # DRESS REHEARSAL CORRECTED THE BENCHMARK HEADLINES — 2026-09-19
 
 scripts/practice_run.py walks the served site, reads every score a visitor actually sees and
