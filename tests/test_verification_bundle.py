@@ -90,3 +90,18 @@ def test_browser_evaluator_matches_python_exactly():
     assert result.returncode == 0, result.stdout + result.stderr
     assert f"{len(RUNS)}/{len(RUNS)} runs reproduced exactly" in result.stdout, result.stdout
     assert "Largest deviation across every compared field: 0 " in result.stdout, result.stdout
+
+
+def test_published_assets_are_not_stale():
+    """public-demo must carry the current shared UI, not a previous build of it.
+
+    Editing a file under workbench/static and forgetting to rebuild silently ships an
+    older page, which is how a verified local fix reaches visitors as the old bug.
+    """
+    source = ROOT / "src/coveragecv/workbench/static"
+    published = ROOT / "public-demo/static"
+    names = ("app.js", "benchmark-view.js", "merge-story.js", "verify-view.js", "coco-eval.js",
+             "style.css", "merge-story.css", "verify.css")
+    stale = [name for name in names
+             if (source / name).read_bytes() != (published / name).read_bytes()]
+    assert not stale, f"run scripts/build_public_demo.py; stale: {', '.join(stale)}"
