@@ -1,3 +1,55 @@
+# VERIFICATION SURFACE ADDED — 2026-09-19
+
+No new cloud work, no training, no provider execution. Cloud lock remains BLOCKED and the
+$0 cash budget is untouched. One read-only Roboflow metadata GET was made (free, no compute)
+to establish what can honestly be shown on camera; see the Roboflow note below.
+
+Built the browser-side verification surface so published scores stop being stored constants.
+New Verify page ships saved validation predictions plus reference labels for 30 recorded runs
+in four matched cohorts; the visitor's browser hashes the files against digests committed in
+this repo and recomputes COCO AP50:95 from scratch. Recomputed cohort effects (aware minus
+ordinary): pawns-base +12.56 (3 seeds), pawns-augmented +2.57 (3 seeds), all-pieces-base
++11.42 (3 seeds), construction +1.80 (1 seed). Reference arms 78.04 / 78.94 / 72.54 / 52.76.
+No new model result; these are recomputations of existing recorded runs.
+
+Parity is tested, not assumed: scripts/check_verification_parity.mjs reports 30/30 runs
+reproduced with largest deviation 0 across every compared field. Parity testing caught two
+real evaluator bugs before they shipped: the precision curve past maximum recall is zero
+rather than absent (had inflated construction no-helmet AP from .3395 to .7587), and np.mean
+sums pairwise rather than left to right. Negative control forced to fire: perturbing one
+score of 11,158 in one run is detected, and the page's own "break one detection" self-test
+turns the verdict red and back to green under browser QA.
+
+Payload reduction (4.5MB JSON per run to ~250KB binary) is asserted lossless at build time;
+scripts/build_verification_bundle.py refuses to export a run whose reduced predictions do not
+reproduce its published metrics exactly, and --check reproduces the committed bytes.
+
+Validation: 267 passed / 1 skipped (13.95s), ruff clean on src/tests/scripts, 30/30 JS-Python
+parity, browser QA passed at 1440px and 390px for all four cohorts plus the self-test
+(artifacts/qa/verify-page/evidence.json). The 1 skip is the pre-existing cloud-smoke-only
+stable-assignment draft, now guarded with importorskip because its missing RF-DETR internals
+were aborting collection for the entire suite. Commit ee14c6d.
+
+Roboflow, checked read-only 2026-09-19: project coveragecv-chess-mvp is live, object-detection,
+259 images, classes white-pawn/black-pawn, version 3 splits train 201 / valid 58 which matches
+the local reference labels exactly. Training 897ac4562b5df324f2c4 status "finished", modelType
+rfdetr-nano, external upload. BUT version 3 reports model: null and models: {} — there is NO
+live hosted inference endpoint. Do not claim hosted serving or live hosted inference on camera;
+the honest claim is a third-party record of the dataset splits and a finished model artifact.
+This corrects the earlier "FINISHED/served" phrasing for present-tense use.
+
+Demo video guidance is in docs/DEMO_VIDEO.md. Two traps recorded there: the Benchmarks cards
+select control minima against our maxima across different recipes, so they are not a matched
+comparison and must not be narrated as one; and the Predictions gallery uses the augmented-512
+checkpoints (74.53/78.90/78.95, seed 20260917) while the headline +12.56 is the base 384px
+recipe, so pictures and numbers come from different recipes unless the cohort is switched.
+
+Credentials remain outside Git; repo scanned clean across the working tree and all 13 commits.
+Keys live at ~/.config/coveragecv/credentials.json (0600). ~/.modal.toml is 0644 and would be
+better at 0600. No key is embedded in the public site, and the verification surface needs none.
+
+---
+
 # STOPPED BY USER — 2026-09-18T18:32:50.855972+00:00
 
 User explicitly said: tell me all the numbers, stop everything, then stop. Cloud lock is BLOCKED. No new research or compute until user explicitly resumes. All completed scale/cross/zoom/confirmation outcomes are saved under artifacts/continuous and portable docs. Best new construction VALID AP50:95 is52.6363 (five passes); frozen TEST single-pass aware43.1515 vs control41.9491, full45.5544 vs control44.3880. Pawns79.20 and allpieces74.10 unchanged. Stable-assignment source/prep/wrapper/tests are unfinished/untested drafts, never frozen/deployed/submitted. Publication checkpoint: completed research, draft stable-assignment implementation and actual52.6363construction validation predictions are included. Stable-assignment remains untested and unexecuted. Cloud execution remains blocked; pushing does not resume research. Earlier ACTIVE entries below are historical and superseded by this STOP.
