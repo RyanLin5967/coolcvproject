@@ -6,13 +6,28 @@ Strongest evidence too: +12.56 AP, 3/3 seeds positive, recall 0.585 → ~1.000.
 
 ## Before recording
 
+There is no bare `python` on this machine, and `python3` is Xcode's 3.9 without the deps.
+Use the repo venv for everything:
+
 ```bash
-python scripts/build_verification_bundle.py --check   # 30 runs reproduce exactly
-node  scripts/check_verification_parity.mjs           # 30/30, deviation 0
-python scripts/practice_run.py                        # 24 recomputable, 0 unverifiable
-python scripts/build_public_demo.py
-cd public-demo && python3 -m http.server 8767 --bind 127.0.0.1
+cd /Users/idide/projects/coolcvproject
+.venv/bin/python scripts/build_verification_bundle.py --check   # 30 runs reproduce exactly
+node scripts/check_verification_parity.mjs                      # 30/30, deviation 0
+.venv/bin/python scripts/practice_run.py                        # 24 recomputable, 0 unverifiable
+.venv/bin/python scripts/build_public_demo.py
 ```
+
+**The server is probably already up on 8767.** Check before starting another one —
+"Address already in use" just means it is running:
+
+```bash
+curl -sf -o /dev/null http://127.0.0.1:8767/ && echo "already serving" || \
+  (cd public-demo && ../.venv/bin/python -m http.server 8767 --bind 127.0.0.1 &)
+```
+
+To force a fresh one: `lsof -ti tcp:8767 | xargs kill` then run the line above.
+Re-run `build_public_demo.py` and hard-reload after any code change, or you record a
+stale page.
 
 Browser 1440×900, zoom 100%, bookmarks hidden. Open `http://127.0.0.1:8767`.
 **Hard-reload** — the button must say "Recompute all 9 scores", not "Recompute again".
@@ -34,7 +49,7 @@ Browser 1440×900, zoom 100%, bookmarks hidden. Open `http://127.0.0.1:8767`.
 | 11 | Cohort **All chess pieces** → Recompute | +11.42, 13 classes |
 | 12 | Cohort **Construction safety** → Recompute | +1.80 — say "one seed" out loud |
 | 13 | Cut to terminal: `node scripts/check_verification_parity.mjs` | `30/30 ... deviation 0` |
-| 14 | `python -m pytest -q` | `268 passed, 1 skipped` |
+| 14 | `.venv/bin/python -m pytest -q` | `268 passed, 1 skipped` |
 | 15 | Roboflow tab → `coveragecv-chess-mvp` → version 3 | train 201 / valid 58, training "finished" |
 
 Steps 9–10 are the proof. Everything else is setup.
