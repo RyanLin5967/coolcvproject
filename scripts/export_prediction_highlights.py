@@ -3,7 +3,6 @@ import hashlib
 import json
 import math
 from pathlib import Path
-from urllib.request import urlopen
 
 from coveragecv.artifacts import file_digest, read_json, verify
 
@@ -24,8 +23,8 @@ SOURCES = {
     'construction': {
         'naive': ('artifacts/object-crops/construction/20260917/naive_object_crops',
                   'artifacts/crop-tiled/construction/20260917/naive_object_crops/tiled.json'),
-        'aware': ('artifacts/research_v2/runs/construction-exclusive',
-                  'artifacts/research_v2/tiled/construction-exclusive/size_gated.json'),
+        'aware': ('artifacts/continuous/scale/runs/aware-scale',
+                  'artifacts/continuous/confirmation/cases/construction-aware-scale/validation/size_gated.json'),
         'complete_reference': ('artifacts/object-crops/construction/20260917/complete_reference_object_crops',
                                'artifacts/crop-tiled/construction/20260917/complete_reference_object_crops/full_frame_nms.json'),
     },
@@ -43,9 +42,7 @@ def main():
         template_path, examples = next((path, value) for path, value in snapshot.items()
                                       if path.endswith('/examples') and value['bundle_digest'] == digest)
         old_id = template_path.split('/')[2]
-        with urlopen(f'http://127.0.0.1:8765/api/jobs/{old_id}', timeout=30) as response:
-            old_job = json.load(response)
-        reference = Path(old_job['result']['reference_bundle'])
+        reference = ROOT / 'artifacts/bundles' / digest
         if verify(reference)['digest'] != digest:
             raise ValueError('Reference bundle failed verification')
         full = read_json(reference / 'splits/valid.coco.json')

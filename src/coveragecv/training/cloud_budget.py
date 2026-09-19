@@ -55,6 +55,28 @@ def reserve_continuous_scale(stage):
     return _reserve("coveragecv-continuous-scale", f"continuous-scale-{stage}", f"continuous_scale_{stage}")
 
 
+def reserve_geometry_consistency():
+    return _reserve("coveragecv-geometry-consistency", "geometry-consistency", "geometry_consistency")
+
+
+def reserve_cross_resolution():
+    return _reserve("coveragecv-cross-resolution", "cross-resolution", "cross_resolution")
+
+
+def reserve_context_zoom():
+    return _reserve("coveragecv-context-zoom", "context-zoom", "context_zoom")
+
+
+def reserve_scale_confirmation():
+    return _reserve("coveragecv-scale-confirmation", "scale-confirmation", "scale_confirmation")
+
+
+def reserve_stable_assignment(stage):
+    if stage not in ("train", "evaluate", "smoke"):
+        raise ValueError("Unknown stable assignment stage")
+    return _reserve("coveragecv-stable-assignment", f"stable-assignment-{stage}", f"stable_assignment_{stage}")
+
+
 def _reserve(app_name, ledger_name, section):
     require_cloud_execution(app_name)
     root = Path.home() / ".config/coveragecv"

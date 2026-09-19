@@ -1,0 +1,1587 @@
+{
+ "binary_format": {
+  "byte_order": "little-endian",
+  "header_bytes": 16,
+  "layout": "int32 image_id[n], int32 category_id[n], float32 score[n], float32 bbox[4n] as x,y,w,h",
+  "magic": "CVB1"
+ },
+ "cohorts": [
+  {
+   "detail": "2 classes \u00b7 58 validation images",
+   "headline": true,
+   "key": "pawns-base",
+   "name": "Chess pawns",
+   "recipe": "RF-DETR Nano \u00b7 384px \u00b7 2,000 updates",
+   "runs": [
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "b19094e4697208cbfdcec265d25ddcabb9ffbad85b729285cb4b0df00c82bdcf",
+     "detections_saved": 9290,
+     "expected": {
+      "AP": 0.6508273969075022,
+      "AP50": 0.8469447810738735,
+      "AP75": 0.8308907443869785,
+      "AR100": 0.786318870523416,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.034482758620689655,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.6802257043943112,
+       "white-pawn": 0.6214290894206936
+      },
+      "precision_at_threshold": 0.986013986013986,
+      "recall_at_threshold": 0.5850622406639004
+     },
+     "id": "pawns-base-20260917-naive",
+     "method": "naive",
+     "predictions": {
+      "bytes": 247340,
+      "count": 8833,
+      "path": "pawns-base-20260917-naive.bin",
+      "sha256": "41b018026aac4a90d406e9d72463f3d5f1592c3418eaad3cce661546d5cbb145"
+     },
+     "resolution": 384,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260917/naive/evaluation.json",
+     "source_evaluation_sha256": "67aed0961a6255b2ffa54e250340caae96a5667a025407521eab90da99db8b24",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "97d334fd09882ea41817446090c155d6e78927c2b680e43fb9915e4fac1b46c4",
+     "detections_saved": 12221,
+     "expected": {
+      "AP": 0.7559385720369248,
+      "AP50": 0.9892833052046738,
+      "AP75": 0.9641587357835355,
+      "AR100": 0.8256473829201102,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.034482758620689655,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7483268669866154,
+       "white-pawn": 0.7635502770872342
+      },
+      "precision_at_threshold": 0.9916317991631799,
+      "recall_at_threshold": 0.983402489626556
+     },
+     "id": "pawns-base-20260917-aware",
+     "method": "aware",
+     "predictions": {
+      "bytes": 312440,
+      "count": 11158,
+      "path": "pawns-base-20260917-aware.bin",
+      "sha256": "37d5225bb0a6392600229ca8223e365817fa3815a5568df38ee81f2920b64785"
+     },
+     "resolution": 384,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260917/aware/evaluation.json",
+     "source_evaluation_sha256": "70a875d4159b586bd6e8b844190bbb10eef99652bfd31a51e2730fc8e55868ac",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "240aa84076697068ba823c3aaa236dc21d481bb1a6d02e91ecff9015b76c350a",
+     "detections_saved": 8788,
+     "expected": {
+      "AP": 0.7774881890088818,
+      "AP50": 1.0,
+      "AP75": 0.9784805932372784,
+      "AR100": 0.8414807162534436,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.0,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7772047643092445,
+       "white-pawn": 0.7777716137085192
+      },
+      "precision_at_threshold": 1.0,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-base-20260917-complete_reference",
+     "method": "complete_reference",
+     "predictions": {
+      "bytes": 244876,
+      "count": 8745,
+      "path": "pawns-base-20260917-complete_reference.bin",
+      "sha256": "f3c5c90768a121483ac121c35c904bd139a4cda6eabfa30096201847b5c991d4"
+     },
+     "resolution": 384,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260917/complete_reference/evaluation.json",
+     "source_evaluation_sha256": "157a1946f33cc1b3ee3ed7421b20e5ecb974bf195abbad1eef0c8eeb990223a3",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "20b084a179153f54eec7b278bf1ee4222b3cf9060ee9159e1ab215445a56e2f5",
+     "detections_saved": 10216,
+     "expected": {
+      "AP": 0.6139736863347561,
+      "AP50": 0.826548835275989,
+      "AP75": 0.7692749644684678,
+      "AR100": 0.7436535812672177,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.017241379310344827,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.6265007480605749,
+       "white-pawn": 0.601446624608937
+      },
+      "precision_at_threshold": 0.9929577464788732,
+      "recall_at_threshold": 0.5850622406639004
+     },
+     "id": "pawns-base-20260918-naive",
+     "method": "naive",
+     "predictions": {
+      "bytes": 248572,
+      "count": 8877,
+      "path": "pawns-base-20260918-naive.bin",
+      "sha256": "61e95811c7bd77afdb1887a1681f411564de728f90082d581eca04146f4f309c"
+     },
+     "resolution": 384,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260918/naive/evaluation.json",
+     "source_evaluation_sha256": "0bd60a32fdd0ead2e5fad3d8ad0e97e3f4e23e9d23f451c644f625526b760d21",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "7008050cb446a54115ad31585a73fb3b698dc4c2b227069f4237610477a50d6e",
+     "detections_saved": 12554,
+     "expected": {
+      "AP": 0.7698735198924682,
+      "AP50": 1.0,
+      "AP75": 0.9721905483644273,
+      "AR100": 0.8194318181818183,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.06896551724137931,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7509103784930241,
+       "white-pawn": 0.7888366612919123
+      },
+      "precision_at_threshold": 0.9836734693877551,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-base-20260918-aware",
+     "method": "aware",
+     "predictions": {
+      "bytes": 309668,
+      "count": 11059,
+      "path": "pawns-base-20260918-aware.bin",
+      "sha256": "21eb555326d7b2e2b9b24622cd6bd5c1fc2514e0d0c4b27a6246925eccbccc0b"
+     },
+     "resolution": 384,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260918/aware/evaluation.json",
+     "source_evaluation_sha256": "5d73669f91368509632211ad327d018f99d9f6485acdc4b4541372d4e624bff1",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "cf608dc4d8341809b494f25eac2f68ab9963db68e3ae79d91b8cbd284f56576d",
+     "detections_saved": 10292,
+     "expected": {
+      "AP": 0.7771739747361326,
+      "AP50": 1.0,
+      "AP75": 0.9929220194746747,
+      "AR100": 0.829814049586777,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.0,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7696521205435214,
+       "white-pawn": 0.7846958289287437
+      },
+      "precision_at_threshold": 1.0,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-base-20260918-complete_reference",
+     "method": "complete_reference",
+     "predictions": {
+      "bytes": 273828,
+      "count": 9779,
+      "path": "pawns-base-20260918-complete_reference.bin",
+      "sha256": "24186a585d35ead2945d91ab59f42299ec795e4e2837e0a245274b534c7bc5cd"
+     },
+     "resolution": 384,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260918/complete_reference/evaluation.json",
+     "source_evaluation_sha256": "5d46023c9d38d36d3103276cbd0c81b225b77c22399f0014edf9989b394d27df",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "7fffb23d9e4141c3b665b0593b189e7ba56e46134b1ff2fd87a76ef2d245efd6",
+     "detections_saved": 8846,
+     "expected": {
+      "AP": 0.6488720222141893,
+      "AP50": 0.8471399532222414,
+      "AP75": 0.8158149195592275,
+      "AR100": 0.7760502754820938,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.0,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.6967869551853378,
+       "white-pawn": 0.6009570892430409
+      },
+      "precision_at_threshold": 1.0,
+      "recall_at_threshold": 0.5892116182572614
+     },
+     "id": "pawns-base-20260919-naive",
+     "method": "naive",
+     "predictions": {
+      "bytes": 238184,
+      "count": 8506,
+      "path": "pawns-base-20260919-naive.bin",
+      "sha256": "609705ae127b868df493dd80571a529c09a8cd67d1ab70ccb90e34c8d0a38ce8"
+     },
+     "resolution": 384,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260919/naive/evaluation.json",
+     "source_evaluation_sha256": "850a9c423a7150d9623166ab3b46ddf8167e4e49bb6e2ea0b5958f1aa64e1c1d",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "c90e2d38bb666ea74bdec7bd1becc2fb124db932eaed20a0a690bf7b4e645d8c",
+     "detections_saved": 12030,
+     "expected": {
+      "AP": 0.7646098794345743,
+      "AP50": 1.0,
+      "AP75": 0.971029707698217,
+      "AR100": 0.8318767217630854,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.017241379310344827,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7459290877570932,
+       "white-pawn": 0.7832906711120551
+      },
+      "precision_at_threshold": 0.995850622406639,
+      "recall_at_threshold": 0.995850622406639
+     },
+     "id": "pawns-base-20260919-aware",
+     "method": "aware",
+     "predictions": {
+      "bytes": 300820,
+      "count": 10743,
+      "path": "pawns-base-20260919-aware.bin",
+      "sha256": "23c0a6c325886233351b575cbcdc1523aee6fd199eb4627e362b915edd1fde7d"
+     },
+     "resolution": 384,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260919/aware/evaluation.json",
+     "source_evaluation_sha256": "2ec123f39f4cad35f35555aabb6abce6b978b5a8a47a3358d761ffd57799d941",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "d2a0c176acd7b256b4fe0fa2e11d22999c09b175010fac7c20e613f1c52bfe11",
+     "detections_saved": 10213,
+     "expected": {
+      "AP": 0.7865619544845699,
+      "AP50": 1.0,
+      "AP75": 1.0,
+      "AR100": 0.8414910468319559,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.0,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.784482985666529,
+       "white-pawn": 0.7886409233026108
+      },
+      "precision_at_threshold": 1.0,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-base-20260919-complete_reference",
+     "method": "complete_reference",
+     "predictions": {
+      "bytes": 260976,
+      "count": 9320,
+      "path": "pawns-base-20260919-complete_reference.bin",
+      "sha256": "8edc5cf6460dbdc2dbbf2f1ef5dfbd276b89f37fc20e710afa15ab6bd215f52d"
+     },
+     "resolution": 384,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/gpu/pawns/20260919/complete_reference/evaluation.json",
+     "source_evaluation_sha256": "9aa3bc5bb9d99c85f6c83e691798dc66281f72ff7532960f4ec681c41ba26cf2",
+     "steps": 2000
+    }
+   ],
+   "seeds": [
+    20260917,
+    20260918,
+    20260919
+   ],
+   "task": "pawns"
+  },
+  {
+   "detail": "2 classes \u00b7 58 validation images",
+   "key": "pawns-augmented",
+   "name": "Chess pawns \u00b7 stronger recipe",
+   "recipe": "RF-DETR Nano \u00b7 512px \u00b7 4,000 updates \u00b7 augmentation",
+   "runs": [
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "db566ce8b03c4e856c669d8aa3f5b76d8a9cb76c2390f7b20c2e329af3bf089f",
+     "detections_saved": 10109,
+     "expected": {
+      "AP": 0.7452759126440764,
+      "AP50": 0.9634048741857006,
+      "AP75": 0.9363247237708847,
+      "AR100": 0.8285881542699725,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.06896551724137931,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.733138557057557,
+       "white-pawn": 0.757413268230596
+      },
+      "precision_at_threshold": 0.9779005524861878,
+      "recall_at_threshold": 0.7344398340248963
+     },
+     "id": "pawns-augmented-20260917-naive",
+     "method": "naive_augmented_512",
+     "predictions": {
+      "bytes": 244820,
+      "count": 8743,
+      "path": "pawns-augmented-20260917-naive.bin",
+      "sha256": "d6dc8c7845c225a27306ccc592c0006dee3fb605503f8230c71f62249a715f16"
+     },
+     "resolution": 512,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/improved/pawns/20260917/naive_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "ed8221e2cd7509cea03a48ff367c67a03b88e07a81bdb50295a3587e7a4325e5",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "b6981a3f557a2451bd9cef154e5dcc0085bafebd3db2ca232d9067095f667552",
+     "detections_saved": 12091,
+     "expected": {
+      "AP": 0.7890292563861456,
+      "AP50": 1.0,
+      "AP75": 0.9855949685001288,
+      "AR100": 0.8364876033057851,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.05172413793103448,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7748895517105202,
+       "white-pawn": 0.8031689610617709
+      },
+      "precision_at_threshold": 0.9877049180327869,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-augmented-20260917-aware",
+     "method": "aware_augmented_512",
+     "predictions": {
+      "bytes": 279204,
+      "count": 9971,
+      "path": "pawns-augmented-20260917-aware.bin",
+      "sha256": "ccb27192e71da2210bc9b7988584f25d962b2b6cae363929ee8d49bfcf647315"
+     },
+     "resolution": 512,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/improved/pawns/20260917/aware_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "2bec762539e8493b3db0735044d9e20695507d24890898811fc20af869ace017",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "73e4ec158e9d291e9122bc14df968ca032e13565311cd2ed24e9c4c7e3516b43",
+     "detections_saved": 11823,
+     "expected": {
+      "AP": 0.7895091326948164,
+      "AP50": 1.0,
+      "AP75": 0.9810643943182197,
+      "AR100": 0.845223829201102,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.034482758620689655,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7865094080153419,
+       "white-pawn": 0.7925088573742909
+      },
+      "precision_at_threshold": 0.9917695473251029,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-augmented-20260917-complete_reference",
+     "method": "complete_augmented_512",
+     "predictions": {
+      "bytes": 281892,
+      "count": 10067,
+      "path": "pawns-augmented-20260917-complete_reference.bin",
+      "sha256": "b37d7699364e57e442d0afd1668d136c13c44e6a5cff0951fbabb014e68d10fe"
+     },
+     "resolution": 512,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/improved/pawns/20260917/complete_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "5c651a740c3e416adf188fe155d491d7ceb92996d9cf7f908d77559dcd6ef458",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "4cc93e0f1dfed682389304a1e8f1d63144b26108301e4abf20828a3e7eced583",
+     "detections_saved": 12443,
+     "expected": {
+      "AP": 0.7669879595810126,
+      "AP50": 0.9851067139650741,
+      "AP75": 0.9602348974386625,
+      "AR100": 0.833581267217631,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.017241379310344827,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7615749403307809,
+       "white-pawn": 0.7724009788312447
+      },
+      "precision_at_threshold": 0.994413407821229,
+      "recall_at_threshold": 0.7385892116182573
+     },
+     "id": "pawns-augmented-20260918-naive",
+     "method": "naive_augmented_512",
+     "predictions": {
+      "bytes": 302164,
+      "count": 10791,
+      "path": "pawns-augmented-20260918-naive.bin",
+      "sha256": "588c1686fd7b61626d30a97b8e21a5f7a9a59ba19957cd33e39e34ee50905661"
+     },
+     "resolution": 512,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/improved/pawns/20260918/naive_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "3e480a541959587476ecc6636dbc0ec9af9cf12f49b44ed1de433e3e89bd1ace",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "6d6d69effe954255c0814e06451630d0f9e0f3f3bbaa939c294daee40b999915",
+     "detections_saved": 13615,
+     "expected": {
+      "AP": 0.7836365748280201,
+      "AP50": 1.0,
+      "AP75": 0.9832095709570958,
+      "AR100": 0.8340013774104685,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.1206896551724138,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7704155689345403,
+       "white-pawn": 0.7968575807214999
+      },
+      "precision_at_threshold": 0.9717741935483871,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-augmented-20260918-aware",
+     "method": "aware_augmented_512",
+     "predictions": {
+      "bytes": 313000,
+      "count": 11178,
+      "path": "pawns-augmented-20260918-aware.bin",
+      "sha256": "94d49d944421bda2b8ffb4fc55ef40989594ea1850645eb8fef68be43b836182"
+     },
+     "resolution": 512,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/improved/pawns/20260918/aware_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "541a68dc3bda271b6dd595197baf0acfee8df3cb531ac138ad1171d4c59df693",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "3e07f52d9f7de1aff7ec6bc5da05dc70b3b939fb23dace1993e3305efe373d8f",
+     "detections_saved": 13368,
+     "expected": {
+      "AP": 0.7871845815796605,
+      "AP50": 1.0,
+      "AP75": 0.9813389045168842,
+      "AR100": 0.8410709366391185,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.0,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7853671498916457,
+       "white-pawn": 0.7890020132676754
+      },
+      "precision_at_threshold": 1.0,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-augmented-20260918-complete_reference",
+     "method": "complete_augmented_512",
+     "predictions": {
+      "bytes": 270132,
+      "count": 9647,
+      "path": "pawns-augmented-20260918-complete_reference.bin",
+      "sha256": "333fcbd5554cc103a3151e0aaa228989460123cc38e8add867ad6d6d5b9f63ce"
+     },
+     "resolution": 512,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/improved/pawns/20260918/complete_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "6d380e83eae5694a8ad4f08a0dc948f148f93945532b2740ea723c90e9219004",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "7d8ec747e72a5636532e4b08c040e69225adc5ef681ad380cefa01aa675533c6",
+     "detections_saved": 12771,
+     "expected": {
+      "AP": 0.7752685845924303,
+      "AP50": 0.9923611583579847,
+      "AP75": 0.9746181028087447,
+      "AR100": 0.8393904958677689,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.0,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7646745841154141,
+       "white-pawn": 0.7858625850694466
+      },
+      "precision_at_threshold": 1.0,
+      "recall_at_threshold": 0.7883817427385892
+     },
+     "id": "pawns-augmented-20260919-naive",
+     "method": "naive_augmented_512",
+     "predictions": {
+      "bytes": 288416,
+      "count": 10300,
+      "path": "pawns-augmented-20260919-naive.bin",
+      "sha256": "3b0bb2c75fed0af37fe5ad8bbffed55da616951fc75f7edaf2e6ff6f697013fd"
+     },
+     "resolution": 512,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/improved/pawns/20260919/naive_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "5ae3b07694db3b8bc79ac82f07e2b4afcbeb28a5500ce5cefdff84abe21c64a3",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "8f8f8c8b10268636df9b2e164f5554dd697d633bd4afd08f806d177705a2b579",
+     "detections_saved": 12777,
+     "expected": {
+      "AP": 0.7919867039046043,
+      "AP50": 1.0,
+      "AP75": 0.9905853211583785,
+      "AR100": 0.8435330578512398,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.05172413793103448,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7788317280558122,
+       "white-pawn": 0.8051416797533966
+      },
+      "precision_at_threshold": 0.9877049180327869,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-augmented-20260919-aware",
+     "method": "aware_augmented_512",
+     "predictions": {
+      "bytes": 312328,
+      "count": 11154,
+      "path": "pawns-augmented-20260919-aware.bin",
+      "sha256": "61843ffa744b8ee32e8fb461ef04ad50efcaf61c88603f41e714a90ff579046d"
+     },
+     "resolution": 512,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/improved/pawns/20260919/aware_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "dd35129f419d65cf29a85cae7157c5b5b844333038241cdabffc59d118f75caf",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
+     "checkpoint_sha256": "a80f66abbc0e2994c0fd9bb62dd5269a47719cfd8c7d8cf1e5e80720d033f0bf",
+     "detections_saved": 13239,
+     "expected": {
+      "AP": 0.7913831712506111,
+      "AP50": 1.0,
+      "AP75": 0.9897689069606261,
+      "AR100": 0.8431439393939394,
+      "boxes": 241,
+      "class_support": {
+       "1": 120,
+       "2": 121
+      },
+      "false_positives_per_image": 0.0,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 27,
+      "per_class_AP": {
+       "black-pawn": 0.7865885846065916,
+       "white-pawn": 0.7961777578946303
+      },
+      "precision_at_threshold": 1.0,
+      "recall_at_threshold": 1.0
+     },
+     "id": "pawns-augmented-20260919-complete_reference",
+     "method": "complete_augmented_512",
+     "predictions": {
+      "bytes": 308884,
+      "count": 11031,
+      "path": "pawns-augmented-20260919-complete_reference.bin",
+      "sha256": "9b58ed3ebdf117d03aafe46de243bd1bd3a24e23d794aa1a582566d1ffe8bdad"
+     },
+     "resolution": 512,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/improved/pawns/20260919/complete_augmented_512/evaluation.json",
+     "source_evaluation_sha256": "f6ebf8a7cda926ead406a5d1e76c3a70a710fd4534934868dd6abe161e42ef1c",
+     "steps": 4000
+    }
+   ],
+   "seeds": [
+    20260917,
+    20260918,
+    20260919
+   ],
+   "task": "pawns"
+  },
+  {
+   "detail": "13 classes \u00b7 58 validation images",
+   "key": "all-pieces-base",
+   "name": "All chess pieces",
+   "recipe": "RF-DETR Nano \u00b7 384px \u00b7 2,000 updates",
+   "runs": [
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "1a438b9224c2f2cd4ea5f409e79129c3e90577e2e17e39a51aaca61898b46985",
+     "detections_saved": 16547,
+     "expected": {
+      "AP": 0.609908905858293,
+      "AP50": 0.7618335126305908,
+      "AP75": 0.7501926977585208,
+      "AR100": 0.7460008212022781,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.2413793103448276,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0,
+       "black-bishop": 0.5623103049439975,
+       "black-king": 0.7799564387337862,
+       "black-knight": 0.6485218775746652,
+       "black-pawn": 0.6940189867705191,
+       "black-queen": 0.7461227175949127,
+       "black-rook": 0.703818391140773,
+       "white-bishop": 0.6558692961946544,
+       "white-king": 0.6386304681053149,
+       "white-knight": 0.5618760759136409,
+       "white-pawn": 0.6829083497579866,
+       "white-queen": 0.6410832188743052,
+       "white-rook": 0.6136996505532532
+      },
+      "precision_at_threshold": 0.9597701149425287,
+      "recall_at_threshold": 0.6231343283582089
+     },
+     "id": "all-pieces-base-20260917-naive",
+     "method": "naive",
+     "predictions": {
+      "bytes": 463332,
+      "count": 16547,
+      "path": "all-pieces-base-20260917-naive.bin",
+      "sha256": "5a73a2ad85c1c359b43c72378065869ef996359d2a21fd0818ec1441d2f3584c"
+     },
+     "resolution": 384,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260917/naive/evaluation.json",
+     "source_evaluation_sha256": "65de139fe3587715e89f7711e43a4bf19762dc62a6f8ea9ab65bc780d3b0d96f",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "1d35a3fbb1b625b6c3835f6e6a0a0813f2f976ebeac97594c5f9449fe1abf392",
+     "detections_saved": 16682,
+     "expected": {
+      "AP": 0.7076908548085069,
+      "AP50": 0.8892848382475564,
+      "AP75": 0.8763651598997468,
+      "AR100": 0.7712362288888197,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.4827586206896552,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0,
+       "black-bishop": 0.6348954900052934,
+       "black-king": 0.8118976022118567,
+       "black-knight": 0.7092970752914167,
+       "black-pawn": 0.7463580874896033,
+       "black-queen": 0.8296623341483946,
+       "black-rook": 0.7334288743184849,
+       "white-bishop": 0.7680387023851873,
+       "white-king": 0.8158540567581074,
+       "white-knight": 0.7820884156463946,
+       "white-pawn": 0.7895235303555709,
+       "white-queen": 0.8212228112003244,
+       "white-rook": 0.7577141326999558
+      },
+      "precision_at_threshold": 0.9489981785063752,
+      "recall_at_threshold": 0.9720149253731343
+     },
+     "id": "all-pieces-base-20260917-aware",
+     "method": "aware",
+     "predictions": {
+      "bytes": 467112,
+      "count": 16682,
+      "path": "all-pieces-base-20260917-aware.bin",
+      "sha256": "a4649a92900e5ae81f43ed2cadd61a0da9eb4596c8b3ddd292651db55efbf384"
+     },
+     "resolution": 384,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260917/aware/evaluation.json",
+     "source_evaluation_sha256": "5e5df3809e9d5acf4004a5876006a67e01a254b4fe7872608273827b8ceebef4",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "ab9a170ea11c95bc889e27a61fc70725ce2e516915882a3849b8bfa19953ce53",
+     "detections_saved": 16151,
+     "expected": {
+      "AP": 0.72475490909525,
+      "AP50": 0.8970232603305641,
+      "AP75": 0.8970232603305641,
+      "AR100": 0.7789526866274055,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.41379310344827586,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0,
+       "black-bishop": 0.6217183715919712,
+       "black-king": 0.8602361261767202,
+       "black-knight": 0.7387085526437841,
+       "black-pawn": 0.7780872966829467,
+       "black-queen": 0.8115677789827125,
+       "black-rook": 0.7665295572006815,
+       "white-bishop": 0.8078560063285097,
+       "white-king": 0.8625381220292571,
+       "white-knight": 0.7868223705669976,
+       "white-pawn": 0.7922451674936832,
+       "white-queen": 0.8128148876006094,
+       "white-rook": 0.7826895809403777
+      },
+      "precision_at_threshold": 0.9563636363636364,
+      "recall_at_threshold": 0.9813432835820896
+     },
+     "id": "all-pieces-base-20260917-complete_reference",
+     "method": "complete_reference",
+     "predictions": {
+      "bytes": 452244,
+      "count": 16151,
+      "path": "all-pieces-base-20260917-complete_reference.bin",
+      "sha256": "246312e0941366635349cb66e1d9f2c11b69d33b1d511ef7e53728c0368b1dfe"
+     },
+     "resolution": 384,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260917/complete_reference/evaluation.json",
+     "source_evaluation_sha256": "6d1a4984276bbd563b701d649b411c05442351f18653e98abb83436b65719a10",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "4627f003d4a6535a517d29bf009d8346a62556fddad9f3de3c22de601e846710",
+     "detections_saved": 16739,
+     "expected": {
+      "AP": 0.5695647526168723,
+      "AP50": 0.7196864153947024,
+      "AP75": 0.7115790756443283,
+      "AR100": 0.7861008608454672,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.1724137931034483,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0021021021021021026,
+       "black-bishop": 0.4902189882610826,
+       "black-king": 0.7336699571767553,
+       "black-knight": 0.5754247299854802,
+       "black-pawn": 0.6938484714450133,
+       "black-queen": 0.6905080115274282,
+       "black-rook": 0.5655714211695261,
+       "white-bishop": 0.6026419397538778,
+       "white-king": 0.592491712364815,
+       "white-knight": 0.6744603866265456,
+       "white-pawn": 0.6547779211267943,
+       "white-queen": 0.5470013332664382,
+       "white-rook": 0.581624809213482
+      },
+      "precision_at_threshold": 0.9696048632218845,
+      "recall_at_threshold": 0.5951492537313433
+     },
+     "id": "all-pieces-base-20260918-naive",
+     "method": "naive",
+     "predictions": {
+      "bytes": 468708,
+      "count": 16739,
+      "path": "all-pieces-base-20260918-naive.bin",
+      "sha256": "e8e1e75a7d40d4bb0aac1216d04b748b2a6de6c9f68052ba5f88ce7c21b92c78"
+     },
+     "resolution": 384,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260918/naive/evaluation.json",
+     "source_evaluation_sha256": "e1af2f75a00db51ded42202a6efa6c7755cd2617e58f65ee8c6e76aee642f4a9",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "af0733ee0deae30c833e1eb9aeabb252b1c6548b31658f0177cb212e8f56a134",
+     "detections_saved": 17124,
+     "expected": {
+      "AP": 0.6928883930944796,
+      "AP50": 0.8822976118961388,
+      "AP75": 0.8549050590597943,
+      "AR100": 0.7919694350765712,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.6724137931034483,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0014981273408239703,
+       "black-bishop": 0.5868876777839659,
+       "black-king": 0.8123072694039285,
+       "black-knight": 0.6707897228679423,
+       "black-pawn": 0.7323299983948818,
+       "black-queen": 0.8042904290429043,
+       "black-rook": 0.7353274303047291,
+       "white-bishop": 0.7405767675225369,
+       "white-king": 0.8355285490638752,
+       "white-knight": 0.7888829703381305,
+       "white-pawn": 0.7720427358154681,
+       "white-queen": 0.7511710344980842,
+       "white-rook": 0.7759163978509652
+      },
+      "precision_at_threshold": 0.9302325581395349,
+      "recall_at_threshold": 0.9701492537313433
+     },
+     "id": "all-pieces-base-20260918-aware",
+     "method": "aware",
+     "predictions": {
+      "bytes": 479488,
+      "count": 17124,
+      "path": "all-pieces-base-20260918-aware.bin",
+      "sha256": "2639ae6e3e68203d58ce82d2179dab81d5b0257b748d2f019e0260af0d5b5eba"
+     },
+     "resolution": 384,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260918/aware/evaluation.json",
+     "source_evaluation_sha256": "0a78765f8b957f491a4b1880372ebd7324ba46a364d74f5b7b92471348928af3",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "4c58d27f2d8325bc263bd13fd1659c67e55e5ef74ff18c06d0763883b3e5939d",
+     "detections_saved": 16848,
+     "expected": {
+      "AP": 0.7264487886548228,
+      "AP50": 0.9014331317358415,
+      "AP75": 0.8899352917662858,
+      "AR100": 0.8464676509181395,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.5517241379310345,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0047904191616766475,
+       "black-bishop": 0.654431130218191,
+       "black-king": 0.8620422765462048,
+       "black-knight": 0.7521390918879461,
+       "black-pawn": 0.7645194454988671,
+       "black-queen": 0.8027935301270065,
+       "black-rook": 0.7816531227699843,
+       "white-bishop": 0.8104091568375331,
+       "white-king": 0.8414595783785518,
+       "white-knight": 0.8151060964057218,
+       "white-pawn": 0.7741538282904226,
+       "white-queen": 0.8009085614443798,
+       "white-rook": 0.7794280149462108
+      },
+      "precision_at_threshold": 0.942652329749104,
+      "recall_at_threshold": 0.9813432835820896
+     },
+     "id": "all-pieces-base-20260918-complete_reference",
+     "method": "complete_reference",
+     "predictions": {
+      "bytes": 471760,
+      "count": 16848,
+      "path": "all-pieces-base-20260918-complete_reference.bin",
+      "sha256": "fb07f1784a23316c8961908eaba3b9aa818d196be6b889c5dc71a399ddc80f00"
+     },
+     "resolution": 384,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260918,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260918/complete_reference/evaluation.json",
+     "source_evaluation_sha256": "fddae61b7f918b76da03f7cacacb15e8188400576f4c34d8c601e8eb8d1274e7",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "139f0876e7a2f3fbf403709668260dfc7deee294885f8feae6c8c7f10ad90d6c",
+     "detections_saved": 17346,
+     "expected": {
+      "AP": 0.5673147014337226,
+      "AP50": 0.7266028851551712,
+      "AP75": 0.7103343876940329,
+      "AR100": 0.7272692451380447,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.29310344827586204,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0,
+       "black-bishop": 0.513903235820281,
+       "black-king": 0.7370058620756492,
+       "black-knight": 0.6654326037162447,
+       "black-pawn": 0.6927036282643703,
+       "black-queen": 0.6952289138688305,
+       "black-rook": 0.6990805650162588,
+       "white-bishop": 0.5388821987164768,
+       "white-king": 0.5977067281927341,
+       "white-knight": 0.5592630859472358,
+       "white-pawn": 0.620432394158509,
+       "white-queen": 0.5655336248716932,
+       "white-rook": 0.4899182779901105
+      },
+      "precision_at_threshold": 0.9514285714285714,
+      "recall_at_threshold": 0.621268656716418
+     },
+     "id": "all-pieces-base-20260919-naive",
+     "method": "naive",
+     "predictions": {
+      "bytes": 485676,
+      "count": 17345,
+      "path": "all-pieces-base-20260919-naive.bin",
+      "sha256": "930360b192f0e487897e1bc7f2f5ab68276a5fd52ee5b7a778d9585f42c8a009"
+     },
+     "resolution": 384,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260919/naive/evaluation.json",
+     "source_evaluation_sha256": "f3e8395a34b23617635b60ae38c7e4da001c7da15fc8fd5fbb80ac06e4bc5445",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "2934d4376aef50020689756e09637e75f14da83609327a36c142003632f2b4c4",
+     "detections_saved": 17291,
+     "expected": {
+      "AP": 0.688689492549667,
+      "AP50": 0.8751606569515112,
+      "AP75": 0.8581341548849136,
+      "AR100": 0.7591791716796327,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.7068965517241379,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0,
+       "black-bishop": 0.6064857912122429,
+       "black-king": 0.7971145874612472,
+       "black-knight": 0.7042857590495701,
+       "black-pawn": 0.7330099843352981,
+       "black-queen": 0.7559824828636711,
+       "black-rook": 0.7401712797271561,
+       "white-bishop": 0.7318290333977523,
+       "white-king": 0.8110925707955412,
+       "white-knight": 0.7552627370784378,
+       "white-pawn": 0.7771096407409428,
+       "white-queen": 0.7710897489231793,
+       "white-rook": 0.7695297875606325
+      },
+      "precision_at_threshold": 0.9266547406082289,
+      "recall_at_threshold": 0.9664179104477612
+     },
+     "id": "all-pieces-base-20260919-aware",
+     "method": "aware",
+     "predictions": {
+      "bytes": 484164,
+      "count": 17291,
+      "path": "all-pieces-base-20260919-aware.bin",
+      "sha256": "83b4263b0e2b18bee7ffda957ce0de50926ffd3bbe91219f06074f64ef16bd71"
+     },
+     "resolution": 384,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260919/aware/evaluation.json",
+     "source_evaluation_sha256": "81374ca651eaff1ec7e16f27b77191d0804ef60f728a760d50c254c0b92de4ab",
+     "steps": 2000
+    },
+    {
+     "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
+     "checkpoint_sha256": "46e1fe178a62e8a57e9c300994a6d4f774139a8c39b90ad0f41185b484898741",
+     "detections_saved": 17287,
+     "expected": {
+      "AP": 0.7249124113076789,
+      "AP50": 0.8943928560003263,
+      "AP75": 0.886291419327345,
+      "AR100": 0.7839287806667485,
+      "boxes": 536,
+      "class_support": {
+       "1": 1,
+       "10": 40,
+       "11": 121,
+       "12": 21,
+       "13": 33,
+       "2": 29,
+       "3": 28,
+       "4": 34,
+       "5": 120,
+       "6": 17,
+       "7": 34,
+       "8": 30,
+       "9": 28
+      },
+      "false_positives_per_image": 0.4482758620689655,
+      "images": 58,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 1,
+      "per_class_AP": {
+       "bishop": 0.0,
+       "black-bishop": 0.6077411760788979,
+       "black-king": 0.8623341089509647,
+       "black-knight": 0.7519000021282785,
+       "black-pawn": 0.7668617561045742,
+       "black-queen": 0.8327774399935145,
+       "black-rook": 0.7586942634647805,
+       "white-bishop": 0.8143606446994294,
+       "white-king": 0.8339485323897077,
+       "white-knight": 0.7983931513728488,
+       "white-pawn": 0.7805381561697964,
+       "white-queen": 0.811977626334062,
+       "white-rook": 0.8043344893129712
+      },
+      "precision_at_threshold": 0.9529837251356239,
+      "recall_at_threshold": 0.9832089552238806
+     },
+     "id": "all-pieces-base-20260919-complete_reference",
+     "method": "complete_reference",
+     "predictions": {
+      "bytes": 484052,
+      "count": 17287,
+      "path": "all-pieces-base-20260919-complete_reference.bin",
+      "sha256": "b429d8b2e1f81b77c8e4d1ab2f7efb166e30e1a34e130c9bccc571bfce3e66cf"
+     },
+     "resolution": 384,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260919,
+     "source_evaluation_path": "artifacts/gpu/all-pieces/20260919/complete_reference/evaluation.json",
+     "source_evaluation_sha256": "0fdf6671ef6b0703c83e083624a457cb8677158177e7793efb3c4efe57df5a86",
+     "steps": 2000
+    }
+   ],
+   "seeds": [
+    20260917,
+    20260918,
+    20260919
+   ],
+   "task": "all-pieces"
+  },
+  {
+   "detail": "5 classes \u00b7 120 validation images",
+   "key": "construction",
+   "name": "Construction safety",
+   "recipe": "RF-DETR Nano \u00b7 512px \u00b7 4,000 updates",
+   "runs": [
+    {
+     "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+     "checkpoint_sha256": "d1d3f88bd8f515230343706c17ea056acbb601ec90acec2e8db8e8e91e9a58e3",
+     "detections_saved": 34986,
+     "expected": {
+      "AP": 0.46338797303976426,
+      "AP50": 0.8432020348310874,
+      "AP75": 0.4649157216221598,
+      "AR100": 0.6488969251878243,
+      "boxes": 717,
+      "class_support": {
+       "1": 233,
+       "2": 11,
+       "3": 90,
+       "4": 242,
+       "5": 141
+      },
+      "false_positives_per_image": 0.425,
+      "images": 120,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 0,
+      "per_class_AP": {
+       "helmet": 0.53009433699742,
+       "no-helmet": 0.22916788524272305,
+       "no-vest": 0.4124148406634734,
+       "person": 0.6539540883610022,
+       "vest": 0.49130871393420233
+      },
+      "precision_at_threshold": 0.9169381107491856,
+      "recall_at_threshold": 0.7852161785216178
+     },
+     "id": "construction-20260917-naive",
+     "method": "naive",
+     "predictions": {
+      "bytes": 958092,
+      "count": 34217,
+      "path": "construction-20260917-naive.bin",
+      "sha256": "3f32731279da5a37afb25dfc354957cf85e13151c66fe6b0830c5c8cfb109854"
+     },
+     "resolution": 512,
+     "role": "naive",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/construction/20260917/naive/evaluation.json",
+     "source_evaluation_sha256": "68fc623565aa778c1237cec5e7b521fd557597cfca0ec6fec080a844099c1a3c",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+     "checkpoint_sha256": "99464596b39de3630c2300a6320b2dd9e60688664293bb0a42d6d2bda3ab8aed",
+     "detections_saved": 35790,
+     "expected": {
+      "AP": 0.4813884772864367,
+      "AP50": 0.8708622648825762,
+      "AP75": 0.49313214538963346,
+      "AR100": 0.6225991856704702,
+      "boxes": 717,
+      "class_support": {
+       "1": 233,
+       "2": 11,
+       "3": 90,
+       "4": 242,
+       "5": 141
+      },
+      "false_positives_per_image": 1.025,
+      "images": 120,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 0,
+      "per_class_AP": {
+       "helmet": 0.5502086169933056,
+       "no-helmet": 0.19093153328850748,
+       "no-vest": 0.4452486167250269,
+       "person": 0.6747686570103373,
+       "vest": 0.5457849624150061
+      },
+      "precision_at_threshold": 0.844106463878327,
+      "recall_at_threshold": 0.9288702928870293
+     },
+     "id": "construction-20260917-aware",
+     "method": "aware",
+     "predictions": {
+      "bytes": 937204,
+      "count": 33471,
+      "path": "construction-20260917-aware.bin",
+      "sha256": "d0c0cc36ec0c5f95122442ddd2905f679c43f505bbc5a410d516af5b3b8ec368"
+     },
+     "resolution": 512,
+     "role": "aware",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/construction/20260917/aware/evaluation.json",
+     "source_evaluation_sha256": "0a2f85e7a9f8e33c0c974ba6c63fa806e2f8c14a323b857fb33272b5a43eaaf2",
+     "steps": 4000
+    },
+    {
+     "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
+     "checkpoint_sha256": "93ee1a0c6308cadf86bc48f4701c0d7102a790022e13754649b27e9a5d99bec1",
+     "detections_saved": 35443,
+     "expected": {
+      "AP": 0.527557505541529,
+      "AP50": 0.9241343978747975,
+      "AP75": 0.5595512888118044,
+      "AR100": 0.6454858588290322,
+      "boxes": 717,
+      "class_support": {
+       "1": 233,
+       "2": 11,
+       "3": 90,
+       "4": 242,
+       "5": 141
+      },
+      "false_positives_per_image": 0.925,
+      "images": 120,
+      "negative_image_false_positives_per_image": 0.0,
+      "negative_images": 0,
+      "per_class_AP": {
+       "helmet": 0.5642581769517873,
+       "no-helmet": 0.33953156037738785,
+       "no-vest": 0.47221395229999263,
+       "person": 0.6884341926657336,
+       "vest": 0.5733496454127441
+      },
+      "precision_at_threshold": 0.8591370558375635,
+      "recall_at_threshold": 0.9442119944211994
+     },
+     "id": "construction-20260917-complete_reference",
+     "method": "complete_reference",
+     "predictions": {
+      "bytes": 963160,
+      "count": 34398,
+      "path": "construction-20260917-complete_reference.bin",
+      "sha256": "815efe7f40ebf46e9ac2dfd125097e9452b0b7f3b15ae1dcc891ba20c417c7f5"
+     },
+     "resolution": 512,
+     "role": "complete_reference",
+     "score_threshold": 0.25,
+     "seed": 20260917,
+     "source_evaluation_path": "artifacts/gpu/construction/20260917/complete_reference/evaluation.json",
+     "source_evaluation_sha256": "7b618806263677dac3933f1363de3a5509711fcf7a7cc7ed75c86cdc19f9ed7b",
+     "steps": 4000
+    }
+   ],
+   "seeds": [
+    20260917
+   ],
+   "task": "construction"
+  }
+ ],
+ "ground_truth": {
+  "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960": {
+   "boxes": 241,
+   "categories": [
+    "black-pawn",
+    "white-pawn"
+   ],
+   "images": 58,
+   "path": "labels-63c378f5ccf0f1ff.json",
+   "sha256": "280bc22953ed02ddd24deaccc80c63b1c9e56d14fa725f6564a137b39297cd4b",
+   "source_sha256": "17cf1739cca47c24b9a543d1a5a300d6a540b5fcf41d21bef7e5c0f7a78b3e7c"
+  },
+  "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686": {
+   "boxes": 536,
+   "categories": [
+    "bishop",
+    "black-bishop",
+    "black-king",
+    "black-knight",
+    "black-pawn",
+    "black-queen",
+    "black-rook",
+    "white-bishop",
+    "white-king",
+    "white-knight",
+    "white-pawn",
+    "white-queen",
+    "white-rook"
+   ],
+   "images": 58,
+   "path": "labels-a71122adfc83e998.json",
+   "sha256": "e34d836aae9208ab3f186e00d7ffca8d5474de4fb05791a5bd00dc8b226859d9",
+   "source_sha256": "3b086767628ecc6892d9ee6f2428dc50355f2b15f62701dc3058ee81f7599bb4"
+  },
+  "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a": {
+   "boxes": 717,
+   "categories": [
+    "helmet",
+    "no-helmet",
+    "no-vest",
+    "person",
+    "vest"
+   ],
+   "images": 120,
+   "path": "labels-fd760f5598d730fa.json",
+   "sha256": "d6dade33d19f31f5a4cb23c1b455d74a2535b470235fde924937dc92f45b999f",
+   "source_sha256": "02505212727f9f50c4a9e7c3b6c42ec067c1feed3ee03c6de2cc4c7a687554dd"
+  }
+ },
+ "metric": "COCO AP50:95 on complete validation labels",
+ "reduction": [
+  "Only image_id, category_id, bbox and score are kept; COCO.loadRes overwrites the rest.",
+  "Detections truncated to the top 100 per image and class, matching COCOeval maxDets=100.",
+  "Coordinates and scores quantised to float32, the precision the detector emitted.",
+  "Every run below was re-scored after reduction and reproduced its published metrics exactly."
+ ],
+ "scorer": {
+  "area_range": "all",
+  "implementation": "pycocotools COCOeval (bbox)",
+  "iou_thresholds": [
+   0.5,
+   0.55,
+   0.6,
+   0.65,
+   0.7,
+   0.75,
+   0.8,
+   0.85,
+   0.9,
+   0.95
+  ],
+  "max_detections": 100,
+  "operating_point_iou": 0.5,
+  "recall_thresholds": 101
+ },
+ "version": 1
+}

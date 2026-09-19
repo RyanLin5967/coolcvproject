@@ -15,7 +15,8 @@ from coveragecv.artifacts import file_digest, read_json, safe_child, verify, wri
 from coveragecv.training.runner import checkpoint_config, configs
 
 
-def evaluate_checkpoint(checkpoint: Path, bundle: Path, output: Path, *, split="valid", threshold=0.25, device="cpu"):
+def evaluate_checkpoint(checkpoint: Path, bundle: Path, output: Path, *, split="valid", threshold=0.25,
+                        device="cpu", resolution_override=None):
     if split not in ("valid", "test"):
         raise ValueError("evaluation requires an explicit validation or test split")
     if not 0 <= threshold <= 1:
@@ -34,6 +35,12 @@ def evaluate_checkpoint(checkpoint: Path, bundle: Path, output: Path, *, split="
     mc, tc = configs(bundle, output.parent)
     if "model_config" in state:
         mc = checkpoint_config(state, device=device)
+    checkpoint_resolution = mc.resolution
+    if resolution_override is not None:
+        if (isinstance(resolution_override, bool) or not isinstance(resolution_override, int)
+                or resolution_override < 64 or resolution_override > 1536 or resolution_override % 64):
+            raise ValueError("Inference resolution must be an explicit multiple of64 between64 and1536")
+        mc.resolution = resolution_override
     module = RFDETRModelModule(mc, tc).to(device).eval()
     module.model.load_state_dict(state["model"], strict=True)
     predictions = []
@@ -62,7 +69,9 @@ def evaluate_checkpoint(checkpoint: Path, bundle: Path, output: Path, *, split="
                                     "bbox": [x1, y1, x2-x1, y2-y1], "score": score})
     metrics = score_predictions(predictions, reference, threshold=threshold)
     result = {"checkpoint_sha256": file_digest(checkpoint), "bundle_digest": manifest["digest"], "split": split,
-              "resolution": mc.resolution, "device": device, "model_variant": state.get("model_variant", "nano"),
+              "resolution": mc.resolution, "checkpoint_resolution": checkpoint_resolution,
+              "resolution_override": resolution_override, "device": device,
+              "model_variant": state.get("model_variant", "nano"),
               "score_threshold": threshold, "threshold_policy": "fixed before viewing pilot results",
               "postprocess": "stock RF-DETR; reserved output omitted from semantic COCO mapping",
               "reserved_slot_selections": reserved, "metrics": metrics, "predictions": predictions}

@@ -23,7 +23,7 @@ from coveragecv.training.runner import (
 
 def train(view: Path, parent: Path, output: Path, *, arm, steps=2000, seed=20260918,
           alpha=1, exclusive_groups=(), device="cuda", max_seconds=1300,
-          resolution=None, exposure_plan=None):
+          resolution=None, exposure_plan=None, stable_assignment=None):
     if arm not in ("aware", "complete_reference") or not 1 <= steps <= 2000:
         raise ValueError("Outside the bounded research continuation")
     manifest = verify(view)
@@ -75,6 +75,9 @@ def train(view: Path, parent: Path, output: Path, *, arm, steps=2000, seed=20260
         module.criterion = CoverageSetCriterion.from_stock(original, original.negative_allowed,
             original.valid_ids, contract_digest=original.contract_digest, exclusive_groups=indices)
     module.criterion = with_power_localization(module.criterion, alpha)
+    if stable_assignment is not None:
+        from coveragecv.training.stable_assignment import with_stable_assignment
+        module.criterion = with_stable_assignment(module.criterion, **stable_assignment)
     dm = RFDETRDataModule(mc, tc)
     dm.setup("fit")
     assert_data_contract(dm, view)
@@ -92,6 +95,8 @@ def train(view: Path, parent: Path, output: Path, *, arm, steps=2000, seed=20260
     if exposure_plan is not None:
         protocol.update(kind="full_frame_exposure_continuation", exposure_plan_digest=exposure_plan["digest"],
                         sampling=exposure_plan["sampling"], resolution=mc.resolution)
+    if stable_assignment is not None:
+        protocol.update(kind="stable_assignment_continuation", stable_assignment=stable_assignment)
     write_json(output / "run.json", protocol)
     trainer = build_trainer(tc, mc, accelerator="gpu" if device == "cuda" else device, devices=1,
         precision="32-true", include_training_callbacks=False,

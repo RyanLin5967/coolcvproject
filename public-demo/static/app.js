@@ -1,5 +1,6 @@
 import {renderMergeStory} from './merge-story.js';
 import {benchmarkTasks, modelRoles, extremaBenchmark} from './benchmark-view.js';
+import {renderVerify} from './verify-view.js';
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const states={unknown:['Unknown','#e4bd70','#fff4dd','#a5792d'],positive_only:['Positives only','#8a9bd8','#edf0fb','#6075bc'],exhaustive:['Exhaustive','#6da58b','#e8f3ee','#167864'],verified_absent:['Verified absent','#b798cf','#f2ebf8','#8860a8']};
@@ -63,7 +64,7 @@ function renderShell(){
  const active=S.state?.jobs.filter(j=>['running','cancelling'].includes(j.status)).length??0;
  const queued=S.state?.jobs.filter(j=>j.status==='queued').length??0;
  $('running-count').textContent=active||'';$('queue-label').textContent=publicDemo?'Recorded results':active?`${active} active · ${queued} queued`:queued?`${queued} queued`:'Queue idle';
- $('breadcrumb').innerHTML=`Demo <span>/</span> ${esc(S.page==='datasets'?(S.project?.name??'Datasets'):({merge:'Merge demo',research:'Benchmarks',experiments:'Prediction comparison'}[S.page]??S.page[0].toUpperCase()+S.page.slice(1)))}`;
+ $('breadcrumb').innerHTML=`Demo <span>/</span> ${esc(S.page==='datasets'?(S.project?.name??'Datasets'):({merge:'Merge demo',research:'Benchmarks',experiments:'Prediction comparison',verify:'Verify the numbers'}[S.page]??S.page[0].toUpperCase()+S.page.slice(1)))}`;
 }
 function render(){
  $('content').dataset.page=S.page;
@@ -71,6 +72,7 @@ function render(){
  if(S.page==='merge'){renderMergeStory($('content'),{api,state:S.state,publicDemo,onCompare:(task)=>{S.researchTask=task??'pawns';S.page='research';renderShell();render();window.scrollTo({top:0,behavior:'instant'})}});return}
  if(S.page==='platform'){renderPlatform();return}
  if(S.page==='research'){renderResearch();return}
+ if(S.page==='verify'){renderVerify($('content')).catch(error=>toast(error.message,true));return}
  if(S.page==='activity'){renderActivity();return}
  if(!S.project){$('content').innerHTML=`<div class="empty"><div class="empty-symbol">▦</div><div class="eyebrow">EVERY LABEL HAS A CONTEXT</div><h1>Make coverage part of your dataset.</h1><p>Combine datasets, declare what each source actually annotates, and measure what happens when your model respects that policy.</p><button class="button primary" data-action="demo">Explore the working example →</button> <button class="button" data-action="import">Import your dataset</button></div>`;return}
  if(S.page==='experiments'){renderExperiments().catch(error=>toast(error.message,true));return}

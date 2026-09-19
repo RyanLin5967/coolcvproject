@@ -13,8 +13,26 @@ def main():
         raise ValueError("Export the verified public snapshot before building the demo")
     static = OUTPUT / "static"
     static.mkdir(exist_ok=True)
-    for name in ("app.js", "benchmark-view.js", "merge-story.js", "style.css", "merge-story.css", "prediction-highlights.json"):
+    for name in ("app.js", "benchmark-view.js", "merge-story.js", "verify-view.js", "coco-eval.js",
+                 "style.css", "merge-story.css", "verify.css", "prediction-highlights.json"):
         (static / name).write_bytes((SOURCE / name).read_bytes())
+    # The verifiable evidence bundle: saved predictions, reference labels and digests.
+    verify_source, verify_output = SOURCE / "verify", static / "verify"
+    if not (verify_source / "manifest.json").exists():
+        raise ValueError("Build the verification bundle before building the demo")
+    verify_output.mkdir(exist_ok=True)
+    published = {"manifest.json"}
+    manifest = json.loads((verify_source / "manifest.json").read_text())
+    for entry in manifest["ground_truth"].values():
+        published.add(entry["path"])
+    for cohort in manifest["cohorts"]:
+        for run in cohort["runs"]:
+            published.add(run["predictions"]["path"])
+    for name in sorted(published):
+        (verify_output / name).write_bytes((verify_source / name).read_bytes())
+    for stale in verify_output.iterdir():
+        if stale.name not in published:
+            stale.unlink()
     index = (SOURCE / "index.html").read_text().replace('<html lang="en">', '<html lang="en" data-demo="true">')
     (OUTPUT / "index.html").write_text(index)
     (OUTPUT / "_headers").write_text(

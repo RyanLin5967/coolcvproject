@@ -39,7 +39,7 @@ export function matchedBenchmark(data, key) {
 }
 
 // Independently selected AP50:95 extrema from the published results ledger.
-// Source ledger SHA-256: f34b93d40019b82441e78433acb6346d220aabfe0c1c28eda75c0cac4de352d8
+// Source ledger SHA-256: e0255eb45de1900bdbcafc28d89c554e71ae6240debe4d79f229ad7359dfd7a4
 export const recordedExtrema = {
   "all-pieces": {
     "naive": {
@@ -106,17 +106,17 @@ export const recordedExtrema = {
     },
     "aware": {
       "metrics": {
-        "AP": 0.5209427679705265,
-        "AP50": 0.9254011902222609,
+        "AP": 0.5263631559110266,
+        "AP50": 0.9062293944689279,
         "recall_at_threshold": 0.9288702928870293
       },
-      "method": "research_v2_exclusive",
-      "seed": 20260918,
-      "steps": 8000,
-      "resolution": 512,
+      "method": "native_resolution_coverage",
+      "seed": 20260919,
+      "steps": 10000,
+      "resolution": 640,
       "passes": 5,
       "note": "265 additional published training boxes",
-      "source": "/research_v2/secondary_tiled/results/construction-exclusive/metrics",
+      "source": "/continuous_research/confirmation/cases/construction-aware-scale/validation_tiled_metrics",
       "selection": "maximum"
     },
     "complete_reference": {

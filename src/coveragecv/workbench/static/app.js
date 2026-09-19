@@ -1,5 +1,6 @@
 import {renderMergeStory} from './merge-story.js';
 import {benchmarkTasks, modelRoles, extremaBenchmark} from './benchmark-view.js';
+import {renderVerify} from './verify-view.js';
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const states={unknown:['Unknown','#e4bd70','#fff4dd','#a5792d'],positive_only:['Positives only','#8a9bd8','#edf0fb','#6075bc'],exhaustive:['Exhaustive','#6da58b','#e8f3ee','#167864'],verified_absent:['Verified absent','#b798cf','#f2ebf8','#8860a8']};
@@ -63,7 +64,7 @@ function renderShell(){
  const active=S.state?.jobs.filter(j=>['running','cancelling'].includes(j.status)).length??0;
  const queued=S.state?.jobs.filter(j=>j.status==='queued').length??0;
  $('running-count').textContent=active||'';$('queue-label').textContent=publicDemo?'Recorded results':active?`${active} active · ${queued} queued`:queued?`${queued} queued`:'Queue idle';
- $('breadcrumb').innerHTML=`Demo <span>/</span> ${esc(S.page==='datasets'?(S.project?.name??'Datasets'):({merge:'Merge demo',research:'Benchmarks',experiments:'Prediction comparison'}[S.page]??S.page[0].toUpperCase()+S.page.slice(1)))}`;
+ $('breadcrumb').innerHTML=`Demo <span>/</span> ${esc(S.page==='datasets'?(S.project?.name??'Datasets'):({merge:'Merge demo',research:'Benchmarks',experiments:'Prediction comparison',verify:'Verify the numbers'}[S.page]??S.page[0].toUpperCase()+S.page.slice(1)))}`;
 }
 function render(){
  $('content').dataset.page=S.page;
@@ -71,6 +72,7 @@ function render(){
  if(S.page==='merge'){renderMergeStory($('content'),{api,state:S.state,publicDemo,onCompare:(task)=>{S.researchTask=task??'pawns';S.page='research';renderShell();render();window.scrollTo({top:0,behavior:'instant'})}});return}
  if(S.page==='platform'){renderPlatform();return}
  if(S.page==='research'){renderResearch();return}
+ if(S.page==='verify'){renderVerify($('content')).catch(error=>toast(error.message,true));return}
  if(S.page==='activity'){renderActivity();return}
  if(!S.project){$('content').innerHTML=`<div class="empty"><div class="empty-symbol">▦</div><div class="eyebrow">EVERY LABEL HAS A CONTEXT</div><h1>Make coverage part of your dataset.</h1><p>Combine datasets, declare what each source actually annotates, and measure what happens when your model respects that policy.</p><button class="button primary" data-action="demo">Explore the working example →</button> <button class="button" data-action="import">Import your dataset</button></div>`;return}
  if(S.page==='experiments'){renderExperiments().catch(error=>toast(error.message,true));return}
@@ -93,6 +95,7 @@ async function renderResearch(force=false){
  if(!available.includes(S.researchTask))S.researchTask=available[0];
  const benchmark=extremaBenchmark(data,S.researchTask);
  let html=`<div class="page-heading"><div><div class="eyebrow">MEASURED ON THE SAME VALIDATION IMAGES</div><h1>Benchmarks</h1><p class="muted">Minimum ordinary training and fully labeled reference; maximum CoverageCV. Selected independently across recorded recipes and seeds.</p></div><a class="button small" href="https://github.com/RyanLin5967/coolcvproject" target="_blank" rel="noopener">View source ↗</a></div>`;
+ html+=`<div class="callout neutral verify-pointer">Every score here was produced by a recorded training run and saved with its predictions. <button class="link-button" data-page="verify">Recompute them in your browser →</button></div>`;
  html+=`<div class="benchmark-heading"><div><p>Green is our method.</p></div><span class="metric-key">AP50:95 · higher is better</span></div><div class="dataset-switcher" aria-label="Benchmark dataset">${available.map(key=>`<button data-research-task="${key}" aria-pressed="${key===S.researchTask}" class="${key===S.researchTask?'selected':''}"><b>${benchmarkTasks[key].name}</b><span>${benchmarkTasks[key].detail}</span></button>`).join('')}</div>`;
  if(!benchmark){$('content').innerHTML=html+'<div class="card card-body">Recorded results are not available yet.</div>';return}
  const {rows,gain}=benchmark;
@@ -105,7 +108,7 @@ async function renderResearch(force=false){
   const guided=acquisition.cases.guided,random=acquisition.cases.random;
   html+=`<details class="disclosure" id="acquisition-evidence"><summary>Separate experiment: choosing what to label · +${acquisition.primary_AP_delta_points.toFixed(2)} AP</summary><div><p>We also tested which missing labels to review. Both strategies get 150 image/class reviews and the same extra training.</p><div class="table-wrap"><table><thead><tr><th>Review strategy</th><th>New boxes</th><th>AP50:95</th></tr></thead><tbody><tr><td>Random selection · control</td><td>${random.acquisition.added_boxes}</td><td>${(random.metrics.AP*100).toFixed(2)}</td></tr><tr class="aware"><td>CoverageCV guided selection · ours</td><td>${guided.acquisition.added_boxes}</td><td>${(guided.metrics.AP*100).toFixed(2)}</td></tr></tbody></table></div><p class="benchmark-note">One-run simulation using withheld published training labels. These are additional annotations, not new human work. Equal review counts do not imply equal annotation effort. This matched label-review experiment is separate from the selected extrema above.</p></div></details>`;
  }
- html+=`<div class="benchmark-next"><p>Inspect predictions from these selected experiments.</p><button class="button primary" data-page="experiments">Compare predictions →</button></div>`;
+ html+=`<div class="benchmark-next"><p>Recompute these scores yourself, or inspect the predictions behind them.</p><button class="button primary" data-page="verify">Verify the numbers →</button> <button class="button" data-page="experiments">Compare predictions →</button></div>`;
  html+=`<details class="disclosure archive"><summary>Experiment history & limitations</summary><div><p>The cards select individual extrema. The table below retains recipe averages, including stronger controls and regressions.</p><div class="table-wrap"><table><thead><tr><th>Recorded recipe</th><th>Runs</th><th>AP50:95</th></tr></thead><tbody>${Object.values(benchmark.task.methods).map(method=>`<tr><td>${esc(method.label)}</td><td>${method.n}</td><td>${(100*method.metrics.AP.mean).toFixed(2)}</td></tr>`).join('')}</tbody></table></div><p>Some recipes used different budgets or incomplete seed cohorts; rows here are not automatically matched comparisons. Validation guided experiment design. These results do not establish state-of-the-art performance.</p><a href="https://github.com/RyanLin5967/coolcvproject/blob/main/docs/DECISIONS.md" target="_blank" rel="noopener">Read the full experiment record ↗</a></div></details>`;
  const viewKey=JSON.stringify([S.researchTask,rows.map(row=>row.metrics),acquisition?.status]);
  if($('content').dataset.viewKey===viewKey&&$('benchmark-comparison'))return;
