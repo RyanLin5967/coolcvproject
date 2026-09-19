@@ -1,3 +1,36 @@
+# ROBOFLOW PROVENANCE CORRECTED + LANDING TABLE FIXED — 2026-09-19
+
+Roboflow, re-checked read-only. TWO projects exist and only one is a real Roboflow training:
+coveragecv-chess-hosted v1 is jobType "fine-tune", externalUpload None, status finished, with
+a LIVE served endpoint https://serverless.roboflow.com/coveragecv-chess-hosted/1, splits
+train 201 / valid 58 / test 30, ~647s. That is the ORDINARY-TRAINING BASELINE, not CoverageCV.
+coveragecv-chess-mvp v1/v2/v3: every training is jobType "external-upload", externalUpload
+True, models {} and model null - trained on Modal and uploaded, never trained by Roboflow and
+not served. Earlier entries calling mvp v3 "FINISHED/served" overstate it. The coverage-aware
+criterion is custom, so hosted Roboflow training cannot produce it; those runs are Modal.
+Do not claim a Roboflow run produced the CoverageCV numbers.
+
+Stronger provenance now surfaced instead: all 30 published runs have Modal receipts
+(call.json + compute.json). compute.json is written on the GPU at training time and its
+recorded AP equals the published AP for 30/30 runs; the builder now asserts this and refuses
+to export a run where the GPU-side and CPU-side records disagree. Manifest carries call_id,
+gpu (all NVIDIA L40S), elapsed_seconds and gpu_recorded_AP per run, and the Verify page shows
+them, so a viewer sees two independent records of the same number.
+
+Landing page corrected. merge-story.js resultsPreview rendered recordedExtrema: individually
+accurate recorded measurements, but laid out row-wise as if a controlled comparison, mixing
+recipes, and 4 of its 9 values were not recomputable. It also contradicted the corrected
+Benchmarks page (chess pawns 61.40/79.20/77.72 there vs 63.79/76.35/78.04 here). It now renders
+matched cohorts from the same manifest. My earlier claim that "every score displayed on the
+site can be recomputed" was too strong when made: the rehearsal had never enumerated the
+landing table. It does now, and asserts a landing row matches the Benchmarks cards.
+
+Rehearsal: 36 displayed values, all recomputable, 0 unverifiable, cross-page agreement.
+268 passed / 1 skipped, ruff clean, 30/30 parity deviation 0, browser QA 1440px and 390px.
+No training, no cloud execution; Roboflow calls were read-only metadata GETs. $0 unchanged.
+
+---
+
 # CORRECTION: ee14c6d ALSO CONTAINS THE 2026-09-18 RESEARCH WORK — 2026-09-19
 
 Commit ee14c6d is titled for the verification surface but its contents are wider. The

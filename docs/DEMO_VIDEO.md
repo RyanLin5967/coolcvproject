@@ -50,16 +50,36 @@ Browser 1440×900, zoom 100%, bookmarks hidden. Open `http://127.0.0.1:8767`.
 | 12 | Cohort **Construction safety** → Recompute | +1.80 — say "one seed" out loud |
 | 13 | Cut to terminal: `node scripts/check_verification_parity.mjs` | `30/30 ... deviation 0` |
 | 14 | `.venv/bin/python -m pytest -q` | `268 passed, 1 skipped` |
-| 15 | Roboflow tab → `coveragecv-chess-mvp` → version 3 | train 201 / valid 58, training "finished" |
+| 15 | Roboflow tab → **`coveragecv-chess-hosted`** → version 1 | A real `fine-tune` run, finished, live endpoint |
 
 Steps 9–10 are the proof. Everything else is setup.
+
+## The Roboflow claim — read this before step 15
+
+There are two projects, and only one of them is a real Roboflow training run.
+
+| Project | What it is | Safe to call it |
+|---|---|---|
+| `coveragecv-chess-hosted` v1 | `jobType: fine-tune`, finished, **live endpoint** `serverless.roboflow.com/coveragecv-chess-hosted/1` | **A real Roboflow training run.** But it is the *baseline* — ordinary training. |
+| `coveragecv-chess-mvp` v1–3 | every training is `jobType: external-upload` | A model **uploaded** to Roboflow. Roboflow did not train it. No served endpoint. |
+
+CoverageCV itself **cannot** be trained by hosted Roboflow — it needs a custom loss, so those
+runs are on Modal. So: *"Roboflow trained the baseline on the same 201/58 split; our method
+needs a custom criterion, so it trained on Modal — here are those call ids."*
+
+Do **not** say "here is the Roboflow run that produced these numbers." It didn't.
+
+**The stronger proof is on the Verify page anyway.** Each row now shows the Modal call id
+(`fc-01M2RR9JRJ…`), the GPU (L40S), the training time, and the AP recorded *on the GPU when
+training finished*. That GPU-side number matches the browser-recomputed number for all 30
+runs — two independent records, one from the training machine, one from the viewer's laptop.
 
 ## Don't
 
 - Don't open **"Best recorded result for each arm"** — mixes recipes, bigger numbers, not the claim.
 - Don't say 95 AP or state of the art. Best construction is 52.76.
 - Don't say it beats the fully-labelled model. 76.35 vs 78.04 — it *closes most of the gap*.
-- Don't claim live Roboflow inference. There's no served endpoint; it's a training record.
+- Don't claim the Roboflow run produced the CoverageCV numbers. It trained the baseline only.
 - Don't claim `coverage.ryanlin.dev` is live until Cloudflare is connected.
 - Don't cut from the gallery (step 4) straight to +12.56. Gallery = augmented recipe
   (74.53/78.90/78.95); +12.56 = base recipe. Step 8 exists to make that explicit.

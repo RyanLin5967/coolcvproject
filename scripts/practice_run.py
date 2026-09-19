@@ -52,6 +52,22 @@ def main():
         page = browser.new_page(viewport={"width": 1440, "height": 1000})
         page.goto(BASE, wait_until="networkidle")
 
+        # The landing table is the first scores a visitor sees; it was missed by the first
+        # version of this rehearsal, which is how it kept showing cross-recipe extrema.
+        page.wait_for_selector(".merge-results-table")
+        landing = []
+        rows = page.locator(".merge-results-table tbody tr")
+        for index in range(rows.count()):
+            cells = rows.nth(index).locator("td").all_inner_texts()
+            landing.append([cell.strip() for cell in cells])
+            for role, value in zip(("naive", "aware", "complete_reference"), landing[-1]):
+                entry = {"page": "merge/landing", "role": role, "field": "AP", "value": value}
+                if value in VERIFIABLE:
+                    findings["verifiable"].append({**entry, "matches": VERIFIABLE[value]})
+                else:
+                    findings["unverifiable"].append(entry)
+        findings["pages"]["merge/landing"] = {"rows": landing}
+
         page.click('[data-page="research"]')
         page.wait_for_selector(".score-cards")
         for cohort_spec in MANIFEST["cohorts"]:
@@ -117,6 +133,10 @@ def main():
             actual = findings["pages"].get(page, {}).get("headline_gain")
             if actual != gain:
                 mismatches.append(f"{page} headline: page {actual} vs bundle {gain}")
+        landing_rows = findings["pages"].get("merge/landing", {}).get("rows", [])
+        card_values = [shown.get(role) for role in ("naive", "aware", "complete_reference")]
+        if not any(row == card_values for row in landing_rows):
+            mismatches.append(f"{key}: no landing-table row matches the Benchmarks cards {card_values}")
         verify_means = findings["pages"].get(f"verify/{key}", {}).get("means", [])
         card_means = [shown.get(role) for role in ("naive", "aware", "complete_reference")]
         if verify_means != card_means:

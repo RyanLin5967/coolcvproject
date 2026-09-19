@@ -42,7 +42,8 @@ def main():
         template_path, examples = next((path, value) for path, value in snapshot.items()
                                       if path.endswith('/examples') and value['bundle_digest'] == digest)
         old_id = template_path.split('/')[2]
-        reference = ROOT / 'artifacts/bundles' / digest
+        binding = read_json(ROOT / 'artifacts/research_v2/protocol.json')['datasets'][task]
+        reference = Path(binding['local_reference'])
         if verify(reference)['digest'] != digest:
             raise ValueError('Reference bundle failed verification')
         full = read_json(reference / 'splits/valid.coco.json')

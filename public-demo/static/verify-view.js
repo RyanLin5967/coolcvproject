@@ -147,14 +147,18 @@ function runRow(run) {
 function provenance(cohort, manifest) {
   const labels = manifest.ground_truth[cohort.runs[0].bundle_digest];
   return `<details class="disclosure"><summary>The chain behind these files</summary><div>
-    <p>Each run below was trained on a cloud GPU, scored once with pycocotools, and its predictions saved.
-    This page re-scores those saved predictions. The identifiers let you match a row here to the recorded run.</p>
-    <div class="table-wrap"><table><thead><tr><th>Run</th><th>Checkpoint SHA-256</th><th>Saved detections</th><th>Recorded evaluation</th></tr></thead><tbody>
+    <p>Each run was trained on a Modal cloud GPU, scored with pycocotools, and its predictions saved.
+    The call id is Modal's identifier for that training job.</p>
+    <div class="table-wrap"><table><thead><tr><th>Run</th><th>Training call</th><th>GPU</th><th>Checkpoint SHA-256</th><th>AP recorded on the GPU</th></tr></thead><tbody>
     ${cohort.runs.map(run => `<tr><td>${esc(roleNames[run.role]?.label ?? run.role)} · ${run.seed}</td>
+      <td class="mono">${esc(run.training?.call_id ?? 'not recorded')}</td>
+      <td>${esc(run.training?.gpu ?? '—')}${run.training?.elapsed_seconds ? ` · ${Math.round(run.training.elapsed_seconds / 60)} min` : ''}</td>
       <td class="mono">${esc((run.checkpoint_sha256 ?? '').slice(0, 16))}…</td>
-      <td>${run.detections_saved.toLocaleString()}</td>
-      <td class="mono">${esc(run.source_evaluation_sha256.slice(0, 16))}…</td></tr>`).join('')}
+      <td class="numeric">${run.training ? (100 * run.training.gpu_recorded_AP).toFixed(4) : '—'}</td></tr>`).join('')}
     </tbody></table></div>
+    <p>The last column was written on the GPU when the model finished training, before any of
+    the scoring this page repeats. It matches the recomputed column above for every run, so two
+    independent records — one from the training machine, one from your browser — agree.</p>
     <p>Reference labels: <span class="mono">${esc(labels.path)}</span> · ${labels.images} images ·
     ${labels.boxes} boxes · ${labels.categories.length} classes · SHA-256 <span class="mono">${esc(labels.sha256.slice(0, 16))}…</span>,
     checked in your browser before scoring.</p></div></details>`;

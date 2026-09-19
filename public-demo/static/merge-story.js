@@ -1,5 +1,5 @@
 // The policies below are an explicit illustration, not a claim about this image's training provenance.
-import {benchmarkTasks, recordedExtrema} from './benchmark-view.js';
+import {cohortBenchmark, loadVerificationManifest} from './benchmark-view.js';
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const requests = new WeakMap();
@@ -65,14 +65,23 @@ function updateStory(root, data) {
   root.querySelector('[data-story-action]').textContent = aware ? 'View benchmark results →' : 'Fix the merge with CoverageCV →';
 }
 
-function resultsPreview() {
+function resultsPreview(manifest) {
+  // Matched cohorts from the verification manifest, so the landing table cannot disagree
+  // with the Benchmarks page or with what the Verify page recomputes. This used to show
+  // each arm's best recorded result across different recipes, which read as a controlled
+  // comparison and was not one.
+  if (!manifest) return '';
   const roles = ['naive', 'aware', 'complete_reference'];
+  const rows = manifest.cohorts.map(cohort => {
+    try { return cohortBenchmark(manifest, cohort.key); } catch { return null; }
+  }).filter(Boolean);
+  if (!rows.length) return '';
   return `<section class="merge-results" aria-labelledby="merge-results-title">
     <div class="merge-results-heading"><div><span class="merge-results-kicker">RECORDED EXPERIMENTS</span><h2 id="merge-results-title">The measured results</h2></div><p>AP50:95 · higher is better</p></div>
     <table class="merge-results-table"><thead><tr><th scope="col">Dataset</th><th scope="col">Ordinary training</th><th scope="col" class="ours">CoverageCV<span>OUR METHOD</span></th><th scope="col">Fully labeled reference</th></tr></thead><tbody>
-      ${Object.entries(benchmarkTasks).map(([key, task]) => `<tr data-story-result="${key}"><th scope="row"><button data-story-compare="${key}" aria-label="View ${esc(task.name)} benchmarks">${esc(task.name)} <span aria-hidden="true">↗</span></button></th>${roles.map(role => `<td class="${role === 'aware' ? 'ours' : ''}">${(recordedExtrema[key][role].metrics.AP * 100).toFixed(2)}</td>`).join('')}</tr>`).join('')}
+      ${rows.map(row => `<tr data-story-result="${esc(row.key)}"><th scope="row"><button data-story-compare="${esc(row.key)}" aria-label="View ${esc(row.name)} benchmarks">${esc(row.name)} <span aria-hidden="true">↗</span></button></th>${roles.map(role => `<td class="${role === 'aware' ? 'ours' : ''}">${(row.rows.find(entry => entry.role === role).metrics.AP * 100).toFixed(2)}</td>`).join('')}</tr>`).join('')}
     </tbody></table>
-    <p class="merge-results-note">Minimum ordinary training and fully labeled reference; maximum CoverageCV. Selected independently; training and inference settings differ.</p>
+    <p class="merge-results-note">Each row is one matched comparison: same recipe, same update budget, same images, averaged over every recorded seed. Every number here can be recomputed in your browser.</p>
     <div class="merge-results-next"><p>Explore each dataset and its model predictions.</p><button class="merge-primary" data-story-compare>Open full benchmarks <span aria-hidden="true">→</span></button></div>
   </section>`;
 }
@@ -83,7 +92,10 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
   if (existing) { existing.compare = onCompare; return; }
   container.innerHTML = `<section class="merge-story-loading" role="status">Loading the recorded merge example…</section>`;
   const loading = container.firstElementChild;
-  let data;
+  let data, manifest = null;
+  // The results table is matched-cohort data from the verification bundle; if it cannot
+  // be loaded the table is omitted rather than filled with anything less checkable.
+  try { manifest = await loadVerificationManifest(); } catch { manifest = null; }
   try { data = await loadStory(api, state); }
   catch (error) {
     if (container.firstElementChild !== loading) return;
@@ -116,7 +128,7 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
         <div class="merge-outcome-panel"><div data-story-outcome aria-live="polite" aria-atomic="true"></div><button class="merge-primary" data-story-action></button></div>
       </div>
     </section>
-    ${resultsPreview()}
+    ${resultsPreview(manifest)}
     <section class="merge-pipeline" aria-label="How CoverageCV works"><div><span>01</span><h3>Declare what is known</h3><p>Record which classes each source actually reviewed.</p></div><div><span>02</span><h3>Compile a safe dataset</h3><p>Keep coverage, labels and provenance together in an immutable artifact.</p></div><div><span>03</span><h3>Train with that context</h3><p>Preserve observed labels. Suppress unjustified negative supervision.</p></div></section>
   </div>`;
   const root = container.firstElementChild;

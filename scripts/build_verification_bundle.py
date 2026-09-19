@@ -207,6 +207,24 @@ def main():
                         "images": len(reference["images"]), "boxes": len(reference["annotations"]),
                         "categories": [c["name"] for c in sorted(reference["categories"], key=lambda c: c["id"])]}
 
+                # Modal's own receipts for the training call. compute.json is written on
+                # the GPU at training time, so its metric is a second, independent record
+                # of the same number -- assert the two agree before publishing either.
+                training = None
+                folder = path.parent
+                call_file, compute_file = folder / "call.json", folder / "compute.json"
+                if call_file.exists() and compute_file.exists():
+                    call = json.loads(call_file.read_text())
+                    compute = json.loads(compute_file.read_text())
+                    recorded = compute.get("model_metrics", {}).get("AP")
+                    if recorded != payload["metrics"]["AP"]:
+                        failures.append(f"{spec['key']} seed {seed} {method}: GPU-recorded AP "
+                                        f"{recorded} differs from the published {payload['metrics']['AP']}")
+                        continue
+                    training = {"call_id": call.get("call_id"), "gpu": compute.get("gpu"),
+                                "elapsed_seconds": compute.get("elapsed_seconds"),
+                                "gpu_recorded_AP": recorded}
+
                 blob = encode(reduced)
                 run_id = f"{spec['key']}-{seed}-{spec['arms'][method]}"
                 name = f"{run_id}.bin"
@@ -224,7 +242,7 @@ def main():
                     "detections_saved": len(payload["predictions"]),
                     "predictions": {"path": name, "sha256": sha256_bytes(blob),
                                     "count": len(reduced), "bytes": len(blob)},
-                    "expected": rescored,
+                    "expected": rescored, "training": training,
                 })
         if runs:
             # A cohort is only a fair comparison if every arm shares the training
@@ -262,6 +280,12 @@ def main():
             "Detections truncated to the top 100 per image and class, matching COCOeval maxDets=100.",
             "Coordinates and scores quantised to float32, the precision the detector emitted.",
             "Every run below was re-scored after reduction and reproduced its published metrics exactly.",
+        ],
+        "provenance": [
+            "Each run carries the Modal call id of the training job that produced it.",
+            "compute.json is written on the GPU at training time; its recorded AP is asserted",
+            "equal to the published AP at build time, so the GPU-side and CPU-side records agree.",
+            "The checkpoint hash is recorded but cannot be re-derived in a browser.",
         ],
         "binary_format": {
             "magic": "CVB1", "header_bytes": 16, "byte_order": "little-endian",
