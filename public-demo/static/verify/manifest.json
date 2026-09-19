@@ -12,6 +12,7 @@
    "key": "pawns-base",
    "name": "Chess pawns",
    "recipe": "RF-DETR Nano \u00b7 384px \u00b7 2,000 updates",
+   "resolution": 384,
    "runs": [
     {
      "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
@@ -388,6 +389,7 @@
     20260918,
     20260919
    ],
+   "steps": 2000,
    "task": "pawns"
   },
   {
@@ -395,6 +397,7 @@
    "key": "pawns-augmented",
    "name": "Chess pawns \u00b7 stronger recipe",
    "recipe": "RF-DETR Nano \u00b7 512px \u00b7 4,000 updates \u00b7 augmentation",
+   "resolution": 512,
    "runs": [
     {
      "bundle_digest": "63c378f5ccf0f1ff59793b8db1d1760151cc6de804b670f0fd00a2284fa28960",
@@ -771,6 +774,7 @@
     20260918,
     20260919
    ],
+   "steps": 4000,
    "task": "pawns"
   },
   {
@@ -778,6 +782,7 @@
    "key": "all-pieces-base",
    "name": "All chess pieces",
    "recipe": "RF-DETR Nano \u00b7 384px \u00b7 2,000 updates",
+   "resolution": 384,
    "runs": [
     {
      "bundle_digest": "a71122adfc83e998cd79f7ce379925b5f16c95f465dab376c7f5b53a44535686",
@@ -1352,6 +1357,7 @@
     20260918,
     20260919
    ],
+   "steps": 2000,
    "task": "all-pieces"
   },
   {
@@ -1359,6 +1365,7 @@
    "key": "construction",
    "name": "Construction safety",
    "recipe": "RF-DETR Nano \u00b7 512px \u00b7 4,000 updates",
+   "resolution": 512,
    "runs": [
     {
      "bundle_digest": "fd760f5598d730fa4578430148b7a7ef16c44acc6b81625781ddcbe3d3ce214a",
@@ -1505,6 +1512,7 @@
    "seeds": [
     20260917
    ],
+   "steps": 4000,
    "task": "construction"
   }
  ],

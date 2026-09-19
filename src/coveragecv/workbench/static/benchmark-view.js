@@ -11,33 +11,6 @@ export const modelRoles = {
   complete_reference: {label: 'Fully labeled reference', tag: 'REFERENCE', description: 'The same model and images, with all available labels.'},
 };
 
-export function matchedBenchmark(data, key) {
-  const config = benchmarkTasks[key], task = data.tasks?.[key];
-  if (!config || !task) return null;
-  const groups = config.methods.map(method => (task.runs ?? []).filter(run => run.method === method));
-  const seeds = [...new Set(groups[0].map(run => run.seed))].filter(seed => groups.every(group => group.filter(run => run.seed === seed).length === 1)).sort();
-  if (!seeds.length) return null;
-  for (const seed of seeds) {
-    const rows = groups.map(group => group.find(row => row.seed === seed));
-    for (const field of ['initial_parameter_digest', 'steps', 'batch', 'resolution', 'device']) {
-      if (rows.some(row => row[field] !== rows[0][field])) throw new Error('Benchmark comparison has mismatched training conditions.');
-    }
-  }
-  const roles = ['naive', 'aware', 'complete_reference'];
-  const rows = groups.map((group, index) => {
-    const selected = group.filter(run => seeds.includes(run.seed));
-    const metrics = {};
-    for (const name of ['AP', 'AP50', 'recall_at_threshold']) {
-      const values = selected.map(run => run.metrics[name]);
-      if (!values.every(value => Number.isFinite(value) && value >= 0 && value <= 1)) throw new Error('Benchmark contains an invalid metric.');
-      metrics[name] = values.reduce((sum, value) => sum + value, 0) / values.length;
-    }
-    return {role: roles[index], ...modelRoles[roles[index]], metrics, runs: selected};
-  });
-  return {key, ...config, rows, seeds, task, images: rows[0].runs[0].metrics.images, steps: rows[0].runs[0].steps,
-    gain: 100 * (rows[1].metrics.AP - rows[0].metrics.AP), gap: 100 * (rows[2].metrics.AP - rows[1].metrics.AP)};
-}
-
 // Independently selected AP50:95 extrema from the published results ledger.
 // Source ledger SHA-256: e0255eb45de1900bdbcafc28d89c554e71ae6240debe4d79f229ad7359dfd7a4
 export const recordedExtrema = {
@@ -184,19 +157,35 @@ export const recordedExtrema = {
   }
 };
 
-export function extremaBenchmark(data, key) {
-  const matched = matchedBenchmark(data, key);
-  const selected = recordedExtrema[key];
-  if (!matched || !selected) return null;
-  const descriptions = {
-    naive: 'Ordinary RF-DETR training on incomplete annotations.',
-    aware: 'Coverage-aware training and recorded follow-up experiments.',
-    complete_reference: 'RF-DETR trained with all available annotations.',
-  };
-  const rows = ['naive', 'aware', 'complete_reference'].map(role => ({
-    role, ...modelRoles[role], description: descriptions[role],
-    metrics: selected[role].metrics, selected: selected[role],
-  }));
-  return {...matched, rows, gain: 100*(rows[1].metrics.AP-rows[0].metrics.AP),
-    gap: 100*(rows[2].metrics.AP-rows[1].metrics.AP)};
+// Seed-averaged matched comparison, driven by the verification manifest. Rendering the
+// benchmark cards from the same source the Verify page scores means every headline number
+// on the site is one a visitor can recompute; the extrema below are kept, but demoted to
+// a clearly labelled aside, because they mix recipes and are not a matched comparison.
+export async function loadVerificationManifest() {
+  const response = await fetch('/static/verify/manifest.json');
+  if (!response.ok) throw new Error('The verification manifest is not published with this build.');
+  return response.json();
+}
+
+export function cohortBenchmark(manifest, key) {
+  const cohort = manifest.cohorts.find(entry => entry.key === key);
+  if (!cohort) return null;
+  const roles = ['naive', 'aware', 'complete_reference'];
+  const rows = roles.map(role => {
+    const runs = cohort.runs.filter(run => run.role === role);
+    if (runs.length !== cohort.seeds.length) throw new Error('Benchmark cohort is missing an arm.');
+    const metrics = {};
+    for (const name of ['AP', 'AP50', 'recall_at_threshold']) {
+      const values = runs.map(run => run.expected[name]);
+      if (!values.every(value => Number.isFinite(value) && value >= 0 && value <= 1)) {
+        throw new Error('Benchmark contains an invalid metric.');
+      }
+      metrics[name] = values.reduce((sum, value) => sum + value, 0) / values.length;
+    }
+    return {role, ...modelRoles[role], metrics, runs};
+  });
+  const labels = manifest.ground_truth[cohort.runs[0].bundle_digest];
+  return {...cohort, rows, images: labels.images, boxes: labels.boxes, classes: labels.categories,
+          gain: 100 * (rows[1].metrics.AP - rows[0].metrics.AP),
+          gap: 100 * (rows[2].metrics.AP - rows[1].metrics.AP)};
 }

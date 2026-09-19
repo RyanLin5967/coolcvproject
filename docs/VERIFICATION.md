@@ -70,6 +70,19 @@ confident, wrong number:
   published value in the last two or three bits. The evaluator now mirrors numpy's
   `pairwise_sum_DOUBLE`, which is what makes bit-exact agreement possible.
 
+## The Benchmarks page now renders from this bundle
+
+A dress rehearsal of the site (`scripts/practice_run.py`) found that the Benchmarks page
+disagreed with the verifiable truth, badly. It selected each arm's *best* recorded result
+across different recipes, budgets and inference settings, so its headline read +17.80 /
++17.37 / **+10.32** where the matched cohorts give +12.56 / +11.42 / **+1.80**. Eight of the
+eighteen values it displayed could not be recomputed at all.
+
+The cards are now derived from `manifest.json`, the same file the Verify page scores, so the
+two pages cannot drift: 24 of 24 displayed values are recomputable and the rehearsal fails
+if any headline stops matching. The extrema are kept in a disclosure that states plainly
+that they are not a matched comparison.
+
 ## How to check it yourself
 
 ```bash
@@ -77,6 +90,7 @@ python scripts/build_verification_bundle.py --check   # rebuild and compare to c
 node scripts/check_verification_parity.mjs            # JS vs Python, expect 30/30, deviation 0
 python -m pytest tests/test_verification_bundle.py    # digests, formats, publication parity
 python scripts/qa_verify_page.py                      # drive the real page at 1440px and 390px
+python scripts/practice_run.py                        # every displayed score, and page-to-page agreement
 ```
 
 The page also carries its own negative control: **“Break one detection on purpose”**

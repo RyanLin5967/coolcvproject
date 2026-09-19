@@ -227,7 +227,19 @@ def main():
                     "expected": rescored,
                 })
         if runs:
-            cohorts.append({**{k: v for k, v in spec.items() if k != "arms"}, "seeds": seeds, "runs": runs})
+            # A cohort is only a fair comparison if every arm shares the training
+            # conditions. Assert it here so the site can render these as a matched
+            # comparison without re-deriving the guarantee at display time.
+            for field in ("steps", "resolution"):
+                values = {run[field] for run in runs}
+                if len(values) != 1:
+                    failures.append(f"{spec['key']}: arms disagree on {field} ({sorted(values)})")
+            roles = [run["role"] for run in runs]
+            for role in ("naive", "aware", "complete_reference"):
+                if roles.count(role) != len(seeds):
+                    failures.append(f"{spec['key']}: {role} has {roles.count(role)} runs for {len(seeds)} seeds")
+            cohorts.append({**{k: v for k, v in spec.items() if k != "arms"}, "seeds": seeds,
+                            "steps": runs[0]["steps"], "resolution": runs[0]["resolution"], "runs": runs})
 
     if failures:
         for line in failures:

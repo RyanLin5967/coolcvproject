@@ -1,3 +1,34 @@
+# DRESS REHEARSAL CORRECTED THE BENCHMARK HEADLINES — 2026-09-19
+
+scripts/practice_run.py walks the served site, reads every score a visitor actually sees and
+fails if any cannot be recomputed from the shipped bundle or if two pages disagree. First run
+found the Benchmarks page overstating results: it selected each arm's best recorded result
+across DIFFERENT recipes, budgets and inference settings, giving headlines +17.80 pawns,
++17.37 all-pieces, +10.32 construction against matched truths of +12.56, +11.42 and +1.80.
+Construction was overstated 5.7x, pitting a tiled 5-pass naive minimum 42.31 against a 640px
+10k-step 5-pass aware maximum 52.64 that also had 265 extra training boxes. Eight of eighteen
+displayed values were not recomputable at all.
+
+Benchmarks now renders from the verification manifest, the same file the Verify page scores,
+so the two cannot drift. Cards show matched cohorts only: same recipe, same update budget,
+every recorded seed averaged. Displayed pawns-base is 63.79 / 76.35 / 78.04 at +12.56.
+The extrema survive in a disclosure explicitly labelled not a matched comparison; that
+disclosure should not be opened on camera without explaining it. Build now asserts each
+cohort's arms share steps and resolution and that every role has one run per seed, so
+"matched" is a build-time guarantee rather than a display-time claim. extremaBenchmark and
+matchedBenchmark removed as dead code.
+
+Current rehearsal state: 24 displayed values, all recomputable, 0 unverifiable, Benchmarks
+and Verify agree on every cohort mean and headline. Negative control forced to fire: adding
+0.01 to one published manifest AP is caught as a cross-page mismatch, and the run exits
+non-zero. Validation: 268 passed / 1 skipped, ruff clean, 30/30 JS-Python parity deviation 0,
+browser QA passes at 1440px and 390px including the self-test. Evidence
+artifacts/qa/practice-run/findings.json and artifacts/qa/verify-page/evidence.json.
+
+No new cloud work, no training, no provider calls. Cloud lock BLOCKED, $0 budget untouched.
+
+---
+
 # VERIFICATION SURFACE ADDED — 2026-09-19
 
 No new cloud work, no training, no provider execution. Cloud lock remains BLOCKED and the

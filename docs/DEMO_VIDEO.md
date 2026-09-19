@@ -50,39 +50,46 @@ technical viewer will ask.
 
 ---
 
-## Two traps to steer around
+## One trap left, and one that was fixed in code
 
-These are both real and both easy to walk into.
+**Fixed: the Benchmarks page used to overstate the result.** It selected the *minimum*
+recorded control against the *maximum* recorded CoverageCV run, across different recipes,
+budgets and inference settings, and reported the difference as the headline: +17.80 for
+pawns, +17.37 for all pieces, **+10.32 for construction against a matched truth of +1.80**.
+The rehearsal caught this. The page now renders from the verification manifest, so every
+card is a matched cohort — same recipe, same update budget, every recorded seed averaged —
+and every number on it is one the Verify page recomputes. The best-recorded-result table
+still exists, in a disclosure labelled *"not a matched comparison"*. **Do not open that
+disclosure on camera** unless you are willing to explain why those numbers are bigger;
+the honest headline is the card.
 
-**1. The Benchmarks cards are not a matched comparison.** They select the *minimum*
-recorded control and the *maximum* recorded CoverageCV result, across different recipes,
-seeds and update budgets. The page discloses this, but narrating those cards as "our
-method versus theirs" would be misleading. **Use the Verify page for every number you
-quote** — its cohorts are matched by construction (same recipe, same budget, one row per
-seed) and it refuses to render a cohort whose training conditions differ.
-
-**2. Pictures and numbers come from different recipes unless you are careful.** The
-Predictions gallery uses the **augmented 512px** checkpoints — seed 20260917, scoring
+**Still live: pictures and numbers come from different recipes unless you are careful.**
+The Predictions gallery uses the **augmented 512px** checkpoints — seed 20260917, scoring
 74.53 / 78.90 / 78.95. The headline +12.56 is the **base 384px** recipe. If you show the
 gallery and then cut to +12.56, you have silently changed models.
 
 The fix is also the best moment in the video: show the gallery, then verify the *augmented*
-cohort so the numbers match the pictures exactly, and only then switch cohorts to the base
-recipe and say why the gap is larger there. Augmentation and the coverage fix partly solve
-the same problem, so a stronger recipe shrinks the benefit from +12.56 to +2.57. Saying
-that yourself is far more convincing than being caught not saying it, and it is the kind
-of honesty that makes the rest of the video credible.
-
----
+cohort so numbers and pictures match exactly, and only then switch to the base recipe and
+say why the gap is larger there. Augmentation and the coverage fix partly solve the same
+problem, so a stronger recipe shrinks the benefit from +12.56 to +2.57. Saying that
+yourself is far more convincing than being caught not saying it.
 
 ## Pre-flight
 
 ```bash
 python scripts/build_verification_bundle.py --check   # 30 runs reproduce exactly
 node  scripts/check_verification_parity.mjs           # expect 30/30, deviation 0
-python -m pytest -q                                   # expect 267 passed, 1 skipped
+python -m pytest -q                                   # expect 268 passed, 1 skipped
 python scripts/build_public_demo.py
 cd public-demo && python3 -m http.server 8767 --bind 127.0.0.1
+```
+
+Then the dress rehearsal, which is the one that matters — it reads every score the site
+actually displays and fails if any of them cannot be recomputed, or if the Benchmarks page
+and the Verify page disagree:
+
+```bash
+python scripts/practice_run.py     # expect: 24 recomputable, 0 unverifiable, cross-page OK
 ```
 
 Browser: 1440×900, bookmarks bar hidden, zoom 100%, a clean profile with no extensions
@@ -112,6 +119,10 @@ CoverageCV on the same image.
 > "Same architecture, same images, same number of training steps. The only difference is
 > whether the training respects what each source actually annotated. Ordinary training is
 > finding about three-quarters of these pawns. Ours finds all of them."
+
+Optional insert, 5s: Benchmarks page. The cards now read 63.79 / 76.35 / 78.04 with
+"+12.56 AP points", matched and seed-averaged, and they are the same numbers the next beat
+recomputes — which is why this cut is safe to make.
 
 **1:15–1:55 · Recompute those exact numbers.** Verify page → **Chess pawns · stronger
 recipe** → Recompute. Rows land on 74.53 / 78.90 / 78.95, all "identical".
@@ -170,6 +181,7 @@ Run `pytest -q` → 267 passed.
 | "these predictions came from this checkpoint" | Not provable in-browser. Say "recorded hash and provider records". |
 | "works on any dataset" | Four cohorts, small datasets, chess shares one camera domain. |
 | "150 review units = 150 human hours" | Review units are not measured human time or money. |
+| the numbers in "Best recorded result for each arm" | Those mix recipes. The matched card is the claim. |
 
 ## If something breaks on camera
 

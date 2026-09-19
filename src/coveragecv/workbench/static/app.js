@@ -1,5 +1,5 @@
 import {renderMergeStory} from './merge-story.js';
-import {benchmarkTasks, modelRoles, extremaBenchmark} from './benchmark-view.js';
+import {benchmarkTasks, modelRoles, recordedExtrema, cohortBenchmark, loadVerificationManifest} from './benchmark-view.js';
 import {renderVerify} from './verify-view.js';
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -14,7 +14,7 @@ const predictionCache=new Map(), imageCache=new Map(), exampleRequests=new Map()
 let predictionRequest=0, researchRequest=0, renderedSignature='';
 const deviceNames={cpu:'CPU',mps:'Apple GPU',cuda:'CUDA GPU'};
 const colors=['#477dce','#e49938','#ad60b5','#46a99a','#d26068','#859849','#766dcc','#41a1c6','#bd8461','#7196bd','#bb668e','#8ea777','#99809d'];
-const S={page:'merge',tab:'overview',state:null,project:null,revision:null,projectId:localStorage.getItem('coveragecv-project'),revisionId:null,pending:{},split:'train',filter:'all',limit:24,selectedJob:null,examples:{},sample:null,sampleMode:'observed',example:0,confidence:.25,researchTask:'pawns',research:null};
+const S={page:'merge',tab:'overview',state:null,project:null,revision:null,projectId:localStorage.getItem('coveragecv-project'),revisionId:null,pending:{},split:'train',filter:'all',limit:24,selectedJob:null,examples:{},sample:null,sampleMode:'observed',example:0,confidence:.25,researchTask:'pawns-base',research:null,verifyManifest:null};
 let refreshToken=0,toastTimer,refreshTimer;
 async function api(path,body,method='POST'){
  if(path.startsWith('/jobs/highlights-')){
@@ -69,7 +69,7 @@ function renderShell(){
 function render(){
  $('content').dataset.page=S.page;
  if(!S.state){$('content').innerHTML='<div class="loading"><div class="spin"></div>Opening your workspace…</div>';return}
- if(S.page==='merge'){renderMergeStory($('content'),{api,state:S.state,publicDemo,onCompare:(task)=>{S.researchTask=task??'pawns';S.page='research';renderShell();render();window.scrollTo({top:0,behavior:'instant'})}});return}
+ if(S.page==='merge'){renderMergeStory($('content'),{api,state:S.state,publicDemo,onCompare:(task)=>{S.researchTask=cohortKeyForTask(task);S.page='research';renderShell();render();window.scrollTo({top:0,behavior:'instant'})}});return}
  if(S.page==='platform'){renderPlatform();return}
  if(S.page==='research'){renderResearch();return}
  if(S.page==='verify'){renderVerify($('content')).catch(error=>toast(error.message,true));return}
@@ -77,6 +77,16 @@ function render(){
  if(!S.project){$('content').innerHTML=`<div class="empty"><div class="empty-symbol">▦</div><div class="eyebrow">EVERY LABEL HAS A CONTEXT</div><h1>Make coverage part of your dataset.</h1><p>Combine datasets, declare what each source actually annotates, and measure what happens when your model respects that policy.</p><button class="button primary" data-action="demo">Explore the working example →</button> <button class="button" data-action="import">Import your dataset</button></div>`;return}
  if(S.page==='experiments'){renderExperiments().catch(error=>toast(error.message,true));return}
  renderDataset();
+}
+// Map a dataset key from elsewhere in the app onto its headline cohort.
+function cohortKeyForTask(task){
+ const cohorts=S.verifyManifest?.cohorts??[];
+ const forTask=cohorts.filter(c=>c.task===task);
+ return (forTask.find(c=>c.headline)??forTask[0])?.key??(task?`${task}-base`:'pawns-base');
+}
+// The benchmark selection is a cohort key; the predictions page needs its dataset.
+function selectedDatasetTask(){
+ return S.verifyManifest?.cohorts.find(c=>c.key===S.researchTask)?.task??S.researchTask;
 }
 function pageHeading(title,description,actions=''){return `<div class="page-heading"><div><div class="eyebrow">${S.page==='datasets'?'DATASET PROJECT':S.page==='experiments'?'RECORDED MODEL PREDICTIONS':'LOCAL WORKBENCH'}</div><h1>${esc(title)}</h1><p class="muted small-text">${description}</p></div><div class="heading-actions">${actions}</div></div>`}
 function stat(value,label,detail){return `<div class="stat"><div class="stat-label">${label}</div><div class="stat-number">${value}</div><div class="stat-detail">${detail}</div></div>`}
@@ -88,28 +98,40 @@ function methodExplainer(){
 }
 async function renderResearch(force=false){
  const request=++researchRequest;
- const data=(!force&&S.research)?S.research:await api('/research');
+ let data,manifest;
+ try{
+  [data,manifest]=await Promise.all([(!force&&S.research)?S.research:api('/research'),
+                                     S.verifyManifest??loadVerificationManifest()]);
+ }catch(error){
+  if(S.page!=='research')return;
+  $('content').innerHTML=`<div class="empty"><h2>Recorded results are unavailable</h2><p>${esc(error.message)}</p></div>`;return;
+ }
  if(S.page!=='research'||request!==researchRequest)return;
- S.research=data;
- const available=Object.keys(benchmarkTasks).filter(key=>data.tasks?.[key]);
- if(!available.includes(S.researchTask))S.researchTask=available[0];
- const benchmark=extremaBenchmark(data,S.researchTask);
- let html=`<div class="page-heading"><div><div class="eyebrow">MEASURED ON THE SAME VALIDATION IMAGES</div><h1>Benchmarks</h1><p class="muted">Minimum ordinary training and fully labeled reference; maximum CoverageCV. Selected independently across recorded recipes and seeds.</p></div><a class="button small" href="https://github.com/RyanLin5967/coolcvproject" target="_blank" rel="noopener">View source ↗</a></div>`;
- html+=`<div class="callout neutral verify-pointer">Every score here was produced by a recorded training run and saved with its predictions. <button class="link-button" data-page="verify">Recompute them in your browser →</button></div>`;
- html+=`<div class="benchmark-heading"><div><p>Green is our method.</p></div><span class="metric-key">AP50:95 · higher is better</span></div><div class="dataset-switcher" aria-label="Benchmark dataset">${available.map(key=>`<button data-research-task="${key}" aria-pressed="${key===S.researchTask}" class="${key===S.researchTask?'selected':''}"><b>${benchmarkTasks[key].name}</b><span>${benchmarkTasks[key].detail}</span></button>`).join('')}</div>`;
+ S.research=data;S.verifyManifest=manifest;
+ const cohorts=manifest.cohorts;
+ if(!cohorts.some(c=>c.key===S.researchTask))S.researchTask=(cohorts.find(c=>c.headline)??cohorts[0]).key;
+ const benchmark=cohortBenchmark(manifest,S.researchTask);
+ let html=`<div class="page-heading"><div><div class="eyebrow">MATCHED COMPARISONS ON COMPLETE VALIDATION LABELS</div><h1>Benchmarks</h1><p class="muted">Each comparison holds the recipe, the update budget and the images fixed, and averages every recorded seed. Every score here can be recomputed in your browser.</p></div><a class="button small" href="https://github.com/RyanLin5967/coolcvproject" target="_blank" rel="noopener">View source ↗</a></div>`;
+ html+=`<div class="callout neutral verify-pointer">These are not stored constants. <button class="link-button" data-page="verify">Recompute them in your browser →</button></div>`;
+ html+=`<div class="benchmark-heading"><div><p>Green is our method.</p></div><span class="metric-key">AP50:95 · higher is better</span></div><div class="dataset-switcher" aria-label="Benchmark dataset">${cohorts.map(c=>`<button data-research-task="${c.key}" aria-pressed="${c.key===S.researchTask}" class="${c.key===S.researchTask?'selected':''}"><b>${esc(c.name)}</b><span>${esc(c.detail)}</span></button>`).join('')}</div>`;
  if(!benchmark){$('content').innerHTML=html+'<div class="card card-body">Recorded results are not available yet.</div>';return}
- const {rows,gain}=benchmark;
- html+=`<div id="benchmark-comparison" data-task="${benchmark.key}"><div class="benchmark-context"><b>${benchmark.name}</b><span>Selected recorded experiments</span><span>${benchmark.images} validation images</span></div>${scoreCards(rows)}<div class="benchmark-takeaway"><strong>${gain>=0?'+':''}${gain.toFixed(2)}<span> AP points</span></strong><div><b>Difference between selected scores</b><p>These runs use different settings; the difference is not an isolated coverage-method improvement.</p></div></div>${methodExplainer()}</div>`;
- if(benchmark.key==='construction')html+=`<p class="benchmark-note">The selected CoverageCV result uses 265 additional training boxes and five inference passes. Construction annotations have known inconsistencies.</p>`;
- else html+=`<p class="benchmark-note">These chess results share a small board/camera domain. Scores from different datasets are not directly comparable. Each card shows one recorded result.</p>`;
- html+=`<details class="disclosure"><summary>What does this score measure?</summary><div><p><b>AP50:95</b> rewards finding the right objects and drawing accurate boxes around them. It averages performance across several box-overlap requirements. A score of 78 is not “78% of images correct.”</p><p><b>AP50</b> uses a looser overlap requirement, so its number is usually higher. All three models are scored on the same validation images and reference labels.</p><p>${rows.map(row=>`${row.label}: ${esc(row.selected.method.replaceAll('_',' '))} · ${row.selected.steps.toLocaleString()} updates · ${row.selected.resolution}px · seed ${row.selected.seed} · ${row.selected.passes} inference pass${row.selected.passes===1?'':'es'}`).join('<br>')}. The reference is a measured comparison, not a guaranteed performance ceiling.</p></div></details>`;
+ const {rows,gain,gap}=benchmark;
+ const seeds=benchmark.seeds.length;
+ html+=`<div id="benchmark-comparison" data-task="${benchmark.key}"><div class="benchmark-context"><b>${esc(benchmark.name)}</b><span>${esc(benchmark.recipe)}</span><span>${benchmark.images} validation images · ${benchmark.boxes} boxes</span><span>${seeds} seed${seeds===1?'':'s'}, averaged</span></div>${scoreCards(rows)}<div class="benchmark-takeaway"><strong>${gain>=0?'+':''}${gain.toFixed(2)}<span> AP points</span></strong><div><b>Coverage-aware training versus ordinary training</b><p>Same images, same labels, same recipe and the same number of updates. The only change is whether training treats an unlabelled region as background.</p></div></div>${methodExplainer()}</div>`;
+ html+=`<p class="benchmark-note">The fully labelled reference is ${gap>=0?`${gap.toFixed(2)} points ahead`:`${Math.abs(gap).toFixed(2)} points behind`}; it is one comparison run with every label, not a frontier model.${seeds===1?' This cohort has a single seed, so treat it as a signal rather than a result.':''}</p>`;
+ if(benchmark.task==='construction')html+=`<p class="benchmark-note">Construction annotations have known inconsistencies, recorded in the label audit.</p>`;
+ else html+=`<p class="benchmark-note">These chess results share a small board and camera domain. Scores from different datasets are not directly comparable.</p>`;
+ html+=`<details class="disclosure"><summary>What does this score measure?</summary><div><p><b>AP50:95</b> rewards finding the right objects and drawing accurate boxes around them. It averages performance across several box-overlap requirements. A score of 78 is not “78% of images correct.”</p><p><b>AP50</b> uses a looser overlap requirement, so its number is usually higher. All three models are scored on the same validation images and reference labels.</p><p>${rows.map(row=>`${row.label}: ${esc(row.runs[0].method.replaceAll('_',' '))} · ${benchmark.steps.toLocaleString()} updates · ${benchmark.resolution}px · seed${seeds===1?' ':'s '}${benchmark.seeds.join(', ')}`).join('<br>')}. Recall at the operating point: ${rows.map(row=>`${row.label} ${(100*row.metrics.recall_at_threshold).toFixed(1)}%`).join(' · ')}.</p></div></details>`;
+ const extrema=recordedExtrema[benchmark.task];
+ if(extrema)html+=`<details class="disclosure"><summary>Best recorded result for each arm · not a matched comparison</summary><div><p>Across every recorded recipe and seed, the strongest CoverageCV result and the weakest control look like this. We keep it visible because it is in the results ledger, but it selects a minimum against a maximum across <b>different</b> recipes, budgets and inference settings, so the difference is not an isolated coverage effect and is not the number we claim.</p><div class="table-wrap"><table><thead><tr><th>Arm</th><th>Recipe as recorded</th><th>AP50:95</th></tr></thead><tbody>${['naive','aware','complete_reference'].map(role=>`<tr class="${role}"><td>${esc(modelRoles[role].label)}</td><td>${esc(extrema[role].method.replaceAll('_',' '))} · ${extrema[role].steps.toLocaleString()} updates · ${extrema[role].resolution}px · ${extrema[role].passes} pass${extrema[role].passes===1?'':'es'}</td><td>${(100*extrema[role].metrics.AP).toFixed(2)}</td></tr>`).join('')}</tbody></table></div><p>The matched comparison above is the claim; this table is context.</p></div></details>`;
  const acquisition=data.acquisition;
- if(benchmark.key==='construction'&&acquisition?.status==='completed'){
+ if(benchmark.task==='construction'&&acquisition?.status==='completed'){
   const guided=acquisition.cases.guided,random=acquisition.cases.random;
-  html+=`<details class="disclosure" id="acquisition-evidence"><summary>Separate experiment: choosing what to label · +${acquisition.primary_AP_delta_points.toFixed(2)} AP</summary><div><p>We also tested which missing labels to review. Both strategies get 150 image/class reviews and the same extra training.</p><div class="table-wrap"><table><thead><tr><th>Review strategy</th><th>New boxes</th><th>AP50:95</th></tr></thead><tbody><tr><td>Random selection · control</td><td>${random.acquisition.added_boxes}</td><td>${(random.metrics.AP*100).toFixed(2)}</td></tr><tr class="aware"><td>CoverageCV guided selection · ours</td><td>${guided.acquisition.added_boxes}</td><td>${(guided.metrics.AP*100).toFixed(2)}</td></tr></tbody></table></div><p class="benchmark-note">One-run simulation using withheld published training labels. These are additional annotations, not new human work. Equal review counts do not imply equal annotation effort. This matched label-review experiment is separate from the selected extrema above.</p></div></details>`;
+  html+=`<details class="disclosure" id="acquisition-evidence"><summary>Separate experiment: choosing what to label · +${acquisition.primary_AP_delta_points.toFixed(2)} AP</summary><div><p>We also tested which missing labels to review. Both strategies get 150 image/class reviews and the same extra training.</p><div class="table-wrap"><table><thead><tr><th>Review strategy</th><th>New boxes</th><th>AP50:95</th></tr></thead><tbody><tr><td>Random selection · control</td><td>${random.acquisition.added_boxes}</td><td>${(random.metrics.AP*100).toFixed(2)}</td></tr><tr class="aware"><td>CoverageCV guided selection · ours</td><td>${guided.acquisition.added_boxes}</td><td>${(guided.metrics.AP*100).toFixed(2)}</td></tr></tbody></table></div><p class="benchmark-note">One-run simulation using withheld published training labels. These are additional annotations, not new human work. Equal review counts do not imply equal annotation effort.</p></div></details>`;
  }
  html+=`<div class="benchmark-next"><p>Recompute these scores yourself, or inspect the predictions behind them.</p><button class="button primary" data-page="verify">Verify the numbers →</button> <button class="button" data-page="experiments">Compare predictions →</button></div>`;
- html+=`<details class="disclosure archive"><summary>Experiment history & limitations</summary><div><p>The cards select individual extrema. The table below retains recipe averages, including stronger controls and regressions.</p><div class="table-wrap"><table><thead><tr><th>Recorded recipe</th><th>Runs</th><th>AP50:95</th></tr></thead><tbody>${Object.values(benchmark.task.methods).map(method=>`<tr><td>${esc(method.label)}</td><td>${method.n}</td><td>${(100*method.metrics.AP.mean).toFixed(2)}</td></tr>`).join('')}</tbody></table></div><p>Some recipes used different budgets or incomplete seed cohorts; rows here are not automatically matched comparisons. Validation guided experiment design. These results do not establish state-of-the-art performance.</p><a href="https://github.com/RyanLin5967/coolcvproject/blob/main/docs/DECISIONS.md" target="_blank" rel="noopener">Read the full experiment record ↗</a></div></details>`;
+ const task=data.tasks?.[benchmark.task];
+ if(task)html+=`<details class="disclosure archive"><summary>Every recorded recipe & limitations</summary><div><p>The cards above show one matched cohort. The table below retains every recorded recipe average for this dataset, including stronger controls and regressions.</p><div class="table-wrap"><table><thead><tr><th>Recorded recipe</th><th>Runs</th><th>AP50:95</th></tr></thead><tbody>${Object.values(task.methods).map(method=>`<tr><td>${esc(method.label)}</td><td>${method.n}</td><td>${(100*method.metrics.AP.mean).toFixed(2)}</td></tr>`).join('')}</tbody></table></div><p>Rows here are not automatically matched comparisons. Validation guided experiment design. These results do not establish state-of-the-art performance.</p><a href="https://github.com/RyanLin5967/coolcvproject/blob/main/docs/DECISIONS.md" target="_blank" rel="noopener">Read the full experiment record ↗</a></div></details>`;
  const viewKey=JSON.stringify([S.researchTask,rows.map(row=>row.metrics),acquisition?.status]);
  if($('content').dataset.viewKey===viewKey&&$('benchmark-comparison'))return;
  $('content').dataset.viewKey=viewKey;
@@ -252,7 +274,7 @@ document.addEventListener('click',async e=>{const b=e.target.closest('button,a')
   const oldPage=S.page;S.page=b.dataset.page;
   if(S.page==='experiments'&&oldPage==='research'){
    S.selectedJob=null;S.example=0;
-   const project=S.state.projects.find(project=>projectTask(project)===S.researchTask);
+   const project=S.state.projects.find(project=>projectTask(project)===selectedDatasetTask());
    if(project&&project.id!==S.projectId){S.projectId=project.id;S.revisionId=null;S.selectedJob=null;S.example=0;await refresh()}
    else {renderShell();render()}
   }else {renderShell();render()}
