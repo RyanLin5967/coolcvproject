@@ -169,11 +169,11 @@ The observed [chess dataset, version 2](https://app.roboflow.com/ryan-lin-khj4s/
 
 A separate complete-label project, `coveragecv-chess-hosted/1`, completed **20 epochs of Roboflow-hosted RF-DETR Nano training**. Its recipe and reported metrics differ from the matched custom-loss experiments. That baseline used the original chess test split, so the chess test set is not globally untouched.
 
-The custom 2,000-update aware model is deployed as `ryan-lin-khj4s/coveragecv-chess-mvp-3-rfdetr-nano-t3`. Hosted inference passed semantic/geometry checks on three validation images: 15 black-pawn and 13 white-pawn detections, minimum matched same-class IoU 0.936. This is a deployment smoke test, not a full hosted evaluation or bitwise equivalence claim.
+The custom 2,000-update aware model was exported and deployed as `ryan-lin-khj4s/coveragecv-chess-mvp-3-rfdetr-nano-t3`; its weights are the `pawns-base-20260917-aware` checkpoint. On 2026-09-17 hosted inference passed semantic/geometry checks on three validation images: 15 black-pawn and 13 white-pawn detections, minimum matched same-class IoU 0.936. That was a deployment smoke test, not a full hosted evaluation or a bitwise equivalence claim. **That endpoint no longer serves**: as of 2026-09-19 `coveragecv-chess-mvp/3` returns 404, and version 1 still answers but is the earlier upload made before the classifier-row fix below, so its boxes do not correspond to any recorded arm. `coveragecv-chess-hosted/1` does still serve.
 
 The connector fixes two measured compatibility issues: Roboflow VOC coordinates need a one-based origin, and the observed hosted weight importer expects the reserved classifier row first. The export explicitly reorders every main/encoder classifier; native checkpoints remain unchanged. Earlier failed attempts remain recorded, not mislabeled as successful.
 
-Coverage-aware loss runs in CoverageCV on local hardware or Modal. Ordinary Roboflow-hosted training does **not** automatically consume the coverage sidecar. Roboflow stores the versioned data, trains the separate baseline and serves the custom exported model.
+Coverage-aware loss runs in CoverageCV on local hardware or Modal. Ordinary Roboflow-hosted training does **not** automatically consume the coverage sidecar. Roboflow stores the versioned data and trained the separate complete-label baseline, which it still serves. It also served the custom exported model in September 2026; that endpoint is not currently up, and redeploying it is a provider write, so it is not done automatically.
 
 ## Verification and cloud reproduction
 

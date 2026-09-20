@@ -1,3 +1,33 @@
+# CORRECTION: THE AWARE MODEL *WAS* SERVED ON ROBOFLOW — 2026-09-19
+
+Reversing my own earlier entry. On 2026-09-19 I wrote that coveragecv-chess-mvp v3 has "NO
+live hosted inference endpoint" and told the user not to claim hosted serving. The first
+half was right about the present tense and the second half was too strong about the past.
+
+Established from saved artifacts and live read-only calls:
+- artifacts/provider/model/semantic-corrected/export.json records native_checkpoint_sha256
+  equal to the manifest's pawns-base-20260917-aware checkpoint. The model exported to
+  Roboflow IS the CoverageCV arm of the published headline cohort, not a side model.
+- artifacts/provider/model/semantic-corrected/semantic_parity.json records hosted-vs-native
+  agreement on 3 images at IoU .971-.975 with confidences agreeing to ~.001. It was served
+  and it matched.
+- Live now: coveragecv-chess-mvp/3 returns 404, so it is NOT currently served. mvp/1 returns
+  200 but is the pre-fix upload (export.json notes the hosted importer shifted native class 1
+  to class 0); its boxes match no local arm at IoU>=.5, so it must not be shown.
+  coveragecv-chess-hosted/1 returns 200 and is the separate complete-label baseline.
+- Roboflow's hosted trainer still cannot train the coverage-aware criterion; the deploy path
+  is export-and-upload, which is why these are jobType external-upload.
+
+README corrected: it claimed in the present tense that the aware model "is deployed" and
+that Roboflow "serves the custom exported model". Both were false as of today and are now
+past tense with the 404 stated. This was a public-facing false claim.
+
+Redeploying mvp/3 would make the live demo possible but is a provider WRITE against a
+BLOCKED cloud lock, so it is left for the user to authorise. No write was performed. The
+inference calls made here were single read-level requests to establish serving state.
+
+---
+
 # PREDICTION GALLERY REBOUND; ALL FOUR SURFACES NOW AGREE — 2026-09-19
 
 User reported construction still differing. Correct: the Predictions page was the last
