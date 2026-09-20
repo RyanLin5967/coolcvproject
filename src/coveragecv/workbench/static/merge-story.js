@@ -14,7 +14,9 @@ let lastMode = 'ordinary';
 const WALKTHROUGH_MATCHES_PAGE = false;
 
 const STORY_PREFERENCES = [
-  {project: /chess.*partial|partial.*chess/i, classes: ['white-pawn', 'black-pawn']},
+  // Black-pawn first, so the unreviewed class on screen is white-pawn -- the class the
+  // ordinary model is actually missing in the prediction gallery.
+  {project: /chess.*partial|partial.*chess/i, classes: ['black-pawn', 'white-pawn']},
   {project: /construction/i, classes: ['helmet', 'person']},
 ];
 

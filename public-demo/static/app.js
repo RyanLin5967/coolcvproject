@@ -184,6 +184,26 @@ function orderedProjects(projects){
  });
 }
 function defaultProject(projects){return orderedProjects(projects)[0]}
+// Greedy match at 50% overlap and matching class, the same rule the operating-point
+// metric uses. Lets the gallery say what a box was, instead of just that one was drawn.
+function boxIou(a,b){
+ const [ax,ay,aw,ah]=a,[bx,by,bw,bh]=b;
+ const inter=Math.max(0,Math.min(ax+aw,bx+bw)-Math.max(ax,bx))*Math.max(0,Math.min(ay+ah,by+bh)-Math.max(ay,by));
+ return inter/Math.max(aw*ah+bw*bh-inter,1e-12);
+}
+function scoreAgainstLabels(boxes,annotations){
+ const claimed=new Set();let found=0;
+ for(const box of [...boxes].sort((a,b)=>b.score-a.score)){
+  let best=0,pick=-1;
+  annotations.forEach((annotation,index)=>{
+   if(claimed.has(index)||annotation.category_id!==box.category_id)return;
+   const value=boxIou(box.bbox,annotation.bbox);
+   if(value>best){best=value;pick=index}
+  });
+  if(best>=.5){found+=1;claimed.add(pick)}
+ }
+ return {found,wrong:boxes.length-found};
+}
 function projectTask(project){
  if(/construction/i.test(project.name))return 'construction';
  if(/all.*13|all.*chess|all.*pieces/i.test(project.name))return 'all-pieces';
@@ -261,7 +281,9 @@ async function drawPredictions(){
   const canvas=$('prediction-'+arm);if(!canvas)return;
   const visible=boxes.filter(box=>box.score>=confidence);
   await draw(canvas,sample.image_url,sample,visible,examples.classes);
-  if(request===predictionRequest&&canvas.isConnected)$('prediction-count-'+arm).textContent=`${visible.length} predictions · ${sample.annotations.length} labeled objects`;
+  const {found,wrong}=scoreAgainstLabels(visible,sample.annotations);
+  if(request===predictionRequest&&canvas.isConnected)$('prediction-count-'+arm).textContent=
+   `found ${found} of ${sample.annotations.length} · ${wrong} false`;
  }));
 }
 function renderActivity(){

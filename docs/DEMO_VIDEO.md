@@ -17,31 +17,31 @@ curl -sf -o /dev/null http://127.0.0.1:8767/ && echo up || \
 
 1440×900, zoom 100%, bookmarks hidden, hard-reload.
 
-First frame: **"A missing label is not a negative example."**, **A · White-Pawn Dataset**
-ticked, **Ordinary merge** selected, board showing solid blue boxes on the white pawns and
-dashed red ones on the black.
+First frame: **"A missing label is not a negative example."**, **A · Black-Pawn Dataset**
+ticked, **Ordinary merge** selected, board showing solid blue boxes on the black pawns and
+dashed red ones on the white.
 
 ## Beats
 
 **0:00 — on the board**
-> "Okay so, two chess datasets. This one only labelled the white pawns — that's the blue
-> boxes. The other one only did the black ones."
+> "Okay so, two chess datasets. This one only labelled the black pawns. The other one only
+> did the white ones."
 
 **0:06 — point at the dashed boxes**
-> "So look at these black pawns. Nobody ever labelled them. But the model doesn't know
-> that. It just sees an object with no label and goes, cool, that's background. So it
-> learns to not find them."
+> "So these white pawns here — nobody ever labelled them. And the model doesn't know that.
+> It just sees an object with no label and goes, cool, that's background. So it learns to
+> not find them."
 
 **0:15 — click CoverageCV merge**
-> "So all we do is, if a dataset never checked for black pawns, we don't let it train
-> against black pawns. That's basically it."
+> "So all we do is, if a dataset never checked for white pawns, we don't let it train
+> against white pawns. That's basically it."
 
-**0:21 — click Predictions** (it opens on Chess pawns)
-> "And here's the difference. Same model, same images, same amount of training. Normal
-> training gets three of these seven pawns. Ours gets six."
+**0:21 — click Predictions** (opens on Chess pawns)
+> "And here's what that does. Same model, same images, same amount of training. Normal
+> training finds three of the seven pawns — and look, it's missed every single white one."
 
-**0:29 — reference card**
-> "Full labels gets seven — so we're pretty much right there."
+**0:29 — point at the middle and right cards**
+> "Ours finds six. With every label, seven."
 
 **0:32 — Verify → Recompute all 9 scores**
 > "Oh and these numbers aren't hardcoded. It's pulling the actual saved predictions and
@@ -50,11 +50,13 @@ dashed red ones on the black.
 **0:39 — stop**
 > "It's all client-side, so go check it yourself."
 
-~125 words. Running long? Drop the 0:29 beat.
+~130 words. Running long? Drop the second half of 0:06.
 
 ## Numbers that have to be right
 
-- **3 / 6 / 7** predictions on image 1, out of 7 labelled objects
+- Image 1 reads **found 3 of 7 · 0 false**, then **6 of 7**, then **7 of 7**
+- Those 7 pawns are 4 white and 3 black. Ordinary training finds the 3 black and
+  **none** of the white; ours gets all 3 black plus 3 of the 4 white
 - **63.79 / 76.35 / 78.04** AP50:95, mean of 3 seeds, +12.56
 - Recall across the set: **58.6% → 99.3%**
 
@@ -66,6 +68,16 @@ dashed red ones on the black.
 - Don't open "Best recorded result for each arm" — mixes recipes, not the claim.
 - Don't say Roboflow trained CoverageCV. Its hosted trainer only takes epochs/lr, so a
   custom loss can't go in. Roboflow shows a model exists, not that this page computes.
+
+## If someone asks "what's a prediction?"
+
+The detector looks at the image and outputs boxes — each one a location, a class, and a
+confidence. A prediction is one guessed box: *"I think there's a white pawn here, 93%
+sure."* The card counts the ones above the confidence slider, and says how many of them
+actually landed on a real pawn (50% overlap, right class) versus how many were wrong.
+
+So "found 3 of 7 · 0 false" means: seven pawns in the picture, the model correctly found
+three, and didn't invent any.
 
 ## If someone asks after
 
