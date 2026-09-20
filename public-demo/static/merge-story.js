@@ -6,8 +6,21 @@ const requests = new WeakMap();
 let lastSource = 0;
 let lastMode = 'ordinary';
 
+// Illustrate the merge with the dataset the measured result comes from, so the story does
+// not change subject halfway through. Falls back to the construction example, then to any
+// recorded image carrying two labelled classes.
+const STORY_PREFERENCES = [
+  {project: /chess.*partial|partial.*chess/i, classes: ['white-pawn', 'black-pawn']},
+  {project: /construction/i, classes: ['helmet', 'person']},
+];
+
 async function loadStory(api, state) {
-  const project = state?.projects?.find(item => /construction/i.test(item.name)) ?? state?.projects?.[0];
+  const projects = state?.projects ?? [];
+  const preference = STORY_PREFERENCES.find(entry => projects.some(item => entry.project.test(item.name)));
+  const project = preference
+    ? projects.find(item => preference.project.test(item.name))
+    : projects[0];
+  const wanted = preference?.classes ?? [];
   if (!project) throw new Error('The recorded merge example is not available yet.');
   let cache = requests.get(api);
   if (!cache) { cache = new Map(); requests.set(api, cache); }
@@ -18,11 +31,10 @@ async function loadStory(api, state) {
     if (!jobs.length) throw new Error('The recorded merge example is not available yet.');
     const examples = await api(`/jobs/${jobs[0].id}/examples`);
     const classes = examples.classes ?? [];
-    const helmet = classes.indexOf('helmet') + 1;
-    const person = classes.indexOf('person') + 1;
+    const [first, second] = wanted.map(name => classes.indexOf(name) + 1);
     const images = examples.images ?? [];
-    let sample = images.find(image => helmet > 0 && person > 0 && [helmet, person].every(id => image.annotations.some(box => box.category_id === id)));
-    let classIds = [helmet, person];
+    let sample = images.find(image => first > 0 && second > 0 && [first, second].every(id => image.annotations.some(box => box.category_id === id)));
+    let classIds = [first, second];
     if (!sample) {
       sample = images.find(image => new Set(image.annotations.map(box => box.category_id)).size >= 2);
       if (sample) classIds = [...new Set(sample.annotations.map(box => box.category_id))].slice(0, 2);
@@ -122,7 +134,7 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
       </div>
       <div class="merge-comparison">
         <figure class="merge-visual">
-          <div class="merge-photo" style="aspect-ratio:${sample.width}/${sample.height}"><img src="${esc(sample.image_url)}" width="${sample.width}" height="${sample.height}" alt="Recorded construction validation image with explanatory boxes for ${esc(names.join(' and '))}" decoding="async"><svg data-story-overlay viewBox="0 0 ${sample.width} ${sample.height}" aria-label="Reference label illustration" role="img"></svg></div>
+          <div class="merge-photo" style="aspect-ratio:${sample.width}/${sample.height}"><img src="${esc(sample.image_url)}" width="${sample.width}" height="${sample.height}" alt="Recorded validation image with explanatory boxes for ${esc(names.join(' and '))}" decoding="async"><svg data-story-overlay viewBox="0 0 ${sample.width} ${sample.height}" aria-label="Reference label illustration" role="img"></svg></div>
           <div class="merge-legend"><span><i class="merge-legend-known"></i><span data-story-known></span></span><span><i class="merge-legend-unknown"></i><span data-story-unknown></span></span></div>
         </figure>
         <div class="merge-outcome-panel"><div data-story-outcome aria-live="polite" aria-atomic="true"></div><button class="merge-primary" data-story-action></button></div>
