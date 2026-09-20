@@ -24,33 +24,33 @@ dashed red ones on the white.
 ## Beats
 
 **0:00 — on the board**
-> "Okay so, two chess datasets. This one only labelled the black pawns. The other one only
-> did the white ones."
+> "Okay so, two chess datasets. One of them only labelled the black pawns, the other one
+> only did the white."
 
 **0:06 — point at the dashed boxes**
-> "So these white pawns here — nobody ever labelled them. And the model doesn't know that.
-> It just sees an object with no label and goes, cool, that's background. So it learns to
-> not find them."
+> "And look at these white ones, they're just not labelled. The model can't tell the
+> difference between not labelled and not there, so it ends up learning they're background."
 
 **0:15 — click CoverageCV merge**
-> "So all we do is, if a dataset never checked for white pawns, we don't let it train
-> against white pawns. That's basically it."
+> "So what we do is pretty simple. If a dataset never looked for white pawns, we don't let
+> it train against white pawns."
 
 **0:21 — click Predictions** (opens on Chess pawns)
-> "And here's what that does. Same model, same images, same amount of training. Normal
-> training finds three of the seven pawns — and look, it's missed every single white one."
+> "These are the exact same model trained the exact same way, the only thing I changed is
+> that rule. Normal training finds three of the seven pawns here, and it's missed every
+> white one."
 
 **0:29 — point at the middle and right cards**
-> "Ours finds six. With every label, seven."
+> "Ours gets six. With all the labels, seven."
 
 **0:32 — Verify → Recompute all 9 scores**
-> "Oh and these numbers aren't hardcoded. It's pulling the actual saved predictions and
+> "Oh and these numbers aren't hardcoded. It's grabbing the real saved predictions and
 > recomputing the score right now, in the browser."
 
 **0:39 — stop**
-> "It's all client-side, so go check it yourself."
+> "It's all client-side, go check it yourself."
 
-~130 words. Running long? Drop the second half of 0:06.
+~130 words. Running long? Cut the second sentence of 0:06.
 
 ## Numbers that have to be right
 
