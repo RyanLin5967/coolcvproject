@@ -32,6 +32,10 @@ stale page.
 Browser 1440×900, zoom 100%, bookmarks hidden. Open `http://127.0.0.1:8767`.
 **Hard-reload** — the button must say "Recompute all 9 scores", not "Recompute again".
 
+All four surfaces — landing table, Benchmarks, Predictions, Verify — show the same numbers
+for a given dataset. `practice_run.py` fails if they ever diverge, so you can cut between
+them freely.
+
 ## Record
 
 | # | Press | You should see |
@@ -81,8 +85,8 @@ runs — two independent records, one from the training machine, one from the vi
 - Don't say it beats the fully-labelled model. 76.35 vs 78.04 — it *closes most of the gap*.
 - Don't claim the Roboflow run produced the CoverageCV numbers. It trained the baseline only.
 - Don't claim `coverage.ryanlin.dev` is live until Cloudflare is connected.
-- Don't cut from the gallery (step 4) straight to +12.56. Gallery = augmented recipe
-  (74.53/78.90/78.95); +12.56 = base recipe. Step 8 exists to make that explicit.
+- Don't read a gallery score as that picture's model. The headline is the seed-average;
+  the boxes come from one seed of it. The page says so, and per-seed scores are on Verify.
 
 ## If it breaks
 

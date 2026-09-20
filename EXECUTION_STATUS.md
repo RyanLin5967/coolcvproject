@@ -1,3 +1,32 @@
+# PREDICTION GALLERY REBOUND; ALL FOUR SURFACES NOW AGREE — 2026-09-19
+
+User reported construction still differing. Correct: the Predictions page was the last
+surface on the old extrema. It rendered prediction-highlights.json, which
+export_prediction_highlights.py bound to recordedExtrema, so it showed construction
+42.31/52.64/51.82, all-pieces 56.73/74.10/72.48 and pawns 61.40/79.20/77.72 while the
+corrected landing/Benchmarks/Verify pages showed 46.34/48.14/52.76, 58.23/69.64/72.54 and
+63.79/76.35/78.04. Its own caption read "Same selected runs as Benchmarks", which my
+Benchmarks change had made false. That regression was mine.
+
+export_prediction_highlights.py now derives from the verification manifest instead of
+recordedExtrema: FEATURED maps pawns to pawns-base, all-pieces to all-pieces-base and
+construction to construction, resolves each to one seed's run folders via the manifest's
+source_evaluation_path, and asserts the manifest checkpoint hash equals the gallery
+checkpoint. Displayed metric is the cohort seed-average, identical to Benchmarks; the boxes
+are drawn by the seed 20260917 checkpoints and the caption says so. selection_kind is now
+"cohort", not "extrema". Committed 809cc09.
+
+All four surfaces agree per dataset: landing table, Benchmarks cards, Predictions gallery,
+Verify. Rehearsal now enumerates the Predictions gallery too and fails if no gallery matches
+the Benchmarks cards: 45 displayed values, all recomputable, 0 unverifiable, cross-page OK.
+268 passed / 1 skipped, ruff clean, 30/30 parity deviation 0, browser QA 1440px and 390px.
+
+Note for the video: a cohort headline is a seed average, while the pictures come from one
+seed of that cohort. Those are different quantities and the page labels them as such; the
+per-seed scores remain listed on the Verify page. No training, no cloud execution, $0.
+
+---
+
 # ROBOFLOW PROVENANCE CORRECTED + LANDING TABLE FIXED — 2026-09-19
 
 Roboflow, re-checked read-only. TWO projects exist and only one is a real Roboflow training:
