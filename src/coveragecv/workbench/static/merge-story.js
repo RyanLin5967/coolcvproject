@@ -9,6 +9,10 @@ let lastMode = 'ordinary';
 // Illustrate the merge with the dataset the measured result comes from, so the story does
 // not change subject halfway through. Falls back to the construction example, then to any
 // recorded image carrying two labelled classes.
+// The recorded walkthrough shows the old construction merge story. Set true once
+// public-demo/media/walkthrough.mp4 and .vtt are re-recorded against the chess story.
+const WALKTHROUGH_MATCHES_PAGE = false;
+
 const STORY_PREFERENCES = [
   {project: /chess.*partial|partial.*chess/i, classes: ['white-pawn', 'black-pawn']},
   {project: /construction/i, classes: ['helmet', 'person']},
@@ -122,7 +126,7 @@ export async function renderMergeStory(container, {api, state, publicDemo = fals
       <div class="merge-eyebrow"><span aria-hidden="true">↳</span> COVERAGE-AWARE DATASET COMPILER</div>
       <h1>A missing label is not<br class="merge-desktop-break"> a negative example.</h1>
       <p>Two datasets. Different labeling rules. Merge them carelessly, and a model can learn to ignore the objects you want it to find.</p>
-      <div class="merge-hero-actions"><button class="merge-primary" data-story-compare>View benchmark results <span aria-hidden="true">→</span></button>${publicDemo?'<button class="merge-watch" data-action="watch-demo">Watch the walkthrough <span aria-hidden="true">↗</span></button>':''}</div>
+      <div class="merge-hero-actions"><button class="merge-primary" data-story-compare>View benchmark results <span aria-hidden="true">→</span></button>${publicDemo&&WALKTHROUGH_MATCHES_PAGE?'<button class="merge-watch" data-action="watch-demo">Watch the walkthrough <span aria-hidden="true">↗</span></button>':''}</div>
     </header>
     <section class="merge-stage" aria-label="Interactive dataset merge explanation">
       <div class="merge-stage-heading"><span class="merge-live-dot" aria-hidden="true"></span><strong>Try the merge</strong><span class="merge-recorded">Illustrative example</span></div>
