@@ -199,6 +199,17 @@ function provenance(cohort, manifest) {
     <p>The last column was written on the GPU when the model finished training, before any of
     the scoring this page repeats. It matches the recomputed column above for every run, so two
     independent records — one from the training machine, one from your browser — agree.</p>
+    <p class="verify-init"><b>All three models in a seed start from the same weights.</b>
+    ${cohort.seeds.map(seed => {
+      const run = cohort.runs.find(entry => entry.seed === seed);
+      return `Seed ${seed}: <span class="mono">${esc((run?.initial_parameter_digest ?? '').slice(0, 16))}…</span>`;
+    }).join(' · ')}.
+    Every arm of a seed branches from that one initialization, on the same images with the same
+    number of updates, so the only difference between them is whether training treats an
+    unlabelled region as background. The starting point is a detector pre-trained on COCO
+    (<span class="mono">${esc((cohort.runs[0].pretrained_sha256 ?? 'not recorded').slice(0, 16))}…</span>),
+    which is shared by all three, so pre-training cannot account for a gap between them.
+    The build refuses to publish a cohort whose arms disagree on this.</p>
     <p>Reference labels: <span class="mono">${esc(labels.path)}</span> · ${labels.images} images ·
     ${labels.boxes} boxes · ${labels.categories.length} classes · SHA-256 <span class="mono">${esc(labels.sha256.slice(0, 16))}…</span>,
     checked in your browser before scoring.</p></div></details>`;

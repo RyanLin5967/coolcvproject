@@ -207,6 +207,21 @@ def main():
                         "images": len(reference["images"]), "boxes": len(reference["annotations"]),
                         "categories": [c["name"] for c in sorted(reference["categories"], key=lambda c: c["id"])]}
 
+                # Initialization identity. Every arm of a seed must branch from the same
+                # weights, or the comparison is not controlled and nothing downstream means
+                # anything. Recorded per run and asserted across the seed below.
+                run_meta = {}
+                folder = path.parent
+                if (folder / "run.json").exists():
+                    run_meta = json.loads((folder / "run.json").read_text())
+                initialization = {
+                    "initial_parameter_digest": run_meta.get("initial_parameter_digest"),
+                }
+                init_file = folder / "initialization.json"
+                if init_file.exists():
+                    init_payload = json.loads(init_file.read_text())
+                    initialization["pretrained_sha256"] = init_payload.get("pretrained_sha256")
+
                 # Modal's own receipts for the training call. compute.json is written on
                 # the GPU at training time, so its metric is a second, independent record
                 # of the same number -- assert the two agree before publishing either.
@@ -243,6 +258,7 @@ def main():
                     "predictions": {"path": name, "sha256": sha256_bytes(blob),
                                     "count": len(reduced), "bytes": len(blob)},
                     "expected": rescored, "training": training,
+                    **initialization,
                 })
         if runs:
             # A cohort is only a fair comparison if every arm shares the training
@@ -252,6 +268,12 @@ def main():
                 values = {run[field] for run in runs}
                 if len(values) != 1:
                     failures.append(f"{spec['key']}: arms disagree on {field} ({sorted(values)})")
+            # The three arms of a seed must start from byte-identical weights.
+            for seed in seeds:
+                digests = {run["initial_parameter_digest"] for run in runs if run["seed"] == seed}
+                if len(digests) != 1 or None in digests:
+                    failures.append(f"{spec['key']} seed {seed}: arms do not share one initialization "
+                                    f"({sorted(str(d)[:12] for d in digests)})")
             roles = [run["role"] for run in runs]
             for role in ("naive", "aware", "complete_reference"):
                 if roles.count(role) != len(seeds):
