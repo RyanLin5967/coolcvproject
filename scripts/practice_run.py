@@ -93,6 +93,27 @@ def main():
                     else:
                         findings["unverifiable"].append(entry)
 
+        # The prediction gallery is the third place a visitor reads scores. It used to show
+        # the extrema while claiming to show the benchmark runs, so it is checked explicitly.
+        page.click('[data-page="experiments"]')
+        page.wait_for_selector("#experiment-results")
+        gallery = {}
+        buttons = page.locator("[data-experiment-project]")
+        for index in range(buttons.count()):
+            buttons.nth(index).click()
+            page.wait_for_selector("#experiment-results")
+            page.wait_for_timeout(600)
+            name = page.locator(".benchmark-context b").inner_text().strip()
+            values = [value.strip() for value in page.locator(".prediction-score b").all_inner_texts()]
+            gallery[name] = values
+            for role, value in zip(("naive", "aware", "complete_reference"), values):
+                entry = {"page": "predictions", "role": role, "field": "AP", "value": value}
+                if value in VERIFIABLE:
+                    findings["verifiable"].append({**entry, "matches": VERIFIABLE[value]})
+                else:
+                    findings["unverifiable"].append(entry)
+        findings["pages"]["predictions"] = gallery
+
         page.click('[data-page="verify"]')
         page.wait_for_selector("#verify-run")
         for cohort in MANIFEST["cohorts"]:
@@ -133,6 +154,11 @@ def main():
             actual = findings["pages"].get(page, {}).get("headline_gain")
             if actual != gain:
                 mismatches.append(f"{page} headline: page {actual} vs bundle {gain}")
+        gallery_rows = list(findings["pages"].get("predictions", {}).values())
+        if not any(row == [shown.get(r) for r in ("naive", "aware", "complete_reference")]
+                   for row in gallery_rows) and key in {"pawns-base", "all-pieces-base", "construction"}:
+            mismatches.append(f"{key}: no prediction gallery matches the Benchmarks cards "
+                              f"{[shown.get(r) for r in ('naive', 'aware', 'complete_reference')]}")
         landing_rows = findings["pages"].get("merge/landing", {}).get("rows", [])
         card_values = [shown.get(role) for role in ("naive", "aware", "complete_reference")]
         if not any(row == card_values for row in landing_rows):
