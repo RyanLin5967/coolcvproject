@@ -66,8 +66,8 @@ dashed red ones on the white.
 - Don't say 95 AP or state of the art. Best construction score is 52.76.
 - Don't say it beats full labels. 76.35 vs 78.04 — it closes most of the gap.
 - Don't open "Best recorded result for each arm" — mixes recipes, not the claim.
-- Don't say Roboflow trained CoverageCV. Its hosted trainer only takes epochs/lr, so a
-  custom loss can't go in. Roboflow shows a model exists, not that this page computes.
+- Don't open Roboflow and call it "the model this is using". None of the three models in
+  the demo are on Roboflow — they were trained on Modal. See the next section.
 
 ## If someone asks "what's a prediction?"
 
@@ -78,6 +78,31 @@ actually landed on a real pawn (50% overlap, right class) versus how many were w
 
 So "found 3 of 7 · 0 false" means: seven pawns in the picture, the model correctly found
 three, and didn't invent any.
+
+## If someone asks "is this on Roboflow?"
+
+Careful here — this is the easiest thing in the project to overstate.
+
+**The three models in the demo are not on Roboflow.** They were trained on Modal, on an
+L40S, and their checkpoint hashes and call ids are on the Verify page under "The chain
+behind these files".
+
+What is on Roboflow is two separate things:
+
+- `coveragecv-chess-hosted/1` — a genuine Roboflow `fine-tune`, finished, with a live
+  endpoint. But it is **a fourth model**: standard training, different splits (201/58/30),
+  and its reported mAP of 100 is Roboflow's own metric on its own split, so it does not
+  line up with any number on the site. Don't put it next to ours.
+- `coveragecv-chess-mvp` — uploads only. Every training there is `external-upload`:
+  trained on Modal, pushed to Roboflow. Roboflow never trained it and it has no endpoint.
+
+Roboflow's hosted trainer exposes epochs, learning rate and early stopping. CoverageCV is
+a custom loss, so it cannot be trained there at all — which is the real reason these runs
+are on Modal, not a budget one.
+
+The honest sentence, if you want one: *"the dataset's also on Roboflow, and we trained a
+standard baseline there as a sanity check — but our method needs a custom loss, so those
+runs are on Modal."*
 
 ## If someone asks after
 
