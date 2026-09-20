@@ -1,117 +1,55 @@
-# Demo video — click list
+# Demo video — 60 seconds
 
-**Dataset: Chess pawns.** Two sources merged; one labelled only white pawns, the other only
-black. So black pawns sit in training images unlabelled — the bug is visible on screen.
+Show the bug, show the fix, prove the number is computed. Nothing else fits.
 
-**Lead with recall, not AP.** The AP gain depends on the training recipe (+12.56 on the base
-setup, +2.57 on the stronger one), and a sharp viewer will notice. Recall does not:
-
-| Cohort | Ordinary finds | CoverageCV finds | Full labels |
-|---|---:|---:|---:|
-| Chess pawns | **58.6%** | **99.3%** | 100% |
-| Chess pawns, stronger setup | **75.4%** | **100%** | 100% |
-| All 13 pieces | 61.3% | 97.0% | 98.2% |
-| Construction safety | 78.5% | 92.9% | 94.4% |
-
-Every cohort, every dataset: recall lands at or next to the fully-labelled reference. That is
-the method doing exactly what it claims — it stops the model being taught that a real object
-is background. Say *"ordinary training finds 59% of the pawns; ours finds 99%"* and the point
-lands with anyone.
-
-It also answers the obvious objection. On the stronger setup the AP gap shrinks to +2.57, but
-the ordinary model **still misses a quarter of the pawns**. Augmentation improved the boxes,
-not the misses. The coverage fix is the only thing that closed that.
-
-## Before recording
-
-There is no bare `python` on this machine, and `python3` is Xcode's 3.9 without the deps.
-Use the repo venv for everything:
+## Before
 
 ```bash
 cd /Users/idide/projects/coolcvproject
-.venv/bin/python scripts/build_verification_bundle.py --check   # 30 runs reproduce exactly
-node scripts/check_verification_parity.mjs                      # 30/30, deviation 0
-.venv/bin/python scripts/practice_run.py                        # 24 recomputable, 0 unverifiable
-.venv/bin/python scripts/build_public_demo.py
-```
-
-**The server is probably already up on 8767.** Check before starting another one —
-"Address already in use" just means it is running:
-
-```bash
-curl -sf -o /dev/null http://127.0.0.1:8767/ && echo "already serving" || \
+.venv/bin/python scripts/practice_run.py        # 45 values, 0 unverifiable
+curl -sf -o /dev/null http://127.0.0.1:8767/ && echo up || \
   (cd public-demo && ../.venv/bin/python -m http.server 8767 --bind 127.0.0.1 &)
 ```
 
-To force a fresh one: `lsof -ti tcp:8767 | xargs kill` then run the line above.
-Re-run `build_public_demo.py` and hard-reload after any code change, or you record a
-stale page.
+1440×900, zoom 100%, bookmarks hidden, hard-reload. Verify button must read
+"Recompute all 9 scores". Predictions opens on image 1 — don't click through images.
 
-Browser 1440×900, zoom 100%, bookmarks hidden. Open `http://127.0.0.1:8767`.
-**Hard-reload** — the button must say "Recompute all 9 scores", not "Recompute again".
+## The cut
 
-All four surfaces — landing table, Benchmarks, Predictions, Verify — show the same numbers
-for a given dataset. `practice_run.py` fails if they ever diverge, so you can cut between
-them freely.
-
-## Record
-
-| # | Press | You should see |
+| Time | Screen | Say |
 |---|---|---|
-| 1 | Land on **Merge demo** | A board with black pawns visible and unlabelled |
-| 2 | Click through the **source toggle** | Coverage flips; same rule protects the other class |
-| 3 | Sidebar → **Predictions** | Gallery, chess pawns |
-| 4 | Toggle **Ordinary** ↔ **CoverageCV** on one image | Ordinary misses pawns; ours finds them |
-| 5 | Sidebar → **Benchmarks** | `63.79 / 76.35 / 78.04`, **+12.56 AP points** |
-| 5b | Open **"What does this score measure?"** | Recall line: 58.6% → 99.3% — the real headline |
-| 6 | Click **Recompute them in your browser →** | Verify page, cohort *Chess pawns* |
-| 7 | Click **Recompute all 9 scores →** | 9 rows "✓ identical", **+12.56** recomputed |
-| 7b | Look at **"How that number is built"** | Ten AP values, 98.9 → 0.8, averaging to 75.5939 |
-| 8 | Click cohort **Chess pawns · stronger recipe** → **Recompute** | `76.25 / 78.82 / 78.94`, +2.57 |
-| 9 | Back to **Chess pawns**, tick **Break one detection on purpose** | Banner turns **red**, "differs by 2.12e-5" |
-| 10 | Untick it | Green again, 9/9 identical |
-| 11 | Cohort **All chess pieces** → Recompute | +11.42, 13 classes |
-| 12 | Cohort **Construction safety** → Recompute | +1.80 — say "one seed" out loud |
-| 13 | Cut to terminal: `node scripts/check_verification_parity.mjs` | `30/30 ... deviation 0` |
-| 14 | `.venv/bin/python -m pytest -q` | `268 passed, 1 skipped` |
-| 15 | Roboflow tab → **`coveragecv-chess-hosted`** → version 1 | A real `fine-tune` run, finished, live endpoint |
+| 0:00 | Landing. Board with unlabelled black pawns | "Two datasets merged. One labelled only white pawns, the other only black." |
+| 0:05 | Stay | "So these black pawns are unlabelled, and ordinary training reads them as background." |
+| 0:10 | **Predictions** (pawns, image 1) | "Same model, same images, same update budget." |
+| 0:14 | Point at the three counts | "Ordinary training finds three of seven pawns. Ours finds six." |
+| 0:19 | Stay | "Across the validation set: 59 percent versus 99." |
+| 0:23 | **Verify** → **Recompute all 9 scores** | "That score isn't stored." |
+| 0:27 | Rows land green | "Your browser downloaded the saved predictions, checked their hash, and recomputed average precision from scratch." |
+| 0:34 | Tick **Break one detection on purpose** | "Here's how you know it's live." |
+| 0:38 | Banner goes red | "Change one detection out of eighty-seven thousand — it stops matching." |
+| 0:43 | Untick | "Put it back. Identical to the last bit." |
+| 0:48 | Open **The chain behind these files** | "All three models start from the same weights." |
+| 0:52 | Point at the init digests | "The only difference is whether a missing label counts as a negative example." |
+| 0:57 | Stop | "CoverageCV. Code and data to check it are public." |
 
-Steps 9–10 are the proof. Everything else is setup.
-
-## The Roboflow claim — read this before step 15
-
-There are two projects, and only one of them is a real Roboflow training run.
-
-| Project | What it is | Safe to call it |
-|---|---|---|
-| `coveragecv-chess-hosted` v1 | `jobType: fine-tune`, finished, **live endpoint** `serverless.roboflow.com/coveragecv-chess-hosted/1` | **A real Roboflow training run.** But it is the *baseline* — ordinary training. |
-| `coveragecv-chess-mvp` v1–3 | every training is `jobType: external-upload` | A model **uploaded** to Roboflow. Roboflow did not train it. No served endpoint. |
-
-CoverageCV itself **cannot** be trained by hosted Roboflow — it needs a custom loss, so those
-runs are on Modal. So: *"Roboflow trained the baseline on the same 201/58 split; our method
-needs a custom criterion, so it trained on Modal — here are those call ids."*
-
-Do **not** say "here is the Roboflow run that produced these numbers." It didn't.
-
-**The stronger proof is on the Verify page anyway.** Each row now shows the Modal call id
-(`fc-01M2RR9JRJ…`), the GPU (L40S), the training time, and the AP recorded *on the GPU when
-training finished*. That GPU-side number matches the browser-recomputed number for all 30
-runs — two independent records, one from the training machine, one from the viewer's laptop.
+~135 words. Speak at a normal pace; don't rush to add more.
 
 ## Don't
 
-- Don't open **"Best recorded result for each arm"** — mixes recipes, bigger numbers, not the claim.
-- Don't say 95 AP or state of the art. Best construction is 52.76.
-- Don't say it beats the fully-labelled model. 76.35 vs 78.04 — it *closes most of the gap*.
-- Don't claim the Roboflow run produced the CoverageCV numbers. It trained the baseline only.
-- Don't say Roboflow could train CoverageCV. Its hosted trainer exposes epochs/lr/early-stopping
-  only; a custom criterion cannot be injected, which is why those runs are on Modal.
-- Don't claim `coverage.ryanlin.dev` is live until Cloudflare is connected.
-- Don't read a gallery score as that picture's model. The headline is the seed-average;
-  the boxes come from one seed of it. The page says so, and per-seed scores are on Verify.
+- Don't say 95 AP or state of the art. Best construction score is 52.76.
+- Don't say it beats full labels. 76.35 vs 78.04 — it closes most of the gap.
+- Don't open "Best recorded result for each arm" — mixes recipes, not the claim.
+- Don't claim Roboflow trained CoverageCV. Its hosted trainer takes epochs/lr only;
+  a custom criterion can't be injected, so those runs are on Modal.
 
-## If it breaks
+## If asked afterwards
 
-- "Verification bundle unavailable" → you're serving the repo root, not `public-demo/`.
-- A row mismatches with the self-test **off** → stop. Run the parity check before anything else.
-- Recompute looks instant (~10 ms) → expected. Don't pad it; step 9 is the proof.
+- **"Why so fast?"** Scoring isn't training. Training was ~7 min/run on an L40S; scoring
+  11k boxes against 241 is milliseconds. That's why it runs in a browser.
+- **"Does it work on a better recipe?"** AP gain drops to +2.57 — but the ordinary model
+  still misses a quarter of the pawns. Augmentation fixed the boxes, not the misses.
+- **"Did the predictions come from that checkpoint?"** Recomputation can't prove that.
+  It rests on the checkpoint hash, the Modal call ids, and the GPU-recorded AP matching
+  all 30 runs. Audit trail, not arithmetic. Say so.
+- **Numbers:** pawns 63.79 / 76.35 / 78.04 (+12.56, 3 seeds). Recall 58.6% → 99.3%.
+  13 classes +11.42. Construction +1.80, one seed.
