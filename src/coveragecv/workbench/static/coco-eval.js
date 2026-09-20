@@ -209,9 +209,13 @@ export function evaluate(predictions, groundTruth, {threshold = 0.25, onProgress
   const recallValues = [];
   for (let i = 0; i < recall.length; i += 1) if (recall[i] > -1) recallValues.push(recall[i]);
 
+  // AP50:95 is the mean of ten separate APs, one per IoU threshold. Exposing them lets the
+  // page show the number being built out of its parts instead of appearing all at once.
+  const byIou = Array.from(IOU_THRESHOLDS).map((threshold, t) => ({threshold, AP: numpyMean(sliceAt(t))}));
+
   return {
     AP: numpyMean(everything), AP50: numpyMean(sliceAt(0)), AP75: numpyMean(sliceAt(5)),
-    AR100: numpyMean(recallValues), per_class_AP: perClass,
+    AR100: numpyMean(recallValues), per_class_AP: perClass, AP_by_iou: byIou,
     ...operatingPoint(predictions, groundTruth, threshold),
   };
 }

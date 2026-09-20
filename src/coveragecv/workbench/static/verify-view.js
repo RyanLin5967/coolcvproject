@@ -57,7 +57,20 @@ async function verifyRun(manifest, run) {
     victim.score *= 0.5;
   }
   const metrics = evaluate(predictions, labels, {threshold: run.score_threshold});
+  // Every detection is compared against the ground-truth boxes of its own class, once per
+  // IoU threshold. This is the arithmetic the number is made of, and it is worth stating.
+  const perClassGt = new Map();
+  for (const annotation of labels.annotations) {
+    const key = `${annotation.image_id}:${annotation.category_id}`;
+    perClassGt.set(key, (perClassGt.get(key) ?? 0) + 1);
+  }
+  let comparisons = 0;
+  for (const prediction of predictions) {
+    comparisons += perClassGt.get(`${prediction.image_id}:${prediction.category_id}`) ?? 0;
+  }
+  comparisons *= IOU_THRESHOLDS.length;
   return {
+    comparisons,
     digest, digestMatches: digest === run.predictions.sha256,
     bytes: buffer.byteLength, detections: predictions.length,
     metrics, delta: metrics.AP - run.expected.AP,
@@ -119,6 +132,33 @@ function recomputedSummary(cohort) {
     <p class="verify-summary-note">The reference run gets every label, so it marks what the extra annotation
     would have bought: ${remaining >= 0 ? `${remaining.toFixed(2)} points still ahead` : `${Math.abs(remaining).toFixed(2)} points behind`}.
     It is a comparison run, not a state-of-the-art model.</p></div>`;
+}
+
+// AP50:95 is an average of ten APs. Showing them is the clearest answer to "is this number
+// just hardcoded?" -- a stored constant has no parts, and these ten visibly average to it.
+function breakdownPanel(cohort) {
+  const target = cohort.runs.find(run => run.role === 'aware') ?? cohort.runs[0];
+  const result = state.results.get(target?.id);
+  if (!result || result.error || !result.metrics.AP_by_iou) return '';
+  const parts = result.metrics.AP_by_iou;
+  const peak = Math.max(...parts.map(part => part.AP), 0.0001);
+  const mean = result.metrics.AP; // the mean of exactly these ten, summed as numpy does
+  return `<details class="verify-breakdown" open><summary>How that number is built — ${esc(roleNames[target.role]?.label ?? target.role)}, seed ${target.seed}</summary>
+    <div><p>AP50:95 is the mean of ten separate average-precision values, one for each
+    box-overlap requirement from 50% to 95%. Your browser computed all ten from the
+    ${result.detections.toLocaleString()} saved detections, making
+    ${result.comparisons.toLocaleString()} box comparisons to do it.</p>
+    <div class="verify-bars">${parts.map(part => `<div>
+      <i style="height:${Math.max(2, 100 * part.AP / peak).toFixed(1)}%"></i>
+      <b>${(100 * part.AP).toFixed(1)}</b><span>${part.threshold.toFixed(2)}</span></div>`).join('')}</div>
+    <p class="verify-breakdown-sum">Mean of those ten:
+      <b>${(100 * mean).toFixed(4)}</b> — and the published score for this run is
+      <b>${(100 * target.expected.AP).toFixed(4)}</b>.
+      ${mean === target.expected.AP ? 'Identical.' : `Differs by ${(mean - target.expected.AP).toExponential(2)}.`}</p>
+    <p class="muted small-text">The tall bars on the left are loose overlap requirements; the
+    short ones on the right are strict. A detector that finds objects but boxes them loosely
+    scores well on the left and badly on the right, which is why the average is the honest
+    summary and why AP50 alone always looks better.</p></div></details>`;
 }
 
 function runRow(run) {
@@ -204,7 +244,7 @@ async function runAll(root, manifest, cohort) {
 function paint(root, manifest, cohort) {
   const target = root.querySelector('#verify-body');
   if (!target) return;
-  target.innerHTML = `${verdictBanner(cohort)}${recomputedSummary(cohort)}
+  target.innerHTML = `${verdictBanner(cohort)}${recomputedSummary(cohort)}${breakdownPanel(cohort)}
     <div class="table-wrap"><table class="verify-table"><thead><tr>
       <th>Model</th><th class="numeric">Published AP50:95</th><th class="numeric">Recomputed here</th>
       <th>Result</th><th>Work done in your browser</th></tr></thead>
