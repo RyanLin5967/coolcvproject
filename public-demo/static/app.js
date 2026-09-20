@@ -47,7 +47,7 @@ function pending(){return S.pending[S.revisionId]??{}}
 function scheduleRefresh(){clearTimeout(refreshTimer);refreshTimer=setTimeout(()=>refresh().catch(e=>toast(e.message,true)),150)}
 async function refresh(){
  const token=++refreshToken;const data=await api('/state');if(token!==refreshToken)return;S.state=data;
- if(!data.projects.some(p=>p.id===S.projectId)){S.projectId=data.projects[0]?.id??null;S.revisionId=null}
+ if(!data.projects.some(p=>p.id===S.projectId)){S.projectId=defaultProject(data.projects)?.id??null;S.revisionId=null}
  if(S.projectId){const project=await api('/projects/'+S.projectId);if(token!==refreshToken)return;S.project=project;
   if(!S.revisionId||!project.revisions.some(r=>r.id===S.revisionId))S.revisionId=project.active_revision;
   const revision=await api('/revisions/'+S.revisionId);if(token!==refreshToken)return;S.revision=revision;
@@ -175,6 +175,15 @@ function jobCard(job){
  const total=job.payload?.steps??0,step=job.live?.step??0,active=['queued','running','cancelling'].includes(job.status);
  return `<div class="job-card"><div class="job-line">${badge(job.status)}<div class="job-title">${job.kind==='compile'?'Compile dataset revision':job.kind==='imported'?'Verified saved comparison':'Training comparison'}<small>${when(job.created)} · ${job.kind==='compile'?'image and policy verification':`${total||Object.values(job.result?.arms??{})[0]?.run.steps||'—'} updates per arm · seed ${job.payload?.seed??Object.values(job.result?.arms??{})[0]?.run.seed??'—'}`}</small></div>${active?`<button class="button small danger" data-cancel="${job.id}">Cancel</button>`:''}<button class="button small" data-log="${job.id}">Logs</button></div>${active&&job.kind==='train'?`<div class="progress"><i style="width:${Math.min(100,100*step/Math.max(1,total))}%"></i></div><div class="live-details"><span>${esc(armNames[job.live?.arm]??'Waiting for a worker')} · ${esc(job.live?.phase??job.status)}</span><span>${step} / ${total} updates${job.live?.loss!=null?' · loss '+job.live.loss.toFixed(3):''}</span></div>`:''}${job.error?`<p class="error-text">${esc(job.error.message??JSON.stringify(job.error))}</p>`:''}<div id="log-${job.id}"></div></div>`;
 }
+// Order the datasets the way the rest of the site does, pawns first, and open there.
+const TASK_ORDER=['pawns','all-pieces','construction'];
+function orderedProjects(projects){
+ return [...(projects??[])].sort((a,b)=>{
+  const rank=project=>{const index=TASK_ORDER.indexOf(projectTask(project));return index<0?TASK_ORDER.length:index};
+  return rank(a)-rank(b);
+ });
+}
+function defaultProject(projects){return orderedProjects(projects)[0]}
 function projectTask(project){
  if(/construction/i.test(project.name))return 'construction';
  if(/all.*13|all.*chess|all.*pieces/i.test(project.name))return 'all-pieces';
@@ -200,7 +209,7 @@ async function renderExperiments(){
   return;
  }
  let html=pageHeading('Predictions','Compare the three models on the same validation image.');
- html+=`<div class="dataset-switcher" aria-label="Prediction dataset">${S.state.projects.map(project=>`<button data-experiment-project="${project.id}" aria-pressed="${project.id===S.projectId}" class="${project.id===S.projectId?'selected':''}">${esc(benchmarkTasks[projectTask(project)]?.name??project.name)}</button>`).join('')}</div><div id="experiment-progress">${progress}</div>`;
+ html+=`<div class="dataset-switcher" aria-label="Prediction dataset">${orderedProjects(S.state.projects).map(project=>`<button data-experiment-project="${project.id}" aria-pressed="${project.id===S.projectId}" class="${project.id===S.projectId?'selected':''}">${esc(benchmarkTasks[projectTask(project)]?.name??project.name)}</button>`).join('')}</div><div id="experiment-progress">${progress}</div>`;
  if(!selected){$('content').innerHTML=html+'<div class="card empty"><h2>No measured predictions yet</h2><p>Run a local comparison to inspect the results here.</p></div>';return}
  const first=Object.values(arms)[0].run,isHighlight=selected.selection_kind==='cohort',cohort=selected.cohort;
  const rows=['naive','aware','complete_reference'].filter(arm=>arms[arm]).map(role=>({role,...modelRoles[role],metrics:arms[role].metrics}));

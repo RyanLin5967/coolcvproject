@@ -3,8 +3,8 @@
 You're talking over this. These are beats, not a script — say them however they come out.
 Only the numbers need to be exact.
 
-Landing, Predictions and Verify are all the same chess-pawn dataset now, so you never
-switch subject.
+Landing, Predictions and Verify all open on the same chess-pawn dataset now, so you never
+switch subject and never need to pick a tab.
 
 ## Before
 
@@ -36,7 +36,7 @@ dashed red ones on the black.
 > "So all we do is, if a dataset never checked for black pawns, we don't let it train
 > against black pawns. That's basically it."
 
-**0:21 — Predictions → Chess pawns**
+**0:21 — click Predictions** (it opens on Chess pawns)
 > "And here's the difference. Same model, same images, same amount of training. Normal
 > training gets three of these seven pawns. Ours gets six."
 
