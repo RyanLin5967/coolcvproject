@@ -81,6 +81,43 @@ three, and didn't invent any.
 
 ## If someone asks "is this on Roboflow?"
 
+Two projects. Only one of them is your method, and it is the one that is currently down.
+
+| | Live? | What it is |
+|---|---|---|
+| `coveragecv-chess-mvp/3` | **404** | **Your CoverageCV model** — weights are the `pawns-base-20260917-aware` checkpoint. Was served; verified against local at IoU .971–.975. |
+| `coveragecv-chess-mvp/1` | 200 | Earlier upload, before the classifier-row fix. Matches no recorded arm. Never show it. |
+| `coveragecv-chess-hosted/1` | 200 | **A different model.** Roboflow-trained, standard loss, complete labels, splits 201/58/**30**. |
+
+**You cannot point at `coveragecv-chess-hosted` and say "that's my model."** It is standard
+training on the fully-labelled data — none of the three arms in the demo, and its reported
+mAP of 100 is Roboflow's own metric on its own split, so it lines up with nothing on the
+site. Saying it is your model would be the one genuinely false claim available here.
+
+What you can say about it: *"the dataset's on Roboflow, and Roboflow trained a standard
+baseline on the fully-labelled version as a check."*
+
+To honestly say **"my model is hosted on Roboflow"**, redeploy `coveragecv-chess-mvp/3`.
+That is your actual checkpoint and it was serving correctly in September. It's a provider
+write against the blocked cloud lock, so it needs your go-ahead.
+
+**Don't delete `coveragecv-chess-mvp`.** It won't break the demo — the site is fully static
+and makes no Roboflow calls at runtime — but it is the only third-party record that your
+method was ever deployed anywhere, and deleting is irreversible. It also breaks
+`scripts/verify_hosted.py` and the README's round-trip link. Just don't open it on camera.
+
+## If someone asks "what's a prediction?"
+
+The detector looks at the image and outputs boxes — each one a location, a class, and a
+confidence. A prediction is one guessed box: *"I think there's a white pawn here, 93%
+sure."* The card counts the ones above the confidence slider, and says how many of them
+actually landed on a real pawn (50% overlap, right class) versus how many were wrong.
+
+So "found 3 of 7 · 0 false" means: seven pawns in the picture, the model correctly found
+three, and didn't invent any.
+
+## If someone asks "is this on Roboflow?"
+
 Careful here — this is the easiest thing in the project to overstate.
 
 **The three models in the demo are not on Roboflow.** They were trained on Modal, on an
