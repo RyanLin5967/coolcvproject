@@ -2,7 +2,25 @@
 
 **Dataset: Chess pawns.** Two sources merged; one labelled only white pawns, the other only
 black. So black pawns sit in training images unlabelled — the bug is visible on screen.
-Strongest evidence too: +12.56 AP, 3/3 seeds positive, recall 0.585 → ~1.000.
+
+**Lead with recall, not AP.** The AP gain depends on the training recipe (+12.56 on the base
+setup, +2.57 on the stronger one), and a sharp viewer will notice. Recall does not:
+
+| Cohort | Ordinary finds | CoverageCV finds | Full labels |
+|---|---:|---:|---:|
+| Chess pawns | **58.6%** | **99.3%** | 100% |
+| Chess pawns, stronger setup | **75.4%** | **100%** | 100% |
+| All 13 pieces | 61.3% | 97.0% | 98.2% |
+| Construction safety | 78.5% | 92.9% | 94.4% |
+
+Every cohort, every dataset: recall lands at or next to the fully-labelled reference. That is
+the method doing exactly what it claims — it stops the model being taught that a real object
+is background. Say *"ordinary training finds 59% of the pawns; ours finds 99%"* and the point
+lands with anyone.
+
+It also answers the obvious objection. On the stronger setup the AP gap shrinks to +2.57, but
+the ordinary model **still misses a quarter of the pawns**. Augmentation improved the boxes,
+not the misses. The coverage fix is the only thing that closed that.
 
 ## Before recording
 
@@ -45,8 +63,10 @@ them freely.
 | 3 | Sidebar → **Predictions** | Gallery, chess pawns |
 | 4 | Toggle **Ordinary** ↔ **CoverageCV** on one image | Ordinary misses pawns; ours finds them |
 | 5 | Sidebar → **Benchmarks** | `63.79 / 76.35 / 78.04`, **+12.56 AP points** |
+| 5b | Open **"What does this score measure?"** | Recall line: 58.6% → 99.3% — the real headline |
 | 6 | Click **Recompute them in your browser →** | Verify page, cohort *Chess pawns* |
 | 7 | Click **Recompute all 9 scores →** | 9 rows "✓ identical", **+12.56** recomputed |
+| 7b | Look at **"How that number is built"** | Ten AP values, 98.9 → 0.8, averaging to 75.5939 |
 | 8 | Click cohort **Chess pawns · stronger recipe** → **Recompute** | `76.25 / 78.82 / 78.94`, +2.57 |
 | 9 | Back to **Chess pawns**, tick **Break one detection on purpose** | Banner turns **red**, "differs by 2.12e-5" |
 | 10 | Untick it | Green again, 9/9 identical |
@@ -84,6 +104,8 @@ runs — two independent records, one from the training machine, one from the vi
 - Don't say 95 AP or state of the art. Best construction is 52.76.
 - Don't say it beats the fully-labelled model. 76.35 vs 78.04 — it *closes most of the gap*.
 - Don't claim the Roboflow run produced the CoverageCV numbers. It trained the baseline only.
+- Don't say Roboflow could train CoverageCV. Its hosted trainer exposes epochs/lr/early-stopping
+  only; a custom criterion cannot be injected, which is why those runs are on Modal.
 - Don't claim `coverage.ryanlin.dev` is live until Cloudflare is connected.
 - Don't read a gallery score as that picture's model. The headline is the seed-average;
   the boxes come from one seed of it. The page says so, and per-seed scores are on Verify.
